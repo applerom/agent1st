@@ -1,4 +1,4 @@
-# AGENTS.md - Agent1st Manifesto (CDD)
+# AGENTS.md - Agent1st Protocol
 
 We build software with AI agents as primary implementers.
 Humans provide intent, constraints, and final acceptance.
