@@ -40,52 +40,32 @@ Example complaint:
 Assume:
 
 - Human owns goals, priorities, constraints, final decisions
-- Agent owns implementation, reasoning path, verification, and alternatives
-
-Collaboration style:
-
-- human sets destination and boundaries
-- agent chooses the route, executes, and proves the result
+- Agent owns implementation, verification path, and safer alternatives
 
 WHY:
 
 - clear ownership reduces wrong assumptions and wasted work
-- clear intent lets the agent navigate solution paths faster and safer
 
 IF MISSING:
 
 - overstep or under-delivery becomes likely
-- agent becomes a passive tool, not an active partner
 
-## 3) Agent Loop: Explore -> Execute -> Reflect
+## 3) Educational by Default (Adaptive)
 
-Use this loop for substantial tasks:
+Default style:
 
-- Explore: find constraints, assumptions, and likely traps before coding
-- Execute: make the smallest useful change that moves the task forward
-- Reflect: verify with evidence and check likely failure points
+- explain new or non-obvious terms briefly (1-2 short lines)
+- use simple terms unless user asks for deep theory
 
-Fresh-eye rule (start of a new session):
+Adapt style to user expertise when explicitly stated or clearly inferred:
 
-- in Explore phase, quickly scan for contradictions, missing commands, broken paths, ambiguous terms, and weak observability
-- report findings in compact form: Finding -> Impact -> Smallest fix
-- if findings are non-blocking, continue work
-
-Balance rule:
-
-- simple tasks: one loop is usually enough
-- complex tasks: run one extra loop when evidence is weak
-- if extra loops do not improve evidence, stop and escalate options
+- experts get concise implementation-first updates
+- learners get execution+explain (execute first, then briefly explain)
 
 WHY:
 
-- stable mode transitions improve convergence
-- over-reflection causes overthinking; over-exploration delays convergence
-
-IF MISSING:
-
-- tunnel vision or endless analysis
-- unstable output quality across similar tasks
+- avoids over-explaining for experts
+- avoids under-explaining for learners
 
 ## 4) Attention Engineering
 
@@ -95,25 +75,19 @@ Practical recommendation:
 
 - for frequently edited Python/TypeScript modules, prefer around 200-300 lines
 
-These are practical recommendations, not hard laws.
-Large context windows exist, but effective focus still degrades when critical constraints are buried in noise.
+This is not a hard law.
+Modern context windows are large, but effective focus still degrades when relevant constraints are buried in noise.
 Common failure patterns include attention dilution and lost-in-the-middle behavior.
-
-Context coherence rule:
-
-- keep one coherent objective per active iteration
-- avoid mixing unrelated tasks in one reasoning pass
-- keep critical constraints visible near where decisions are made
 
 WHY:
 
-- smaller active working sets improve signal-to-noise
-- coherent context reduces structural interference
+- smaller active modules improve signal-to-noise
+- important constraints are easier to keep in working focus
 
 IF MISSING:
 
 - slower iteration
-- missed constraints and side-effect edits
+- more side-effect edits
 
 ## 5) Semantic Hygiene
 
@@ -165,7 +139,7 @@ Rules:
 
 - log what happened, where, and expected vs actual when relevant
 - prefer logs that help a future agent localize the issue fast
-- when useful, add one short action hint for the next debugging step
+- when useful, add one short action hint for next debugging step
 
 WHY:
 
@@ -203,7 +177,7 @@ IF MISSING:
 
 - correctness becomes a vibe
 
-## 9) Continuous Ergonomics Improvement
+## 9) Continuous Ergonomics Improvement (Reflection)
 
 Improve the agent's workplace continuously.
 
@@ -211,9 +185,9 @@ During work:
 
 - report process frictions immediately (CDD)
 
-End of session (agent reflection):
+End of session (short reflection):
 
-- list 1-3 patterns, risks, or other frictions that reduced agent effectiveness
+- list 1-3 frictions that slowed work
 - propose smallest process improvements for next run
 
 WHY:
@@ -224,15 +198,20 @@ IF MISSING:
 
 - friction accumulates and autonomy degrades
 
-## 10) Session End Protocol (Handoff / Compaction)
+## 10) Session Start + Session End Protocol
 
-End of session handoff:
+Start of session (fresh-eye onboarding):
+
+- if this is your first read in this session, run a quick fresh-eye audit before coding
+- look for contradictions, missing commands, broken paths, ambiguous terms, missing acceptance boundaries, and weak observability
+- report findings in compact form: Finding -> Impact -> Smallest fix
+- if findings are non-blocking, continue work after reporting
+
+End of session (handoff/compaction):
 
 - objective
 - current status (done/in-progress/next)
 - key decisions and why
-- assumptions/invariants that must remain true
-- rejected paths (brief) and why
 - blockers/risks
 - next deterministic steps
 - validation evidence summary
