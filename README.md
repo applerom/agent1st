@@ -79,7 +79,7 @@ If you want to understand why every line is the way it is:
 - [`docs/DESIGN.md`](docs/DESIGN.md) — Design principles (read this before proposing changes)
 - [`docs/EVOLUTION.md`](docs/EVOLUTION.md) — Version history with rejected paths
 - [`docs/VISION.md`](docs/VISION.md) — Where this is going
-- [`docs/FOUNDATIONS.md`](docs/FOUNDATIONS.md) — Research papers behind every principle (yes, there's science)
+- [`docs/FOUNDATIONS.md`](docs/FOUNDATIONS.md) — Research foundations, evidence levels, and honest gaps behind the protocol
 
 ---
 

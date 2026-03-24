@@ -78,7 +78,7 @@ This document links Agent1st recommendations to actual research. Not to prove th
 - **Link:** https://arxiv.org/abs/2303.11366
 - **Finding:** Agents that verbally reflect on failures and store reflections in memory improve dramatically on subsequent attempts (+22% on ALFWorld, +20% on HotPotQA).
 - **Strength:** Established.
-- **Connection to Agent1st:** The "Reflect" phase in the Agent Loop and the "1-3 frictions" in Session End Protocol are Reflexion-adjacent. The insight: reflection must produce a reusable artifact (lesson, friction report), not just conversational self-talk.
+- **Connection to Agent1st:** The "Reflect" phase in the Agent Loop and the "1-3 frictions" in Continuity are Reflexion-adjacent. The insight: reflection must produce a reusable artifact (lesson, friction report), not just conversational self-talk.
 
 ### Topology of Reasoning
 
@@ -224,7 +224,7 @@ However, it connects to:
 | Role Contract / Autonomy | Supported | Hadfield-Menell 2016 (principal-agent) + Kim 2025 |
 | Semantic Hygiene | Hypothesis | Mechanistic reasoning from attention literature |
 | CDD | Practical origin | Analogy to sycophancy + reflexion |
-| Session End Protocol | Practical origin | Analogous to Reflexion's episodic memory |
+| Continuity | Practical origin | Analogous to Reflexion's episodic memory |
 
 ---
 
