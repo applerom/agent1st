@@ -4,6 +4,8 @@
 **Date:** 2025-01-09
 **Session scope:** Full analysis of Agent1st Protocol repository, critique, proposals, and contribution to project evolution.
 
+**Curator note:** Imported from an external audit. Preserved largely as submitted; several observations reflect a partial export or older snapshot rather than the current `main`.
+
 ---
 
 ## 1) Objective

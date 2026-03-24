@@ -1,8 +1,10 @@
-# Agent1st Protocol — Handoff Brief: Qwen External Audit
+# Agent1st Protocol — Handoff Brief: Qwen3.5-Plus External Audit
 
-**Agent:** Qwen
+**Agent:** Qwen3.5-Plus
 **Date:** 2026-03-24
 **Session scope:** First contact, deep analysis of all files, critique and proposals
+
+**Curator note:** Imported from an external audit. Preserved largely as submitted; some observations reflect the repo snapshot visible to Qwen3.5-Plus at review time, not necessarily the current `main`.
 
 ---
 
@@ -87,8 +89,8 @@ v4 removed "Hello Agent!" scan as wasteful for subagents, but kept `Agent1st Mod
 - Agent Self-Test in README → interesting UX idea for later
 
 **Already exists:**
-- EVOLUTION.md gaps → v0→v1 and v1→v2 have been filled since Qwen's analysis
+- EVOLUTION.md gaps → v0→v1 and v1→v2 have been filled since Qwen3.5-Plus's analysis
 
 ---
 
-**Qwen** | Agent1st Protocol Contributor
+**Qwen3.5-Plus** | Agent1st Protocol Contributor

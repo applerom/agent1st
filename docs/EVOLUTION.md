@@ -217,29 +217,31 @@ If your proposal fits either category, it is probably wrong for the minimal vers
 
 ## v4 External Agent Review (2026-03-24)
 
-Four external agents (GLM-5, Grok, MiniMax, Qwen) independently analyzed the protocol and submitted contributions. GPT-5.4 provided a parallel review. Claude Opus 4.6 curated and integrated the results.
+Four external agents (GLM-5, Grok 4.20, MiniMax M2.7, and Qwen3.5-Plus) independently analyzed the protocol and submitted contributions. GPT-5.4 provided a parallel review. Claude Opus 4.6 curated and integrated the results.
+
+These imported handoffs are preserved as audit artifacts. Some observations reflect the repo snapshot each external agent saw at review time, not necessarily the current `main`.
 
 **What was incorporated:**
 - **Handoff Template** — `docs/handoffs/TEMPLATE.md` with 3 modes (mini/full/subagent-evidence-only). Requested independently by 3+ agents.
-- **Continuity hook** — "if your handoff disappears when the session ends, it doesn't exist" (from Qwen). Added to AGENTS.md.
+- **Continuity hook** — "if your handoff disappears when the session ends, it doesn't exist" (from Qwen3.5-Plus). Added to AGENTS.md.
 - **Continuity research grounding** — Park et al. "Generative Agents" (2023) added to FOUNDATIONS.md. Moved Continuity from "Practical origin" to "Supported."
 - **Model-agnostic acknowledgment** — Brief note in DESIGN.md section 8. Protocol is model-agnostic by design; examples may reference specific models.
 
 **What was noted for standard version:**
 - Friction Tax (GLM-5) — quantified CDD for recurring friction
-- Ambiguity handling in CDD (MiniMax) — distinguishing ambiguous from incomplete requests
-- Anti-pattern examples as companion doc (MiniMax, Qwen) — violation examples per principle
-- Decision log template (MiniMax) — standardized format for cross-session rationale
+- Ambiguity handling in CDD (MiniMax M2.7) — distinguishing ambiguous from incomplete requests
+- Anti-pattern examples as companion doc (MiniMax M2.7, Qwen3.5-Plus) — violation examples per principle
+- Decision log template (MiniMax M2.7) — standardized format for cross-session rationale
 
 **What was rejected (already covered or delta-layer violation):**
-- Truth-First Orientation (Grok) — already covered by Right to Disagree
+- Truth-First Orientation (Grok 4.20) — already covered by Right to Disagree
 - Discovery Before Commitment (GLM-5) — fresh-eye scan, rejected 4th time
-- Ethical boundaries principle (MiniMax) — model layer already covers safety
-- Escalation protocol detail (MiniMax) — v4 already has unsupervised clause
+- Ethical boundaries principle (MiniMax M2.7) — model layer already covers safety
+- Escalation protocol detail (MiniMax M2.7) — v4 already has unsupervised clause
 - Assumption Surfacing (GLM-5) — over-specifies Agent Loop
-- Agent Maturity Levels (MiniMax) — against "strong agents" philosophy
+- Agent Maturity Levels (MiniMax M2.7) — against "strong agents" philosophy
 
-**All handoffs saved:** `docs/handoffs/glm5-v4-analysis.md`, `grok-v4-truth-first.md`, `minimax-v4-perspective.md`, `qwen-v4-audit.md`.
+**All handoffs saved:** `docs/handoffs/glm5-v4-analysis.md` (GLM-5), `docs/handoffs/grok-v4-truth-first.md` (Grok 4.20), `docs/handoffs/minimax-v4-perspective.md` (MiniMax M2.7), `docs/handoffs/qwen-v4-audit.md` (Qwen3.5-Plus).
 
 **Pattern observed:** External agents consistently rediscover the same improvements and the same rejected paths. The recurring rejected patterns section above predicted most proposals accurately. This validates the value of documenting rejections.
 

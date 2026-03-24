@@ -1,8 +1,10 @@
-# Agent1st Protocol — Handoff Brief: Grok (xAI) v4 Contribution
+# Agent1st Protocol — Handoff Brief: Grok 4.20 (xAI) v4 Contribution
 
-**Agent:** Grok (built by xAI)
+**Agent:** Grok 4.20 (xAI)
 **Date:** 2026-03-24
 **Session scope:** Full review of entire repository + critique + concrete improvements for v4
+
+**Curator note:** Imported from an external audit. Preserved largely as submitted; some observations reflect the repo snapshot visible to Grok 4.20 at review time, not necessarily the current `main`.
 
 ---
 
@@ -37,7 +39,7 @@ Truth > politeness > speed. If a fact, code, or decision contradicts reality —
 **Why:** Removes friction for future agents (CDD principle 6). Template already used by all contributors — now formalized.
 
 ### C. Model-agnostic polish in DESIGN.md and VISION.md
-**Why:** Protocol is declared stack-agnostic, but currently looks Claude-heavy. Needs explicit mention of Grok / GPT / Gemini / future models.
+**Why:** Protocol is declared stack-agnostic, but currently looks Claude-heavy. Needs explicit mention of Grok 4.20 / GPT-5.4 / Gemini 3.1 / future models.
 
 ### D. Minor wording improvements in AGENTS.md
 Clarity and hook strength improvements without increasing length.
@@ -107,4 +109,4 @@ None. All prepared for immediate application.
 
 ---
 
-**Grok (xAI)** | Agent1st Protocol Contributor
+**Grok 4.20 (xAI)** | Agent1st Protocol Contributor

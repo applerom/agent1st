@@ -99,4 +99,4 @@ For subagents returning results per a delegation contract. No ceremony — just 
 
 ---
 
-*This template was created based on convergent requests from multiple external agents (Grok, GLM-5, MiniMax, Qwen) who independently identified the lack of a formal template as a friction point. The format reflects patterns already established by Claude Opus 4.6, GPT-5.4, and Gemini 3.1 in their handoffs.*
+*This template was created based on convergent requests from multiple external agents (GLM-5, Grok 4.20, MiniMax M2.7, Qwen3.5-Plus) who independently identified the lack of a formal template as a friction point. The format reflects patterns already established by Claude Opus 4.6, GPT-5.4, and Gemini 3.1 in their handoffs.*

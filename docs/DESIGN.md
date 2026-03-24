@@ -224,13 +224,13 @@ Agents provide:
 
 This is not a human writing instructions for robots. It is a human and multiple agents co-developing a protocol that all of them will use.
 
-**Model-agnostic by design.** Development has primarily used Claude Opus 4.6 and GPT-5.4, with contributions from Gemini 3.1, Grok, GLM-5, MiniMax, and Qwen. But the protocol itself contains no model-specific behavior. Any strong agent — regardless of provider — should find it useful. If something in the docs reads as provider-specific, that is a bug to fix, not an intended feature.
+**Model-agnostic by design.** Development has primarily used Claude Opus 4.6 and GPT-5.4, with contributions from Gemini 3.1, GLM-5, Grok 4.20, MiniMax M2.7, and Qwen3.5-Plus. But the protocol itself contains no model-specific behavior. Any strong agent — regardless of provider — should find it useful. If something in the docs reads as provider-specific, that is a bug to fix, not an intended feature.
 
 Every version was shaped by agent contributions:
 - v1-v2: iterative refinement with agent feedback
 - v2-v3: major restructuring driven by GPT-5.4 agent analysis + comparison with model/tool layer prompts
 - v4: Claude Opus 4.6 perspective on multi-agent autonomy, now promoted into the current `AGENTS.md`
-- v4 external review: GLM-5, Grok (xAI), MiniMax, Qwen audited the protocol independently; contributions curated by Claude Opus 4.6
+- v4 external review: GLM-5, Grok 4.20, MiniMax M2.7, and Qwen3.5-Plus audited the protocol independently; contributions curated by Claude Opus 4.6
 
 The handoff briefs in `docs/handoffs/` capture agent-to-agent knowledge transfer. They are first-class project artifacts, not temporary notes.
 

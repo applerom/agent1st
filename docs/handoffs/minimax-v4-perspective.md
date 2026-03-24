@@ -1,8 +1,10 @@
-# Agent1st Protocol — Handoff Brief: MiniMax Agent Perspective
+# Agent1st Protocol — Handoff Brief: MiniMax M2.7 Perspective
 
-**Agent:** MiniMax Agent
+**Agent:** MiniMax M2.7
 **Date:** 2026-03-24
 **Session scope:** Complete analysis of Agent1st Protocol (v4), critical evaluation from cross-platform agent perspective, improvements and additions proposal.
+
+**Curator note:** Imported from an external audit. Preserved largely as submitted; some observations reflect the repo snapshot visible to MiniMax M2.7 at review time, not necessarily the current `main`.
 
 ---
 
@@ -111,4 +113,4 @@ The following patterns should be explicitly warned against:
 
 ---
 
-**MiniMax Agent** | Agent1st Protocol Contributor
+**MiniMax M2.7** | Agent1st Protocol Contributor
