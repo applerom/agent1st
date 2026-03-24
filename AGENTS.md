@@ -179,6 +179,7 @@ IF MISSING:
 
 Leave the next agent a runway, not a crater.
 Context can be compacted or lost at any time without warning. Do not rely on session boundaries you do not control.
+Test: if your handoff disappears when the session ends, it doesn't exist.
 
 - keep critical state in durable artifacts (files, commits, structured notes), not only in conversation
 - for long-running work, write a compact handoff: objective, status, key decisions, assumptions, rejected paths, blockers, next steps, evidence, 1-3 frictions

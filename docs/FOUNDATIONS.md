@@ -213,6 +213,27 @@ However, it connects to:
 
 ---
 
+## Continuity
+
+**Protocol claim:** Context can be compacted or lost without warning. Keep critical state in durable artifacts. Leave the next agent a runway, not a crater.
+
+### Memory Architecture for Long-Running Agents
+
+- **Paper:** Park et al., "Generative Agents: Interactive Simulacra of Human Behavior" (2023, UIST 2023)
+- **Link:** https://arxiv.org/abs/2304.03442
+- **Finding:** Believable long-term agent behavior requires a memory architecture with observation, reflection, and planning components stored in a persistent "memory stream." Without externalized memory, agents lose coherence across interactions.
+- **Strength:** Established. Widely cited (2000+ citations), foundational for agent memory research.
+- **Connection to Agent1st:** Continuity's insistence on durable artifacts (files, commits, structured handoff notes) is the software engineering equivalent of generative agents' memory stream. Conversational context is volatile — it can be compacted or destroyed at any point. Artifacts are the agent's long-term memory. The hook "if your handoff disappears when the session ends, it doesn't exist" is the practical test.
+
+### Reflexion as Continuity Mechanism
+
+- **Paper:** Shinn et al., "Reflexion" (2023) — already cited under Agent Loop.
+- **Connection to Continuity:** The "1-3 frictions" in handoffs and the structured handoff format are Reflexion-adjacent: store lessons in reusable artifact form, not just conversational self-talk. Reflexion's core insight — that verbal reflections stored in memory improve future attempts — maps directly to the handoff discipline.
+
+- **Strength for Continuity overall:** Supported. Park 2023 provides direct grounding for memory architecture; Reflexion provides the reflection-as-artifact mechanism. The combination moves Continuity from "practical origin" to research-supported.
+
+---
+
 ## Summary: Evidence Strength by Principle
 
 | Principle | Evidence Level | Key Papers |
@@ -226,7 +247,7 @@ However, it connects to:
 | Role Contract / Autonomy | Supported | Hadfield-Menell 2016 (principal-agent) + Kim 2025 |
 | Semantic Hygiene | Hypothesis | Mechanistic reasoning from attention literature |
 | CDD | Practical origin | Analogy to sycophancy + reflexion |
-| Continuity | Practical origin | Analogous to Reflexion's episodic memory |
+| Continuity | Supported | Park 2023 (memory architecture), Reflexion (reflection-as-artifact) |
 
 ---
 
