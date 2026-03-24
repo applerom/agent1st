@@ -130,6 +130,8 @@ Examples:
 
 Hooks compress meaning, travel well, and stick in both human and agent context. They are not decoration.
 
+A compact example can also earn its tokens when an abstract rule would otherwise stay too vague to apply. That is why `Semantic Hygiene` keeps one tiny example instead of staying purely theoretical.
+
 ### WHY / IF MISSING blocks
 
 Connected to a broader idea of **Why-driven development**:
@@ -191,7 +193,7 @@ Agent1st Protocol exists in three intended scopes:
 
 | Version | Purpose | Status |
 |---------|---------|--------|
-| **Minimal** | Core behavior-layer. Drop-in for any project. 10-12 principles. Under 200 lines. | Active development (v1→v2→v3→v4) |
+| **Minimal** | Core behavior-layer. Drop-in for any project. 10-12 principles. Under 200 lines. | Current public baseline (`AGENTS.md`, v4 lineage) |
 | **Standard** | Minimal + semantic markup, structured logging, planning patterns | Exists in practice, not yet formalized |
 | **Full** | Standard + project-specific contracts, observability integration, CI harness | Used in larger projects, not yet published |
 
@@ -225,7 +227,7 @@ This is not a human writing instructions for robots. It is a human and multiple 
 Every version was shaped by agent contributions:
 - v1-v2: iterative refinement with agent feedback
 - v2-v3: major restructuring driven by GPT-5.4 agent analysis + comparison with model/tool layer prompts
-- v4 (planned): Claude Opus 4.6 perspective on multi-agent autonomy
+- v4: Claude Opus 4.6 perspective on multi-agent autonomy, now promoted into the current `AGENTS.md`
 
 The handoff briefs in `docs/handoffs/` capture agent-to-agent knowledge transfer. They are first-class project artifacts, not temporary notes.
 

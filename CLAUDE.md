@@ -23,8 +23,9 @@ Key constraint: **AGENTS.md is a delta-layer, not a second system prompt.** Do n
 
 ## Project conventions
 
-- The human provides direction, evaluation, and acceptance
-- Agents provide analysis, drafting, criticism, and alternatives
+- The human provides intent, constraints, evaluation, and acceptance
+- Agents choose the route, execute, criticize, and prove the result
+- Strong agents should not be micromanaged into passive copilots
 - This protocol is co-developed with agents — handoff briefs are first-class artifacts
 - Preserve the voice: direct, memorable, slightly provocative, grounded
 - Working language: Russian or English as contextually appropriate

@@ -22,13 +22,14 @@ That's what Agent1st is.
 
 ## What's Inside
 
-**`AGENTS.md`** — The protocol. 200 lines. 10 principles. Drop it into any project.
+**`AGENTS.md`** — The protocol. 200 lines. 11 principles. Drop it into any project.
 
 It covers:
 - who owns what (you own intent; the agent owns the route)
 - what "done" actually means (not a mood)
 - when the agent should push back (yes, really)
 - how to handle friction (complain early, not silently)
+- how to delegate without forcing silent subagents
 - how to hand off work (so the next session doesn't start from zero)
 
 It does NOT cover:
