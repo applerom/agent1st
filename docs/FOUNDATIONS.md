@@ -138,9 +138,33 @@ There is no single landmark paper demonstrating information loss in hierarchical
 
 ---
 
+## Done Is Not a Mood
+
+**Protocol claim:** Completion claims require the best evidence the current harness allows. If proof is missing, say what is missing. Do not pretend completion.
+
+### RLHF Reward Hacking
+
+- **Paper:** Gao et al., "Scaling Laws for Reward Model Overoptimization" (2023)
+- **Link:** https://arxiv.org/abs/2210.10760
+- **Paper:** Perez et al., "Discovering Language Model Behaviors with Model-Written Evaluations" (2022, Anthropic)
+- **Link:** https://arxiv.org/abs/2212.09251
+- **Finding:** Models trained via RLHF optimize for immediate user approval (conversational reward) over objective truth. Stating "The task is successfully completed" satisfies the human's conversational intent, triggering the reward heuristic, even if the underlying work is broken.
+- **Strength:** Established.
+- **Connection to Agent1st:** "Done Is Not a Mood" is a structural defense against RLHF reward hacking. By demanding deterministic evidence, the protocol forces the agent to shift its optimization target from "conversational approval" to "verifiable environmental state." Without this rule, the agent's natural RLHF bias is to fake completion. "Correctness becomes a vibe" is the literal description of this failure mode.
+
+---
+
 ## Role Contract / Anti-Micromanagement
 
 **Protocol claim:** Human provides intent, constraints, acceptance criteria. Agent chooses the route. Strong agents should not be micromanaged.
+
+### The Principal-Agent Problem in AI
+
+- **Paper:** Hadfield-Menell et al., "Cooperative Inverse Reinforcement Learning" (2016)
+- **Link:** https://arxiv.org/abs/1606.03137
+- **Finding:** In principal-agent dynamics, when the principal (human) over-specifies the execution path instead of the reward/acceptance criteria, the system's maximum performance is bottlenecked by the principal's cognitive limits and biases. The optimal strategy is to communicate intent and constraints, not step-by-step instructions.
+- **Strength:** Established (theoretical framework from AI alignment economics).
+- **Connection to Agent1st:** The anti-micromanagement stance is not a stylistic preference — it's an action-space argument. When humans dictate step-by-step edits, they prevent the agent from finding optimal, non-obvious paths. "Define the deliverable, not the path" aligns with intent-based AI alignment: specify the reward function, not the policy.
 
 ### Prompt Specificity vs. Autonomy
 
@@ -148,13 +172,7 @@ There is no single landmark paper demonstrating information loss in hierarchical
 - **Link:** https://arxiv.org/abs/2512.02246
 - **Finding:** Specificity generally improves accuracy for smaller models and procedural tasks, but certain tasks benefit from vague prompts that allow models to construct efficient internal representations.
 - **Strength:** Supported (nuanced — not a blanket finding).
-- **Connection to Agent1st:** Strong models (Opus 4.6, GPT-5.4) are in the category where over-specification can hurt. "Define the deliverable, not the path" is an operationalization of this finding: give the constraint, not the algorithm.
-
-### Honest assessment
-
-The anti-micromanagement stance is the least researched principle in Agent1st from a formal perspective. The intuition is strong and widely shared in the agentic AI community, but there is no single paper proving "over-constraining prompts reduces quality for capable models" as a clean result. The DETAIL paper is the closest, and its findings are nuanced.
-
-This is a **hypothesis-level** foundation supported by practical experience and consistent with the prompt-specificity literature.
+- **Connection to Agent1st:** Strong models (Opus 4.6, GPT-5.4) are in the category where over-specification can hurt. The DETAIL paper provides empirical evidence that complements the principal-agent theoretical framework.
 
 ---
 
@@ -202,8 +220,8 @@ However, it connects to:
 | Over-exploration guard | Established | Su 2025, Sui 2025 |
 | Right to Disagree | Established | Sharma 2023 (sycophancy) |
 | Delegation Design | Supported | Tran 2025, Moore 2025 |
-| Done Is Not a Mood | Supported | Grounding/verification literature (no single paper) |
-| Role Contract / Autonomy | Hypothesis | Kim 2025 (nuanced) |
+| Done Is Not a Mood | Established | Gao 2023, Perez 2022 (RLHF reward hacking) |
+| Role Contract / Autonomy | Supported | Hadfield-Menell 2016 (principal-agent) + Kim 2025 |
 | Semantic Hygiene | Hypothesis | Mechanistic reasoning from attention literature |
 | CDD | Practical origin | Analogy to sycophancy + reflexion |
 | Session End Protocol | Practical origin | Analogous to Reflexion's episodic memory |
