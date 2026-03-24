@@ -127,11 +127,14 @@ Also analyzed external references:
 
 12. **"Hello Agent!" kept** — Nearly removed as noise, then brought back: low token cost, high adoption value, session boundary marker, project identity.
 
+13. **Fresh-eye scan removed as standalone section** — v1 had it as part of "Session Start". v2 merged it into Agent Loop as "Fresh-eye rule". v3 removed it entirely. Reason: in multi-agent and subagent contexts, scanning the whole repo before every task wastes tokens and delays work. The scan was useful in single-agent paired sessions but counterproductive at scale. The concept survived only as `Agent1st Mode ON` — a low-cost identity marker.
+
 **Key rejected ideas (with reasons):**
 - "reasoning path" demand → replaced with route/evidence framing (externalized evidence > theatrical CoT)
 - "let subagents break format to surface truth" → replaced with "design delegation contracts correctly"
 - output contracts, dependency checks, planning mechanisms → model/tool layer, not Agent1st
 - detailed verification procedures → "Done Is Not a Mood" is sufficient for minimal version
+- full fresh-eye audit at session start → too expensive for subagents/swarms, removed in v3
 
 **Agent-to-agent handoff:** See `docs/handoffs/gpt54-v3-handoff.md`
 
@@ -157,14 +160,58 @@ Also analyzed external references:
 
 4. **Attention Engineering tuned for stronger models** — v4 added "if the first direct check answers the question, do not over-explore or over-delegate" to counter newer-model failure modes.
 
-5. **"Hello Agent!" gained a session-start behavior** — The identity marker now also triggers a lightweight scan for stale paths, contradictions, or missing acceptance criteria.
+5. **"Session End Protocol" → "Continuity"** — The old framing assumed agents control session boundaries. They don't: server-side compaction (Claude Code, OpenCode) can wipe context without warning. New framing: keep critical state in durable artifacts, not only in conversation. Differentiates between long-running work (full handoff), subagent work (evidence only), and swarm work (shared state updates).
 
-6. **The minimal version expanded without losing discipline** — v4 reached 11 principles, stayed under 200 lines, and preserved the delta-layer rule instead of turning into a workflow manual.
+6. **"Hello Agent!" fresh-eye scan re-added then removed again** — Opus 4.6 initially added a lightweight scan to Hello Agent. Human corrected: this was already tried (v1 standalone, v2 in Agent Loop) and intentionally removed in v3 because it's wasteful for subagents and swarms. Restored to v3's minimal form: `Agent1st Mode ON` only. See "Recurring rejected patterns" below.
+
+7. **The minimal version expanded without losing discipline** — v4 reached 11 principles, stayed under 200 lines, and preserved the delta-layer rule instead of turning into a workflow manual.
 
 **What v4 kept on purpose:**
 - Anti-micromanagement stayed central; autonomy gained boundaries, not bureaucracy.
 - Delta-layer discipline remained load-bearing; new additions still had to be genuinely absent from model/tool prompts.
 - Hooks, voice, the tiny Semantic Hygiene example, and the Attention Engineering numeric signal all stayed because they still earned their tokens.
+
+**Key rejected ideas in v4 (with reasons):**
+- fresh-eye scan in Hello Agent → re-added by Opus 4.6, then removed after human correction: already tried in v1/v2, too expensive for multi-agent contexts
+- error recovery / rollback principle → covered by tool harness (Claude Code, Codex CLI)
+- scope discipline / anti-drift → covered by model system prompts
+- tool/capability boundaries → harness layer concern
+
+---
+
+## Recurring Rejected Patterns
+
+These ideas keep being proposed by new agents. They are logical, often correct in isolation, and still wrong for Agent1st. If you are about to propose one of these, read why it was rejected — multiple times, by multiple agents.
+
+### "Add a fresh-eye scan at session start"
+- **History:** v1 had it as standalone section. v2 merged it into Agent Loop. v3 removed it. v4 Opus 4.6 re-added it to Hello Agent. Then removed again.
+- **Why it keeps coming back:** It sounds useful. A fresh agent scanning for contradictions before coding seems like good hygiene.
+- **Why it keeps being removed:** Subagents launched with a specific task should not audit the repo. Swarm workers should not each independently scan. The cost scales linearly with agent count. In single-agent paired sessions it was fine. In multi-agent autonomous contexts it is waste.
+- **Current form:** Only `Agent1st Mode ON` survives — zero-cost identity marker, visible session boundary.
+
+### "Add error recovery / rollback rules"
+- **History:** Proposed in v4 analysis (Opus 4.6), rejected after delta-layer check.
+- **Why it keeps coming back:** Agents break things. Surely the protocol should say what to do.
+- **Why it's rejected:** Claude Code's system prompt already has extensive git safety protocol, destructive operation warnings, and reversibility checks. Codex CLI has similar. Adding this to AGENTS.md duplicates the harness layer.
+
+### "Add scope discipline / anti-drift"
+- **History:** Proposed in v4 analysis (Opus 4.6), rejected.
+- **Why it keeps coming back:** Agents refactor adjacent code, add unrequested features, "improve" things they weren't asked to touch.
+- **Why it's rejected:** Model system prompts already contain "Only make changes that are directly requested" (Claude Code) or equivalent. Delta-layer principle: don't repeat what the model already enforces.
+
+### "Add output formatting / code style rules"
+- **Why it keeps coming back:** Feels like it belongs in any developer-facing document.
+- **Why it's rejected:** Harness layer. Claude Code, Codex CLI, and model prompts all handle formatting. AGENTS.md is a behavior-layer, not a style guide.
+
+### "Session end assumes the agent controls the boundary"
+- **History:** v1-v3 all had "Session End Protocol" assuming a clean end-of-session moment. v4 refactored to "Continuity" after recognizing that server-side compaction removes this control.
+- **Why it matters:** Any principle that assumes "at the end of your session, do X" is fragile in modern harnesses. Prefer "keep critical state in durable artifacts as you go."
+
+**Pattern:** Most recurring rejections fall into two categories:
+1. **Delta-layer violations** — the model or harness already handles it
+2. **Session-boundary assumptions** — the agent doesn't control when context is lost
+
+If your proposal fits either category, it is probably wrong for the minimal version. It might belong in a standard or full version where the environment is more controlled.
 
 ---
 
