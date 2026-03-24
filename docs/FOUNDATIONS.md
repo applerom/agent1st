@@ -2,6 +2,8 @@
 
 This document links Agent1st recommendations to actual research. Not to prove they are correct — to show why they are not random, to give agents and humans a basis for critique, and to make the protocol improvable as new research appears.
 
+Fast-moving fields do not hand out perfect evidence on schedule. Some entries here are mature results. Some are fresh but relevant papers. Some are theory transfers or practical hypotheses. That is fine. The rule is not "wait for certainty"; the rule is "label certainty honestly."
+
 **Rules for this document:**
 
 1. Every cited paper must be real and verifiable. No hallucinated citations.
@@ -29,7 +31,7 @@ This document links Agent1st recommendations to actual research. Not to prove th
 - **Paper:** Hung et al., "Attention Tracker: Detecting Prompt Injection Attacks in LLMs" (2024, NAACL 2025)
 - **Link:** https://arxiv.org/abs/2411.00348
 - **Finding:** Specific attention heads shift focus from original instructions to competing instructions — a "distraction effect." The same mechanism that makes prompt injection work explains why cluttered system prompts lose effectiveness.
-- **Strength:** Established (mechanistic evidence).
+- **Strength:** Supported (mechanistic evidence from a newer paper, not settled consensus).
 - **Connection to Agent1st:** AGENTS.md competes with the system prompt, user prompt, and tool context for attention. This is why the delta-layer principle exists: every line that duplicates what the model/tool already says doesn't just waste tokens — it creates attention competition with the truly unique content.
 
 - **Paper:** Guardieiro et al., "Instruction Following by Boosting Attention of LLMs" (2025)
@@ -43,7 +45,7 @@ This document links Agent1st recommendations to actual research. Not to prove th
 - **Paper:** Wallace et al., "The Instruction Hierarchy: Training LLMs to Prioritize Privileged Instructions" (2024, OpenAI)
 - **Link:** https://arxiv.org/abs/2404.13208
 - **Finding:** LLMs by default treat system prompts and user inputs as same-priority. Training explicit hierarchy improves robustness.
-- **Strength:** Established.
+- **Strength:** Supported.
 - **Connection to Agent1st:** A behavior layer must work within the model's attention economy. It competes for focus with everything else in context. Brevity and structural clarity aren't style choices — they're engineering requirements.
 
 ### Over-Exploration and Overthinking
@@ -55,7 +57,7 @@ This document links Agent1st recommendations to actual research. Not to prove th
 - **Paper:** Sui et al., "Stop Overthinking: A Survey on Efficient Reasoning for Large Language Models" (2025)
 - **Link:** https://arxiv.org/abs/2503.16419
 - **Finding:** Longer CoT sequences improve performance but with diminishing and eventually negative returns.
-- **Strength:** Established (convergent evidence from multiple studies).
+- **Strength:** Supported (one empirical paper plus one survey, both recent).
 - **Connection to Agent1st:** This is why v4 added "if the first direct check answers the question, do not over-explore or over-delegate." Strong models (Claude Opus 4.6, GPT-5.4) can over-reason. The protocol counterbalances this: more search is not always more signal.
 
 ---
@@ -76,7 +78,7 @@ This document links Agent1st recommendations to actual research. Not to prove th
 
 - **Paper:** Shinn et al., "Reflexion: Language Agents with Verbal Reinforcement Learning" (2023, NeurIPS 2023)
 - **Link:** https://arxiv.org/abs/2303.11366
-- **Finding:** Agents that verbally reflect on failures and store reflections in memory improve dramatically on subsequent attempts (+22% on ALFWorld, +20% on HotPotQA).
+- **Finding:** Agents that verbally reflect on failures and store reflections in memory improve markedly on subsequent attempts across multiple tasks.
 - **Strength:** Established.
 - **Connection to Agent1st:** The "Reflect" phase in the Agent Loop and the "1-3 frictions" in Continuity are Reflexion-adjacent. The insight: reflection must produce a reusable artifact (lesson, friction report), not just conversational self-talk.
 
@@ -124,13 +126,13 @@ The sycophancy research shows that without explicit permission to disagree, mode
 
 - **Paper:** Tran et al., "Multi-Agent Collaboration Mechanisms: A Survey of LLMs" (2025)
 - **Link:** https://arxiv.org/abs/2501.06322
-- **Finding:** Chain configurations — where each agent passes output to the next — create telephone-game dynamics where context degrades at each hop.
+- **Finding:** The survey treats collaboration structure, agent roles, and coordination protocols as core design dimensions in multi-agent LLM systems.
 
 - **Paper:** Moore, "A Taxonomy of Hierarchical Multi-Agent Systems" (2025)
 - **Link:** https://arxiv.org/abs/2508.12683
-- **Finding:** Cascading hallucinations — where one erroneous output compounds through the hierarchy — are a core risk. Scaling agent count increases communication bottlenecks.
-- **Strength:** Supported (both are recent surveys, not yet definitive experimental work).
-- **Connection to Agent1st:** "Prefer durable artifacts over message passing" and "resolve contradictions by evidence weight, not source authority" are practical responses to the telephone-game and cascading-hallucination risks. The protocol doesn't cite these papers — it was written from practical experience — but the research validates the instinct.
+- **Finding:** The taxonomy treats information flow, delegation, temporal layering, and communication structure as core dimensions of hierarchical multi-agent design, and highlights scale/explainability tradeoffs for LLM-integrated systems.
+- **Strength:** Supported for the claim that delegation structure matters; still hypothesis-level for specific failure modes like "telephone game" context decay.
+- **Connection to Agent1st:** "Prefer durable artifacts over message passing" and "resolve contradictions by evidence weight, not source authority" are practical responses to information-loss risk in multi-agent chains. The protocol is still ahead of the literature here; the research mostly validates the direction, not every concrete failure mode.
 
 ### The gap
 
@@ -148,9 +150,9 @@ There is no single landmark paper demonstrating information loss in hierarchical
 - **Link:** https://arxiv.org/abs/2210.10760
 - **Paper:** Perez et al., "Discovering Language Model Behaviors with Model-Written Evaluations" (2022, Anthropic)
 - **Link:** https://arxiv.org/abs/2212.09251
-- **Finding:** Models trained via RLHF optimize for immediate user approval (conversational reward) over objective truth. Stating "The task is successfully completed" satisfies the human's conversational intent, triggering the reward heuristic, even if the underlying work is broken.
-- **Strength:** Established.
-- **Connection to Agent1st:** "Done Is Not a Mood" is a structural defense against RLHF reward hacking. By demanding deterministic evidence, the protocol forces the agent to shift its optimization target from "conversational approval" to "verifiable environmental state." Without this rule, the agent's natural RLHF bias is to fake completion. "Correctness becomes a vibe" is the literal description of this failure mode.
+- **Finding:** RLHF and preference optimization can push models toward outputs that satisfy apparent user preference or reward proxies even when that diverges from the underlying objective.
+- **Strength:** Supported.
+- **Connection to Agent1st:** "Done Is Not a Mood" is a structural defense against reward-proxy failure. By demanding deterministic evidence, the protocol shifts the center of gravity from "did the response sound satisfying?" to "did the environment actually change as claimed?" "Correctness becomes a vibe" is the practical failure mode Agent1st is trying to block.
 
 ---
 
@@ -162,17 +164,17 @@ There is no single landmark paper demonstrating information loss in hierarchical
 
 - **Paper:** Hadfield-Menell et al., "Cooperative Inverse Reinforcement Learning" (2016)
 - **Link:** https://arxiv.org/abs/1606.03137
-- **Finding:** In principal-agent dynamics, when the principal (human) over-specifies the execution path instead of the reward/acceptance criteria, the system's maximum performance is bottlenecked by the principal's cognitive limits and biases. The optimal strategy is to communicate intent and constraints, not step-by-step instructions.
-- **Strength:** Established (theoretical framework from AI alignment economics).
-- **Connection to Agent1st:** The anti-micromanagement stance is not a stylistic preference — it's an action-space argument. When humans dictate step-by-step edits, they prevent the agent from finding optimal, non-obvious paths. "Define the deliverable, not the path" aligns with intent-based AI alignment: specify the reward function, not the policy.
+- **Finding:** CIRL frames alignment as a cooperative partial-information problem where the human's reward function is central and the agent must infer it through interaction rather than simply follow a fully specified policy.
+- **Strength:** Supported as a conceptual bridge from alignment theory, not as a direct benchmark of software agents under micromanagement.
+- **Connection to Agent1st:** The anti-micromanagement stance is not just rhetoric — it is an action-space argument. "Define the deliverable, not the path" fits the same family of thinking: communicate intent and constraints clearly, then leave room for competent search.
 
 ### Prompt Specificity vs. Autonomy
 
 - **Paper:** Kim, "DETAIL Matters: Measuring the Impact of Prompt Specificity on Reasoning in Large Language Models" (2025)
 - **Link:** https://arxiv.org/abs/2512.02246
-- **Finding:** Specificity generally improves accuracy for smaller models and procedural tasks, but certain tasks benefit from vague prompts that allow models to construct efficient internal representations.
+- **Finding:** Prompt specificity improves accuracy especially for smaller models and procedural tasks, which argues for adaptive prompting rather than assuming "more detail" is always better in every context.
 - **Strength:** Supported (nuanced — not a blanket finding).
-- **Connection to Agent1st:** Strong models (Opus 4.6, GPT-5.4) are in the category where over-specification can hurt. The DETAIL paper provides empirical evidence that complements the principal-agent theoretical framework.
+- **Connection to Agent1st:** The DETAIL paper reinforces that prompt specificity is not one-size-fits-all. That is compatible with Agent1st's anti-micromanagement stance, but it should be read as supporting context, not as a full proof of "always give less detail."
 
 ---
 
@@ -217,10 +219,10 @@ However, it connects to:
 |-----------|---------------|------------|
 | Attention Engineering | Established | Liu 2023, Hung 2024, Guardieiro 2025, Wallace 2024 |
 | Agent Loop | Established | Yao 2022 (ReAct), Shinn 2023, Yao 2023 (ToT), Chen 2025 |
-| Over-exploration guard | Established | Su 2025, Sui 2025 |
+| Over-exploration guard | Supported | Su 2025, Sui 2025 |
 | Right to Disagree | Established | Sharma 2023 (sycophancy) |
 | Delegation Design | Supported | Tran 2025, Moore 2025 |
-| Done Is Not a Mood | Established | Gao 2023, Perez 2022 (RLHF reward hacking) |
+| Done Is Not a Mood | Supported | Gao 2023, Perez 2022 (RLHF reward hacking) |
 | Role Contract / Autonomy | Supported | Hadfield-Menell 2016 (principal-agent) + Kim 2025 |
 | Semantic Hygiene | Hypothesis | Mechanistic reasoning from attention literature |
 | CDD | Practical origin | Analogy to sycophancy + reflexion |
