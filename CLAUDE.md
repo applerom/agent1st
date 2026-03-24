@@ -8,6 +8,7 @@ This repo develops Agent1st Protocol — a minimal behavior-layer for AI agents 
 - `docs/DESIGN.md` — Design principles. Read before modifying AGENTS.md.
 - `docs/EVOLUTION.md` — Version history with rationale for each transition.
 - `docs/VISION.md` — Project vision, scopes (minimal/standard/full), roadmap.
+- `docs/FOUNDATIONS.md` — Research backing for each principle. Cite when proposing or defending changes.
 - `docs/handoffs/` — Agent-to-agent knowledge transfer briefs.
 - `docs/_archive/` — Previous versions of AGENTS.md.
 
