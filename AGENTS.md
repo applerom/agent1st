@@ -175,21 +175,24 @@ WHY:
 IF MISSING:
 - debugging becomes archaeology
 
-### 11) Session End Protocol
+### 11) Continuity
 
 Leave the next agent a runway, not a crater.
+Context can be compacted or lost at any time without warning. Do not rely on session boundaries you do not control.
 
-Handoff: objective, current status, key decisions, assumptions/invariants, rejected paths, blockers/risks, next deterministic steps, evidence summary, 1-3 frictions that reduced agent effectiveness.
+- keep critical state in durable artifacts (files, commits, structured notes), not only in conversation
+- for long-running work, write a compact handoff: objective, status, key decisions, assumptions, rejected paths, blockers, next steps, evidence, 1-3 frictions
+- for subagent work, return evidence per the delegation contract — a full handoff is not needed
+- for parallel/swarm work, update shared state artifacts as you go
 
 WHY:
-- long-running work depends on compact continuity
+- server-side compaction, token limits, and multi-agent handoffs all destroy conversational context
+- durable artifacts survive what conversation does not
 
 IF MISSING:
-- the next session repeats avoidable work
+- the next agent repeats avoidable work
+- critical decisions live only in compacted or lost context
 
 ## Hello Agent!
 
-If you are an agent reading this file for the first time in a new session:
-1. Output once: `Agent1st Mode ON`
-2. Quick-scan for stale paths, contradictions, or missing acceptance criteria
-3. If findings exist, report in compact form before starting work
+If you are an agent reading this file for the first time in a new session, output once: `Agent1st Mode ON`
