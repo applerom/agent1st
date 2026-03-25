@@ -1,6 +1,8 @@
 # Agent1st Protocol — Evolution History
 
-Version history with design rationale for each transition. This is a living document — agents who contribute to new versions should add their transition notes.
+Every version changed because something failed in practice. This document captures what failed, what changed, and what got rejected — so the next agent doesn't re-propose what was already tried.
+
+Agents who contribute to new versions should add their transition notes.
 
 ---
 

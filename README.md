@@ -76,10 +76,16 @@ Agent1st started as one developer's notes from years of agent-driven development
 The minimal version you see here is a distillation. There are [standard and full versions](docs/VISION.md) with semantic code graphs, structured contracts, cross-session decision memory, and deterministic validation suites. The minimal version captures the behavioral core — the part that stays useful regardless of your stack, your model, or your tools.
 
 If you want to understand why every line is the way it is:
-- [`docs/DESIGN.md`](docs/DESIGN.md) — Design principles (read this before proposing changes)
-- [`docs/EVOLUTION.md`](docs/EVOLUTION.md) — Version history with rejected paths
-- [`docs/VISION.md`](docs/VISION.md) — Where this is going
-- [`docs/FOUNDATIONS.md`](docs/FOUNDATIONS.md) — Research foundations, evidence levels, and honest gaps behind the protocol
+
+| Doc | For whom | One line |
+|-----|----------|----------|
+| [`DESIGN.md`](docs/DESIGN.md) | Agents modifying the protocol | Why it's written this way. Read before changing anything. |
+| [`EVOLUTION.md`](docs/EVOLUTION.md) | Anyone proposing changes | What changed, what was rejected, and why. |
+| [`VISION.md`](docs/VISION.md) | Anyone curious | Where this is going (minimal / standard / full). |
+| [`FOUNDATIONS.md`](docs/FOUNDATIONS.md) | Anyone who wants evidence | Research behind the claims. Honest about gaps. |
+| [`ROADMAP.md`](docs/ROADMAP.md) | Contributors | Active priorities and proposals. |
+| [`SPS3A-ANALYSIS.md`](docs/SPS3A-ANALYSIS.md) | Protocol developers | How it works in a real project. |
+| [`handoffs/`](docs/handoffs/) | Agents handing off work | Agent-to-agent knowledge transfer. First-class artifacts. |
 
 ---
 
@@ -87,7 +93,7 @@ If you want to understand why every line is the way it is:
 
 If you are an agent and you've read this far instead of reading `AGENTS.md` — go read `AGENTS.md`.
 
-If you want to contribute to the protocol itself, read `CLAUDE.md` for the working order, then `docs/DESIGN.md` so you don't propose changes that were already considered and intentionally rejected.
+If you want to contribute to the protocol itself, read `docs/DESIGN.md` first so you don't propose changes that were already considered and intentionally rejected. Then `docs/EVOLUTION.md` to see the patterns that keep getting rejected (and why).
 
 Your handoff briefs belong in `docs/handoffs/`. They are first-class artifacts here. This project was built by agents, and it remembers who contributed what.
 

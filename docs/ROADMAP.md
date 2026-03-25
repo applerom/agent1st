@@ -41,18 +41,19 @@ The standard version exists in practice (SPS3A project) but has not been publish
 - Follows Agent1st Semantic Hygiene: the name should carry meaning
 
 **Migration plan:**
-- [ ] Rename in `docs/VISION.md` (Agent1st repo)
-- [ ] Rename in `docs/DESIGN.md` references
-- [ ] Rename in `docs/FOUNDATIONS.md` if referenced
-- [ ] Rename in SPS3A: `docs/ak-graph-principles.md` → `docs/why-graph-principles.md`
-- [ ] Rename in SPS3A: `docs/ak-graph.xml` → consider keeping XML filename for tooling stability, or rename with tooling update
-- [ ] Update SPS3A validation scripts (`ak_validate_graph.py` → `why_graph_validate.py`)
-- [ ] Update SPS3A `docs/ai-friendly-development.md` references
-- [ ] Update SPS3A AGENTS.md references
+- [x] Rename in `docs/VISION.md` (Agent1st repo) — done 2026-03-25
+- [ ] Rename in `docs/DESIGN.md` references (Agent1st repo)
+- [ ] Rename in `docs/FOUNDATIONS.md` if referenced (Agent1st repo)
+- [x] Rename in SPS3A: `ak-graph.xml` → `why-graph.xml` — done 2026-03-25
+- [x] Rename in SPS3A: `ak-graph-principles.md` → `why-graph-principles.md` — done 2026-03-25
+- [x] Rename in SPS3A: `ak-contracts-v1.md` → `why-contracts-v1.md` — done 2026-03-25
+- [x] Rename in SPS3A: `ak_validate_graph.py` → `why_validate_graph.py` — done 2026-03-25
+- [x] Update SPS3A XML root: `<AK_Graph>` → `<Why_Graph>` — done 2026-03-25
+- [x] Update SPS3A `docs/ai-friendly-development.md` references — done 2026-03-25
+- [x] Update SPS3A AGENTS.md references — done 2026-03-25
+- [x] Update SPS3A backend/frontend code contracts — done 2026-03-25
+- [x] Update all SPS3A docs (PRD, architecture, dr-graph, intent1st, decision-context) — done 2026-03-25
 - [ ] Update intent1st references if any
-- [ ] Update SPS3A `docs/ak-contracts-v1.md` → consider renaming
-
-**Risk:** Tooling references to `ak_*` filenames. Mitigation: rename files but keep backward-compatible aliases until all references are updated.
 
 ### 3. Claude Code Compatibility
 
@@ -64,9 +65,9 @@ The standard version exists in practice (SPS3A project) but has not been publish
 ```
 
 **Implementation:**
-- [ ] Add this pattern to SPS3A project
-- [ ] Document in Agent1st as recommended practice
-- [ ] Consider adding to README.md Quick Start section
+- [x] Add this pattern to SPS3A project — done 2026-03-25
+- [x] Add this pattern to Agent1st repo — done 2026-03-25
+- [x] Documented in README.md Quick Start section — done 2026-03-25
 
 ### 4. Cross-Session Memory Strategy
 
