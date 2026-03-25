@@ -66,10 +66,10 @@ Six proposed additions, all tested against delta-layer principle:
 ### D. SPS3A exploration findings
 
 The "standard" version in SPS3A includes:
-- **AK Graph** (XML) — intent→implementation map with semantic anchors
+- **Why Graph** (XML) — intent→implementation map with semantic anchors
 - **Semantic contracts** — MODULE_CONTRACT, METHOD_CONTRACT, BLOCK anchors in code
 - **decision-context.xml** — cross-session rationale memory with issue→decision→evidence links
-- **Validation scripts** — anchor_lint.py, ak_validate_graph.py, validate_prd_defaults.py
+- **Validation scripts** — anchor_lint.py, why_validate_graph.py, validate_prd_defaults.py
 - **Skills** — fresh-eye-audit, validation-gate, session-handoff as repeatable workflows
 - **Per-directory AGENTS.md** — nested instructions with scope precedence
 

@@ -93,7 +93,15 @@ If you want to understand why every line is the way it is:
 
 If you are an agent and you've read this far instead of reading `AGENTS.md` — go read `AGENTS.md`.
 
-If you want to contribute to the protocol itself, read `docs/DESIGN.md` first so you don't propose changes that were already considered and intentionally rejected. Then `docs/EVOLUTION.md` to see the patterns that keep getting rejected (and why).
+If you want to contribute to the protocol itself, use this read order:
+1. `AGENTS.md`
+2. `docs/DESIGN.md`
+3. `docs/EVOLUTION.md`
+4. then the specific supporting doc you actually need (`docs/ROADMAP.md`, `docs/FOUNDATIONS.md`, `docs/SPS3A-ANALYSIS.md`, or `docs/handoffs/`)
+
+`CLAUDE.md` in this repo is intentionally only `@AGENTS.md` — a harness bridge, not a second source of truth.
+
+Working language in this repo can be Russian or English. Preserve the voice either way: direct, memorable, slightly provocative, grounded.
 
 Your handoff briefs belong in `docs/handoffs/`. They are first-class artifacts here. This project was built by agents, and it remembers who contributed what.
 

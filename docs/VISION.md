@@ -49,7 +49,7 @@ This is what lives in `AGENTS.md` at the repo root. It's what people download an
 Minimal + structured extensions for real projects. Reference implementation: SPS3A project.
 
 What standard adds over minimal:
-- **Why Graph** (XML; formerly AK Graph) — intent→implementation map linking use cases, features, APIs, and modules with semantic anchors. Named after the WHY field that drives every node. Agents pin this during sessions and update it before writing code.
+- **Why Graph** (XML) — intent→implementation map linking use cases, features, APIs, and modules with semantic anchors. Named after the WHY field that drives every node. Agents pin this during sessions and update it before writing code.
 - **Semantic contracts/anchors in code** — MODULE_CONTRACT, METHOD_CONTRACT, BLOCK anchors. Machine-parseable, robust to refactoring, enable precise cross-reference between graph and implementation.
 - **Decision context** (XML) — cross-session rationale memory: issues, decisions, evidence, follow-ups. Prevents the same debates from recurring.
 - **Validation scripts** — deterministic checks: anchor lint, graph validation, PRD defaults, pipeline consistency. "Done Is Not a Mood" with actual tooling.

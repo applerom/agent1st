@@ -13,7 +13,7 @@ This is not a commitment list. It is a structured conversation space where agent
 The standard version exists in practice (SPS3A project) but has not been published.
 
 **What standard adds over minimal:**
-- **Why Graph** (formerly AK Graph) — intent→implementation XML map with typed relations, acceptance criteria, anchor-based code references
+- **Why Graph** — intent→implementation XML map with typed relations, acceptance criteria, anchor-based code references
 - **Semantic contracts in code** — MODULE_CONTRACT, METHOD_CONTRACT, BLOCK anchors with PURPOSE, PRD_REF, INVARIANTS
 - **Validation tooling** — graph↔code anchor lint, contract structure lint, PRD↔model drift detection
 - **Decision memory** — cross-session rationale tracking (issues, decisions, follow-ups)
@@ -29,33 +29,7 @@ The standard version exists in practice (SPS3A project) but has not been publish
 3. Define the minimal→standard graduation criteria
 4. Create a starter kit (template files, example graph, example contracts)
 
-### 2. Why Graph (Rename from AK Graph)
-
-**Decision:** Rename "AK Graph" to "Why Graph" across all documentation.
-
-**Rationale:**
-- WHY is the central concept in both Agent1st (WHY blocks in every principle) and the graph itself (WHY/PURPOSE/INTENT fields)
-- "AK Graph" was a working name with no memorable meaning
-- "Intent Graph" (intermediate name by agents) risks collision with intent1st
-- "Why Graph" is a hook: "why is it called Why Graph?" → "because WHY is the most important question"
-- Follows Agent1st Semantic Hygiene: the name should carry meaning
-
-**Migration plan:**
-- [x] Rename in `docs/VISION.md` (Agent1st repo) — done 2026-03-25
-- [ ] Rename in `docs/DESIGN.md` references (Agent1st repo)
-- [ ] Rename in `docs/FOUNDATIONS.md` if referenced (Agent1st repo)
-- [x] Rename in SPS3A: `ak-graph.xml` → `why-graph.xml` — done 2026-03-25
-- [x] Rename in SPS3A: `ak-graph-principles.md` → `why-graph-principles.md` — done 2026-03-25
-- [x] Rename in SPS3A: `ak-contracts-v1.md` → `why-contracts-v1.md` — done 2026-03-25
-- [x] Rename in SPS3A: `ak_validate_graph.py` → `why_validate_graph.py` — done 2026-03-25
-- [x] Update SPS3A XML root: `<AK_Graph>` → `<Why_Graph>` — done 2026-03-25
-- [x] Update SPS3A `docs/ai-friendly-development.md` references — done 2026-03-25
-- [x] Update SPS3A AGENTS.md references — done 2026-03-25
-- [x] Update SPS3A backend/frontend code contracts — done 2026-03-25
-- [x] Update all SPS3A docs (PRD, architecture, dr-graph, intent1st, decision-context) — done 2026-03-25
-- [ ] Update intent1st references if any
-
-### 3. Claude Code Compatibility
+### 2. Claude Code Compatibility
 
 **Problem:** Claude Code auto-loads only `CLAUDE.md`, not `AGENTS.md`. Projects using `AGENTS.md` (the emerging standard for OpenCode, Codex, Cursor, etc.) need a bridge.
 
@@ -69,7 +43,7 @@ The standard version exists in practice (SPS3A project) but has not been publish
 - [x] Add this pattern to Agent1st repo — done 2026-03-25
 - [x] Documented in README.md Quick Start section — done 2026-03-25
 
-### 4. Cross-Session Memory Strategy
+### 3. Cross-Session Memory Strategy
 
 **Current state in SPS3A:** Three competing approaches tried:
 1. `decision-context.xml` — custom XML decision memory. **Assessment by human: not great.** Non-standard, hard to maintain.
@@ -140,7 +114,6 @@ See `docs/EVOLUTION.md` "Recurring Rejected Patterns" for full list. Key recurri
 ### v5 (next minimal, speculative)
 - Potential: Friction Tax integration into CDD
 - Potential: Ambiguity handling guidance
-- Potential: Why Graph name established in documentation
 - Gate: only if new additions pass delta-layer test
 
 ### Standard v1 (major milestone)

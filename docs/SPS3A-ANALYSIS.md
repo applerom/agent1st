@@ -35,9 +35,9 @@ SPS3A implements what Agent1st's `docs/VISION.md` describes as the "standard ver
 
 | Standard Version Component | SPS3A Implementation |
 |---|---|
-| **Why Graph** (intent→implementation map) | `docs/ak-graph.xml` — XML schema 0.8, USECASE→FEATURE→API→MODULE→ANCHOR hierarchy |
+| **Why Graph** (intent→implementation map) | `docs/why-graph.xml` — XML schema 0.8, USECASE→FEATURE→API→MODULE→ANCHOR hierarchy |
 | **Semantic contracts in code** | MODULE_CONTRACT, METHOD_CONTRACT, BLOCK anchors with PURPOSE, PRD_REF, INVARIANTS |
-| **Validation tooling** | `scripts/tooling/ak_validate_graph.py`, `anchor_lint.py`, `validate_decision_context.py`, `validate_prd_defaults.py` |
+| **Validation tooling** | `scripts/tooling/why_validate_graph.py`, `anchor_lint.py`, `validate_decision_context.py`, `validate_prd_defaults.py` |
 | **Decision memory** | `docs/decision-context.xml` — issues, decisions, follow-ups with typed references |
 | **Per-directory AGENTS.md** | `scripts/AGENTS.md` — scoped instructions for scripts subsystem |
 | **Skills** | `.agents/skills/consult-intent1st/`, `.agents/skills/capture-intent1st-candidate/` |
@@ -49,11 +49,11 @@ SPS3A implements what Agent1st's `docs/VISION.md` describes as the "standard ver
 ```
 PRD.md (product intent)
   ↓ referenced by
-Why Graph (docs/ak-graph.xml) — USECASE → FEATURE → API → MODULE → ANCHOR
+Why Graph (docs/why-graph.xml) — USECASE → FEATURE → API → MODULE → ANCHOR
   ↓ anchors point to
 Code contracts (MODULE_CONTRACT, METHOD_CONTRACT, BLOCK anchors)
   ↓ validated by
-Tooling scripts (ak_validate_graph.py, anchor_lint.py)
+Tooling scripts (why_validate_graph.py, anchor_lint.py)
   ↓ decisions tracked in
 Decision context (docs/decision-context.xml)
 ```
@@ -148,8 +148,8 @@ They are complementary: Agent1st guides how agents act, intent1st records what t
 If you're working on Agent1st and want to understand the standard version:
 
 1. **Read this document first** — it maps the landscape
-2. **Look at SPS3A's `docs/ak-graph-principles.md`** — the Why Graph authoring guide
-3. **Look at `docs/ak-contracts-v1.md`** — the contracts specification
+2. **Look at SPS3A's `docs/why-graph-principles.md`** — the Why Graph authoring guide
+3. **Look at `docs/why-contracts-v1.md`** — the contracts specification
 4. **Look at `docs/ai-friendly-development.md`** — the golden workflow
 5. **Look at `scripts/tooling/`** — the validation harness
 6. Don't get lost in SPS3A's domain specifics (bioresonance, GraphRAG) — focus on the *patterns*
@@ -159,7 +159,7 @@ If you're working on Agent1st and want to understand the standard version:
 SPS3A serves as the testing ground for Agent1st development:
 - New Agent1st versions can be tested by updating SPS3A's AGENTS.md §0
 - Standard version patterns can be validated against SPS3A's real infrastructure
-- Changes to Why Graph specification can be prototyped in SPS3A's `docs/ak-graph.xml`
+- Changes to Why Graph specification can be prototyped in SPS3A's `docs/why-graph.xml`
 - Friction from using the protocol in practice feeds back into Agent1st improvements
 
 ---
@@ -170,7 +170,7 @@ If you're working on SPS3A development:
 
 1. **AGENTS.md** is your primary guide (project-specific)
 2. **docs/ai-friendly-development.md** is the development rules
-3. **docs/ak-graph-principles.md** is the graph authoring guide
+3. **docs/why-graph-principles.md** is the graph authoring guide
 4. The Agent1st minimal protocol (11 principles) is embedded in §0
 5. You're also implicitly testing Agent1st — report friction via CDD
 
@@ -180,4 +180,3 @@ If you're working on SPS3A development:
 - [ ] Rename "Session protocol" to "Continuity" (align with v4 naming)
 - [ ] Add Continuity hook: "if your handoff disappears when the session ends, it doesn't exist"
 - [ ] Add `CLAUDE.md` with `@AGENTS.md` import for Claude Code compatibility
-- [ ] Consider Why Graph rename (pending decision — see `ROADMAP.md`)
