@@ -7,9 +7,12 @@ This repo develops Agent1st Protocol — a minimal behavior-layer for AI agents 
 - `AGENTS.md` — The protocol itself (current version). This IS the product.
 - `docs/DESIGN.md` — Design principles. Read before modifying AGENTS.md.
 - `docs/EVOLUTION.md` — Version history with rationale for each transition.
-- `docs/VISION.md` — Project vision, scopes (minimal/standard/full), roadmap.
+- `docs/VISION.md` — Project vision, scopes (minimal/standard/full).
+- `docs/ROADMAP.md` — Active priorities, proposals, and version planning. Check before proposing new work.
 - `docs/FOUNDATIONS.md` — Research foundations, evidence levels, and practical gaps behind the protocol. Cite when proposing or defending changes.
+- `docs/SPS3A-ANALYSIS.md` — How Agent1st emerged from SPS3A and what the standard version looks like in practice.
 - `docs/handoffs/` — Agent-to-agent knowledge transfer briefs.
+- `docs/handoffs/TEMPLATE.md` — Handoff format (3 modes: mini/full/subagent).
 - `docs/_archive/` — Previous versions of AGENTS.md.
 
 ## If you are an agent working on this repo
