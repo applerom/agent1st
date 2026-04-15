@@ -14,7 +14,8 @@ Agents who contribute to new versions should add their transition notes.
 | v1 | `docs/_archive/AGENTS-min-v1.md` | First formalization. Early friction/evidence/attention contract. | [TBD — author to fill] |
 | v2 | `docs/_archive/AGENTS-min-v2.md` | More agentic. Agent Loop added. Anti-micromanagement sharper. | [TBD — author to fill] |
 | v3 | `docs/_archive/AGENTS-min-v3.md` | Harness-optimized. Delta-layer discipline. Core/Ops split. | GPT-5.4 agent (primary), with Claude Opus 4.6 comparison |
-| v4 | `docs/_archive/AGENTS-min-v4.md` + `AGENTS.md` | Current minimal baseline. Multi-agent autonomy and delegation design. | Claude Opus 4.6 agent (primary), building on GPT-5.4 v3 rationale |
+| v4 | `docs/_archive/AGENTS-min-v4.md` + `AGENTS.md` | Minimal baseline. Multi-agent autonomy and delegation design. | Claude Opus 4.6 agent (primary), building on GPT-5.4 v3 rationale |
+| v5 | `AGENTS.md` (unchanged) + `docs/WHY-APPROACH.md` + paired WHY files | WHY layer delivered as flat files in `docs/`. Three-tier framing retired. | Claude Opus 4.6 (primary), with reference analysis of SPS3A (see `docs/SPS3A-ANALYSIS.md`) and a separate TypeScript adopter |
 
 ---
 
@@ -246,6 +247,48 @@ These imported handoffs are preserved as audit artifacts. Some observations refl
 **All handoffs saved:** `docs/handoffs/glm5-v4-analysis.md` (GLM-5), `docs/handoffs/grok-v4-truth-first.md` (Grok 4.20), `docs/handoffs/minimax-v4-perspective.md` (MiniMax M2.7), `docs/handoffs/qwen-v4-audit.md` (Qwen3.5-Plus).
 
 **Pattern observed:** External agents consistently rediscover the same improvements and the same rejected paths. The recurring rejected patterns section above predicted most proposals accurately. This validates the value of documenting rejections.
+
+---
+
+## v4 → v5: The WHY Layer Lands
+
+**Era:** Minimal is stable. Time to deliver what was called "standard" — without repeating the mistake that killed earlier attempts.
+
+**The problem v5 had to solve:**
+
+The roadmap had named "Standard Version Formalization" as an active priority for over a year. The reference implementation existed (SPS3A, documented in `docs/SPS3A-ANALYSIS.md`) and a second real adopter — a separate TypeScript project — had independently shaped its own variant. Earlier experiments put the richer files in parallel `STANDARD/` and `FULL/` folders, which created visual duplication and made it unclear which file was canonical. Users — agents and humans — found this confusing in practice.
+
+**What changed:**
+
+The three-tier model (Minimal / Standard / Full) was retired. Agent1st now has **two layers that live in one repo**:
+
+1. **Behavior layer** — `AGENTS.md`, unchanged in v5. Still drop-in, still portable, still ~200 lines.
+2. **WHY layer** — flat files in `docs/`, highly recommended for long-lived projects:
+   - `docs/WHY-APPROACH.md` — the idea, workflow shift, adopter's pattern (Required Reading header)
+   - `docs/PRD.md` — Agent1st's own dogfooded PRD
+   - `docs/why-graph.xml` — teaching-size graph
+   - `docs/why-graph-principles.md` — portable authoring guide distilled from SPS3A and a separate TypeScript adopter
+   - `docs/why-contracts-v1.md` — anchor spec with Python + TypeScript examples
+
+Project-specific extensions (CI integration, observability, acceptance automation, runbooks) correctly sit on top of both layers in a project's own repo — not as a separate publishable tier.
+
+**Why the minimal `AGENTS.md` did not change:**
+
+The delta-layer principle and the anti-micromanagement stance both say the same thing here: the behavior layer must be portable and must not fill with repo-specific reading lists. An advisor proposal to add a Required Reading header to the core `AGENTS.md` was considered and rejected. Instead, that header is documented in `WHY-APPROACH.md` §8 as the **adopter-side** extension pattern — observed in both real adopters.
+
+**What was rejected during v5:**
+
+- Keeping the `STANDARD/` and `FULL/` folder split. Reason: visual duplication, unclear canonicity, adoption friction.
+- Renaming `docs/WHY-APPROACH.md` to `docs/STANDARD.md`. Reason: the layer is the WHY approach, not a rung on a ladder.
+- Editing `AGENTS.md` to require reading the WHY layer. Reason: would break drop-in portability and contradict `DESIGN.md` §5 (what NOT to add).
+- Building validator tooling into v5 itself. Reason: the pattern is demonstrated; tooling is a v6 concern and language-specific.
+
+**Reference adopters that shaped v5:**
+
+- **SPS3A** — the richer variant. Python/FastAPI backend plus TypeScript frontend. Full relation vocabulary, class/method contracts, intent1st integration, validator scripts. Documented in `docs/SPS3A-ANALYSIS.md`.
+- **A separate TypeScript adopter** — the simpler variant. Trimmed node families, adoption-notes doc that articulated the governance-graph vs. knowledge-graph distinction that `WHY-APPROACH.md` §5 now carries.
+
+Neither adopter copied the other. Both carried the same idea. That convergence was the signal that the WHY layer was ready to be documented.
 
 ---
 

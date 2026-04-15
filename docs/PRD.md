@@ -1,0 +1,103 @@
+# Agent1st Protocol — PRD
+
+> A minimal PRD for Agent1st itself. It serves two purposes:
+> 1. To tell any agent or human picking up this repo what "done" means for the protocol.
+> 2. To dogfood the WHY layer — this file is what `docs/why-graph.xml` maps into code.
+>
+> If you are adopting the WHY layer in your own project, copy the shape, not the content.
+
+---
+
+## 1) Problem
+
+Agents write code well when the task is narrow and the session is short.
+
+On real projects — months long, multiple agents, compaction mid-flight, refactors breaking invisible couplings — they drift. They edit the nearest plausible file. They claim "done" on vibes. They forget why a module exists. They repeat mistakes another agent already solved.
+
+Most of this is not an intelligence problem. It is a **context-and-contract problem**. The human used to carry roles, boundaries, quality expectations, and intent-to-code maps in their head. In agent-first work, no one carries that unless the repo does.
+
+## 2) Product
+
+Agent1st is a **behavior-layer protocol** for AI-agent software development. It has two tiers:
+
+- **Minimal (`AGENTS.md`)** — 11 principles, ~200 lines, drop-in. Defines how humans and agents work together.
+- **WHY Layer (`docs/WHY-APPROACH.md` + paired files)** — recommended for long-lived projects. Makes intent a first-class artifact paired with code.
+
+Everything else in this repo is documentation *about* the protocol — design rationale, evolution history, external reviews, roadmap.
+
+## 3) Users
+
+**Primary: Strong agents** (Claude, GPT, Gemini, GLM, Grok, MiniMax, Qwen, others) reading the protocol at session start and using it as operating context.
+
+**Secondary: Humans** who work with those agents — engineers, researchers, team leads — who want a working contract that reduces drift without micromanaging.
+
+Not in scope: beginners looking for a prompt-engineering tutorial, or users of weak models that need step-by-step scripts.
+
+## 4) Use cases
+
+- **UC-ADOPT** — A human drops `AGENTS.md` into a project and wants the agent to read it and operate accordingly.
+- **UC-EXTEND** — A project outgrows the minimal layer and needs intent-to-code navigation (WHY layer).
+- **UC-CONTRIBUTE** — An agent proposes a change to the protocol itself.
+- **UC-HANDOFF** — Work transfers between agents across sessions without repeating discoveries.
+- **UC-REVIEW** — A human or agent audits whether a completion claim matches evidence.
+
+## 5) Features
+
+| ID | Feature | State |
+|---|---|---|
+| FEAT-CORE | Minimal `AGENTS.md` — 11 principles, delta-layer, drop-in | shipped |
+| FEAT-WHY | WHY layer — PRD + Why Graph + Contracts + Validators pattern | in progress (v5) |
+| FEAT-BRIDGE | Claude Code bridge — `CLAUDE.md` → `@AGENTS.md` | shipped |
+| FEAT-DESIGN | Design rationale for agents modifying the protocol | shipped |
+| FEAT-EVOLVE | Evolution history with rejected patterns | shipped |
+| FEAT-FOUND | Research foundations with honest gaps | shipped |
+| FEAT-ROAD | Roadmap with proposed / accepted / rejected items | shipped |
+| FEAT-HANDOFF | Handoff briefs as first-class artifacts | shipped |
+| FEAT-REFS | Reference adopter analyses (SPS3A, others) | partial |
+
+## 6) Definition of Done — per feature class
+
+**For `AGENTS.md` (the protocol file):**
+- Every line passes the delta-layer test (`DESIGN.md` §2).
+- Every principle has WHY and IF MISSING blocks.
+- Fits in the "Attention Engineering" budget — adding a principle means proving it earns its tokens.
+- The `Agent1st Mode ON` trigger remains at the end as the handshake.
+
+**For documentation (`docs/*.md`):**
+- Direct, memorable, slightly provocative voice per `DESIGN.md` §4.
+- No duplication of model or tool system-prompt content.
+- References other docs by path, not by description.
+- Russian or English — preserve voice either way.
+
+**For the WHY layer (`WHY-APPROACH.md` and paired files):**
+- WHY explained before HOW.
+- Templates framed as **one proven shape**, not as a law.
+- Every template anchor in the graph has a matching file convention.
+- At least one dogfooded example in this repo itself.
+
+## 7) Non-goals
+
+- Model-specific behavior (the protocol is provider-agnostic — if something reads as provider-specific, it's a bug).
+- Repo layout, build commands, code style, tool usage — those belong in a project's own `CLAUDE.md` / `AGENTS.md` extensions, not in the core protocol.
+- A framework, a package, a CLI. Agent1st is text. Text travels.
+
+## 8) Constraints
+
+- **Minimal AGENTS.md stays drop-in.** Every addition must survive the delta-layer test. No repo-specific reading lists in the core.
+- **Two audiences at once** — parseable by agents, readable by humans. If a change helps one and kills the other, it's the wrong change.
+- **Stability over completeness.** A good protocol that ships beats a perfect protocol that never does.
+- **Agent-developed.** Every version is shaped by multiple agents (see `DESIGN.md` §8). Proposals from one model are pressure-tested by others before landing.
+
+## 9) Success signals
+
+- Agents output `Agent1st Mode ON` at session start in adopter projects.
+- Human users report less drift and fewer repeated mistakes across sessions.
+- Adopter projects extend `AGENTS.md` additively (Required Reading header) rather than forking the core.
+- The WHY layer is copied, adapted, and survives contact with real projects — not used verbatim.
+- External agent reviews produce proposals that either land, get rejected with documented reason, or start a new conversation.
+
+## 10) Open questions
+
+- Where does cross-session memory live — harness (Claude Code `MEMORY.md`), repo (decision logs), or skills (intent1st-style gateways)? See `docs/ROADMAP.md` §3.
+- Should a `v6` add FULL-layer elements (CI integration, acceptance automation, observability contracts) — and if so, still without separate folders?
+- How do we measure "less drift" without introducing metrics that themselves become ceremony?

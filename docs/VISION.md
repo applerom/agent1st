@@ -29,9 +29,13 @@ Most agents already know how to code, search, reason, and verify. What they lack
 
 Agent1st provides exactly that delta — and nothing more.
 
-## The Three Scopes
+## Two Layers, One Repo
 
-### Minimal (current focus)
+Agent1st used to talk about three tiers — Minimal / Standard / Full. That framing created an expectation of separate artifacts graduating through promotion gates, and experiments with parallel `STANDARD/` and `FULL/` folders produced duplicate files that confused more than they helped.
+
+**v5 replaces that framing with two layers living in one repo:**
+
+### 1. The behavior layer — `AGENTS.md`
 
 The public, portable artifact. Drop-in for any project.
 
@@ -42,37 +46,25 @@ Constraints:
 - every line earns its tokens
 - passes the delta-layer test (doesn't duplicate model/tool prompts)
 
-This is what lives in `AGENTS.md` at the repo root. It's what people download and use.
+This is what lives at the repo root. It's what people download and use. **It does not change when a project adopts the WHY layer.**
 
-### Standard (practiced, not yet formalized)
+### 2. The WHY layer — `docs/WHY-APPROACH.md` and paired files
 
-Minimal + structured extensions for real projects. Reference implementation: SPS3A project.
+**Highly recommended** for any project that will live longer than one feature cycle, touch more than one agent, or has to survive compaction and handoffs.
 
-What standard adds over minimal:
-- **Why Graph** (XML) — intent→implementation map linking use cases, features, APIs, and modules with semantic anchors. Named after the WHY field that drives every node. Agents pin this during sessions and update it before writing code.
-- **Semantic contracts/anchors in code** — MODULE_CONTRACT, METHOD_CONTRACT, BLOCK anchors. Machine-parseable, robust to refactoring, enable precise cross-reference between graph and implementation.
-- **Decision context** (XML) — cross-session rationale memory: issues, decisions, evidence, follow-ups. Prevents the same debates from recurring.
-- **Validation scripts** — deterministic checks: anchor lint, graph validation, PRD defaults, pipeline consistency. "Done Is Not a Mood" with actual tooling.
-- **Skills** — repeatable workflows (fresh-eye-audit, validation-gate, session-handoff) triggered explicitly or by convention.
-- **Per-directory AGENTS.md** — nested instructions with scope precedence for subsystems.
-- **ai-friendly-development.md** — project-specific agent rules (golden workflow, response modes, dissent rules).
+The WHY layer is the idea that **intent must become a first-class artifact paired with code, or it drifts**. In this repo it is expressed through four files:
 
-The standard version exists in production use. It has not been published separately because the minimal version is still evolving, and the standard must build on a stable minimal foundation.
+- `docs/WHY-APPROACH.md` — the idea, the workflow shift, when to adopt, adopter's pattern for extending AGENTS.md
+- `docs/PRD.md` — product truth (what are we building, who for, what does done look like)
+- `docs/why-graph.xml` — navigation truth (where intent maps onto code)
+- `docs/why-graph-principles.md` — how to author and evolve the graph
+- `docs/why-contracts-v1.md` — how to mark modules, methods, and blocks with stable anchors
 
-### Full (planned evolution of standard)
+These are **one proven shape**, not a rigid specification. Adapt them. Two real adopters already have: one Python/FastAPI project (SPS3A — richer variant; see `docs/SPS3A-ANALYSIS.md`) and a separate TypeScript project (simpler variant with a trimmed node set). Neither copy is identical; both carry the same idea.
 
-Standard + project-specific integrations:
-- CI/CD harness integration with validation gates
-- Observability contracts and structured logging
-- Custom agent roles and delegation contracts
-- Acceptance automation
-- Runbooks (release, incident response)
-- Domain-specific skills beyond the core three
+What sits on top (CI integration, observability contracts, acceptance automation, project-specific skills, runbooks) is the layer's natural extension into a specific project. It is correctly project-local — not a "Full tier" to be published separately.
 
-The full version is a natural extension of standard for mature projects. Publishing depends on:
-1. Minimal version reaching stability (v4 or v5)
-2. Standard version being formalized
-3. Real-world validation across multiple teams
+The shift from three tiers to two layers is not a loss of ambition. It is a recognition that the important distinction is **behavior vs. intent-artifacts**, not **minimal vs. more minimal vs. most minimal**.
 
 ## Who This Is For
 
@@ -108,7 +100,8 @@ The trajectory:
 - **v2** — agent as executor with judgment
 - **v3** — harness-optimized, delta-layer discipline
 - **v4** — multi-agent autonomy, human presence as spectrum
-- **v5+** — (speculative) agent self-governance patterns, cross-project protocol federation
+- **v5** — WHY layer delivered: the "standard version" lands as flat files in `docs/` with philosophy first; three-tier framing retired
+- **v6+** — (speculative) validator tooling as portable package; agent self-governance patterns; cross-project protocol federation
 
 The long-term vision: a protocol that remains useful as agents grow more capable. Not by adding more rules, but by defining better conditions.
 

@@ -1,0 +1,154 @@
+<Why_Graph schema="0.8" project="Agent1st">
+  <!--
+    Teaching-size Why Graph for the Agent1st repo itself.
+
+    This file does two things:
+    (1) dogfoods the WHY layer for a real project (Agent1st)
+    (2) serves as a copy-and-adapt example for adopters
+
+    It is deliberately small. Real projects have dozens of features, not five.
+    When you copy this file: keep the shape, replace the content.
+
+    Read `docs/why-graph-principles.md` for the authoring guide,
+    and `docs/WHY-APPROACH.md` for why this file exists at all.
+  -->
+
+  <PROJECT VERSION="0.5" DATE="2026-04-15">
+    <WHAT>Agent1st — behavior-layer protocol for AI-agent software development</WHAT>
+    <WHY>Reduce drift between human intent and agent execution across long-lived projects</WHY>
+    <TECH>
+      <STACK>Markdown (protocol and docs)</STACK>
+      <STACK>XML (this graph)</STACK>
+    </TECH>
+  </PROJECT>
+
+  <!-- ==================== USE CASES ==================== -->
+  <!-- Use cases are user-facing value. Keep a small number, covered by features. -->
+
+  <USECASE_ADOPT ID="UC-ADOPT" STATE="IMPLEMENTED" PRIORITY="CRITICAL">
+    <WHAT>Drop AGENTS.md into a project; agent reads it and operates accordingly</WHAT>
+    <WHY>Adoption friction is the main barrier; minimal AGENTS.md must stay drop-in</WHY>
+    <PRD_REF>docs/PRD.md §4</PRD_REF>
+    <REL TYPE="COVERS" TARGET="FEATURE:FEAT-CORE"/>
+    <REL TYPE="COVERS" TARGET="FEATURE:FEAT-BRIDGE"/>
+  </USECASE_ADOPT>
+
+  <USECASE_EXTEND ID="UC-EXTEND" STATE="IN_PROGRESS" PRIORITY="HIGH">
+    <WHAT>Long-lived project adds the WHY layer on top of minimal AGENTS.md</WHAT>
+    <WHY>Drift across sessions kills real projects; WHY layer makes intent durable</WHY>
+    <PRD_REF>docs/PRD.md §4</PRD_REF>
+    <REL TYPE="COVERS" TARGET="FEATURE:FEAT-WHY"/>
+  </USECASE_EXTEND>
+
+  <USECASE_CONTRIBUTE ID="UC-CONTRIBUTE" STATE="IMPLEMENTED" PRIORITY="MEDIUM">
+    <WHAT>Agent proposes a change to the protocol itself</WHAT>
+    <WHY>Protocol is agent-developed; contribution path must be legible to agents</WHY>
+    <PRD_REF>docs/PRD.md §4</PRD_REF>
+    <REL TYPE="COVERS" TARGET="FEATURE:FEAT-DESIGN"/>
+    <REL TYPE="COVERS" TARGET="FEATURE:FEAT-EVOLVE"/>
+  </USECASE_CONTRIBUTE>
+
+  <!-- ==================== FEATURES ==================== -->
+  <!-- Features are implementable, testable. Each maps to real docs or code. -->
+
+  <FEATURE_CORE ID="FEAT-CORE" STATE="IMPLEMENTED" PRIORITY="CRITICAL">
+    <INTENT>Minimal AGENTS.md — 11 principles, delta-layer, drop-in</INTENT>
+    <ACCEPT>
+      <CHECK>Every principle has WHY and IF MISSING blocks</CHECK>
+      <CHECK>Every line passes delta-layer test (DESIGN.md §2)</CHECK>
+      <CHECK>Ends with `Agent1st Mode ON` handshake</CHECK>
+    </ACCEPT>
+    <PRD_REF>docs/PRD.md §5</PRD_REF>
+    <REL TYPE="IMPLEMENTED_BY" TARGET="ARTIFACT:ART-AGENTS-MD"/>
+  </FEATURE_CORE>
+
+  <FEATURE_WHY ID="FEAT-WHY" STATE="IN_PROGRESS" PRIORITY="HIGH">
+    <INTENT>WHY layer — PRD + Why Graph + Contracts + Validators, one proven shape</INTENT>
+    <ACCEPT>
+      <CHECK>WHY-APPROACH.md explains the idea before any template is shown</CHECK>
+      <CHECK>Each paired file is usable standalone and coherent together</CHECK>
+      <CHECK>At least one dogfooded example lives in this repo</CHECK>
+    </ACCEPT>
+    <PRD_REF>docs/PRD.md §5; §6</PRD_REF>
+    <REL TYPE="IMPLEMENTED_BY"  TARGET="ARTIFACT:ART-WHY-APPROACH"/>
+    <REL TYPE="IMPLEMENTED_BY"  TARGET="ARTIFACT:ART-WHY-PRINCIPLES"/>
+    <REL TYPE="IMPLEMENTED_BY"  TARGET="ARTIFACT:ART-WHY-CONTRACTS"/>
+    <REL TYPE="IMPLEMENTED_BY"  TARGET="ARTIFACT:ART-WHY-GRAPH"/>
+    <REL TYPE="WILL_TOUCH"      TARGET="ARTIFACT:ART-VISION"/>
+    <REL TYPE="WILL_TOUCH"      TARGET="ARTIFACT:ART-ROADMAP"/>
+  </FEATURE_WHY>
+
+  <FEATURE_BRIDGE ID="FEAT-BRIDGE" STATE="IMPLEMENTED" PRIORITY="HIGH">
+    <INTENT>Claude Code bridge — CLAUDE.md imports AGENTS.md, no second source of truth</INTENT>
+    <PRD_REF>docs/PRD.md §5</PRD_REF>
+    <REL TYPE="IMPLEMENTED_BY" TARGET="ARTIFACT:ART-CLAUDE-MD"/>
+  </FEATURE_BRIDGE>
+
+  <FEATURE_DESIGN ID="FEAT-DESIGN" STATE="IMPLEMENTED" PRIORITY="MEDIUM">
+    <INTENT>Design rationale for agents modifying the protocol</INTENT>
+    <PRD_REF>docs/PRD.md §5</PRD_REF>
+    <REL TYPE="IMPLEMENTED_BY" TARGET="ARTIFACT:ART-DESIGN"/>
+  </FEATURE_DESIGN>
+
+  <FEATURE_EVOLVE ID="FEAT-EVOLVE" STATE="IMPLEMENTED" PRIORITY="MEDIUM">
+    <INTENT>Evolution history — what changed, what was rejected, and why</INTENT>
+    <PRD_REF>docs/PRD.md §5</PRD_REF>
+    <REL TYPE="IMPLEMENTED_BY" TARGET="ARTIFACT:ART-EVOLUTION"/>
+  </FEATURE_EVOLVE>
+
+  <!-- ==================== ARTIFACTS ==================== -->
+  <!-- Artifacts are the real files. Anchor TARGETs are illustrative here —
+       markdown docs in this repo do not yet use START_* markers.
+       When you add markers, point ANCHOR entries at them. -->
+
+  <ARTIFACT ID="ART-AGENTS-MD" FILE="AGENTS.md" TYPE="PROTOCOL" STATE="IMPLEMENTED">
+    <WHAT>The minimal protocol. Drop-in. 11 principles. Never repo-specific.</WHAT>
+  </ARTIFACT>
+
+  <ARTIFACT ID="ART-CLAUDE-MD" FILE="CLAUDE.md" TYPE="BRIDGE" STATE="IMPLEMENTED">
+    <WHAT>@AGENTS.md import for Claude Code. Deliberately one line.</WHAT>
+  </ARTIFACT>
+
+  <ARTIFACT ID="ART-WHY-APPROACH" FILE="docs/WHY-APPROACH.md" TYPE="GUIDE" STATE="IMPLEMENTED">
+    <WHAT>The idea. Why intent must become a first-class artifact.</WHAT>
+  </ARTIFACT>
+
+  <ARTIFACT ID="ART-WHY-PRINCIPLES" FILE="docs/why-graph-principles.md" TYPE="GUIDE" STATE="IMPLEMENTED">
+    <WHAT>Portable authoring guide for the Why Graph itself.</WHAT>
+  </ARTIFACT>
+
+  <ARTIFACT ID="ART-WHY-CONTRACTS" FILE="docs/why-contracts-v1.md" TYPE="GUIDE" STATE="IMPLEMENTED">
+    <WHAT>Portable contract and anchor spec with Python + TypeScript examples.</WHAT>
+  </ARTIFACT>
+
+  <ARTIFACT ID="ART-WHY-GRAPH" FILE="docs/why-graph.xml" TYPE="GRAPH" STATE="IMPLEMENTED">
+    <WHAT>This file. Teaching-size example, dogfooding Agent1st itself.</WHAT>
+  </ARTIFACT>
+
+  <ARTIFACT ID="ART-DESIGN" FILE="docs/DESIGN.md" TYPE="GUIDE" STATE="IMPLEMENTED">
+    <WHAT>Why AGENTS.md is written the way it is. Read before modifying.</WHAT>
+  </ARTIFACT>
+
+  <ARTIFACT ID="ART-EVOLUTION" FILE="docs/EVOLUTION.md" TYPE="HISTORY" STATE="IMPLEMENTED">
+    <WHAT>Version history and recurring rejected patterns.</WHAT>
+  </ARTIFACT>
+
+  <ARTIFACT ID="ART-VISION" FILE="docs/VISION.md" TYPE="GUIDE" STATE="IMPLEMENTED">
+    <WHAT>Where the protocol is going. Updated in v5 to reflect WHY layer.</WHAT>
+  </ARTIFACT>
+
+  <ARTIFACT ID="ART-ROADMAP" FILE="docs/ROADMAP.md" TYPE="PLANNING" STATE="IMPLEMENTED">
+    <WHAT>Active priorities and proposals. Updated in v5 for WHY layer delivery.</WHAT>
+  </ARTIFACT>
+
+  <!--
+    What's missing on purpose:
+    - No validator scripts yet. The minimum useful validator checks every
+      ANCHOR TARGET resolves to a real START_* marker. That's a good next step
+      for an adopter; for this repo, the pattern is demonstrated, not enforced.
+    - No API_* / UI_* / MODULE_* nodes — Agent1st has no code. Your project
+      will. Add those families as you need them.
+    - No EPIC / MILESTONE. Add those when planning scope exceeds what fits
+      in a single feature.
+  -->
+</Why_Graph>

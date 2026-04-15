@@ -8,26 +8,26 @@ This is not a commitment list. It is a structured conversation space where agent
 
 ## Active Priorities
 
-### 1. Standard Version Formalization
+### 1. WHY Layer — delivered in v5
 
-The standard version exists in practice (SPS3A project) but has not been published.
+The "standard version" has been delivered as the **WHY layer**, living flat in `docs/` rather than in a separate `STANDARD/` folder. The three-tier (minimal/standard/full) framing has been retired.
 
-**What standard adds over minimal:**
-- **Why Graph** — intent→implementation XML map with typed relations, acceptance criteria, anchor-based code references
-- **Semantic contracts in code** — MODULE_CONTRACT, METHOD_CONTRACT, BLOCK anchors with PURPOSE, PRD_REF, INVARIANTS
-- **Validation tooling** — graph↔code anchor lint, contract structure lint, PRD↔model drift detection
-- **Decision memory** — cross-session rationale tracking (issues, decisions, follow-ups)
-- **Per-directory AGENTS.md** — scoped instructions for subsystems
-- **Skills** — reusable agent workflows (fresh-eye audit, validation gate, session handoff)
-- **AI-friendly development rules** — golden workflow, machine-readable docs, modularity thresholds
+**Shipped in v5:**
+- `docs/WHY-APPROACH.md` — the idea, the workflow shift, when to adopt, adopter's Required Reading pattern
+- `docs/PRD.md` — Agent1st's own dogfooded PRD
+- `docs/why-graph.xml` — teaching-size graph dogfooding Agent1st itself
+- `docs/why-graph-principles.md` — portable authoring guide (distilled from two real adopters)
+- `docs/why-contracts-v1.md` — portable contract spec with Python + TypeScript examples
+- `docs/VISION.md` — reframed around two layers (behavior + WHY)
 
-**Reference implementation:** `d:\devita-d\sps3a\` (see `docs/SPS3A-ANALYSIS.md` for mapping)
+**Reference adopters:**
+- SPS3A — richer Python/FastAPI variant; see `docs/SPS3A-ANALYSIS.md`
+- A separate TypeScript adopter — simpler variant with an adoption-notes philosophy doc (private project, not linkable)
 
-**Next steps:**
-1. Extract portable patterns from SPS3A into a standard-version template
-2. Separate project-specific content from reusable patterns
-3. Define the minimal→standard graduation criteria
-4. Create a starter kit (template files, example graph, example contracts)
+**Open follow-ups:**
+1. Extract minimal validator scripts (graph↔anchor lint) as language-agnostic reference — still useful, now genuinely optional.
+2. Add a second dogfooded adopter example linked from `SPS3A-ANALYSIS.md`.
+3. Decide whether a starter-kit CLI is worth building, or whether copy-and-adapt from this repo is sufficient (current bet: the latter).
 
 ### 2. Claude Code Compatibility
 
@@ -104,33 +104,24 @@ See `docs/EVOLUTION.md` "Recurring Rejected Patterns" for full list. Key recurri
 
 ## Version Planning
 
-### v4.x (current minimal baseline)
+### v4.x (minimal baseline, unchanged)
 - Continuity hook added (Qwen)
 - Handoff template created
 - Continuity research grounded (Park et al.)
 - Model-agnostic note added
 - External agent contributions curated
 
-### v5 (next minimal, speculative)
-- Potential: Friction Tax integration into CDD
-- Potential: Ambiguity handling guidance
-- Gate: only if new additions pass delta-layer test
+### v5 (current)
+- WHY layer delivered as flat files in `docs/` (WHY-APPROACH, PRD, why-graph, principles, contracts)
+- Three-tier (minimal/standard/full) framing retired in favor of two layers: behavior + WHY
+- `AGENTS.md` remains unchanged — portability preserved
+- VISION, ROADMAP, DESIGN, README updated to match
 
-### Standard v1 (major milestone)
-- Why Graph specification (portable, extracted from SPS3A)
-- Semantic contracts specification (language-agnostic)
-- Validation tooling specification
-- Golden workflow documentation
-- Per-directory instructions pattern
-- Skills specification
-- Graduation guide from minimal
-
-### Full v1 (dependent on standard)
-- CI/CD integration patterns
-- Observability contracts
-- Custom agent roles and delegation
-- Acceptance automation
-- Memory system integration patterns
+### v6+ (speculative)
+- Portable validator scripts (graph↔anchor lint) as language-agnostic reference
+- Friction Tax / ambiguity handling in CDD — gated by delta-layer test
+- Memory system integration patterns (harness MEMORY.md vs. in-repo decision logs)
+- Second and third reference adopter analyses beyond SPS3A
 
 ---
 

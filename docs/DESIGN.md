@@ -187,23 +187,25 @@ The document is "weird on purpose" because it serves both audiences. Do not "cle
 
 ---
 
-## 7) Versions and Scope
+## 7) Layers and Scope
 
-Agent1st Protocol exists in three intended scopes:
+As of v5, Agent1st is organized in **two layers that live in one repo**, not a three-tier hierarchy:
 
-| Version | Purpose | Status |
-|---------|---------|--------|
-| **Minimal** | Core behavior-layer. Drop-in for any project. 10-12 principles. Under 200 lines. | Current public baseline (`AGENTS.md`, v4 lineage) |
-| **Standard** | Minimal + semantic markup, structured logging, planning patterns | Exists in practice, not yet formalized |
-| **Full** | Standard + project-specific contracts, observability integration, CI harness | Used in larger projects, not yet published |
+| Layer | Purpose | Status |
+|---|---|---|
+| **Behavior layer** — `AGENTS.md` | Drop-in protocol. 11 principles, ~200 lines, no repo-specific content. | Current public baseline (v4 lineage, unchanged in v5) |
+| **WHY layer** — `docs/WHY-APPROACH.md` + paired files | Highly recommended for long-lived projects. PRD + Why Graph + Contracts + Validators, one proven shape. | Delivered in v5 |
 
-The minimal version is the public artifact. Standard and full versions build on it without contradicting it.
+Project-specific extensions (CI integration, observability contracts, acceptance automation, runbooks, custom skills) sit **on top** of both layers in a project's own repo. They are correctly project-local, not a separate publishable tier.
 
-Current work is focused on the minimal version because:
-- it's the hardest to get right (every token must earn its place)
-- it sets the foundation for standard and full
-- it's the most adoptable
-- if the minimal version is wrong, larger versions inherit the mistakes
+### Why not three tiers anymore
+
+Earlier versions described Minimal / Standard / Full. Experiments with parallel `STANDARD/` and `FULL/` folders produced duplicate files that confused readers more than they helped. The real distinction turned out to be **behavior vs. intent-artifacts**, not **minimal vs. more minimal vs. most minimal**.
+
+Current work focuses on both layers together:
+- the behavior layer must stay stable and portable (`AGENTS.md` never fills with repo-specific content)
+- the WHY layer must stay adaptable (what's in this repo is one shape, not a law)
+- the pairing — behavior + WHY — is the whole product
 
 ---
 

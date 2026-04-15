@@ -6,7 +6,7 @@ How Agent1st emerged from real practice, and how SPS3A serves as the reference i
 
 ## Context
 
-SPS3A (`d:\devita-d\sps3a\`) is a GraphRAG application for bioresonance therapy. It is also the project where Agent1st Protocol was born, tested, and evolved through hundreds of real development sessions.
+SPS3A is a GraphRAG application (Python/FastAPI backend + TypeScript frontend) for bioresonance therapy. It is also the project where Agent1st Protocol was born, tested, and evolved through hundreds of real development sessions. The project is private; this document captures the parts of its shape that are portable to other projects.
 
 This document captures the relationship for future agents working on either project.
 

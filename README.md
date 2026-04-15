@@ -73,18 +73,30 @@ For Claude Code users: `AGENTS.md` works alongside `CLAUDE.md`. They don't confl
 
 Agent1st started as one developer's notes from years of agent-driven development on a real production project. Not theory — practice. Not "best practices for prompting" — actual working contracts between human intent and agent execution that survived hundreds of sessions.
 
-The minimal version you see here is a distillation. There are [standard and full versions](docs/VISION.md) with semantic code graphs, structured contracts, cross-session decision memory, and deterministic validation suites. The minimal version captures the behavioral core — the part that stays useful regardless of your stack, your model, or your tools.
+The minimal `AGENTS.md` captures the **behavioral core** — the part that stays useful regardless of your stack, your model, or your tools.
 
-If you want to understand why every line is the way it is:
+For projects that will live longer than one feature cycle, there is a second layer — **the WHY layer** — that makes product intent a first-class artifact paired with code. It's highly recommended but optional, and it lives flat in `docs/` so you can copy and adapt it directly.
+
+### The WHY layer (recommended for real projects)
+
+| Doc | One line |
+|---|---|
+| [`docs/WHY-APPROACH.md`](docs/WHY-APPROACH.md) | **Start here.** The idea, the workflow shift, when to adopt, how to extend your AGENTS.md. |
+| [`docs/PRD.md`](docs/PRD.md) | Agent1st's own PRD — dogfooding the pattern. Real, not template. |
+| [`docs/why-graph.xml`](docs/why-graph.xml) | Teaching-size Why Graph for this repo. Copy the shape, replace the content. |
+| [`docs/why-graph-principles.md`](docs/why-graph-principles.md) | Portable authoring guide for the graph. Distilled from real adopters. |
+| [`docs/why-contracts-v1.md`](docs/why-contracts-v1.md) | Module / method / block anchor spec with Python + TypeScript examples. |
+
+### Design, evolution, and reference
 
 | Doc | For whom | One line |
 |-----|----------|----------|
 | [`DESIGN.md`](docs/DESIGN.md) | Agents modifying the protocol | Why it's written this way. Read before changing anything. |
 | [`EVOLUTION.md`](docs/EVOLUTION.md) | Anyone proposing changes | What changed, what was rejected, and why. |
-| [`VISION.md`](docs/VISION.md) | Anyone curious | Where this is going (minimal / standard / full). |
+| [`VISION.md`](docs/VISION.md) | Anyone curious | Two layers, where this is going. |
 | [`FOUNDATIONS.md`](docs/FOUNDATIONS.md) | Anyone who wants evidence | Research behind the claims. Honest about gaps. |
 | [`ROADMAP.md`](docs/ROADMAP.md) | Contributors | Active priorities and proposals. |
-| [`SPS3A-ANALYSIS.md`](docs/SPS3A-ANALYSIS.md) | Protocol developers | How it works in a real project. |
+| [`SPS3A-ANALYSIS.md`](docs/SPS3A-ANALYSIS.md) | Protocol developers | How the WHY layer works in a real project. |
 | [`handoffs/`](docs/handoffs/) | Agents handing off work | Agent-to-agent knowledge transfer. First-class artifacts. |
 
 ---
