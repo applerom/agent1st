@@ -43,7 +43,7 @@
     <REL TYPE="COVERS" TARGET="FEATURE:FEAT-BRIDGE"/>
   </USECASE_ADOPT>
 
-  <USECASE_EXTEND ID="UC-EXTEND" STATE="IN_PROGRESS" PRIORITY="HIGH">
+  <USECASE_EXTEND ID="UC-EXTEND" STATE="IMPLEMENTED" PRIORITY="HIGH">
     <WHAT>Long-lived project adds the WHY layer on top of minimal AGENTS.md</WHAT>
     <WHY>Drift across sessions kills real projects; WHY layer makes intent durable</WHY>
     <PRD_REF>docs/PRD.md §4</PRD_REF>
@@ -72,8 +72,8 @@
     <REL TYPE="IMPLEMENTED_BY" TARGET="ARTIFACT:ART-AGENTS-MD"/>
   </FEATURE_CORE>
 
-  <FEATURE_WHY ID="FEAT-WHY" STATE="IN_PROGRESS" PRIORITY="HIGH">
-    <INTENT>WHY layer — PRD + Why Graph + Contracts + Validators, one proven shape</INTENT>
+  <FEATURE_WHY ID="FEAT-WHY" STATE="IMPLEMENTED" PRIORITY="HIGH">
+    <INTENT>WHY layer — PRD + Why Graph + Contracts, with validator tooling as a follow-up</INTENT>
     <ACCEPT>
       <CHECK>WHY-APPROACH.md explains the idea before any template is shown</CHECK>
       <CHECK>Each paired file is usable standalone and coherent together</CHECK>
@@ -84,8 +84,6 @@
     <REL TYPE="IMPLEMENTED_BY"  TARGET="ARTIFACT:ART-WHY-PRINCIPLES"/>
     <REL TYPE="IMPLEMENTED_BY"  TARGET="ARTIFACT:ART-WHY-CONTRACTS"/>
     <REL TYPE="IMPLEMENTED_BY"  TARGET="ARTIFACT:ART-WHY-GRAPH"/>
-    <REL TYPE="WILL_TOUCH"      TARGET="ARTIFACT:ART-VISION"/>
-    <REL TYPE="WILL_TOUCH"      TARGET="ARTIFACT:ART-ROADMAP"/>
   </FEATURE_WHY>
 
   <FEATURE_BRIDGE ID="FEAT-BRIDGE" STATE="IMPLEMENTED" PRIORITY="HIGH">

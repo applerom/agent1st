@@ -1,6 +1,6 @@
 # Agent1st Protocol — SPS3A Analysis
 
-How Agent1st emerged from real practice, and how SPS3A serves as the reference implementation for the standard version.
+How Agent1st emerged from real practice, and how SPS3A serves as the richest reference implementation for the WHY layer.
 
 ---
 
@@ -29,11 +29,11 @@ The SPS3A `AGENTS.md` was the first formalization. The portable Agent1st Protoco
 
 ---
 
-## 2) SPS3A as Standard Version Reference
+## 2) SPS3A as a WHY-Layer Reference
 
-SPS3A implements what Agent1st's `docs/VISION.md` describes as the "standard version":
+SPS3A implements the richest current Agent1st adopter pattern for the WHY layer:
 
-| Standard Version Component | SPS3A Implementation |
+| WHY-Layer Component | SPS3A Implementation |
 |---|---|
 | **Why Graph** (intent→implementation map) | `docs/why-graph.xml` — XML schema 0.8, USECASE→FEATURE→API→MODULE→ANCHOR hierarchy |
 | **Semantic contracts in code** | MODULE_CONTRACT, METHOD_CONTRACT, BLOCK anchors with PURPOSE, PRD_REF, INVARIANTS |
@@ -58,13 +58,13 @@ Tooling scripts (why_validate_graph.py, anchor_lint.py)
 Decision context (docs/decision-context.xml)
 ```
 
-This workflow is what makes the standard version operationally different from minimal: agents always have the intent→implementation map "in front of them" when editing code, and the map is validated to stay consistent.
+This workflow is what makes a richer WHY-layer adopter operationally different from minimal: agents always have the intent→implementation map "in front of them" when editing code, and the map is validated to stay consistent.
 
 ---
 
 ## 3) Mapping: SPS3A AGENTS.md vs Agent1st v4
 
-SPS3A `AGENTS.md` §0 covers 10 of 11 Agent1st v4 principles:
+SPS3A `AGENTS.md` §0 now covers all 11 current Agent1st principles, with project-local additions layered on top:
 
 | v4 Principle | SPS3A Status | Gap |
 |---|---|---|
@@ -76,9 +76,9 @@ SPS3A `AGENTS.md` §0 covers 10 of 11 Agent1st v4 principles:
 | CDD | Present, with severity levels | None |
 | Agent Loop | Present, full | None |
 | Do Not Stop at First Weak Signal | Present, full | None |
-| **Delegation Design** | **Missing** | **Hard gap** — this v4 addition hasn't been backported |
+| **Delegation Design** | Present, full | None |
 | Semantic Logging | Present, full | None |
-| Continuity | Present as "Session protocol" | Label drift only |
+| Continuity | Present, full | None |
 
 ### What SPS3A Adds Beyond Agent1st Minimal
 
@@ -95,9 +95,9 @@ SPS3A `AGENTS.md` §0 covers 10 of 11 Agent1st v4 principles:
 
 ---
 
-## 4) What SPS3A Teaches About Standard Version Design
+## 4) What SPS3A Teaches About WHY-Layer Design
 
-### Portable Patterns (extract for standard version)
+### Portable Patterns (extract for the WHY layer)
 
 1. **Why Graph specification** — intent→implementation map concept. The XML schema is one implementation; the pattern (typed nodes, relations, acceptance criteria, anchor-based code references) is portable.
 
@@ -139,13 +139,13 @@ They are complementary: Agent1st guides how agents act, intent1st records what t
 
 **Challenges:** Models reliably forget to invoke skills. The SKILL.md mechanism depends on harness support that current models don't consistently provide. This is an adoption barrier, not a concept problem.
 
-**Relevance to Agent1st standard version:** The *idea* of durable meaning preservation is essential. The specific *mechanism* (separate repo + skills) may need alternatives depending on harness capabilities. Claude Code's MEMORY.md is a simpler but less structured approach. The standard version should recommend the principle without mandating the mechanism.
+**Relevance to Agent1st's WHY layer:** The *idea* of durable meaning preservation is essential. The specific *mechanism* (separate repo + skills) may need alternatives depending on harness capabilities. Claude Code's MEMORY.md is a simpler but less structured approach. The WHY layer should recommend the principle without mandating the mechanism.
 
 ---
 
 ## 6) For Agents Working on Agent1st
 
-If you're working on Agent1st and want to understand the standard version:
+If you're working on Agent1st and want to understand the richer WHY-layer pattern:
 
 1. **Read this document first** — it maps the landscape
 2. **Look at SPS3A's `docs/why-graph-principles.md`** — the Why Graph authoring guide
@@ -158,7 +158,7 @@ If you're working on Agent1st and want to understand the standard version:
 
 SPS3A serves as the testing ground for Agent1st development:
 - New Agent1st versions can be tested by updating SPS3A's AGENTS.md §0
-- Standard version patterns can be validated against SPS3A's real infrastructure
+- WHY-layer patterns can be validated against SPS3A's real infrastructure
 - Changes to Why Graph specification can be prototyped in SPS3A's `docs/why-graph.xml`
 - Friction from using the protocol in practice feeds back into Agent1st improvements
 
@@ -174,9 +174,9 @@ If you're working on SPS3A development:
 4. The Agent1st minimal protocol (11 principles) is embedded in §0
 5. You're also implicitly testing Agent1st — report friction via CDD
 
-### Agent1st-Related Updates Needed in SPS3A
+### Current Alignment Snapshot
 
-- [ ] Add Delegation Design principle to AGENTS.md §0 (missing from v4)
-- [ ] Rename "Session protocol" to "Continuity" (align with v4 naming)
-- [ ] Add Continuity hook: "if your handoff disappears when the session ends, it doesn't exist"
-- [ ] Add `CLAUDE.md` with `@AGENTS.md` import for Claude Code compatibility
+- [x] Delegation Design is present in `AGENTS.md` §0
+- [x] Continuity naming and hook are aligned with Agent1st v4+
+- [x] `CLAUDE.md` bridge is present (`@AGENTS.md`)
+- [ ] Decision-memory strategy is still an open design question (see `docs/ROADMAP.md` §3)

@@ -159,7 +159,7 @@ The WHY layer's most common real-world failure mode is a graph that no longer ma
 4. Update the graph in the same commit.
 5. Never edit the code to match a stale graph — update the graph.
 
-**If no validator exists yet:** that is the first thing to build, before anything else in the WHY layer can be trusted. Even a script that checks every `<ANCHOR TARGET=...>` resolves to a real `START_*` marker in a real file is enough to start. Without it, the graph will rot silently.
+**If no validator exists yet:** that is the first thing to build, before anything else in the WHY layer can be trusted. Even a script that checks every `<ANCHOR ... COORD="path#ANCHOR">` resolves to a real `START_*` marker in a real file is enough to start. Without it, the graph will rot silently.
 
 **Honest adoption criterion:** if your team cannot commit to running the validator regularly and updating the graph alongside code changes, the WHY layer will cost more than it saves. Re-read §4 before adopting.
 
@@ -175,7 +175,7 @@ The fastest path that has actually worked in production:
 2. **Sketch a Why Graph.** Start with three to five `FEATURE_*` nodes for the things that matter today. Link each to an API, surface, or module. It is normal for the first version to be half wrong.
 3. **Add a contract to one touched file.** Pick the next file you'd edit anyway. Add a `START_MODULE_CONTRACT:` header with PURPOSE, PRD_REF, INVARIANTS. See `docs/why-contracts-v1.md`.
 4. **Add anchors where they help navigation.** Not everywhere — where an agent would otherwise have to guess.
-5. **Add a validator, even a trivial one.** A script that checks every `<ANCHOR TARGET=...>` in the graph points to a real `START_*` marker in a real file is enough to start.
+5. **Add a validator, even a trivial one.** A script that checks every `<ANCHOR ... COORD="path#ANCHOR">` in the graph points to a real `START_*` marker in a real file is enough to start.
 6. **Grow from there.** Every touched file upgrades. Do not retrofit the whole repo at once.
 
 The shape you'll arrive at after a few iterations won't be identical to this repo's. That is the correct outcome.

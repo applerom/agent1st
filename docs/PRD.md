@@ -46,7 +46,7 @@ Not in scope: beginners looking for a prompt-engineering tutorial, or users of w
 | ID | Feature | State |
 |---|---|---|
 | FEAT-CORE | Minimal `AGENTS.md` — 11 principles, delta-layer, drop-in | shipped |
-| FEAT-WHY | WHY layer — PRD + Why Graph + Contracts + Validators pattern | in progress (v5) |
+| FEAT-WHY | WHY layer — PRD + Why Graph + Contracts + Validators pattern | shipped (v5); validator tooling follow-up |
 | FEAT-BRIDGE | Claude Code bridge — `CLAUDE.md` → `@AGENTS.md` | shipped |
 | FEAT-DESIGN | Design rationale for agents modifying the protocol | shipped |
 | FEAT-EVOLVE | Evolution history with rejected patterns | shipped |

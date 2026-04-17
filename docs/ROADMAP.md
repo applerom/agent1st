@@ -65,28 +65,28 @@ The "standard version" has been delivered as the **WHY layer**, living flat in `
 
 | Proposal | Source | Status | Notes |
 |----------|--------|--------|-------|
-| Friction Tax (quantified CDD) | GLM-5 | Proposed for standard | Track recurring friction as process debt |
-| Ambiguity handling in CDD | MiniMax M2.7 | Proposed for standard | Distinguish ambiguous from incomplete |
+| Friction Tax (quantified CDD) | GLM-5 | Proposed for WHY layer | Track recurring friction as process debt |
+| Ambiguity handling in CDD | MiniMax M2.7 | Proposed for WHY layer | Distinguish ambiguous from incomplete |
 | Anti-pattern examples doc | MiniMax M2.7, Qwen3.5-Plus | Under consideration | Violation examples per principle |
-| Decision log template | MiniMax M2.7 | Proposed for standard | Standardized format for decisions |
+| Decision log template | MiniMax M2.7 | Proposed for project-local extension | Standardized format for decisions |
 | Agent Self-Test in README | Qwen3.5-Plus | Noted | UX idea for agent onboarding |
 
 ### From SPS3A Analysis (2026-03-25)
 
 | Proposal | Status | Notes |
 |----------|--------|-------|
-| Standard version starter kit | Proposed | Template files for Why Graph, contracts, validation |
-| Graduation guide (minimal→standard) | Proposed | When and how to upgrade |
+| WHY-layer starter kit | Proposed | Template files for Why Graph, contracts, validation |
+| Graduation guide (minimal→WHY layer) | Proposed | When and how to upgrade |
 | Validation tooling as portable package | Proposed | Extract from SPS3A, make language-agnostic |
 | Per-directory AGENTS.md pattern doc | Proposed | Document the scoped-instructions pattern |
-| Skills specification for standard | Proposed | Portable skill format beyond SKILL.md |
+| Skills specification for WHY-layer adopters | Proposed | Portable skill format beyond SKILL.md |
 
 ### From intent1st Analysis (2026-03-25)
 
 | Proposal | Status | Notes |
 |----------|--------|-------|
 | Document intent1st relationship | Proposed | How it extends Agent1st philosophy |
-| Evaluate gateway pattern for standard | Proposed | intent1st's canon/candidates/archive model |
+| Evaluate gateway pattern for WHY layer | Proposed | intent1st's canon/candidates/archive model |
 | Assess SKILL.md adoption barrier | Open question | Models don't reliably use skill-based access |
 
 ---

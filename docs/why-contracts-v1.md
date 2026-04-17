@@ -208,7 +208,7 @@ export function renderSources(sources: Source[]): JSX.Element { ... }
 4. Keep patches small. For frequently edited modules, ~200–300 lines is a refactor signal (AGENTS.md §4).
 5. Run your validators before claiming done:
    - anchor linter (every `START_*` has a matching `:END_*`)
-   - graph↔anchor checker (every `<ANCHOR TARGET="...">` resolves)
+   - graph↔anchor checker (every `<ANCHOR ... COORD="path#ANCHOR">` resolves)
    - whatever project-specific checks you've added
 
 ---

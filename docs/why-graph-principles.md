@@ -105,7 +105,7 @@ If you find yourself inventing a synonym for one of these, use the existing one.
 
 Anchors are the bridge between the graph and source files.
 
-- Shape: `TARGET="<repo-relative-path>#<ANCHOR_NAME>"`
+- Shape: `<ANCHOR NAME="<ANCHOR_NAME>" COORD="<repo-relative-path>#<ANCHOR_NAME>"/>`
 - Never use line numbers — they drift the moment someone edits the file.
 - Anchor names must match a real `START_*` marker in the target file (see `why-contracts-v1.md`).
 - One anchor per meaningful code region. Not per function. Not per line.
@@ -164,7 +164,7 @@ That is enough structure to tell an agent: this endpoint is here for UC-ASK, its
 
 ## 8) Validation expectations
 
-At minimum, check that every `<ANCHOR TARGET="...">` points to a real `START_*` marker in a real file. That one check catches more drift than every other lint combined.
+At minimum, check that every `<ANCHOR ... COORD="path#ANCHOR">` points to a real `START_*` marker in a real file. That one check catches more drift than every other lint combined.
 
 Add as your graph grows:
 
