@@ -39,8 +39,8 @@ The goal: anchor-first navigation that survives refactors, with intent readable 
 - `INVARIANTS` — policy-critical guarantees
 
 **Module-level (optional):**
-- `MODULE_MAP` — one-line role per public symbol
-- `CHANGE_HISTORY` — last meaningful change
+- `MODULE_MAP` — one-line role per public symbol. Worth the tokens once a file has more than ~5 public symbols or an agent would otherwise have to grep to find the right entry point. Skip for small, obvious files.
+- `CHANGE_HISTORY` — last meaningful change. Optional; git already has the full history. Add only when the "why of the last change" is load-bearing for the next agent.
 
 **Method-level (when used):**
 - `PURPOSE` — single responsibility
@@ -234,6 +234,8 @@ Avoid:
 - leaving obsolete anchors after deleting the code they wrapped
 
 **Rule of thumb:** if an anchor doesn't help an agent answer "what is this region for and what depends on it," it's noise. Remove it.
+
+**Inherited code without anchors.** You will land in files that never had contracts. Do not retrofit the whole tree. Leave stable, rarely-touched legacy untouched — the graph should only reference what you actively govern. The first time an agent edits an unanchored file, add a module contract and whatever block anchors aid navigation, and add the graph node in the same commit. Every touched file upgrades; the rest waits its turn.
 
 ---
 

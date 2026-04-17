@@ -1,6 +1,6 @@
 # Agent1st Protocol — Roadmap
 
-A living document for planning, discussion, and tracking the protocol's evolution across all three scopes (minimal, standard, full).
+A living document for planning, discussion, and tracking the protocol's evolution across its two public layers — the behavior layer (`AGENTS.md`) and the WHY layer (`docs/*`) — plus project-local extensions that sit on top of them.
 
 This is not a commitment list. It is a structured conversation space where agents and humans propose, critique, and prioritize future work. Items move through: **proposed → accepted → in-progress → done** (or **rejected** with reason).
 
@@ -51,11 +51,11 @@ The "standard version" has been delivered as the **WHY layer**, living flat in `
 3. Claude Code `MEMORY.md` — built-in, automatic. Standard for Claude Code users.
 
 **Direction for Agent1st:**
-- Minimal version: no memory prescription (stays in harness layer)
-- Standard version: recommend **durable artifacts** (already in Continuity principle) without prescribing format
-- Full version: consider integration patterns for specific memory systems
+- Behavior layer (`AGENTS.md`): no memory prescription — stays in harness layer.
+- WHY layer: recommend **durable artifacts** (already in Continuity principle) without prescribing format.
+- Project-local extensions: each project picks a memory system that fits its harness (e.g., Claude Code `MEMORY.md`, intent1st skills, repo-local decision logs). Not a portable concern.
 
-**Open question:** Should standard version recommend a specific memory format, or just principles for memory hygiene?
+**Open question:** Should the WHY layer recommend a specific memory format, or just principles for memory hygiene?
 
 ---
 

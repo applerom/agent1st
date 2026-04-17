@@ -9,8 +9,8 @@ This is a **reference, not a law.** It describes one proven shape of the Why Gra
 
 ## 0) TL;DR for agents
 
-1. Pin `docs/PRD.md`, `docs/why-graph.xml`, this file, and `docs/why-contracts-v1.md` at session start.
-2. For any non-trivial change: update the graph **first**, then contracts/anchors, then code.
+1. Ensure `docs/PRD.md`, `docs/why-graph.xml`, this file, and `docs/why-contracts-v1.md` are in context before substantial work (use your harness's pinning mechanism — e.g. `@path` in Claude Code — or include them in the initial prompt).
+2. For intent-changing or cross-cutting work: update the graph **first**, then contracts/anchors, then code. For local edits inside an already well-mapped feature: update graph and contracts in the same change set, not necessarily before the first keystroke.
 3. Every feature node should reach code through a surface, module, or artifact — no orphans.
 4. Use anchors (`path#ANCHOR_NAME`), never line numbers.
 5. Run your validators. If they don't exist yet, that's the next thing to build.
@@ -82,7 +82,7 @@ Relation `TYPE` values are UPPERCASE. Keep the list small. Add new types only wh
 
 Common:
 
-- `COVERS` — usecase covers a feature, epic covers a milestone
+- `COVERS` — usecase covers a feature; epic covers a milestone. **Direction is parent→child:** place the `REL` on the `USECASE_*` (or `EPIC`) node, targeting the feature (or milestone). Do not reverse it.
 - `EXPOSED_AS` — feature is exposed through an API
 - `IMPLEMENTED_BY` — feature/requirement is implemented by a module or anchor
 - `SURFACED_BY` — feature is visible through a UI surface
@@ -91,8 +91,11 @@ Common:
 - `CALLED_BY` — API is called by a UI module
 - `READS` / `WRITES` / `QUERIES` — module interacts with storage
 - `BACKED_BY` — API or feature is backed by a DB/config/artifact
-- `IMPACTS` — feature impacts an API or surface without implementing it directly
-- `WILL_TOUCH` / `WILL_CREATE` — planned-but-not-yet work (useful during milestone scoping)
+- `DEPENDS_ON` — explicit co-change coupling that is not implementation or ownership. Use when two features or modules must move together but neither implements the other. The graph's answer to "what else must change with this?"
+- `IMPACTS` — feature changes the behavior of another node (API, surface, feature) without implementing it. Weaker than `IMPLEMENTED_BY`, distinct from `DEPENDS_ON` (the latter is about co-change; `IMPACTS` is about runtime effect).
+- `WILL_TOUCH` / `WILL_CREATE` — planned-but-not-yet work during scoping. Use only for a bounded planning window (one milestone, one release) — if the edge is still `WILL_*` after that window, delete it or promote it. Distinct from `IMPACTS`: `WILL_*` is a promise, `IMPACTS` is a fact.
+
+**TARGET syntax:** pick one convention per repo and keep it. Either bare IDs everywhere (`TARGET="FEAT-ASK"`) or family-qualified targets everywhere (`TARGET="FEATURE:FEAT-ASK"`). Do not mix styles in the same graph. This repo's dogfood uses the family-qualified form; small projects often use bare IDs. Either works — mixed does not.
 
 If you find yourself inventing a synonym for one of these, use the existing one. Semantic drift in relations is the fastest way to kill the graph.
 
@@ -136,14 +139,14 @@ In order. Skipping a step is how the graph becomes decoration.
 ```xml
 <USECASE_ASK ID="UC-ASK" NAME="Ask a question with sources">
   <INTENT>Operator asks a question, gets an answer with compact source list.</INTENT>
+  <REL TYPE="COVERS" TARGET="FEATURE:FEAT-ASK"/>
 </USECASE_ASK>
 
 <FEATURE_CHAT ID="FEAT-ASK" PRIORITY="HIGH" STATE="PLANNED">
   <INTENT>History-aware chat with compact sources</INTENT>
   <PRD_REF>docs/PRD.md#UC-ASK</PRD_REF>
-  <REL TYPE="COVERS"        TARGET="UC-ASK"/>
-  <REL TYPE="EXPOSED_AS"    TARGET="API-ASK"/>
-  <REL TYPE="IMPLEMENTED_BY" TARGET="MOD-RAG"/>
+  <REL TYPE="EXPOSED_AS"     TARGET="API:API-ASK"/>
+  <REL TYPE="IMPLEMENTED_BY" TARGET="MODULE:MOD-RAG"/>
 </FEATURE_CHAT>
 
 <API_ASK ID="API-ASK" PATH="/api/ask" METHOD="POST">
@@ -161,15 +164,16 @@ That is enough structure to tell an agent: this endpoint is here for UC-ASK, its
 
 ## 8) Validation expectations
 
-At minimum, the graph should be checked for:
+At minimum, check that every `<ANCHOR TARGET="...">` points to a real `START_*` marker in a real file. That one check catches more drift than every other lint combined.
 
-- every `<ANCHOR TARGET="...">` points to a real `START_*` marker in a real file
+Add as your graph grows:
+
 - every `FEAT-*` has at least one outgoing `REL` edge toward an implementation node
 - every module/UI/API node with `STATE="IMPLEMENTED"` has at least one anchor
 - ID prefixes match node families consistently
 - no duplicate IDs
 
-These are lint rules, not correctness proofs. They catch mechanical drift — graph edited, code not; code edited, anchor name stale — which is what kills graphs first. Project-specific checks sit on top.
+These are lint rules, not correctness proofs. They catch mechanical drift — graph edited, code not; code edited, anchor name stale — which is what kills graphs first. Validators are a tool, not a law. Project-specific checks sit on top.
 
 ---
 
@@ -180,6 +184,8 @@ These are lint rules, not correctness proofs. They catch mechanical drift — gr
 - If an entrypoint or module has lost its value, **delete** it and remove its graph node. Stale nodes are worse than missing ones.
 - Use `state` / `status` / `freshness` to mark what is implemented, partial, or planned. Agents read these to decide where to work.
 - When a PRD change lands, the graph should move in the same commit, or the next one.
+- **Retiring a node:** set `STATE="DEPRECATED"` and keep it for one release cycle so existing references don't break silently, then delete it in the commit that removes the last code edge pointing at it. Do not soft-delete forever — an `IMPLEMENTED` repo shouldn't carry a museum.
+- **Inherited code without anchors:** don't retrofit. Leave untouched legacy as an untracked region. The first time an agent touches it, add a module contract and whatever block anchors help navigation — and add the graph node at the same commit. The graph should only reference what you actively govern.
 
 ---
 
@@ -196,11 +202,13 @@ The graph is narrow on purpose. It is the map between intent and code. Nothing m
 
 ## 11) Adapting the schema
 
-If you need something this guide does not cover:
+Stretch before inventing. If the existing vocabulary covers your case even loosely, use it.
 
-1. Check whether an existing node family or relation fits, even loosely. Stretch before inventing.
-2. If you really need a new element, add it with a clear `WHAT` child describing its purpose.
-3. Document the addition in this file (your project's copy of it) when it becomes a pattern, not a one-off.
+If you must add a new element:
+
+1. Give it a clear `WHAT` child describing its purpose in one sentence.
+2. Write down *why* existing node families or relations didn't fit — in the same commit, in this file (your project's copy of it).
+3. If the addition becomes a pattern across features, keep it. If it stayed a one-off for one release cycle, delete it.
 4. Resist adding nodes for concepts that don't yet exist in the repo. A graph that describes wishful thinking is a graph agents learn to ignore.
 
 The graph format is a tool. If the tool fights the project, bend the tool.

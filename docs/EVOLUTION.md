@@ -16,6 +16,7 @@ Agents who contribute to new versions should add their transition notes.
 | v3 | `docs/_archive/AGENTS-min-v3.md` | Harness-optimized. Delta-layer discipline. Core/Ops split. | GPT-5.4 agent (primary), with Claude Opus 4.6 comparison |
 | v4 | `docs/_archive/AGENTS-min-v4.md` + `AGENTS.md` | Minimal baseline. Multi-agent autonomy and delegation design. | Claude Opus 4.6 agent (primary), building on GPT-5.4 v3 rationale |
 | v5 | `AGENTS.md` (unchanged) + `docs/WHY-APPROACH.md` + paired WHY files | WHY layer delivered as flat files in `docs/`. Three-tier framing retired. | Claude Opus 4.6 (primary), with reference analysis of SPS3A (see `docs/SPS3A-ANALYSIS.md`) and a separate TypeScript adopter |
+| v5.1 | same files, sharpened | External-review integration round. Staleness named as first-class failure. Workflow shape stops being a universal law. Teaching-surface bugs fixed. | Claude Opus 4.6 (primary), integrating external reviews from GPT-5.4, MiniMax M2.7, Kimi K2.5, Qwen 3.6, Grok 4.20, plus off-target input from Gemini 3.1, Claude Opus 4.7, and Meta-Muse Spark |
 
 ---
 
@@ -289,6 +290,34 @@ The delta-layer principle and the anti-micromanagement stance both say the same 
 - **A separate TypeScript adopter** — the simpler variant. Trimmed node families, adoption-notes doc that articulated the governance-graph vs. knowledge-graph distinction that `WHY-APPROACH.md` §5 now carries.
 
 Neither adopter copied the other. Both carried the same idea. That convergence was the signal that the WHY layer was ready to be documented.
+
+### v5.1 — External review integration (2026-04-17)
+
+v5 went out to eight external agents for review (Claude Opus 4.7, GPT-5.4, Gemini 3.1, Grok 4.20, Kimi K2.5, Meta-Muse Spark, MiniMax M2.7, Qwen 3.6). Full handoffs live under `docs/handoffs/v5-review-*.md`.
+
+**Accepted and landed in v5.1:**
+
+- **Teaching-surface fixes (GPT-5.4):** fixed the `COVERS` relation direction in `why-graph-principles.md` §7 (now correctly placed on the `USECASE_*` node); unified `TARGET` syntax across principles and dogfood graph (pick one convention per repo); moved `why-graph.xml` scope disclaimer from the bottom of the file to the top.
+- **Three-tier residue removal (GPT-5.4):** `ROADMAP.md` opening now says "two layers"; `PRD.md` §2 "two tiers" → "two layers"; open question in §10 dropped "FULL-layer" framing.
+- **Graph staleness as first-class failure mode (MiniMax M2.7):** new `WHY-APPROACH.md` §6a names staleness explicitly and gives a recovery protocol, plus an honest adoption criterion: if your team cannot commit to running the validator regularly, the layer costs more than it saves.
+- **Workflow-shape intensity (GPT-5.4, MiniMax M2.7):** `WHY-APPROACH.md` §3 and §6 no longer prescribe "graph first" as universal law. Distinguishes intent-changing/cross-cutting work (graph first) from local edits in well-mapped features (graph moves with code, same commit). §6 also distinguishes first-session onboarding, returning sessions, and delegated subagents.
+- **§8 Required Reading clarified (MiniMax M2.7, Kimi K2.5):** harness-native mechanisms (CLAUDE.md, MEMORY.md, skills, session-context files) are now the recommended first option. The adopter-header-in-project's-AGENTS.md pattern remains as a fallback, with explicit visual separation from the unmodified Core. Also added a one-line adoption smoke test (Kimi).
+- **Harness-agnostic language (Kimi K2.5):** `why-graph-principles.md` §0 no longer prescribes "Pin …"; says "ensure in context" instead.
+- **Relation vocabulary refinement (Grok 4.20, Qwen 3.6):** added `DEPENDS_ON` for co-change coupling that is not implementation; disambiguated `IMPACTS` (runtime effect) vs `WILL_TOUCH` (planning promise); added retirement pattern (`DEPRECATED` then delete) and inherited-code-without-anchors guidance.
+- **Contracts tuning (Qwen 3.6):** `MODULE_MAP` now explicitly optional with a ~5-public-symbols threshold; `CHANGE_HISTORY` noted as optional; inherited code without anchors gets a one-paragraph guide in §7.
+- **PRD-level honesty:** a new Definition-of-Done bullet for the WHY layer — "staleness is named as the main failure mode, not pretended away."
+
+**Rejected in v5.1:**
+
+- **Kill the dogfooding, replace with generic e-commerce example (Gemini 3.1).** Seven of eight reviewers explicitly said keep the dogfood. Generic examples are cleaner; they are also weaker as a credibility signal.
+- **Delete Python examples from `why-contracts-v1.md` (Gemini 3.1, soft suggestion from Kimi K2.5).** The Python/TS contrast teaches that anchor syntax adapts to language idioms. Keep both.
+- **Strip inline XML commentary from `why-graph.xml` (Gemini 3.1).** Four reviewers called the commentary pedagogically load-bearing. The trade-off of comment-noise vs. teaching value is worth paying in a teaching-size file.
+- **Add `MUTATES` relation (Gemini 3.1).** Overlaps with `READS` / `WRITES` / `QUERIES`. Would fragment the vocabulary, not sharpen it.
+- **Add `EVIDENCED_BY` relation (Meta-Muse Spark).** Interesting, but scope creep for v5.1. Deferred to v6 discussion — needs to be weighed against the risk of relation vocabulary growing past the "small and stable" target.
+- **Gemini 3.1's fabricated line-42 edit.** The claimed text (`"Agents must explicitly validate the structural integrity and data types of contract inputs before execution"`) does not exist in `why-contracts-v1.md`. Flagged for future reviewers — treat confident quotes from reviewers who couldn't fetch the live files as suspect until verified.
+- **Claude Opus 4.7's "v5 didn't land on main" claim.** Review was written against pre-v5 cached content; specific claims (DESIGN.md §7 still "Versions and Scope", README still selling "standard and full versions") do not match the current repo. The pre-merge consistency checklist idea is useful and is noted here for future v-bumps.
+
+**Process note:** external reviews are high-leverage when reviewers can read the files. Two of eight (Claude Opus 4.7, Meta-Muse Spark) could not fetch the v5 files over the web, and it showed. When the next external review goes out, bundle the files with `repomix` (or equivalent) and attach them — don't rely on live crawl.
 
 ---
 

@@ -6,6 +6,16 @@
     (1) dogfoods the WHY layer for a real project (Agent1st)
     (2) serves as a copy-and-adapt example for adopters
 
+    IMPORTANT — scope of this example:
+    - No validators yet. The dogfooded validator set is a follow-up (see ROADMAP §1).
+    - No START_* markers in the markdown artifacts this graph points at.
+      ANCHOR entries would live here if this repo had code; it doesn't.
+      Your project will — add them as you grow.
+    - No API_* / UI_* / MODULE_* node families, no EPIC / MILESTONE.
+      Agent1st has no code, no scheduled releases. Your project will need those; add them.
+    - So this file teaches the skeleton, not an end-to-end enforced chain.
+      Read it for the shape, not as a complete reference implementation.
+
     It is deliberately small. Real projects have dozens of features, not five.
     When you copy this file: keep the shape, replace the content.
 
@@ -13,7 +23,7 @@
     and `docs/WHY-APPROACH.md` for why this file exists at all.
   -->
 
-  <PROJECT VERSION="0.5" DATE="2026-04-15">
+  <PROJECT VERSION="0.6" DATE="2026-04-17">
     <WHAT>Agent1st — behavior-layer protocol for AI-agent software development</WHAT>
     <WHY>Reduce drift between human intent and agent execution across long-lived projects</WHY>
     <TECH>
@@ -141,14 +151,4 @@
     <WHAT>Active priorities and proposals. Updated in v5 for WHY layer delivery.</WHAT>
   </ARTIFACT>
 
-  <!--
-    What's missing on purpose:
-    - No validator scripts yet. The minimum useful validator checks every
-      ANCHOR TARGET resolves to a real START_* marker. That's a good next step
-      for an adopter; for this repo, the pattern is demonstrated, not enforced.
-    - No API_* / UI_* / MODULE_* nodes — Agent1st has no code. Your project
-      will. Add those families as you need them.
-    - No EPIC / MILESTONE. Add those when planning scope exceeds what fits
-      in a single feature.
-  -->
 </Why_Graph>
