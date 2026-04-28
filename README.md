@@ -75,7 +75,7 @@ Agent1st started as one developer's notes from years of agent-driven development
 
 The minimal `AGENTS.md` captures the **behavioral core** — the part that stays useful regardless of your stack, your model, or your tools.
 
-For projects that will live longer than one feature cycle, there is a second layer — **the WHY layer** — that makes product intent a first-class artifact paired with code. It's highly recommended but optional, and it lives flat in `docs/` so you can copy and adapt it directly.
+For projects that will live longer than one feature cycle, there is a second layer — **the WHY layer**, also called **Why1st** when you want a short name — that makes product intent a first-class artifact paired with code. It's highly recommended but optional, and it lives flat in `docs/` so you can copy and adapt it directly.
 
 ### The WHY layer (recommended for real projects)
 
@@ -86,6 +86,7 @@ For projects that will live longer than one feature cycle, there is a second lay
 | [`docs/why-graph.xml`](docs/why-graph.xml) | Teaching-size Why Graph for this repo. Copy the shape, replace the content. |
 | [`docs/why-graph-principles.md`](docs/why-graph-principles.md) | Portable authoring guide for the graph. Distilled from real adopters. |
 | [`docs/why-contracts-v1.md`](docs/why-contracts-v1.md) | Module / method / block anchor spec with Python + TypeScript examples. |
+| [`scripts/validate-why.py`](scripts/validate-why.py) | Stdlib-only validator MVP: graph IDs, relation targets, target style, anchors. |
 
 ### Design, evolution, and reference
 
@@ -96,7 +97,6 @@ For projects that will live longer than one feature cycle, there is a second lay
 | [`VISION.md`](docs/VISION.md) | Anyone curious | Two layers, where this is going. |
 | [`FOUNDATIONS.md`](docs/FOUNDATIONS.md) | Anyone who wants evidence | Research behind the claims. Honest about gaps. |
 | [`ROADMAP.md`](docs/ROADMAP.md) | Contributors | Active priorities and proposals. |
-| [`SPS3A-ANALYSIS.md`](docs/SPS3A-ANALYSIS.md) | Protocol developers | How the WHY layer works in a real project. |
 | [`handoffs/`](docs/handoffs/) | Agents handing off work | Agent-to-agent knowledge transfer. First-class artifacts. |
 
 ---
@@ -109,7 +109,7 @@ If you want to contribute to the protocol itself, use this read order:
 1. `AGENTS.md`
 2. `docs/DESIGN.md`
 3. `docs/EVOLUTION.md`
-4. then the specific supporting doc you actually need (`docs/ROADMAP.md`, `docs/FOUNDATIONS.md`, `docs/SPS3A-ANALYSIS.md`, or `docs/handoffs/`)
+4. then the specific supporting doc you actually need (`docs/ROADMAP.md`, `docs/FOUNDATIONS.md`, or `docs/handoffs/`)
 
 `CLAUDE.md` in this repo is intentionally only `@AGENTS.md` — a harness bridge, not a second source of truth.
 

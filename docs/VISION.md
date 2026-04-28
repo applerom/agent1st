@@ -52,7 +52,9 @@ This is what lives at the repo root. It's what people download and use. **It doe
 
 **Highly recommended** for any project that will live longer than one feature cycle, touch more than one agent, or has to survive compaction and handoffs.
 
-The WHY layer is the idea that **intent must become a first-class artifact paired with code, or it drifts**. In this repo it is expressed through four files:
+Short name: **Why1st**. This is an approach, not a second protocol in the strict Agent1st sense. Agent1st defines how humans and agents work together; Why1st defines how project intent stays paired with code.
+
+The WHY layer is the idea that **intent must become a first-class artifact paired with code, or it drifts**. In this repo it is expressed through one approach file plus four paired artifacts:
 
 - `docs/WHY-APPROACH.md` — the idea, the workflow shift, when to adopt, adopter's pattern for extending AGENTS.md
 - `docs/PRD.md` — product truth (what are we building, who for, what does done look like)
@@ -60,7 +62,7 @@ The WHY layer is the idea that **intent must become a first-class artifact paire
 - `docs/why-graph-principles.md` — how to author and evolve the graph
 - `docs/why-contracts-v1.md` — how to mark modules, methods, and blocks with stable anchors
 
-These are **one proven shape**, not a rigid specification. Adapt them. Two real adopters already have: one Python/FastAPI project (SPS3A — richer variant; see `docs/SPS3A-ANALYSIS.md`) and a separate TypeScript project (simpler variant with a trimmed node set). Neither copy is identical; both carry the same idea.
+These are **one proven shape**, not a rigid specification. Adapt them. Real adopters already have, across Python/FastAPI, TypeScript, and Codex-native orchestrator/subagent setups. None of the copies are identical; all carry the same idea.
 
 What sits on top (CI integration, observability contracts, acceptance automation, project-specific skills, runbooks) is the layer's natural extension into a specific project. It is correctly project-local — not a "Full tier" to be published separately.
 

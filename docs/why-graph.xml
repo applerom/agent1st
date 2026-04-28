@@ -7,12 +7,16 @@
     (2) serves as a copy-and-adapt example for adopters
 
     IMPORTANT — scope of this example:
-    - No validators yet. The dogfooded validator set is a follow-up (see ROADMAP §1).
+    - A validator MVP now ships as `scripts/validate-why.py`.
+      It validates this graph and currently reports one expected warning:
+      this docs-only dogfood graph has no ANCHOR entries yet.
     - No START_* markers in the markdown artifacts this graph points at.
-      ANCHOR entries would live here if this repo had code; it doesn't.
-      Your project will — add them as you grow.
+      ANCHOR entries would live here if this repo governed source modules
+      through the graph. It currently uses source as ARTIFACT examples only.
+      Your project will likely add MODULE/API/UI anchors as it grows.
     - No API_* / UI_* / MODULE_* node families, no EPIC / MILESTONE.
-      Agent1st has no code, no scheduled releases. Your project will need those; add them.
+      This teaching graph does not govern APIs, UI, or source modules yet.
+      Your project likely will; add those node families when they carry value.
     - So this file teaches the skeleton, not an end-to-end enforced chain.
       Read it for the shape, not as a complete reference implementation.
 
@@ -23,7 +27,7 @@
     and `docs/WHY-APPROACH.md` for why this file exists at all.
   -->
 
-  <PROJECT VERSION="0.7" DATE="2026-04-28">
+  <PROJECT VERSION="0.8" DATE="2026-04-28">
     <WHAT>Agent1st — behavior-layer protocol for AI-agent software development</WHAT>
     <WHY>Reduce drift between human intent and agent execution across long-lived projects</WHY>
     <TECH>

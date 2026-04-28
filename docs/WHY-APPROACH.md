@@ -1,4 +1,4 @@
-# The WHY Approach — intent as a first-class artifact
+# Why1st / The WHY Approach — intent as a first-class artifact
 
 Agent1st's minimal `AGENTS.md` defines how agents and humans work together.
 It does not define what they work on, or how intent stays aligned with code across hundreds of sessions.
@@ -8,6 +8,8 @@ For small or short-lived projects, you don't need more than that.
 For real projects — ones that will be edited for months, touched by multiple agents, and have to survive compaction, refactors, and handoff — you need one more layer.
 
 This document describes that layer.
+
+You can call this **Why1st** when you need a short name: work from WHY first, then map it to code. It is not a second protocol in the same sense as Agent1st. Agent1st is the behavior contract. Why1st is the intent layer: a portable pattern for keeping product truth, code navigation, local code meaning, and validation tied together.
 
 ---
 
@@ -48,6 +50,10 @@ The pairing matters more than the format.
 - Why Graph points to anchors; anchors label real code blocks.
 - Validators catch the moment PRD, graph, and code diverge.
 
+The explanatory docs in this repo (`WHY-APPROACH.md`, `why-graph-principles.md`, and `why-contracts-v1.md`) exist so agents understand the pattern before they maintain it. The live project chain is simpler:
+
+> **PRD -> Why Graph -> anchors/contracts -> validators**
+
 Take any one away and the chain breaks.
 Keep them paired and agents can answer, quickly and reliably:
 
@@ -83,7 +89,7 @@ This shape applies in two intensities. Match the intensity to the work.
 **For local edits inside an already well-mapped feature:**
 Update graph and contracts in the same change set as the code, not necessarily before the first keystroke. The invariant is that the three move together in one commit — not that the graph always moves first.
 
-**Run validators before claiming done** when validators exist. If they don't, that's the first thing to build (see §8).
+**Run validators before claiming done.** This repo ships a starter validator (`python scripts/validate-why.py`). Adopter projects should run that or their project-specific equivalent. If no validator exists yet, build the smallest graph-to-anchor check before trusting the layer.
 
 This is slower per-edit. It is dramatically faster per-project because the agent no longer wastes cycles on nearest-code edits or invisible couplings. Refactors stop breaking invisible couplings. Handoffs stop starting from zero.
 
@@ -109,11 +115,14 @@ Do not adopt when:
 The layer pays off on projects where intent has to survive time.
 It is overhead on projects where intent only has to survive minutes.
 
+The first version does not need to be grand. In real projects, the useful start is often one `docs/PRD.md`, one `docs/why-graph.xml`, one governed file with a module contract, and one validator that catches broken anchor references.
+
 ---
 
 ## 5) What this layer is not
 
 - **Not a replacement for the PRD.** Product intent still lives in the PRD.
+- **Not a demand for many docs.** Starting with one `docs/PRD.md` that also carries early design notes, roadmap, and plan is a valid choice. Split out `DESIGN.md`, `ARCHITECTURE.md`, or status files only when the split reduces drift more than it creates maintenance overhead.
 - **Not a company knowledge graph.** The Why Graph is a project-governance graph, not a domain-knowledge graph. If the project also needs a domain graph, it is a separate artifact with a separate name. See `AGENTS.md` §5 (Semantic Hygiene).
 - **Not ceremony.** Anchors that don't help an agent answer "what is this region for" are noise. Graph nodes that have no code path are orphans. See the contracts and principles documents — both say this explicitly.
 - **Not a rigid specification.** The files in this repo are one proven shape. Adapt them. If the format gets in the way of the idea, the format is wrong.
@@ -159,7 +168,7 @@ The WHY layer's most common real-world failure mode is a graph that no longer ma
 4. Update the graph in the same commit.
 5. Never edit the code to match a stale graph — update the graph.
 
-**If no validator exists yet:** that is the first thing to build, before anything else in the WHY layer can be trusted. Even a script that checks every `<ANCHOR ... COORD="path#ANCHOR">` resolves to a real `START_*` marker in a real file is enough to start. Without it, the graph will rot silently.
+**If no validator exists yet:** that is the first thing to build, before anything else in the WHY layer can be trusted. Even a script that checks every `<ANCHOR ... COORD="path#ANCHOR">` resolves to a real `START_*` marker in a real file is enough to start. Without it, the graph will rot silently. In this repo, start from `python scripts/validate-why.py`.
 
 **Honest adoption criterion:** if your team cannot commit to running the validator regularly and updating the graph alongside code changes, the WHY layer will cost more than it saves. Re-read §4 before adopting.
 
@@ -171,7 +180,7 @@ A stale graph is not the end of the WHY layer. It is the moment the WHY layer pr
 
 The fastest path that has actually worked in production:
 
-1. **Write a minimal PRD.** One or two pages. Use case, features, DoD. Don't try to be complete; try to be real. See `docs/PRD.md` in this repo as an example.
+1. **Write a minimal PRD.** One or two pages. Use case, features, DoD, early roadmap, and any design constraints that would otherwise live only in your head. Don't try to be complete; try to be real. See `docs/PRD.md` in this repo as an example.
 2. **Sketch a Why Graph.** Start with three to five `FEATURE_*` nodes for the things that matter today. Link each to an API, surface, or module. It is normal for the first version to be half wrong.
 3. **Add a contract to one touched file.** Pick the next file you'd edit anyway. Add a `START_MODULE_CONTRACT:` header with PURPOSE, PRD_REF, INVARIANTS. See `docs/why-contracts-v1.md`.
 4. **Add anchors where they help navigation.** Not everywhere — where an agent would otherwise have to guess.
@@ -179,6 +188,10 @@ The fastest path that has actually worked in production:
 6. **Grow from there.** Every touched file upgrades. Do not retrofit the whole repo at once.
 
 The shape you'll arrive at after a few iterations won't be identical to this repo's. That is the correct outcome.
+
+For an existing codebase, do the same thing in reverse: pick the next feature you are about to touch, add its PRD entry, map only that feature into the graph, add contracts to only the files you touch, run the validator, then repeat. Retrofitting the whole repository before useful work begins is how the graph becomes a tax.
+
+For orchestrator/subagent work, the parent agent carries the full PRD and graph. Subagents should receive a bounded graph subtree, the files or modules they own, acceptance criteria, and the evidence format they must return.
 
 ---
 
@@ -217,7 +230,7 @@ The addendum is yours. The Core is Agent1st's. Keep them visibly separate so fut
 
 **Smoke test for adoption:** after you add one module contract and your reading-list mechanism, a fresh agent should be able to answer *"what is this file for, and what else moves with it?"* from the contract and the graph alone — without reading the code. If that fails, your contract is noise.
 
-See `docs/SPS3A-ANALYSIS.md` for one real-world variant of this pattern (Python/FastAPI); a separate TypeScript adopter uses the same pattern with a smaller node set.
+Real adopters have shipped this in Python/FastAPI, TypeScript, and Codex-native orchestrator/subagent setups. They differ in format and strictness. They share the same invariant: PRD, graph, contracts, and validators move together.
 
 ---
 

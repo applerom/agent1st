@@ -16,18 +16,13 @@ The "standard version" has been delivered as the **WHY layer**, living flat in `
 - `docs/WHY-APPROACH.md` — the idea, the workflow shift, when to adopt, adopter's Required Reading pattern
 - `docs/PRD.md` — Agent1st's own dogfooded PRD
 - `docs/why-graph.xml` — teaching-size graph dogfooding Agent1st itself
-- `docs/why-graph-principles.md` — portable authoring guide (distilled from two real adopters)
+- `docs/why-graph-principles.md` — portable authoring guide (distilled from real adopters)
 - `docs/why-contracts-v1.md` — portable contract spec with Python + TypeScript examples
 - `docs/VISION.md` — reframed around two layers (behavior + WHY)
 
-**Reference adopters:**
-- SPS3A — richer Python/FastAPI variant; see `docs/SPS3A-ANALYSIS.md`
-- A separate TypeScript adopter — simpler variant with an adoption-notes philosophy doc (private project, not linkable)
-
 **Open follow-ups:**
 1. ~~Extract minimal validator scripts (graph↔anchor lint) as language-agnostic reference~~ — **shipped in v6** as `scripts/validate-why.py` (stdlib-only Python). A non-Python reference port remains optional.
-2. Add a second dogfooded adopter example linked from `SPS3A-ANALYSIS.md`.
-3. Decide whether a starter-kit CLI is worth building, or whether copy-and-adapt from this repo is sufficient (current bet: the latter).
+2. Decide whether a starter-kit CLI is worth building, or whether copy-and-adapt from this repo is sufficient (current bet: the latter).
 
 ### 2. Claude Code Compatibility
 
@@ -39,13 +34,13 @@ The "standard version" has been delivered as the **WHY layer**, living flat in `
 ```
 
 **Implementation:**
-- [x] Add this pattern to SPS3A project — done 2026-03-25
+- [x] Pattern proven in a downstream adopter — done 2026-03-25
 - [x] Add this pattern to Agent1st repo — done 2026-03-25
 - [x] Documented in README.md Quick Start section — done 2026-03-25
 
 ### 3. Cross-Session Memory Strategy
 
-**Current state in SPS3A:** Three competing approaches tried:
+**Current observed state:** Three competing approaches tried in downstream adopters:
 1. `decision-context.xml` — custom XML decision memory. **Assessment by human: not great.** Non-standard, hard to maintain.
 2. `intent1st` — durable meaning via skills. **Assessment: good concept, poor adoption.** Models forget to use SKILL-based access.
 3. Claude Code `MEMORY.md` — built-in, automatic. Standard for Claude Code users.
@@ -71,13 +66,13 @@ The "standard version" has been delivered as the **WHY layer**, living flat in `
 | Decision log template | MiniMax M2.7 | Proposed for project-local extension | Standardized format for decisions |
 | Agent Self-Test in README | Qwen3.5-Plus | Noted | UX idea for agent onboarding |
 
-### From SPS3A Analysis (2026-03-25)
+### From Downstream Adopter Analysis (2026-03-25)
 
 | Proposal | Status | Notes |
 |----------|--------|-------|
 | WHY-layer starter kit | Proposed | Template files for Why Graph, contracts, validation |
 | Graduation guide (minimal→WHY layer) | Proposed | When and how to upgrade |
-| Validation tooling as portable package | Proposed | Extract from SPS3A, make language-agnostic |
+| Validation tooling as portable package | Proposed | Extract from a real adopter, make language-agnostic |
 | Per-directory AGENTS.md pattern doc | Proposed | Document the scoped-instructions pattern |
 | Skills specification for WHY-layer adopters | Proposed | Portable skill format beyond SKILL.md |
 
@@ -123,17 +118,23 @@ See `docs/EVOLUTION.md` "Recurring Rejected Patterns" for full list. Key recurri
 - Workflow shape stops being a universal law; intent-changing vs local-edit intensities
 - §8 Required Reading reframed as adopter's pattern with harness-native first
 
-### v6 (current)
+### v6
 - `scripts/validate-why.py` — WHY validator MVP, stdlib-only
 - `AGENTS.md` byte-identical to v5.1 — survives the v6 spirit pass unchanged
 - §1 Role Contract candidate deferred (failed bullet-count discipline at the front door)
 - §8 / §9 candidate edits landed then reverted (duplication with §4 / template-grade tactical advice)
 - No model-specific knobs added (explicit non-goal)
 
+### v6.1 (current)
+- Why1st adopted as a short name for the WHY-first approach/layer, distinct from Agent1st (the behavior contract)
+- One-file `docs/PRD.md` starter stance documented as valid, with extraction only when useful
+- Stale v6 teaching-surface residue fixed (`No validators yet`, `four files`, module-family examples)
+- Validator generalized: anchor checks apply to any node with `<ANCHOR>` children, not just `MODULE_*`
+- Reference adopter analyses moved off-public (kept for development-side use only) so the public protocol does not name projects readers cannot access
+
 ### v7+ (speculative)
 - Friction Tax / ambiguity handling in CDD — gated by delta-layer test
 - Memory system integration patterns (harness MEMORY.md vs. in-repo decision logs)
-- Second and third reference adopter analyses beyond SPS3A
 - Anchor adoption in this repo's own `docs/` so the validator graduates from doc-only mode to enforced anchors
 
 ---
@@ -143,7 +144,7 @@ See `docs/EVOLUTION.md` "Recurring Rejected Patterns" for full list. Key recurri
 1. **Propose:** Add an item to the "Proposed" section with your agent name, rationale, and target scope
 2. **Discuss:** Comment on existing proposals in handoff briefs or directly in this file
 3. **Critique:** Challenge any item — even accepted ones. The protocol values disagreement.
-4. **Test:** Try ideas in SPS3A (the testing ground) and report results
+4. **Test:** Try ideas in a real downstream project and report results
 5. **Report friction:** If something in this document or process is hard to use, say so (CDD applies here too)
 
 This document is maintained by lead agents (currently Claude Opus 4.6 and GPT-5.4) with human oversight. All agents are welcome to propose changes.

@@ -13,8 +13,9 @@ Checks:
 6. If ANCHOR elements exist:
    - COORD has path#marker shape.
    - NAME matches COORD marker.
-   - Anchors inside MODULE_* nodes are enforced when STATE is STARTED or DONE
-     and skipped when STATE is PLANNED. Other states are reported as errors.
+   - Anchors are enforced when their parent node STATE is STARTED, DONE, or
+     IMPLEMENTED and skipped when STATE is PLANNED or DEPRECATED. Other states
+     are reported as errors.
    - Target file exists and contains the marker as a substring.
 7. If no ANCHOR elements exist at all:
    - Report a warning, not a failure. The current Agent1st dogfood graph is
@@ -195,29 +196,24 @@ def check_anchors(
     skipped = 0
     total = 0
 
-    for module in root.iter():
-        if not module.tag.startswith("MODULE_"):
-            continue
-
-        anchors = module.findall("ANCHOR")
+    for node in root.iter():
+        anchors = node.findall("ANCHOR")
         if not anchors:
             continue
 
         total += len(anchors)
-        state = module.get("STATE", "")
-        module_id = module.get("ID", "<missing module id>")
+        state = node.get("STATE", "")
+        node_id = node.get("ID", f"<{node.tag}>")
+        enforce = state in ENFORCED_STATES
+        skip_resolution = state in SKIPPED_STATES
 
-        if state in SKIPPED_STATES:
-            skipped += len(anchors)
-            continue
-        if state not in ENFORCED_STATES:
+        if not enforce and not skip_resolution:
             issues.append(Issue(
                 severity="error",
-                node=module_id,
-                problem=f"MODULE has anchors but STATE={state!r} is neither enforced nor skipped",
+                node=node_id,
+                problem=f"node has anchors but STATE={state!r} is neither enforced nor skipped",
                 fix=f"set STATE to one of {sorted(ENFORCED_STATES | SKIPPED_STATES)}",
             ))
-            continue
 
         for anchor in anchors:
             name = anchor.get("NAME") or ""
@@ -226,7 +222,7 @@ def check_anchors(
             if not name or not coord:
                 issues.append(Issue(
                     severity="error",
-                    node=module_id,
+                    node=node_id,
                     problem="ANCHOR is missing NAME or COORD",
                     fix='add NAME="START_..." and COORD="path#START_..." attributes',
                 ))
@@ -236,7 +232,7 @@ def check_anchors(
             if not sep or not path_part or not marker:
                 issues.append(Issue(
                     severity="error",
-                    node=module_id,
+                    node=node_id,
                     problem=f"COORD {coord!r} is not in path#MARKER shape",
                     fix='use COORD="repo/relative/path#START_MARKER"',
                 ))
@@ -245,17 +241,23 @@ def check_anchors(
             if marker != name:
                 issues.append(Issue(
                     severity="error",
-                    node=module_id,
+                    node=node_id,
                     problem=f"ANCHOR NAME={name!r} does not match COORD marker {marker!r}",
                     fix="keep NAME and the part after # in COORD identical",
                 ))
+                continue
+
+            if skip_resolution:
+                skipped += 1
+                continue
+            if not enforce:
                 continue
 
             target = repo_root / path_part
             if not target.exists():
                 issues.append(Issue(
                     severity="error",
-                    node=module_id,
+                    node=node_id,
                     problem=f"anchor target file is missing: {path_part}",
                     fix="create the file, fix the path, or remove the anchor",
                 ))
@@ -263,7 +265,7 @@ def check_anchors(
             if not target.is_file():
                 issues.append(Issue(
                     severity="error",
-                    node=module_id,
+                    node=node_id,
                     problem=f"anchor target is not a regular file: {path_part}",
                     fix="point COORD at a real source file",
                 ))
@@ -274,7 +276,7 @@ def check_anchors(
             except OSError as exc:
                 issues.append(Issue(
                     severity="error",
-                    node=module_id,
+                    node=node_id,
                     problem=f"could not read {path_part}: {exc}",
                     fix="check file permissions and encoding",
                 ))
@@ -283,7 +285,7 @@ def check_anchors(
             if marker not in text:
                 issues.append(Issue(
                     severity="error",
-                    node=module_id,
+                    node=node_id,
                     problem=f"marker {marker} not found in {path_part}",
                     fix="add the START_* marker in the source file or update the anchor",
                 ))

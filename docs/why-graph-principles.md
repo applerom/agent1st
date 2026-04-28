@@ -97,6 +97,8 @@ Common:
 
 **TARGET syntax:** pick one convention per repo and keep it. Either bare IDs everywhere (`TARGET="FEAT-ASK"`) or family-qualified targets everywhere (`TARGET="FEATURE:FEAT-ASK"`). Do not mix styles in the same graph. This repo's dogfood uses the family-qualified form; small projects often use bare IDs. Either works — mixed does not.
 
+When you use family-qualified targets, make the element family match the target family (`TARGET="MODULE:MOD-RAG"` should resolve to `<MODULE_RAG ...>` or another `MODULE_*` tag) unless your project validator explicitly knows your custom family mapping.
+
 If you find yourself inventing a synonym for one of these, use the existing one. Semantic drift in relations is the fastest way to kill the graph.
 
 ---
@@ -113,9 +115,9 @@ Anchors are the bridge between the graph and source files.
 Example:
 
 ```xml
-<BACKEND_RAG ID="MOD-RAG" FILE="backend/app/rag/graph.py" TYPE="ORCHESTRATOR">
+<MODULE_RAG ID="MOD-RAG" FILE="backend/app/rag/graph.py" TYPE="ORCHESTRATOR" STATE="IMPLEMENTED">
   <ANCHOR NAME="START_GRAPH_main" COORD="backend/app/rag/graph.py#START_GRAPH_main"/>
-</BACKEND_RAG>
+</MODULE_RAG>
 ```
 
 ---
@@ -153,9 +155,9 @@ In order. Skipping a step is how the graph becomes decoration.
   <WHAT>RAG chat endpoint</WHAT>
 </API_ASK>
 
-<BACKEND_RAG ID="MOD-RAG" FILE="backend/app/rag/graph.py" TYPE="ORCHESTRATOR" STATE="PLANNED">
+<MODULE_RAG ID="MOD-RAG" FILE="backend/app/rag/graph.py" TYPE="ORCHESTRATOR" STATE="PLANNED">
   <ANCHOR NAME="START_GRAPH_main" COORD="backend/app/rag/graph.py#START_GRAPH_main"/>
-</BACKEND_RAG>
+</MODULE_RAG>
 ```
 
 That is enough structure to tell an agent: this endpoint is here for UC-ASK, its implementation starts at that anchor, and the contract at that anchor is what to read next.

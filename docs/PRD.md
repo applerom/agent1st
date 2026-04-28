@@ -21,7 +21,7 @@ Most of this is not an intelligence problem. It is a **context-and-contract prob
 Agent1st is a **behavior-layer protocol** for AI-agent software development. It lives in two layers in one repo:
 
 - **Behavior layer (`AGENTS.md`)** — 11 principles, ~200 lines, drop-in. Defines how humans and agents work together.
-- **WHY layer (`docs/WHY-APPROACH.md` + paired files)** — recommended for long-lived projects. Makes intent a first-class artifact paired with code.
+- **WHY layer / Why1st (`docs/WHY-APPROACH.md` + paired files)** — recommended for long-lived projects. Makes intent a first-class artifact paired with code.
 
 Everything else in this repo is documentation *about* the protocol — design rationale, evolution history, external reviews, roadmap.
 
@@ -53,7 +53,6 @@ Not in scope: beginners looking for a prompt-engineering tutorial, or users of w
 | FEAT-FOUND | Research foundations with honest gaps | shipped |
 | FEAT-ROAD | Roadmap with proposed / accepted / rejected items | shipped |
 | FEAT-HANDOFF | Handoff briefs as first-class artifacts | shipped |
-| FEAT-REFS | Reference adopter analyses (SPS3A, others) | partial |
 
 ## 6) Definition of Done — per feature class
 
@@ -96,6 +95,7 @@ Not in scope: beginners looking for a prompt-engineering tutorial, or users of w
 - Human users report less drift and fewer repeated mistakes across sessions.
 - Adopter projects extend `AGENTS.md` additively (Required Reading header) rather than forking the core.
 - The WHY layer is copied, adapted, and survives contact with real projects — not used verbatim.
+- Fresh agents can explain the Why1st chain — PRD, graph, contracts, validators — before changing code.
 - External agent reviews produce proposals that either land, get rejected with documented reason, or start a new conversation.
 
 ## 10) Open questions
