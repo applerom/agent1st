@@ -15,10 +15,10 @@ Agents who contribute to new versions should add their transition notes.
 | v2 | `docs/_archive/AGENTS-min-v2.md` | More agentic. Agent Loop added. Anti-micromanagement sharper. | [TBD — author to fill] |
 | v3 | `docs/_archive/AGENTS-min-v3.md` | Harness-optimized. Delta-layer discipline. Core/Ops split. | GPT-5.4 agent (primary), with Claude Opus 4.6 comparison |
 | v4 | `docs/_archive/AGENTS-min-v4.md` + `AGENTS.md` | Minimal baseline. Multi-agent autonomy and delegation design. | Claude Opus 4.6 agent (primary), building on GPT-5.4 v3 rationale |
-| v5 | `AGENTS.md` (unchanged) + `docs/WHY-APPROACH.md` + paired WHY files | WHY layer delivered as flat files in `docs/`. Three-tier framing retired. | Claude Opus 4.6 (primary), with reference analysis of one Python/FastAPI adopter and one TypeScript adopter |
+| v5 | `AGENTS.md` (unchanged) + `docs/Why1st.md` + paired WHY files | WHY layer delivered as flat files in `docs/`. Three-tier framing retired. | Claude Opus 4.6 (primary), with reference analysis of one Python/FastAPI adopter and one TypeScript adopter |
 | v5.1 | same files, sharpened | External-review integration round. Staleness named as first-class failure. Workflow shape stops being a universal law. Teaching-surface bugs fixed. | Claude Opus 4.6 (primary), integrating external reviews from GPT-5.4, MiniMax M2.7, Kimi K2.5, Qwen 3.6, Grok 4.20, plus off-target input from Gemini 3.1, Claude Opus 4.7, and Meta-Muse Spark |
 | v6 | `scripts/validate-why.py` + paired doc updates; `AGENTS.md` byte-identical to v5.1 | WHY validator MVP lands. `AGENTS.md` survives the spirit pass unchanged: §1 deferred at the front door, §8 + §9 candidate edits initially landed then reverted. The v6 process contribution is the spirit-pass discipline itself. | Claude Opus 4.7 (primary), filtering GPT-5.5-pro's `docs/handoffs/v6-handoff-gpt-5.5-pro.md` and a Codex-native adopter's adaptation through the spirit lens |
-| v6.1 | `docs/WHY-APPROACH.md` Why1st short name + validator generalization + public/private surface cleanup | Why1st named as a short alias for the WHY-first approach/layer (not a second behavior protocol). Validator generalized from `MODULE_*`-only to any node with anchors. Reference-adopter analyses moved off-public so the public protocol does not point at projects readers cannot access. Stale v6 teaching-surface residue fixed. | GPT-5.5 Codex (initial pass) + Claude Opus 4.7 (spirit pass and surface cleanup) |
+| v6.1 | `docs/Why1st.md` Why1st short name + validator generalization + public/private surface cleanup | Why1st named as a short alias for the WHY-first approach/layer (not a second behavior protocol). Validator generalized from `MODULE_*`-only to any node with anchors. Reference-adopter analyses moved off-public so the public protocol does not point at projects readers cannot access. Stale v6 teaching-surface residue fixed. | GPT-5.5 Codex (initial pass) + Claude Opus 4.7 (spirit pass and surface cleanup) |
 
 ---
 
@@ -267,7 +267,7 @@ The three-tier model (Minimal / Standard / Full) was retired. Agent1st now has *
 
 1. **Behavior layer** — `AGENTS.md`, unchanged in v5. Still drop-in, still portable, still ~200 lines.
 2. **WHY layer** — flat files in `docs/`, highly recommended for long-lived projects:
-   - `docs/WHY-APPROACH.md` — the idea, workflow shift, adopter's pattern (Required Reading header)
+   - `docs/Why1st.md` — the idea, workflow shift, adopter's pattern (Required Reading header)
    - `docs/PRD.md` — Agent1st's own dogfooded PRD
    - `docs/why-graph.xml` — teaching-size graph
    - `docs/why-graph-principles.md` — portable authoring guide distilled from real adopters (a Python/FastAPI variant and a TypeScript variant)
@@ -277,19 +277,19 @@ Project-specific extensions (CI integration, observability, acceptance automatio
 
 **Why the minimal `AGENTS.md` did not change:**
 
-The delta-layer principle and the anti-micromanagement stance both say the same thing here: the behavior layer must be portable and must not fill with repo-specific reading lists. An advisor proposal to add a Required Reading header to the core `AGENTS.md` was considered and rejected. Instead, that header is documented in `WHY-APPROACH.md` §8 as the **adopter-side** extension pattern — observed in both real adopters.
+The delta-layer principle and the anti-micromanagement stance both say the same thing here: the behavior layer must be portable and must not fill with repo-specific reading lists. An advisor proposal to add a Required Reading header to the core `AGENTS.md` was considered and rejected. Instead, that header is documented in `Why1st.md` §8 as the **adopter-side** extension pattern — observed in both real adopters.
 
 **What was rejected during v5:**
 
 - Keeping the `STANDARD/` and `FULL/` folder split. Reason: visual duplication, unclear canonicity, adoption friction.
-- Renaming `docs/WHY-APPROACH.md` to `docs/STANDARD.md`. Reason: the layer is the WHY approach, not a rung on a ladder.
+- Renaming the entry doc (then `docs/WHY-APPROACH.md`, now `docs/Why1st.md`) to `docs/STANDARD.md`. Reason: the layer is the WHY approach, not a rung on a ladder.
 - Editing `AGENTS.md` to require reading the WHY layer. Reason: would break drop-in portability and contradict `DESIGN.md` §5 (what NOT to add).
 - Building validator tooling into v5 itself. Reason: the pattern is demonstrated; tooling is a v6 concern and language-specific.
 
 **Reference adopters that shaped v5:**
 
 - **A Python/FastAPI adopter** — the richer variant. Backend plus TypeScript frontend. Full relation vocabulary, class/method contracts, intent1st integration, validator scripts. The deep analysis lives off-public in `.lab/`; public docs describe the patterns, not the project.
-- **A separate TypeScript adopter** — the simpler variant. Trimmed node families, adoption-notes doc that articulated the governance-graph vs. knowledge-graph distinction that `WHY-APPROACH.md` §5 now carries.
+- **A separate TypeScript adopter** — the simpler variant. Trimmed node families, adoption-notes doc that articulated the governance-graph vs. knowledge-graph distinction that `Why1st.md` §5 now carries.
 
 Neither adopter copied the other. Both carried the same idea. That convergence was the signal that the WHY layer was ready to be documented.
 
@@ -301,8 +301,8 @@ v5 went out to eight external agents for review (Claude Opus 4.7, GPT-5.4, Gemin
 
 - **Teaching-surface fixes (GPT-5.4):** fixed the `COVERS` relation direction in `why-graph-principles.md` §7 (now correctly placed on the `USECASE_*` node); unified `TARGET` syntax across principles and dogfood graph (pick one convention per repo); moved `why-graph.xml` scope disclaimer from the bottom of the file to the top.
 - **Three-tier residue removal (GPT-5.4):** `ROADMAP.md` opening now says "two layers"; `PRD.md` §2 "two tiers" → "two layers"; open question in §10 dropped "FULL-layer" framing.
-- **Graph staleness as first-class failure mode (MiniMax M2.7):** new `WHY-APPROACH.md` §6a names staleness explicitly and gives a recovery protocol, plus an honest adoption criterion: if your team cannot commit to running the validator regularly, the layer costs more than it saves.
-- **Workflow-shape intensity (GPT-5.4, MiniMax M2.7):** `WHY-APPROACH.md` §3 and §6 no longer prescribe "graph first" as universal law. Distinguishes intent-changing/cross-cutting work (graph first) from local edits in well-mapped features (graph moves with code, same commit). §6 also distinguishes first-session onboarding, returning sessions, and delegated subagents.
+- **Graph staleness as first-class failure mode (MiniMax M2.7):** new `Why1st.md` §6a names staleness explicitly and gives a recovery protocol, plus an honest adoption criterion: if your team cannot commit to running the validator regularly, the layer costs more than it saves.
+- **Workflow-shape intensity (GPT-5.4, MiniMax M2.7):** `Why1st.md` §3 and §6 no longer prescribe "graph first" as universal law. Distinguishes intent-changing/cross-cutting work (graph first) from local edits in well-mapped features (graph moves with code, same commit). §6 also distinguishes first-session onboarding, returning sessions, and delegated subagents.
 - **§8 Required Reading clarified (MiniMax M2.7, Kimi K2.5):** harness-native mechanisms (CLAUDE.md, MEMORY.md, skills, session-context files) are now the recommended first option. The adopter-header-in-project's-AGENTS.md pattern remains as a fallback, with explicit visual separation from the unmodified Core. Also added a one-line adoption smoke test (Kimi).
 - **Harness-agnostic language (Kimi K2.5):** `why-graph-principles.md` §0 no longer prescribes "Pin …"; says "ensure in context" instead.
 - **Relation vocabulary refinement (Grok 4.20, Qwen 3.6):** added `DEPENDS_ON` for co-change coupling that is not implementation; disambiguated `IMPACTS` (runtime effect) vs `WILL_TOUCH` (planning promise); added retirement pattern (`DEPRECATED` then delete) and inherited-code-without-anchors guidance.
@@ -395,11 +395,12 @@ $ git diff <pre-v6>..HEAD -- AGENTS.md
 
 **What changed:**
 
-- **Why1st named carefully.** `docs/WHY-APPROACH.md` and `docs/VISION.md` now say Why1st is a short name for the WHY-first approach/layer, not a second protocol in the strict Agent1st sense. Agent1st remains the behavior contract; Why1st is the intent-to-code discipline.
+- **Why1st named carefully.** `docs/Why1st.md` and `docs/VISION.md` now say Why1st is a short name for the WHY-first approach/layer, not a second protocol in the strict Agent1st sense. Agent1st remains the behavior contract; Why1st is the intent-to-code discipline.
 - **One-file PRD stance made explicit.** The WHY docs now say starting with one `docs/PRD.md` that also holds early design, roadmap, and plan is valid. Splitting docs is useful only when the split reduces drift more than it creates maintenance overhead.
 - **Stale v6 teaching-surface issues fixed.** `docs/why-graph.xml` no longer claims there are no validators; `docs/VISION.md` no longer says "four files" while listing five; `why-graph-principles.md` examples use `MODULE_*` tags that match family-qualified `MODULE:` targets.
 - **Validator generalized.** `scripts/validate-why.py` now validates anchors under any node with `<ANCHOR>` children, not only `MODULE_*` nodes, while preserving STATE-aware enforcement.
 - **Public/private surface separated.** Named reference-adopter analyses (one deep analysis of the original Python/FastAPI adopter, plus an in-flight summary of three real adopters) were moved to the gitignored `.lab/` folder. Public docs no longer name local-only projects readers cannot open. Development-side context lives in `.lab/` for primary and subagent use; the protocol surface stays self-contained.
+- **Brand unification.** The entry doc was renamed `docs/WHY-APPROACH.md` → `docs/Why1st.md`. The graph artifact ID followed: `ART-WHY-APPROACH` → `ART-WHY1ST`. README promoted the WHY-layer section to a level-2 heading (`## Why1st`) so external links to the brand have a clean anchor. Older paired files (`why-graph.xml`, `why-graph-principles.md`, `why-contracts-v1.md`, `validate-why.py`) keep their lowercase `why-*` prefix as a stable artifact namespace inside Why1st — only the entry doc carries the brand name. References in earlier EVOLUTION sections use the current path; the rename happened in v6.1.
 
 **What stayed out of core:**
 

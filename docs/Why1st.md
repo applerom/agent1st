@@ -1,4 +1,4 @@
-# Why1st / The WHY Approach — intent as a first-class artifact
+# Why1st — intent as a first-class artifact
 
 Agent1st's minimal `AGENTS.md` defines how agents and humans work together.
 It does not define what they work on, or how intent stays aligned with code across hundreds of sessions.
@@ -7,9 +7,9 @@ For small or short-lived projects, you don't need more than that.
 
 For real projects — ones that will be edited for months, touched by multiple agents, and have to survive compaction, refactors, and handoff — you need one more layer.
 
-This document describes that layer.
+This document describes that layer. Its short name is **Why1st**: work from WHY first, then map it to code. Synonym in older docs and prose: *the WHY layer.*
 
-You can call this **Why1st** when you need a short name: work from WHY first, then map it to code. It is not a second protocol in the same sense as Agent1st. Agent1st is the behavior contract. Why1st is the intent layer: a portable pattern for keeping product truth, code navigation, local code meaning, and validation tied together.
+Why1st is not a second protocol in the same sense as Agent1st. Agent1st is the behavior contract — how humans and agents work together. Why1st is the intent layer — a portable pattern for keeping product truth, code navigation, local code meaning, and validation tied together.
 
 ---
 
@@ -50,7 +50,7 @@ The pairing matters more than the format.
 - Why Graph points to anchors; anchors label real code blocks.
 - Validators catch the moment PRD, graph, and code diverge.
 
-The explanatory docs in this repo (`WHY-APPROACH.md`, `why-graph-principles.md`, and `why-contracts-v1.md`) exist so agents understand the pattern before they maintain it. The live project chain is simpler:
+The explanatory docs in this repo (`Why1st.md`, `why-graph-principles.md`, and `why-contracts-v1.md`) exist so agents understand the pattern before they maintain it. The live project chain is simpler:
 
 > **PRD -> Why Graph -> anchors/contracts -> validators**
 

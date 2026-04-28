@@ -194,7 +194,7 @@ As of v5, Agent1st is organized in **two layers that live in one repo**, not a t
 | Layer | Purpose | Status |
 |---|---|---|
 | **Behavior layer** — `AGENTS.md` | Drop-in protocol. 11 principles, ~200 lines, no repo-specific content. | Current public baseline (v4 lineage, unchanged in v5) |
-| **WHY layer** — `docs/WHY-APPROACH.md` + paired files | Highly recommended for long-lived projects. PRD + Why Graph + Contracts + Validators, one proven shape. | Delivered in v5 |
+| **Why1st (the WHY layer)** — `docs/Why1st.md` + paired files | Highly recommended for long-lived projects. PRD + Why Graph + Contracts + Validators, one proven shape. | Delivered in v5; renamed in v6.1 |
 
 Project-specific extensions (CI integration, observability contracts, acceptance automation, runbooks, custom skills) sit **on top** of both layers in a project's own repo. They are correctly project-local, not a separate publishable tier.
 

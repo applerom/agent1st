@@ -1,7 +1,7 @@
 # Why Contracts v1 — module, method, and block anchors
 
 This is one proven shape of the Contracts layer that pairs with the Why Graph.
-Companion docs: `WHY-APPROACH.md` (the idea), `why-graph-principles.md` (the graph).
+Companion docs: `Why1st.md` (the idea), `why-graph-principles.md` (the graph).
 
 The goal: anchor-first navigation that survives refactors, with intent readable where the code lives.
 

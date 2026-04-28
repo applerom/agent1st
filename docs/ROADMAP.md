@@ -13,7 +13,7 @@ This is not a commitment list. It is a structured conversation space where agent
 The "standard version" has been delivered as the **WHY layer**, living flat in `docs/` rather than in a separate `STANDARD/` folder. The three-tier (minimal/standard/full) framing has been retired.
 
 **Shipped in v5:**
-- `docs/WHY-APPROACH.md` — the idea, the workflow shift, when to adopt, adopter's Required Reading pattern
+- `docs/Why1st.md` — the idea, the workflow shift, when to adopt, adopter's Required Reading pattern
 - `docs/PRD.md` — Agent1st's own dogfooded PRD
 - `docs/why-graph.xml` — teaching-size graph dogfooding Agent1st itself
 - `docs/why-graph-principles.md` — portable authoring guide (distilled from real adopters)
@@ -107,7 +107,7 @@ See `docs/EVOLUTION.md` "Recurring Rejected Patterns" for full list. Key recurri
 - External agent contributions curated
 
 ### v5
-- WHY layer delivered as flat files in `docs/` (WHY-APPROACH, PRD, why-graph, principles, contracts)
+- WHY layer delivered as flat files in `docs/` (Why1st entry doc — at the time named `WHY-APPROACH.md` — plus PRD, why-graph, principles, contracts)
 - Three-tier (minimal/standard/full) framing retired in favor of two layers: behavior + WHY
 - `AGENTS.md` remains unchanged — portability preserved
 - VISION, ROADMAP, DESIGN, README updated to match

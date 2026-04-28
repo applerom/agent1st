@@ -75,20 +75,30 @@ Agent1st started as one developer's notes from years of agent-driven development
 
 The minimal `AGENTS.md` captures the **behavioral core** — the part that stays useful regardless of your stack, your model, or your tools.
 
-For projects that will live longer than one feature cycle, there is a second layer — **the WHY layer**, also called **Why1st** when you want a short name — that makes product intent a first-class artifact paired with code. It's highly recommended but optional, and it lives flat in `docs/` so you can copy and adapt it directly.
+For projects that will live longer than one feature cycle, there is a second layer — **Why1st** (also called *the WHY layer*) — that makes product intent a first-class artifact paired with code. It's highly recommended but optional, and it lives flat in `docs/` so you can copy and adapt it directly.
 
-### The WHY layer (recommended for real projects)
+---
+
+## Why1st
+
+Why1st is the WHY layer for real projects: PRD, Why Graph, contracts/anchors, and a validator — one proven shape, copy and adapt.
+
+To point an agent at this layer for adoption in another repo, hand it the entry doc directly: **[`docs/Why1st.md`](docs/Why1st.md)**. It is the "Start here" — workflow shift, when to adopt, how to extend your AGENTS.md, how to start in §7.
 
 | Doc | One line |
 |---|---|
-| [`docs/WHY-APPROACH.md`](docs/WHY-APPROACH.md) | **Start here.** The idea, the workflow shift, when to adopt, how to extend your AGENTS.md. |
+| [`docs/Why1st.md`](docs/Why1st.md) | **Start here.** The idea, the workflow shift, when to adopt, how to extend your AGENTS.md. |
 | [`docs/PRD.md`](docs/PRD.md) | Agent1st's own PRD — dogfooding the pattern. Real, not template. |
 | [`docs/why-graph.xml`](docs/why-graph.xml) | Teaching-size Why Graph for this repo. Copy the shape, replace the content. |
 | [`docs/why-graph-principles.md`](docs/why-graph-principles.md) | Portable authoring guide for the graph. Distilled from real adopters. |
 | [`docs/why-contracts-v1.md`](docs/why-contracts-v1.md) | Module / method / block anchor spec with Python + TypeScript examples. |
 | [`scripts/validate-why.py`](scripts/validate-why.py) | Stdlib-only validator MVP: graph IDs, relation targets, target style, anchors. |
 
-### Design, evolution, and reference
+The artifact files (`why-graph.xml`, `why-graph-principles.md`, `why-contracts-v1.md`, `validate-why.py`) keep the lowercase `why-*` prefix on purpose — they form a stable artifact namespace inside Why1st. Only the entry doc (`Why1st.md`) carries the brand name.
+
+---
+
+## Design, evolution, and reference
 
 | Doc | For whom | One line |
 |-----|----------|----------|

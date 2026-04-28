@@ -46,17 +46,17 @@ Constraints:
 - every line earns its tokens
 - passes the delta-layer test (doesn't duplicate model/tool prompts)
 
-This is what lives at the repo root. It's what people download and use. **It does not change when a project adopts the WHY layer.**
+This is what lives at the repo root. It's what people download and use. **It does not change when a project adopts Why1st.**
 
-### 2. The WHY layer — `docs/WHY-APPROACH.md` and paired files
+### 2. Why1st — the WHY layer — `docs/Why1st.md` and paired files
 
 **Highly recommended** for any project that will live longer than one feature cycle, touch more than one agent, or has to survive compaction and handoffs.
 
-Short name: **Why1st**. This is an approach, not a second protocol in the strict Agent1st sense. Agent1st defines how humans and agents work together; Why1st defines how project intent stays paired with code.
+Why1st is an approach, not a second protocol in the strict Agent1st sense. Agent1st defines how humans and agents work together; Why1st defines how project intent stays paired with code. The phrase "the WHY layer" remains as a synonym in older docs and prose.
 
 The WHY layer is the idea that **intent must become a first-class artifact paired with code, or it drifts**. In this repo it is expressed through one approach file plus four paired artifacts:
 
-- `docs/WHY-APPROACH.md` — the idea, the workflow shift, when to adopt, adopter's pattern for extending AGENTS.md
+- `docs/Why1st.md` — the idea, the workflow shift, when to adopt, adopter's pattern for extending AGENTS.md
 - `docs/PRD.md` — product truth (what are we building, who for, what does done look like)
 - `docs/why-graph.xml` — navigation truth (where intent maps onto code)
 - `docs/why-graph-principles.md` — how to author and evolve the graph

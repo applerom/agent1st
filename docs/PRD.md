@@ -21,7 +21,7 @@ Most of this is not an intelligence problem. It is a **context-and-contract prob
 Agent1st is a **behavior-layer protocol** for AI-agent software development. It lives in two layers in one repo:
 
 - **Behavior layer (`AGENTS.md`)** — 11 principles, ~200 lines, drop-in. Defines how humans and agents work together.
-- **WHY layer / Why1st (`docs/WHY-APPROACH.md` + paired files)** — recommended for long-lived projects. Makes intent a first-class artifact paired with code.
+- **Why1st — the WHY layer (`docs/Why1st.md` + paired files)** — recommended for long-lived projects. Makes intent a first-class artifact paired with code.
 
 Everything else in this repo is documentation *about* the protocol — design rationale, evolution history, external reviews, roadmap.
 
@@ -68,7 +68,7 @@ Not in scope: beginners looking for a prompt-engineering tutorial, or users of w
 - References other docs by path, not by description.
 - Russian or English — preserve voice either way.
 
-**For the WHY layer (`WHY-APPROACH.md` and paired files):**
+**For the WHY layer (`Why1st.md` and paired files):**
 - WHY explained before HOW.
 - Templates framed as **one proven shape**, not as a law.
 - Every template anchor in the graph has a matching file convention.

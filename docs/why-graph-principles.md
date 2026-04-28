@@ -1,7 +1,7 @@
 # Why Graph — principles & authoring guide
 
 File: `docs/why-graph.xml`
-Companion docs: `WHY-APPROACH.md` (the idea), `why-contracts-v1.md` (anchors and contracts).
+Companion docs: `Why1st.md` (the idea), `why-contracts-v1.md` (anchors and contracts).
 
 This is a **reference, not a law.** It describes one proven shape of the Why Graph. Adapt it. If your project needs fewer node types, drop them. If it needs more, add them carefully — see §11.
 

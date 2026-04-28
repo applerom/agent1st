@@ -24,7 +24,7 @@
     When you copy this file: keep the shape, replace the content.
 
     Read `docs/why-graph-principles.md` for the authoring guide,
-    and `docs/WHY-APPROACH.md` for why this file exists at all.
+    and `docs/Why1st.md` for why this file exists at all.
   -->
 
   <PROJECT VERSION="0.8" DATE="2026-04-28">
@@ -78,15 +78,15 @@
   </FEATURE_CORE>
 
   <FEATURE_WHY ID="FEAT-WHY" STATE="IMPLEMENTED" PRIORITY="HIGH">
-    <INTENT>WHY layer — PRD + Why Graph + Contracts + Validator MVP, one proven shape</INTENT>
+    <INTENT>Why1st (the WHY layer) — PRD + Why Graph + Contracts + Validator MVP, one proven shape</INTENT>
     <ACCEPT>
-      <CHECK>WHY-APPROACH.md explains the idea before any template is shown</CHECK>
+      <CHECK>Why1st.md explains the idea before any template is shown</CHECK>
       <CHECK>Each paired file is usable standalone and coherent together</CHECK>
       <CHECK>At least one dogfooded example lives in this repo</CHECK>
       <CHECK>A deterministic validator runs over the dogfooded graph and exits 0</CHECK>
     </ACCEPT>
     <PRD_REF>docs/PRD.md §5; §6</PRD_REF>
-    <REL TYPE="IMPLEMENTED_BY"  TARGET="ARTIFACT:ART-WHY-APPROACH"/>
+    <REL TYPE="IMPLEMENTED_BY"  TARGET="ARTIFACT:ART-WHY1ST"/>
     <REL TYPE="IMPLEMENTED_BY"  TARGET="ARTIFACT:ART-WHY-PRINCIPLES"/>
     <REL TYPE="IMPLEMENTED_BY"  TARGET="ARTIFACT:ART-WHY-CONTRACTS"/>
     <REL TYPE="IMPLEMENTED_BY"  TARGET="ARTIFACT:ART-WHY-GRAPH"/>
@@ -124,8 +124,8 @@
     <WHAT>@AGENTS.md import for Claude Code. Deliberately one line.</WHAT>
   </ARTIFACT>
 
-  <ARTIFACT ID="ART-WHY-APPROACH" FILE="docs/WHY-APPROACH.md" TYPE="GUIDE" STATE="IMPLEMENTED">
-    <WHAT>The idea. Why intent must become a first-class artifact.</WHAT>
+  <ARTIFACT ID="ART-WHY1ST" FILE="docs/Why1st.md" TYPE="GUIDE" STATE="IMPLEMENTED">
+    <WHAT>Why1st — the idea. Why intent must become a first-class artifact.</WHAT>
   </ARTIFACT>
 
   <ARTIFACT ID="ART-WHY-PRINCIPLES" FILE="docs/why-graph-principles.md" TYPE="GUIDE" STATE="IMPLEMENTED">
