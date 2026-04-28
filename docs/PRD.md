@@ -46,7 +46,7 @@ Not in scope: beginners looking for a prompt-engineering tutorial, or users of w
 | ID | Feature | State |
 |---|---|---|
 | FEAT-CORE | Minimal `AGENTS.md` — 11 principles, delta-layer, drop-in | shipped |
-| FEAT-WHY | WHY layer — PRD + Why Graph + Contracts + Validators pattern | shipped (v5); validator tooling follow-up |
+| FEAT-WHY | WHY layer — PRD + Why Graph + Contracts + Validators pattern | shipped (v5); validator MVP shipped (v6) |
 | FEAT-BRIDGE | Claude Code bridge — `CLAUDE.md` → `@AGENTS.md` | shipped |
 | FEAT-DESIGN | Design rationale for agents modifying the protocol | shipped |
 | FEAT-EVOLVE | Evolution history with rejected patterns | shipped |
@@ -75,6 +75,7 @@ Not in scope: beginners looking for a prompt-engineering tutorial, or users of w
 - Every template anchor in the graph has a matching file convention.
 - At least one dogfooded example in this repo itself.
 - Staleness is named as the main failure mode, not pretended away.
+- A deterministic validator (`python scripts/validate-why.py`) ships with the layer and passes on the dogfooded graph.
 
 ## 7) Non-goals
 

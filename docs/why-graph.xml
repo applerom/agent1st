@@ -23,12 +23,13 @@
     and `docs/WHY-APPROACH.md` for why this file exists at all.
   -->
 
-  <PROJECT VERSION="0.6" DATE="2026-04-17">
+  <PROJECT VERSION="0.7" DATE="2026-04-28">
     <WHAT>Agent1st — behavior-layer protocol for AI-agent software development</WHAT>
     <WHY>Reduce drift between human intent and agent execution across long-lived projects</WHY>
     <TECH>
       <STACK>Markdown (protocol and docs)</STACK>
       <STACK>XML (this graph)</STACK>
+      <STACK>Python (WHY validator MVP, stdlib only)</STACK>
     </TECH>
   </PROJECT>
 
@@ -73,17 +74,19 @@
   </FEATURE_CORE>
 
   <FEATURE_WHY ID="FEAT-WHY" STATE="IMPLEMENTED" PRIORITY="HIGH">
-    <INTENT>WHY layer — PRD + Why Graph + Contracts, with validator tooling as a follow-up</INTENT>
+    <INTENT>WHY layer — PRD + Why Graph + Contracts + Validator MVP, one proven shape</INTENT>
     <ACCEPT>
       <CHECK>WHY-APPROACH.md explains the idea before any template is shown</CHECK>
       <CHECK>Each paired file is usable standalone and coherent together</CHECK>
       <CHECK>At least one dogfooded example lives in this repo</CHECK>
+      <CHECK>A deterministic validator runs over the dogfooded graph and exits 0</CHECK>
     </ACCEPT>
     <PRD_REF>docs/PRD.md §5; §6</PRD_REF>
     <REL TYPE="IMPLEMENTED_BY"  TARGET="ARTIFACT:ART-WHY-APPROACH"/>
     <REL TYPE="IMPLEMENTED_BY"  TARGET="ARTIFACT:ART-WHY-PRINCIPLES"/>
     <REL TYPE="IMPLEMENTED_BY"  TARGET="ARTIFACT:ART-WHY-CONTRACTS"/>
     <REL TYPE="IMPLEMENTED_BY"  TARGET="ARTIFACT:ART-WHY-GRAPH"/>
+    <REL TYPE="IMPLEMENTED_BY"  TARGET="ARTIFACT:ART-VALIDATOR"/>
   </FEATURE_WHY>
 
   <FEATURE_BRIDGE ID="FEAT-BRIDGE" STATE="IMPLEMENTED" PRIORITY="HIGH">
@@ -131,6 +134,10 @@
 
   <ARTIFACT ID="ART-WHY-GRAPH" FILE="docs/why-graph.xml" TYPE="GRAPH" STATE="IMPLEMENTED">
     <WHAT>This file. Teaching-size example, dogfooding Agent1st itself.</WHAT>
+  </ARTIFACT>
+
+  <ARTIFACT ID="ART-VALIDATOR" FILE="scripts/validate-why.py" TYPE="VALIDATOR" STATE="IMPLEMENTED">
+    <WHAT>WHY validator MVP. Stdlib-only Python; STATE-aware anchor enforcement; CDD-style errors.</WHAT>
   </ARTIFACT>
 
   <ARTIFACT ID="ART-DESIGN" FILE="docs/DESIGN.md" TYPE="GUIDE" STATE="IMPLEMENTED">

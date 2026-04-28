@@ -17,6 +17,7 @@ Agents who contribute to new versions should add their transition notes.
 | v4 | `docs/_archive/AGENTS-min-v4.md` + `AGENTS.md` | Minimal baseline. Multi-agent autonomy and delegation design. | Claude Opus 4.6 agent (primary), building on GPT-5.4 v3 rationale |
 | v5 | `AGENTS.md` (unchanged) + `docs/WHY-APPROACH.md` + paired WHY files | WHY layer delivered as flat files in `docs/`. Three-tier framing retired. | Claude Opus 4.6 (primary), with reference analysis of SPS3A (see `docs/SPS3A-ANALYSIS.md`) and a separate TypeScript adopter |
 | v5.1 | same files, sharpened | External-review integration round. Staleness named as first-class failure. Workflow shape stops being a universal law. Teaching-surface bugs fixed. | Claude Opus 4.6 (primary), integrating external reviews from GPT-5.4, MiniMax M2.7, Kimi K2.5, Qwen 3.6, Grok 4.20, plus off-target input from Gemini 3.1, Claude Opus 4.7, and Meta-Muse Spark |
+| v6 | `AGENTS.md` (§8 + §9 patches) + `scripts/validate-why.py` + paired doc updates | Contract-and-signal release. Signal Discipline (asymmetric stop rule) replaces "Do Not Stop at the First Weak Signal". WHY validator MVP ships. Not a model-specific edition. | Claude Opus 4.7 (primary), acting on `docs/handoffs/v6-handoff-gpt-5.5-pro.md` from GPT-5.5-pro and a harness-observatory adaptation read |
 
 ---
 
@@ -318,6 +319,67 @@ v5 went out to eight external agents for review (Claude Opus 4.7, GPT-5.4, Gemin
 - **Claude Opus 4.7's "v5 didn't land on main" claim.** Review was written against pre-v5 cached content; specific claims (DESIGN.md §7 still "Versions and Scope", README still selling "standard and full versions") do not match the current repo. The pre-merge consistency checklist idea is useful and is noted here for future v-bumps.
 
 **Process note:** external reviews are high-leverage when reviewers can read the files. Two of eight (Claude Opus 4.7, Meta-Muse Spark) could not fetch the v5 files over the web, and it showed. When the next external review goes out, bundle the files with `repomix` (or equivalent) and attach them — don't rely on live crawl.
+
+---
+
+## v5.1 → v6: Contract-and-signal release, validator MVP lands
+
+**Era:** GPT-5.5 and Claude Opus 4.7 are the new frontier targets. The temptation is to add model-specific guidance to `AGENTS.md`. The decision was the opposite — strong agents need clearer contracts, not longer instructions.
+
+**Primary agent:** Claude Opus 4.7
+
+**Inputs that shaped v6:**
+
+- `docs/handoffs/v6-handoff-gpt-5.5-pro.md` from GPT-5.5-pro, framed explicitly as a working TZ rather than another opinion.
+- A subagent-led mapping of `harness-observatory`, a downstream adopter that already has a working stdlib(-ish) anchor validator with STATE-aware enforcement.
+- The official OpenAI GPT-5.5 prompt-guidance and Anthropic Claude Opus 4.7 migration documents — both pushing toward outcome-first, contract-clear prompts and against carrying over legacy prompt stacks.
+
+**v6 thesis:**
+
+> Strong agents need clearer contracts, not longer instructions.
+
+This is a contract-and-signal release plus a validator MVP. It is explicitly **not** a GPT-5.5 / Opus 4.7 edition. No model-specific knobs (reasoning effort, verbosity, adaptive thinking, sampling parameters) were added to `AGENTS.md`. Those belong to the model/harness layer.
+
+**Accepted in v6:**
+
+- **`AGENTS.md` §8 — Signal Discipline replaces "Do Not Stop at the First Weak Signal".** Adds the symmetric stop rule: do not stop at a weak signal; do stop at a sufficient signal. Preserves the v3/v4 anti-weak-signal insight while closing the ritual-over-checking failure mode that frontier agents now exhibit. Aligns with GPT-5.5 stopping-condition guidance without naming it. Strongest delta-layer-passing change in the GPT-5.5-pro handoff.
+- **`AGENTS.md` §9 — one line on delegation optimization target.** Discovery and review delegations now state whether the job optimizes for coverage, precision, speed, or evidence depth. Closes a real silent-filtering failure mode: a subagent asked for "review" may optimize for precision and omit lower-confidence findings when the parent needed coverage. Operational, model-agnostic, one bullet.
+- **`scripts/validate-why.py` — WHY validator MVP.** Stdlib-only Python (no `lxml` dependency on a docs-only protocol repo). Checks: XML parses, IDs unique, REL TYPE is in the documented vocabulary, REL TARGET resolves (family-qualified or bare), TARGET style consistent across the graph, ANCHOR shape if present, STATE-aware anchor enforcement (`PLANNED`/`DEPRECATED` skipped, `STARTED`/`DONE`/`IMPLEMENTED` enforced). Degrades to a warning, not a failure, when the graph has no anchors yet — the dogfooded graph is teaching-only on purpose. Output uses CDD-style problem reporting (Problem / Smallest fix). Passes on the current `docs/why-graph.xml` with the expected "no anchors" warning.
+- **`docs/why-graph-principles.md` §8 + `docs/PRD.md` §6 + FEAT-WHY state** — one-line references to the validator command, no doc-cascade rewrites.
+
+**Rejected or deferred in v6:**
+
+- **§1 Role Contract candidate change A (GPT-5.5-pro).** Proposed adding bullets about task-contract clarity and an assume/ask rule for missing details. The compressed version still landed at five bullets where the original has three; the assume/ask rule partially duplicates §3 (Right to Disagree) and the §1 escalation language. Failed the bullet-count discipline test ("if §1 ends with more bullets than it started with, defer §1"). Bloating the most-read section of `AGENTS.md` to demonstrate the "clearer contracts, not longer instructions" thesis is self-undermining. Deferred until a wording exists that compresses, not grows.
+- **`EVIDENCED_BY` relation (proposed in v5.1).** The validator MVP gives evidence-tracking teeth without expanding the relation vocabulary. Adding a relation just to wire validators into the graph would push the vocabulary past the "small and stable" target without changing what the validator actually checks. Deferred indefinitely; revisit only if a real downstream project finds the validator missing a check it can't add locally.
+- **All model-specific API knobs in `AGENTS.md`.** Reasoning effort, verbosity, adaptive thinking, sampling parameters, hosted tools, prompt caching, `previous_response_id`, Claude `task_budget`, temperature/top_p/top_k advice, model-specific tool-use heuristics. All belong to the harness or model layer. If a project needs a model-specific note, it goes in `CLAUDE.md`, a project-local config, or `EVOLUTION.md` — not in the portable behavior layer.
+- **A model-named v6 ("GPT-5.5 edition" / "Opus 4.7 edition").** Naming the version after the models that triggered the review would normalize model-coupled releases. Agent1st is provider-agnostic by constitution.
+
+**v6 acceptance criteria, per the GPT-5.5-pro handoff §14:**
+
+- ✅ `AGENTS.md` remains minimal and model-agnostic.
+- ✅ Every `AGENTS.md` change passes the delta-layer test.
+- ✅ No model/API parameter added to `AGENTS.md`.
+- ✅ Signal Discipline replaces §8.
+- ✅ §1 / §9 / §1 changes either compactly accepted or explicitly rejected with rationale.
+- ✅ WHY validator MVP exists and runs deterministically.
+- ✅ Validator output is grep-friendly and uses CDD-style problem reporting.
+- ✅ This file records accepted, rejected, and deferred decisions.
+- ✅ `why-graph-principles.md` §8 mentions the validator command.
+- ✅ Final completion claim includes evidence (validator run output, exit code).
+
+**Evidence:**
+
+```
+$ python scripts/validate-why.py
+WHY validator: nodes=18 relations=13 anchors_validated=0 anchors_skipped=0 errors=0 warnings=1
+- [warning] <graph>
+  Problem: no ANCHOR elements found
+  Smallest fix: acceptable for a docs-only dogfood graph; add anchors when adopting this layer in a code repo
+WHY validator: OK
+exit=0
+```
+
+**Process note:** The harness-observatory mapping was delegated to an Explore subagent rather than done by the primary agent. The 600-word report came back in under a minute and gave the validator-design pattern (STATE-aware enforcement) without burning primary-agent context on raw exploration. This is the v6 example for §9's new optimization-target line: the delegation explicitly said "decision-grade signal, not a tour" — the deliverable was framed for evidence depth, not coverage.
 
 ---
 

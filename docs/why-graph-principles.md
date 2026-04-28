@@ -166,6 +166,8 @@ That is enough structure to tell an agent: this endpoint is here for UC-ASK, its
 
 At minimum, check that every `<ANCHOR ... COORD="path#ANCHOR">` points to a real `START_*` marker in a real file. That one check catches more drift than every other lint combined.
 
+This repo ships a stdlib-only MVP: `python scripts/validate-why.py`. It verifies unique IDs, `REL TYPE` against the documented vocabulary, `REL TARGET` resolution, consistent TARGET style, and STATE-aware anchor enforcement (`PLANNED`/`DEPRECATED` skipped; `STARTED`/`DONE`/`IMPLEMENTED` enforced). On a graph with no anchors yet, it degrades to a warning instead of failing — adopt it as a starting point and tighten as your graph grows.
+
 Add as your graph grows:
 
 - every `FEAT-*` has at least one outgoing `REL` edge toward an implementation node
