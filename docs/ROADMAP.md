@@ -25,7 +25,7 @@ The "standard version" has been delivered as the **WHY layer**, living flat in `
 - A separate TypeScript adopter — simpler variant with an adoption-notes philosophy doc (private project, not linkable)
 
 **Open follow-ups:**
-1. Extract minimal validator scripts (graph↔anchor lint) as language-agnostic reference — still useful, now genuinely optional.
+1. ~~Extract minimal validator scripts (graph↔anchor lint) as language-agnostic reference~~ — **shipped in v6** as `scripts/validate-why.py` (stdlib-only Python). A non-Python reference port remains optional.
 2. Add a second dogfooded adopter example linked from `SPS3A-ANALYSIS.md`.
 3. Decide whether a starter-kit CLI is worth building, or whether copy-and-adapt from this repo is sufficient (current bet: the latter).
 
@@ -111,17 +111,30 @@ See `docs/EVOLUTION.md` "Recurring Rejected Patterns" for full list. Key recurri
 - Model-agnostic note added
 - External agent contributions curated
 
-### v5 (current)
+### v5
 - WHY layer delivered as flat files in `docs/` (WHY-APPROACH, PRD, why-graph, principles, contracts)
 - Three-tier (minimal/standard/full) framing retired in favor of two layers: behavior + WHY
 - `AGENTS.md` remains unchanged — portability preserved
 - VISION, ROADMAP, DESIGN, README updated to match
 
-### v6+ (speculative)
-- Portable validator scripts (graph↔anchor lint) as language-agnostic reference
+### v5.1
+- External-review integration round (8 reviewers)
+- Graph staleness named as the primary failure mode; recovery protocol added
+- Workflow shape stops being a universal law; intent-changing vs local-edit intensities
+- §8 Required Reading reframed as adopter's pattern with harness-native first
+
+### v6 (current)
+- AGENTS.md §8 — Signal Discipline replaces "Do Not Stop at the First Weak Signal"
+- AGENTS.md §9 — one bullet on delegation optimization target
+- `scripts/validate-why.py` — WHY validator MVP, stdlib-only
+- §1 Role Contract candidate deferred (failed bullet-count discipline test)
+- No model-specific knobs added (explicit non-goal)
+
+### v7+ (speculative)
 - Friction Tax / ambiguity handling in CDD — gated by delta-layer test
 - Memory system integration patterns (harness MEMORY.md vs. in-repo decision logs)
 - Second and third reference adopter analyses beyond SPS3A
+- Anchor adoption in this repo's own `docs/` so the validator graduates from doc-only mode to enforced anchors
 
 ---
 
