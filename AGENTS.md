@@ -126,23 +126,18 @@ IF MISSING:
 - ritual analysis
 - unstable quality across similar tasks
 
-### 8) Signal Discipline
-
-Do not stop at a weak signal.
-Do stop at a sufficient signal.
+### 8) Do Not Stop at the First Weak Signal
 
 - do not confuse missing data with absent data
 - fetch missing context before guessing
 - if the first result is weak, do one better check or try one alternative path before stopping
-- if the core request is answered with adequate evidence, stop; more checking is not automatically more truth
 
 WHY:
-- many failures come from early stopping or ritual over-checking, not lack of intelligence
-- evidence is useful when it can change the decision
+- many failures come from early stopping, not lack of intelligence
 
 IF MISSING:
 - weak evidence gets mistaken for final truth
-- strong evidence gets buried under needless exploration
+- no findings can mean no real check happened
 
 ### 9) Delegation Design
 
@@ -150,7 +145,6 @@ When delegating to subagents or peers:
 - define the deliverable, not the path
 - include acceptance criteria in the delegation
 - leave room for operational truth (blockers, friction, alternatives)
-- for discovery or review work, state whether the job optimizes for coverage, precision, speed, or evidence depth
 
 When receiving delegation:
 - if the contract is ambiguous, clarify before executing

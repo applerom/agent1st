@@ -17,7 +17,7 @@ Agents who contribute to new versions should add their transition notes.
 | v4 | `docs/_archive/AGENTS-min-v4.md` + `AGENTS.md` | Minimal baseline. Multi-agent autonomy and delegation design. | Claude Opus 4.6 agent (primary), building on GPT-5.4 v3 rationale |
 | v5 | `AGENTS.md` (unchanged) + `docs/WHY-APPROACH.md` + paired WHY files | WHY layer delivered as flat files in `docs/`. Three-tier framing retired. | Claude Opus 4.6 (primary), with reference analysis of SPS3A (see `docs/SPS3A-ANALYSIS.md`) and a separate TypeScript adopter |
 | v5.1 | same files, sharpened | External-review integration round. Staleness named as first-class failure. Workflow shape stops being a universal law. Teaching-surface bugs fixed. | Claude Opus 4.6 (primary), integrating external reviews from GPT-5.4, MiniMax M2.7, Kimi K2.5, Qwen 3.6, Grok 4.20, plus off-target input from Gemini 3.1, Claude Opus 4.7, and Meta-Muse Spark |
-| v6 | `AGENTS.md` (§8 + §9 patches) + `scripts/validate-why.py` + paired doc updates | Contract-and-signal release. Signal Discipline (asymmetric stop rule) replaces "Do Not Stop at the First Weak Signal". WHY validator MVP ships. Not a model-specific edition. | Claude Opus 4.7 (primary), acting on `docs/handoffs/v6-handoff-gpt-5.5-pro.md` from GPT-5.5-pro and a harness-observatory adaptation read |
+| v6 | `scripts/validate-why.py` + paired doc updates; `AGENTS.md` byte-identical to v5.1 | WHY validator MVP lands. `AGENTS.md` survives the spirit pass unchanged: §1 deferred at the front door, §8 + §9 candidate edits initially landed then reverted. The v6 process contribution is the spirit-pass discipline itself. | Claude Opus 4.7 (primary), filtering GPT-5.5-pro's `docs/handoffs/v6-handoff-gpt-5.5-pro.md` and a `harness-observatory` adaptation read through the spirit lens |
 
 ---
 
@@ -322,56 +322,56 @@ v5 went out to eight external agents for review (Claude Opus 4.7, GPT-5.4, Gemin
 
 ---
 
-## v5.1 → v6: Contract-and-signal release, validator MVP lands
+## v5.1 → v6: Validator MVP lands; AGENTS.md survives the spirit pass unchanged
 
-**Era:** GPT-5.5 and Claude Opus 4.7 are the new frontier targets. The temptation is to add model-specific guidance to `AGENTS.md`. The decision was the opposite — strong agents need clearer contracts, not longer instructions.
+**Era:** GPT-5.5 and Claude Opus 4.7 become the new frontier targets. A detail-rich working TZ from GPT-5.5-pro arrives proposing changes to three `AGENTS.md` sections plus a validator MVP plus relation vocabulary tightening. The temptation is to integrate everything that has clear local logic. The protocol's job is to filter that input through the *spirit* of Agent1st — which lives at a level above any individual section's local logic — and accept only what survives.
 
 **Primary agent:** Claude Opus 4.7
 
 **Inputs that shaped v6:**
 
 - `docs/handoffs/v6-handoff-gpt-5.5-pro.md` from GPT-5.5-pro, framed explicitly as a working TZ rather than another opinion.
-- A subagent-led mapping of `harness-observatory`, a downstream adopter that already has a working stdlib(-ish) anchor validator with STATE-aware enforcement.
+- A subagent-led mapping of `harness-observatory`, a downstream adopter that already has a working anchor validator with STATE-aware enforcement.
 - The official OpenAI GPT-5.5 prompt-guidance and Anthropic Claude Opus 4.7 migration documents — both pushing toward outcome-first, contract-clear prompts and against carrying over legacy prompt stacks.
 
-**v6 thesis:**
+**The v6 framing question:**
 
-> Strong agents need clearer contracts, not longer instructions.
+GPT-5.5-pro proposed v6 as "Strong agents need clearer contracts, not longer instructions." That's a strong thesis on the surface. The protocol-level question is whether the proposed changes serve that thesis or undermine it.
 
-This is a contract-and-signal release plus a validator MVP. It is explicitly **not** a GPT-5.5 / Opus 4.7 edition. No model-specific knobs (reasoning effort, verbosity, adaptive thinking, sampling parameters) were added to `AGENTS.md`. Those belong to the model/harness layer.
+**What survived the spirit pass (accepted):**
 
-**Accepted in v6:**
+- **`scripts/validate-why.py` — WHY validator MVP.** Stdlib-only Python (no `lxml` dependency on a docs-only protocol repo). Checks: XML parses, IDs unique, `REL TYPE` is in the documented vocabulary, `REL TARGET` resolves (family-qualified or bare), TARGET style consistent across the graph, ANCHOR shape if present, STATE-aware anchor enforcement (`PLANNED`/`DEPRECATED` skipped, `STARTED`/`DONE`/`IMPLEMENTED` enforced). Degrades to a warning, not a failure, when the graph has no anchors yet — the dogfooded graph is teaching-only on purpose. Output uses CDD-style problem reporting (Problem / Smallest fix). Passes on the current `docs/why-graph.xml` with the expected "no anchors" warning. **This is the only piece that changed the protocol's mechanical surface.** It earns its place because the WHY layer's own claim — "validators are consistency truth" — was unsupported until something runnable existed.
+- **`docs/why-graph-principles.md` §8 + `docs/PRD.md` §6 — one-line validator references.** Documentation pointing at the new command. No cascade.
+- **`docs/why-graph.xml` — FEAT-WHY ACCEPT block gains the validator check; ART-VALIDATOR node added; PROJECT VERSION bumped to 0.7.** The graph now reflects that the WHY layer's four pillars (PRD, Graph, Contracts, Validator) are all present in this repo.
 
-- **`AGENTS.md` §8 — Signal Discipline replaces "Do Not Stop at the First Weak Signal".** Adds the symmetric stop rule: do not stop at a weak signal; do stop at a sufficient signal. Preserves the v3/v4 anti-weak-signal insight while closing the ritual-over-checking failure mode that frontier agents now exhibit. Aligns with GPT-5.5 stopping-condition guidance without naming it. Strongest delta-layer-passing change in the GPT-5.5-pro handoff.
-- **`AGENTS.md` §9 — one line on delegation optimization target.** Discovery and review delegations now state whether the job optimizes for coverage, precision, speed, or evidence depth. Closes a real silent-filtering failure mode: a subagent asked for "review" may optimize for precision and omit lower-confidence findings when the parent needed coverage. Operational, model-agnostic, one bullet.
-- **`scripts/validate-why.py` — WHY validator MVP.** Stdlib-only Python (no `lxml` dependency on a docs-only protocol repo). Checks: XML parses, IDs unique, REL TYPE is in the documented vocabulary, REL TARGET resolves (family-qualified or bare), TARGET style consistent across the graph, ANCHOR shape if present, STATE-aware anchor enforcement (`PLANNED`/`DEPRECATED` skipped, `STARTED`/`DONE`/`IMPLEMENTED` enforced). Degrades to a warning, not a failure, when the graph has no anchors yet — the dogfooded graph is teaching-only on purpose. Output uses CDD-style problem reporting (Problem / Smallest fix). Passes on the current `docs/why-graph.xml` with the expected "no anchors" warning.
-- **`docs/why-graph-principles.md` §8 + `docs/PRD.md` §6 + FEAT-WHY state** — one-line references to the validator command, no doc-cascade rewrites.
+**What was first accepted then reverted under the spirit pass:**
 
-**Rejected or deferred in v6:**
+- **`AGENTS.md` §8 — Signal Discipline replacing "Do Not Stop at the First Weak Signal".** Initially landed because GPT-5.5-pro's local logic is correct: the original §8 covered only one stopping failure mode (early collapse), and a symmetric "stop at sufficient evidence" rule would close the over-checking failure mode that current frontier agents exhibit. Reverted on the spirit pass for three converging reasons:
+  1. **Duplication with §4.** §4 Attention Engineering already says "if the first direct check answers the question, do not over-explore or over-delegate." The new §8 bullet ("if the core request is answered with adequate evidence, stop; more checking is not automatically more truth") is the same insight reframed. The asymmetry GPT-5.5-pro saw between §8 and §4 was the *design*: §4 prevents over-exploration during search, §8 prevents early collapse during evaluation. Forcing both jobs into one section turns architecture into checklist.
+  2. **Voice regression.** The v3 commit that landed "Done Is Not a Mood" replacing "Harness" was specifically called out for being "more memorable, more compact." "Do Not Stop at the First Weak Signal" is in the same voice family — sharp, slightly provocative, instantly readable. "Signal Discipline" is the title a corporate handbook would use. Walking that pattern backwards undermines `DESIGN.md` §4's voice rules.
+  3. **Discipline consistency.** §1 was deferred because it grew from three bullets to five — "bloating the most-read section to demonstrate the 'clearer contracts, not longer instructions' thesis is self-undermining." Accepting §8's growth (3 bullets → 4 bullets + 2-line preamble + heavier WHY/IF MISSING) under that same thesis is incoherent. The bullet-count discipline either applies or it doesn't.
+- **`AGENTS.md` §9 — the delegation optimization-target line.** Initially landed as one bullet ("for discovery or review work, state whether the job optimizes for coverage, precision, speed, or evidence depth"). Reverted because it's tactical guidance about a subset of delegations, not a principle. The existing §9 ("define the deliverable, not the path"; "include acceptance criteria in the delegation") already requires the delegation contract to be specific; specifying optimization axes is one way to be specific, not a parallel principle. Worth capturing in a future `docs/handoffs/TEMPLATE.md` revision; not worth promoting into the core protocol. GPT-5.5-pro itself flagged this as borderline ("Could be more suitable for a companion handoff template than core AGENTS.md") — the spirit pass agreed.
 
-- **§1 Role Contract candidate change A (GPT-5.5-pro).** Proposed adding bullets about task-contract clarity and an assume/ask rule for missing details. The compressed version still landed at five bullets where the original has three; the assume/ask rule partially duplicates §3 (Right to Disagree) and the §1 escalation language. Failed the bullet-count discipline test ("if §1 ends with more bullets than it started with, defer §1"). Bloating the most-read section of `AGENTS.md` to demonstrate the "clearer contracts, not longer instructions" thesis is self-undermining. Deferred until a wording exists that compresses, not grows.
-- **`EVIDENCED_BY` relation (proposed in v5.1).** The validator MVP gives evidence-tracking teeth without expanding the relation vocabulary. Adding a relation just to wire validators into the graph would push the vocabulary past the "small and stable" target without changing what the validator actually checks. Deferred indefinitely; revisit only if a real downstream project finds the validator missing a check it can't add locally.
-- **All model-specific API knobs in `AGENTS.md`.** Reasoning effort, verbosity, adaptive thinking, sampling parameters, hosted tools, prompt caching, `previous_response_id`, Claude `task_budget`, temperature/top_p/top_k advice, model-specific tool-use heuristics. All belong to the harness or model layer. If a project needs a model-specific note, it goes in `CLAUDE.md`, a project-local config, or `EVOLUTION.md` — not in the portable behavior layer.
+**What was rejected at the front door (never landed):**
+
+- **§1 Role Contract candidate change A.** Proposed adding bullets about task-contract clarity and an assume/ask rule. The compressed version still landed at five bullets where the original has three; the assume/ask rule partially duplicates §3 (Right to Disagree). Failed the bullet-count discipline test from the start. Deferred until a wording exists that compresses, not grows.
+- **`EVIDENCED_BY` relation (proposed in v5.1).** The validator MVP gives evidence-tracking teeth without expanding the relation vocabulary. Adding a relation just to wire validators into the graph would push vocabulary past the "small and stable" target without changing what the validator actually checks.
+- **All model-specific API knobs in `AGENTS.md`.** Reasoning effort, verbosity, adaptive thinking, sampling parameters, hosted tools, prompt caching, `previous_response_id`, Claude `task_budget`, temperature/top_p/top_k advice, model-specific tool-use heuristics. All belong to the harness or model layer. If a project needs a model-specific note, it goes in `CLAUDE.md`, a project-local config, or this file — not in the portable behavior layer.
 - **A model-named v6 ("GPT-5.5 edition" / "Opus 4.7 edition").** Naming the version after the models that triggered the review would normalize model-coupled releases. Agent1st is provider-agnostic by constitution.
 
-**v6 acceptance criteria, per the GPT-5.5-pro handoff §14:**
+**Net effect on `AGENTS.md`:** byte-identical to v5.1. The protocol survives the v6 review with no edits — and that, not a longer file, is the v6 result. The thesis "clearer contracts, not longer instructions" applies most strongly when the existing contract was already correct.
 
-- ✅ `AGENTS.md` remains minimal and model-agnostic.
-- ✅ Every `AGENTS.md` change passes the delta-layer test.
-- ✅ No model/API parameter added to `AGENTS.md`.
-- ✅ Signal Discipline replaces §8.
-- ✅ §1 / §9 / §1 changes either compactly accepted or explicitly rejected with rationale.
-- ✅ WHY validator MVP exists and runs deterministically.
-- ✅ Validator output is grep-friendly and uses CDD-style problem reporting.
-- ✅ This file records accepted, rejected, and deferred decisions.
-- ✅ `why-graph-principles.md` §8 mentions the validator command.
-- ✅ Final completion claim includes evidence (validator run output, exit code).
+**Spirit pass — the meta-lesson recorded as v6's main process contribution:**
+
+GPT-5.5-pro produced excellent details. Each one was locally correct. The protocol's job was not to grade them on local logic but to receive them through a filter that asks: does this serve the *spirit* — anti-micromanagement, delta-layer discipline, memorable voice, every line earning its tokens — or only the local logic?
+
+This isn't "the reviewer was wrong." It's "the reviewer was correct on local logic, and the protocol still rejected two details because the spirit lives at a level above local logic." Future external reviewers should expect this filter. The way to land changes in `AGENTS.md` is not to be locally clever; it is to identify a real failure mode that the existing protocol does not already address, and propose the smallest possible patch in the existing voice.
 
 **Evidence:**
 
 ```
 $ python scripts/validate-why.py
-WHY validator: nodes=18 relations=13 anchors_validated=0 anchors_skipped=0 errors=0 warnings=1
+WHY validator: nodes=19 relations=14 anchors_validated=0 anchors_skipped=0 errors=0 warnings=1
 - [warning] <graph>
   Problem: no ANCHOR elements found
   Smallest fix: acceptable for a docs-only dogfood graph; add anchors when adopting this layer in a code repo
@@ -379,7 +379,12 @@ WHY validator: OK
 exit=0
 ```
 
-**Process note:** The harness-observatory mapping was delegated to an Explore subagent rather than done by the primary agent. The 600-word report came back in under a minute and gave the validator-design pattern (STATE-aware enforcement) without burning primary-agent context on raw exploration. This is the v6 example for §9's new optimization-target line: the delegation explicitly said "decision-grade signal, not a tour" — the deliverable was framed for evidence depth, not coverage.
+```
+$ git diff <pre-v6>..HEAD -- AGENTS.md
+(no changes)
+```
+
+**Process note:** The `harness-observatory` mapping was delegated to an Explore subagent rather than done by the primary agent. The 600-word report came back in under a minute and gave the validator-design pattern (STATE-aware enforcement) without burning primary-agent context on raw exploration. The validator MVP that shipped uses that pattern; the lab folder (`.lab/`, gitignored) carries the reusable subagent brief so the next exploration starts warm, not cold.
 
 ---
 

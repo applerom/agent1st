@@ -124,10 +124,10 @@ See `docs/EVOLUTION.md` "Recurring Rejected Patterns" for full list. Key recurri
 - §8 Required Reading reframed as adopter's pattern with harness-native first
 
 ### v6 (current)
-- AGENTS.md §8 — Signal Discipline replaces "Do Not Stop at the First Weak Signal"
-- AGENTS.md §9 — one bullet on delegation optimization target
 - `scripts/validate-why.py` — WHY validator MVP, stdlib-only
-- §1 Role Contract candidate deferred (failed bullet-count discipline test)
+- `AGENTS.md` byte-identical to v5.1 — survives the v6 spirit pass unchanged
+- §1 Role Contract candidate deferred (failed bullet-count discipline at the front door)
+- §8 / §9 candidate edits landed then reverted (duplication with §4 / template-grade tactical advice)
 - No model-specific knobs added (explicit non-goal)
 
 ### v7+ (speculative)
