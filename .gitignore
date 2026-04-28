@@ -1,0 +1,8 @@
+# Local agent laboratory — references to local reference projects,
+# subagent briefs, working notes. Gitignored on purpose: not all readers
+# of the public repo have access to the local references, and this folder
+# is for the development-side context, not the protocol surface.
+.lab/
+
+# Claude Code workspace settings (machine-local)
+.claude/
