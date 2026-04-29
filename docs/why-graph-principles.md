@@ -43,14 +43,14 @@ If your project also needs a domain graph, give it a different name and a differ
 ## 2) Root and schema
 
 ```xml
-<Why_Graph schema="0.8" project="YourProject">
+<Why_Graph project="YourProject">
   ...
 </Why_Graph>
 ```
 
 Keep one file per repo. Do not shard until the file visibly outgrows one canonical location — that almost never happens in practice.
 
-`schema="0.8"` is a teaching marker in the current examples, not a formal XSD or migration contract. Whether to keep graph/schema version fields at all is an open roadmap question; do not infer more semantics from it than the validator actually enforces.
+The graph carries no abstract `schema=` or `version=` field. Earlier examples did, as inertia from before Why1st was a named project, but the field was never tied to an XSD, validator compatibility contract, or migration rule, so it only added noise for adopters. Use the validator's behavior, the `DATE` attribute on `<PROJECT>`, and git history for evolution semantics. Add a real version field later if and when one earns concrete semantics.
 
 ---
 
@@ -99,8 +99,8 @@ What is wrong, line by line:
 
 **Prompt-XML / Why1st shape — what to write:**
 ```xml
-<Why_Graph schema="0.8" project="YourProject">
-  <PROJECT VERSION="0.1" DATE="2026-04-29">
+<Why_Graph project="YourProject">
+  <PROJECT DATE="2026-04-29">
     <WHAT>Map product intent to durable docs and code anchors.</WHAT>
     <WHY>Drift between PRD and code kills long-lived agent-driven projects.</WHY>
   </PROJECT>
@@ -116,7 +116,7 @@ What is wrong, line by line:
 Same information. Different attention surface:
 
 - No `<?xml ?>` declaration. Tooling does not need it; its presence cues the wrong defaults.
-- Root `<Why_Graph schema="0.8">` is uppercase-distinctive. `schema="0.8"` is a soft mark — there is no XSD.
+- Root `<Why_Graph project="...">` is uppercase-distinctive. No abstract `schema=` or `version=` attribute on the root — without an XSD or migration rule those fields are noise.
 - Tag name `<FEATURE_LIVE_DEBUGGABILITY>` IS the entity identity. The `ID="FEAT-LIVE-DEBUG"` attribute is the short cross-reference form used in `TARGET=` strings.
 - Each entity carries its own `<REL>` children inline — relations belong with the entity, not in a separate block.
 - Inner tags (`<INTENT>`, `<PRD_REF>`, `<REL TYPE TARGET>`) are UPPERCASE and semantic. They act as sub-entity attention anchors.
@@ -124,7 +124,7 @@ Same information. Different attention surface:
 ### Anti-patterns — if you find yourself writing these, stop
 
 - `<?xml version="1.0" encoding="UTF-8"?>` at the file head. Drop it.
-- Generic root: `<whyGraph>`, `<graph>`, `<root>`. Use `<Why_Graph schema="0.8" project="...">`.
+- Generic root: `<whyGraph>`, `<graph>`, `<root>`. Use `<Why_Graph project="...">`.
 - Separate `<nodes>` and `<relations>` blocks. Each entity carries its own `<REL>` children inline.
 - Tag = generic container, identity = attribute: `<node id="FEAT-X" kind="feature">`. Wrong. Tag IS the entity: `<FEATURE_X ID="FEAT-X">`.
 - camelCase or lowercase tags: `<dependsOn>`, `<prdRef>`, `<metadata>`, `<summary>`. Wrong. UPPER_SNAKE_CASE with meaning: `<REL TYPE="DEPENDS_ON">`, `<PRD_REF>`, `<INTENT>`.

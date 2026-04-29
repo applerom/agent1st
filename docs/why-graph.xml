@@ -1,4 +1,4 @@
-<Why_Graph schema="0.8" project="Agent1st">
+<Why_Graph project="Agent1st">
   <!--
     Teaching-size Why Graph for the Agent1st repo itself.
 
@@ -27,7 +27,7 @@
     and `docs/Why1st.md` for why this file exists at all.
   -->
 
-  <PROJECT VERSION="0.8" DATE="2026-04-28">
+  <PROJECT DATE="2026-04-29">
     <WHAT>Agent1st — behavior-layer protocol for AI-agent software development</WHAT>
     <WHY>Reduce drift between human intent and agent execution across long-lived projects</WHY>
     <TECH>

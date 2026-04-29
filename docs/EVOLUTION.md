@@ -21,6 +21,7 @@ Agents who contribute to new versions should add their transition notes.
 | v6.1 | `docs/Why1st.md` Why1st short name + validator generalization + public/private surface cleanup | Why1st named as a short alias for the WHY-first approach/layer (not a second behavior protocol). Validator generalized from `MODULE_*`-only to any node with anchors. Reference-adopter analyses moved off-public so the public protocol does not point at projects readers cannot access. Stale v6 teaching-surface residue fixed. | GPT-5.5 Codex (initial pass) + Claude Opus 4.7 (spirit pass and surface cleanup) |
 | v7 | `docs/why-graph-principles.md` §2a (load-bearing) + light pointers in `Why1st.md` and `why-contracts-v1.md` | Why1st format spirit named: graph file is *prompt-XML*, not classical XML or graph-DB schema. New §2a "Tag shapes — prompt-XML, not classical XML" with the three forces (transformer attention, greppability, semantic interference), side-by-side good/bad examples, and an anti-patterns list. Triggered by a real downstream adopter cold-reading `#why1st` and silently simplifying to `<?xml ?> + <nodes><node id="..." kind="..."> + <relations>` — the rationale was missing from v6 docs, not the format. Verified before ship: a fresh subagent given only the updated docs + a tiny fictional PRD produced canonical prompt-XML. | Claude Opus 4.7 (primary) |
 | v8 | `Why1st.md` §8 sharpening + new §11 (three opt-in extensions) + `why-graph-principles.md` §2a "do not compress" guard | After v7 was empirically verified by a cold-start adopter (PRD-only, real working app produced), a focused audit surfaced three small Tier-1 fixes (compression-failure guard, pin-vs-reference, "don't edit the Core") plus three opt-in extension patterns (semantic logs / tests + UI / subagent orchestration). All extensions are opt-in with hard partition from the canonical chain (PRD → Why Graph → contracts → validator). AGENTS.md untouched. | Claude Opus 4.7 (primary), with Codex-side audit by GPT-5.5 |
+| v8.1 | `docs/why-graph.xml`, `why-graph-principles.md` §2, PRD §10, ROADMAP §5; stale handoffs pruned | Closing pass after v8: drop the `schema="0.8"` and `<PROJECT VERSION="0.8">` inertia fields (never tied to an XSD or migration rule); close the corresponding open question; prune 11 v3/v4/v5-era raw review files from `docs/handoffs/` because they created misleading `rg` results for fresh agents (curated conclusions stay in this file). A development-side audit of a parallel public project (GRACE Marketplace) confirmed the Why1st thesis but produced no public-surface change — borrow candidates parked in ROADMAP "Proposed" with explicit "awaiting adoption signal" gates. AGENTS.md untouched. | GPT-5.5 Codex (handoffs pruning + open-question framing in commit `7ffffa1` + GRACE audit) and Claude Opus 4.7 (version-field removal, EVOLUTION/ROADMAP integration, advisor pressure-test) |
 
 ---
 
@@ -498,6 +499,43 @@ WHY validator: OK
 - Versioning simplification (`schema="0.8"`, `<PROJECT VERSION>`). Open question stays.
 
 **Recurring-pattern note.** Three versions in a row — v6.1, v7, v8 — diagnosed the same shape of failure: **the WHY of the rule was under-specified, so adopters/agents reproduced the local-prior shape instead of the protocol intent.** Each fix was small and rationale-thickening. None added rules or principles. The pattern itself is now documented enough that future versions can name it as the first thing to check when an adopter "does X wrong": is the WHY explicit, or have we left the agent to infer it?
+
+**Evidence:**
+
+```
+$ python scripts/validate-why.py
+WHY validator: nodes=19 relations=14 anchors_validated=0 anchors_skipped=0 errors=0 warnings=1
+WHY validator: OK
+```
+
+---
+
+## v8 → v8.1: Closing pass — drop dead weight, do not preemptively expand
+
+**Era:** v6→v8 each added a load-bearing fix tied to a named adoption failure. v8.1 is the discipline of not adding when nothing is broken.
+
+**Primary agents:** GPT-5.5 Codex (stale-handoffs prune + open-question framing in commit `7ffffa1`, plus a development-side audit of GRACE Marketplace) and Claude Opus 4.7 (version-field removal, EVOLUTION/ROADMAP integration, advisor pressure-test).
+
+**What v8.1 closes.**
+
+- **Graph version-field inertia.** The teaching graph carried `schema="0.8"` on the root and `VERSION="0.8"` on `<PROJECT>`. Both were holdovers from before Why1st was a named project, never tied to an XSD, validator compatibility contract, or migration rule. Adopters copying the graph had to choose what to do with `0.8` — some kept it, some incremented, some did not notice — all noise, no signal. v8.1 removes both fields, rewrites `why-graph-principles.md` §2 to match, and closes the corresponding open questions in PRD §10 and ROADMAP §5.
+- **Stale handoffs as `rg` traps.** Eleven raw v3/v4/v5-era external review files in `docs/handoffs/` were producing misleading search results for fresh agents — old file paths, retired framings, decisions long superseded. The curated conclusions are already in this file (`EVOLUTION.md`). Codex pruned the raw files in commit `7ffffa1`; v8.1 records the policy explicitly: keep curated outcomes here, keep only the current handoff template and the latest live handoff under `docs/handoffs/`.
+
+**What v8.1 deliberately does *not* add.**
+
+A development-side audit of [`osovv/grace-marketplace`](https://github.com/osovv/grace-marketplace) — a parallel public project that independently arrived at prompt-XML tags, contracts near code, and graph-anchored validators — produced six borrow candidates: "closing-tag polysemy" naming for §2a, public/shared vs file-local/private boundary in `why-contracts-v1.md`, classical-XML anti-pattern lint in the validator, operational-packet shape for `docs/agent-orchestration.md`, validator issue codes, and an optional "autonomous readiness" profile. Each candidate is genuinely useful in some adopter scenario.
+
+None of them landed.
+
+The reason is the spirit-pass discipline that worked through v6→v8: every change was tied to a named adoption failure that the change actually catches. v6.1 was triggered by GPT-5.5 leaking local refs into public docs. v7 was triggered by the harmon1st adopter producing classical XML on first read. v8 was triggered by the same adopter compressing away rationale. There is no observed failure that any of the six GRACE candidates would prevent. §2a's three forces empirically already work for cold-start adopters; private helpers have not yet bloated any real adopter graph; the validator's CDD-style errors have not yet triggered UX complaints.
+
+So the candidates are parked in ROADMAP under "From GRACE Marketplace audit" with explicit "awaiting signal" gates per row. The audit's value is preserved as a legible candidate pile; the public surface stays unchanged.
+
+**The lesson v8.1 teaches.**
+
+External validation feels like a reason to expand. It is not. GRACE confirms the *thesis* — the strongest possible win — and that confirmation is itself the deliverable. Adding GRACE's vocabulary, lint rules, or extension shapes preemptively would convert that win into ceremony for adopters who do not have the problem yet. The deeper move is to record what the audit found, leave the public surface alone, and let real adoption pressure decide which borrow is worth the tokens.
+
+This is the same shape as the v6 spirit pass — which deferred the §1 Role Contract candidate and reverted §8/§9 candidate edits — applied at the Why1st surface instead of at AGENTS.md.
 
 **Evidence:**
 

@@ -63,13 +63,9 @@ Current leaning: no single memory location is portable enough to prescribe. The 
 - How should reference-adopter evidence move from private development notes to public links as projects mature? Current stance: early or unstable adopter examples stay described by shape and stack; public, stable adopters can be linked after review.
 - First public candidate to track: [`applerom/harness-observatory`](https://github.com/applerom/harness-observatory), an Agent1st/Why1st-adjacent local-first research app. Do not promote it from candidate to canonical example until its examples are stable enough not to mislead adopters.
 
-### 5. Graph Version Fields
+### 5. Graph Version Fields — resolved in v8.1
 
-**Current state:** the teaching graph and examples still use `schema="0.8"` and `<PROJECT VERSION="...">`, but those fields are not tied to an XSD, validator compatibility contract, or concrete migration rule.
-
-**Open question:** should Why1st remove abstract graph/schema version fields and rely on validator compatibility, dates, and git/content history instead?
-
-Current leaning: remove or demote them unless a future validator/package release gives them real semantics. Until then, agents should treat them as an unresolved design question, not as proof that a formal schema exists.
+**Resolution:** removed. The abstract `schema="0.8"` and `<PROJECT VERSION="...">` fields were inertia from before Why1st was a named project; they were never tied to an XSD, validator compatibility contract, or migration rule. Validator behavior, the `<PROJECT DATE="...">` attribute, and git history carry actual evolution semantics. A real version field can be added later if and when one earns concrete semantics.
 
 ---
 
@@ -102,6 +98,19 @@ Current leaning: remove or demote them unless a future validator/package release
 | Document intent1st relationship | Proposed | How it extends Agent1st philosophy |
 | Evaluate gateway pattern for WHY layer | Proposed | intent1st's canon/candidates/archive model |
 | Assess SKILL.md adoption barrier | Open question | Models don't reliably use skill-based access |
+
+### From GRACE Marketplace audit (2026-04-29)
+
+A parallel public project ([osovv/grace-marketplace](https://github.com/osovv/grace-marketplace)) independently arrived at prompt-XML tags, contracts near code, and graph-anchored validators. The audit (kept in lab notes, not on the public surface) extracted candidates worth **holding** until an adoption signal proves they earn their tokens — the v6→v8 spirit-pass discipline says no preemptive ceremony.
+
+| Proposal | Status | Awaiting signal |
+|----------|--------|----------------|
+| Borrow "closing-tag polysemy" naming into `why-graph-principles.md` §2a | Held | An adopter who reads §2a's three forces but still regresses to generic `<node>` — the existing wording empirically worked for one cold-start adopter |
+| Public/shared vs file-local/private boundary line in `why-contracts-v1.md` | Held | An adopter graph that bloats with private helpers — not yet observed |
+| Validator warning on classical-XML anti-patterns (`<node>`, `<Module ID=...>`, `<?xml ?>`) | Held | Cold-start regressions that v7 §2a docs alone don't catch — not yet observed |
+| Operational-packet shape (execution / graph delta / verification delta / failure / checkpoint) as a `docs/agent-orchestration.md` template | Held | A real Why1st adopter doing recurring subagent delegation needing more shape than `Why1st.md §11.3` |
+| Validator issue codes + remediation strings | Held | Validator UX complaints that the current CDD-style messages don't address |
+| Optional "autonomous readiness" validator profile | Held | Adopter request for a stricter pre-shipping check than the standard graph/anchor lint |
 
 ---
 
@@ -172,12 +181,19 @@ See `docs/EVOLUTION.md` "Recurring Rejected Patterns" for full list. Key recurri
 - AGENTS.md untouched
 - Includes drop-in surface cleanup from a Codex-side audit: public history docs no longer reference `.lab/` paths; `applerom/harness-observatory` named as a public reference candidate (only because it is a public GitHub repo)
 
+### v8.1
+- Drop noise: `schema="0.8"` and `<PROJECT VERSION="0.8">` removed from the teaching graph. The fields were inertia from before Why1st was a named project — never tied to an XSD or migration rule. Closes the v8 open question on graph/schema version fields
+- `docs/why-graph-principles.md` §2 root-and-schema paragraph rewritten to match: graph carries no abstract version field; rely on validator behavior, `<PROJECT DATE>`, and git history
+- PRD §10 and ROADMAP §5 marked resolved
+- Stale handoffs cleanup landed alongside (Codex-side commit `7ffffa1`): 11 v3/v4/v5-era raw review files removed from `docs/handoffs/`. Curated conclusions stay in `EVOLUTION.md`; raw old reviews were creating misleading `rg` results for fresh agents
+- A development-side audit of GRACE Marketplace (a parallel public project that independently rediscovered prompt-XML, contracts near code, and validators) confirmed the Why1st thesis. Borrow candidates extracted but **not** landed — held in §"From GRACE Marketplace" pending an adoption signal
+- AGENTS.md untouched
+
 ### v9+ (speculative)
 - Friction Tax / ambiguity handling in CDD — gated by delta-layer test
 - Memory system integration patterns (harness MEMORY.md vs. in-repo decision logs vs. skill-based gateways) — likely a decision guide, not a required artifact
 - Anchor adoption in this repo's own `docs/` so the validator graduates from doc-only mode to enforced anchors
 - Adopter prompt template (one-shot copy-paste for Why1st adoption) only if v7 + v8 docs alone don't land for cold-start agents
-- Versioning simplification — decide whether `schema="0.8"` and `<PROJECT VERSION="...">` earn their place, or whether Why1st should drop abstract version fields in favor of dates, validator compatibility, and git history
 - Validator extension: lint that emitted log anchors resolve to graph entries (only if §11.1 adoption requests it)
 
 ---
