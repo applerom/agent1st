@@ -144,7 +144,7 @@ Also analyzed external references:
 - detailed verification procedures → "Done Is Not a Mood" is sufficient for minimal version
 - full fresh-eye audit at session start → too expensive for subagents/swarms, removed in v3
 
-**Agent-to-agent handoff:** See `docs/handoffs/gpt54-v3-handoff.md`
+**Agent-to-agent handoff:** Older raw handoff briefs were removed in the v8 cleanup because they created stale-search noise for fresh agents.
 
 ---
 
@@ -227,7 +227,7 @@ If your proposal fits either category, it is probably wrong for the minimal vers
 
 Four external agents (GLM-5, Grok 4.20, MiniMax M2.7, and Qwen3.5-Plus) independently analyzed the protocol and submitted contributions. GPT-5.4 provided a parallel review. Claude Opus 4.6 curated and integrated the results.
 
-These imported handoffs are preserved as audit artifacts. Some observations reflect the repo snapshot each external agent saw at review time, not necessarily the current `main`.
+These imported handoffs were preserved as audit artifacts through v8. They were later removed from the public surface because their stale file paths and old claims created misleading `rg` results for fresh agents. Curated conclusions remain below.
 
 **What was incorporated:**
 - **Handoff Template** — `docs/handoffs/TEMPLATE.md` with 3 modes (mini/full/subagent-evidence-only). Requested independently by 3+ agents.
@@ -249,7 +249,7 @@ These imported handoffs are preserved as audit artifacts. Some observations refl
 - Assumption Surfacing (GLM-5) — over-specifies Agent Loop
 - Agent Maturity Levels (MiniMax M2.7) — against "strong agents" philosophy
 
-**All handoffs saved:** `docs/handoffs/glm5-v4-analysis.md` (GLM-5), `docs/handoffs/grok-v4-truth-first.md` (Grok 4.20), `docs/handoffs/minimax-v4-perspective.md` (MiniMax M2.7), `docs/handoffs/qwen-v4-audit.md` (Qwen3.5-Plus).
+**Public surface policy after v8 cleanup:** keep curated outcomes in `EVOLUTION.md`; keep only the current handoff template and the latest live handoff in `docs/handoffs/`. Raw old review files are useful during integration, but once curated they become history noise.
 
 **Pattern observed:** External agents consistently rediscover the same improvements and the same rejected paths. The recurring rejected patterns section above predicted most proposals accurately. This validates the value of documenting rejections.
 
@@ -297,7 +297,7 @@ Neither adopter copied the other. Both carried the same idea. That convergence w
 
 ### v5.1 — External review integration (2026-04-17)
 
-v5 went out to eight external agents for review (Claude Opus 4.7, GPT-5.4, Gemini 3.1, Grok 4.20, Kimi K2.5, Meta-Muse Spark, MiniMax M2.7, Qwen 3.6). Full handoffs live under `docs/handoffs/v5-review-*.md`.
+v5 went out to eight external agents for review (Claude Opus 4.7, GPT-5.4, Gemini 3.1, Grok 4.20, Kimi K2.5, Meta-Muse Spark, MiniMax M2.7, Qwen 3.6). The raw review handoffs were removed from the public surface after their conclusions were curated here; the point is to preserve decisions, not stale search noise.
 
 **Accepted and landed in v5.1:**
 

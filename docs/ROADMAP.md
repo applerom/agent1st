@@ -63,6 +63,14 @@ Current leaning: no single memory location is portable enough to prescribe. The 
 - How should reference-adopter evidence move from private development notes to public links as projects mature? Current stance: early or unstable adopter examples stay described by shape and stack; public, stable adopters can be linked after review.
 - First public candidate to track: [`applerom/harness-observatory`](https://github.com/applerom/harness-observatory), an Agent1st/Why1st-adjacent local-first research app. Do not promote it from candidate to canonical example until its examples are stable enough not to mislead adopters.
 
+### 5. Graph Version Fields
+
+**Current state:** the teaching graph and examples still use `schema="0.8"` and `<PROJECT VERSION="...">`, but those fields are not tied to an XSD, validator compatibility contract, or concrete migration rule.
+
+**Open question:** should Why1st remove abstract graph/schema version fields and rely on validator compatibility, dates, and git/content history instead?
+
+Current leaning: remove or demote them unless a future validator/package release gives them real semantics. Until then, agents should treat them as an unresolved design question, not as proof that a formal schema exists.
+
 ---
 
 ## Proposed (Not Yet Accepted)

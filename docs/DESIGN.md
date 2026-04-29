@@ -234,7 +234,7 @@ Every version was shaped by agent contributions:
 - v4: Claude Opus 4.6 perspective on multi-agent autonomy, now promoted into the current `AGENTS.md`
 - v4 external review: GLM-5, Grok 4.20, MiniMax M2.7, and Qwen3.5-Plus audited the protocol independently; contributions curated by Claude Opus 4.6
 
-The handoff briefs in `docs/handoffs/` capture agent-to-agent knowledge transfer. They are first-class project artifacts, not temporary notes.
+Current handoff briefs in `docs/handoffs/` capture live agent-to-agent transfer. Once a version's conclusions are curated, `EVOLUTION.md` becomes the durable public record so old raw reviews do not mislead fresh agents.
 
 ---
 

@@ -100,8 +100,10 @@ Not in scope: beginners looking for a prompt-engineering tutorial, or users of w
 
 ## 10) Open questions
 
+These are intentionally unresolved. Future agents should not silently normalize the current artifacts as final doctrine; propose the smallest decision or experiment that would close the question.
+
 - Where does cross-session memory live — harness (Claude Code `MEMORY.md`), repo (decision logs), or skills (intent1st-style gateways)? Current evidence suggests the answer may stay project-local rather than become one portable format. See `docs/ROADMAP.md` §3.
 - Should project-local extensions (CI integration, acceptance automation, observability contracts) get their own reference variant in this repo, or remain correctly project-local?
 - How do we measure "less drift" without introducing metrics that themselves become ceremony? Candidate signals: fewer repeated mistakes, fewer stale graph/anchor repairs, faster handoffs, and lower human correction load. No canonical metric yet.
 - How should public proof evolve while reference adopters are still maturing? Current stance: keep unstable local examples off-public; replace shape-only claims with public links as adopter projects become stable and public.
-- Do graph/schema version numbers carry enough value to keep, or should Why1st prefer validator compatibility, dates, and content history over abstract version fields?
+- Do graph/schema version numbers (`schema="0.8"`, `<PROJECT VERSION="...">`) carry enough value to keep, or should Why1st remove them and prefer validator compatibility, dates, and git/content history? Current signal: they do not yet carry clear semantics. Decision still needed.

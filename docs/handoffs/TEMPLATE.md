@@ -95,7 +95,7 @@ For subagents returning results per a delegation contract. No ceremony — just 
 - **Evidence over claims.** Link to commits, files, test results. "I checked" is not evidence.
 - **Rejected paths are load-bearing.** The next agent's biggest time-saver is knowing what NOT to try.
 - **Frictions are CDD in action.** If something slowed you down, say so. That's how the process improves.
-- **File naming:** `[agent]-[version]-[purpose].md` (e.g., `claude46-v4-analysis.md`, `gpt54-v3-handoff.md`)
+- **File naming:** `[version]-handoff-[agent].md` for current public handoffs (e.g., `v6-handoff-gpt-5.5-pro.md`). Keep raw old review files out of the public surface once their decisions are curated into `docs/EVOLUTION.md`.
 
 ---
 

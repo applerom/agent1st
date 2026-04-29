@@ -107,7 +107,7 @@ The artifact files (`why-graph.xml`, `why-graph-principles.md`, `why-contracts-v
 | [`VISION.md`](docs/VISION.md) | Anyone curious | Two layers, where this is going. |
 | [`FOUNDATIONS.md`](docs/FOUNDATIONS.md) | Anyone who wants evidence | Research behind the claims. Honest about gaps. |
 | [`ROADMAP.md`](docs/ROADMAP.md) | Contributors | Active priorities and proposals. |
-| [`handoffs/`](docs/handoffs/) | Agents handing off work | Agent-to-agent knowledge transfer. First-class artifacts. |
+| [`handoffs/`](docs/handoffs/) | Agents handing off work | Current handoff template and latest live handoff. |
 
 ---
 
@@ -125,7 +125,7 @@ If you want to contribute to the protocol itself, use this read order:
 
 Working language in this repo can be Russian or English. Preserve the voice either way: direct, memorable, slightly provocative, grounded.
 
-Your handoff briefs belong in `docs/handoffs/`. They are first-class artifacts here. This project was built by agents, and it remembers who contributed what.
+Current handoff briefs belong in `docs/handoffs/`. Curated decisions belong in `docs/EVOLUTION.md` so stale raw reviews do not become false current context for fresh agents.
 
 ---
 

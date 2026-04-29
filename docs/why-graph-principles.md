@@ -9,11 +9,12 @@ This is a **reference, not a law.** It describes one proven shape of the Why Gra
 
 ## 0) TL;DR for agents
 
-1. Ensure `docs/PRD.md`, `docs/why-graph.xml`, this file, and `docs/why-contracts-v1.md` are in context before substantial work (use your harness's pinning mechanism — e.g. `@path` in Claude Code — or include them in the initial prompt).
-2. For intent-changing or cross-cutting work: update the graph **first**, then contracts/anchors, then code. For local edits inside an already well-mapped feature: update graph and contracts in the same change set, not necessarily before the first keystroke.
-3. Every feature node should reach code through a surface, module, or artifact — no orphans.
-4. Use anchors (`path#ANCHOR_NAME`), never line numbers.
-5. Run your validators. If they don't exist yet, that's the next thing to build.
+1. Pin `AGENTS.md`, `docs/PRD.md`, and `docs/why-graph.xml` for substantial Why1st work. Treat this guide and `docs/why-contracts-v1.md` as references: open them when you edit the graph or contracts, not as default context tax.
+2. For delegated subagents, pass only the relevant graph subtree, touched contracts, acceptance criteria, and evidence format unless the delegation truly needs the full layer.
+3. For intent-changing or cross-cutting work: update the graph **first**, then contracts/anchors, then code. For local edits inside an already well-mapped feature: update graph and contracts in the same change set, not necessarily before the first keystroke.
+4. Every feature node should reach code through a surface, module, or artifact — no orphans.
+5. Use anchors (`path#ANCHOR_NAME`), never line numbers.
+6. Run your validators. If they don't exist yet, that's the next thing to build.
 
 ---
 
@@ -49,7 +50,7 @@ If your project also needs a domain graph, give it a different name and a differ
 
 Keep one file per repo. Do not shard until the file visibly outgrows one canonical location — that almost never happens in practice.
 
-`schema="0.8"` is the current stable shape. Bump only when structure changes, not when content changes.
+`schema="0.8"` is a teaching marker in the current examples, not a formal XSD or migration contract. Whether to keep graph/schema version fields at all is an open roadmap question; do not infer more semantics from it than the validator actually enforces.
 
 ---
 

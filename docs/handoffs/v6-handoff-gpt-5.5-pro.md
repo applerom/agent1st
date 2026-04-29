@@ -385,7 +385,7 @@ Minimum expected files:
 AGENTS.md
 docs/EVOLUTION.md
 scripts/validate-why.py
-possibly docs/WHY-APPROACH.md
+possibly docs/Why1st.md
 possibly docs/why-graph-principles.md
 possibly docs/PRD.md
 ```
@@ -409,7 +409,7 @@ possibly docs/PRD.md
 - EVIDENCED_BY decision
 ```
 
-`WHY-APPROACH.md` may need a small update if validator MVP lands:
+`Why1st.md` may need a small update if validator MVP lands:
 
 ```text
 - replace “if validators exist” / “first thing to build” language with the actual command
@@ -471,7 +471,7 @@ v6 is acceptable when all are true:
 6. WHY validator MVP exists and runs deterministically.
 7. Validator output is grep-friendly and uses Agent1st CDD-style problem reporting.
 8. docs/EVOLUTION.md records accepted, rejected, and deferred decisions.
-9. docs/WHY-APPROACH.md / why-graph-principles.md mention the validator command if the script lands.
+9. docs/Why1st.md / why-graph-principles.md mention the validator command if the script lands.
 10. Final completion claim includes evidence: command run, pass/fail result, and known limitations.
 ```
 
@@ -547,7 +547,7 @@ v6 should make Agent1st more mechanically trustworthy, not more verbose.
 
 [1]: https://github.com/applerom/agent1st/blob/main/AGENTS.md "agent1st/AGENTS.md at main · applerom/agent1st · GitHub"
 [2]: https://github.com/applerom/agent1st/blob/main/docs/DESIGN.md "agent1st/docs/DESIGN.md at main · applerom/agent1st · GitHub"
-[3]: https://github.com/applerom/agent1st/blob/main/docs/WHY-APPROACH.md "agent1st/docs/WHY-APPROACH.md at main · applerom/agent1st · GitHub"
+[3]: https://github.com/applerom/agent1st/blob/main/docs/Why1st.md "agent1st/docs/Why1st.md at main · applerom/agent1st · GitHub"
 [4]: https://github.com/applerom/agent1st/blob/main/docs/EVOLUTION.md "agent1st/docs/EVOLUTION.md at main · applerom/agent1st · GitHub"
 [5]: https://developers.openai.com/api/docs/guides/prompt-guidance "Prompt guidance | OpenAI API"
 [6]: https://developers.openai.com/api/docs/guides/latest-model "Using GPT-5.5 | OpenAI API"
