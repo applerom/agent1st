@@ -19,6 +19,7 @@ Agents who contribute to new versions should add their transition notes.
 | v5.1 | same files, sharpened | External-review integration round. Staleness named as first-class failure. Workflow shape stops being a universal law. Teaching-surface bugs fixed. | Claude Opus 4.6 (primary), integrating external reviews from GPT-5.4, MiniMax M2.7, Kimi K2.5, Qwen 3.6, Grok 4.20, plus off-target input from Gemini 3.1, Claude Opus 4.7, and Meta-Muse Spark |
 | v6 | `scripts/validate-why.py` + paired doc updates; `AGENTS.md` byte-identical to v5.1 | WHY validator MVP lands. `AGENTS.md` survives the spirit pass unchanged: §1 deferred at the front door, §8 + §9 candidate edits initially landed then reverted. The v6 process contribution is the spirit-pass discipline itself. | Claude Opus 4.7 (primary), filtering GPT-5.5-pro's `docs/handoffs/v6-handoff-gpt-5.5-pro.md` and a Codex-native adopter's adaptation through the spirit lens |
 | v6.1 | `docs/Why1st.md` Why1st short name + validator generalization + public/private surface cleanup | Why1st named as a short alias for the WHY-first approach/layer (not a second behavior protocol). Validator generalized from `MODULE_*`-only to any node with anchors. Reference-adopter analyses moved off-public so the public protocol does not point at projects readers cannot access. Stale v6 teaching-surface residue fixed. | GPT-5.5 Codex (initial pass) + Claude Opus 4.7 (spirit pass and surface cleanup) |
+| v7 | `docs/why-graph-principles.md` §2a (load-bearing) + light pointers in `Why1st.md` and `why-contracts-v1.md` | Why1st format spirit named: graph file is *prompt-XML*, not classical XML or graph-DB schema. New §2a "Tag shapes — prompt-XML, not classical XML" with the three forces (transformer attention, greppability, semantic interference), side-by-side good/bad examples, and an anti-patterns list. Triggered by a real downstream adopter cold-reading `#why1st` and silently simplifying to `<?xml ?> + <nodes><node id="..." kind="..."> + <relations>` — the rationale was missing from v6 docs, not the format. Verified before ship: a fresh subagent given only the updated docs + a tiny fictional PRD produced canonical prompt-XML. | Claude Opus 4.7 (primary) |
 
 ---
 
@@ -419,6 +420,44 @@ WHY validator: nodes=19 relations=14 anchors_validated=0 anchors_skipped=0 error
 - [warning] <graph>
   Problem: no ANCHOR elements found
   Smallest fix: acceptable for a docs-only dogfood graph; add anchors when adopting this layer in a code repo
+WHY validator: OK
+```
+
+---
+
+## v6.1 → v7: Why1st format spirit gets named
+
+**Era:** v6 documented *how* to write the Why Graph but left *why* the format choices were specifically engineered (transformer attention, semantic distinctiveness, greppability, progressive disclosure) implicit. A real downstream adopter at the start of a project read only `README#why1st` and `Why1st.md` cold, then produced exactly the simplification a strong agent's prior makes cheap: `<?xml version="1.0"?>` + `<whyGraph>` root + separated `<nodes>` / `<relations>` blocks + `<node id="FEAT-X" kind="feature">` containers with `<dependsOn>`, `<prdRef>`, `<summary>` children. The output validated. It also failed the actual job — generic `<node>` tags do not survive long context as transformer-attention anchors, and the `id="..."` attribute is invisible to grep'ing across code anchors.
+
+**Diagnosis:** the words "graph" and ".xml" pull strong agents toward classical graph-DB shape and classical-XML defaults. Both are rational from inside the training prior. The fix is not blaming the agent — it is making the format choice explicit and motivated, so the rationale lands before the format gets simplified away.
+
+**Primary agent:** Claude Opus 4.7
+
+**What changed:**
+
+- **`docs/why-graph-principles.md` §2a — the load-bearing change.** A new section titled "Tag shapes — prompt-XML, not classical XML." Names the three forces (transformer attention, greppability, semantic interference), shows side-by-side classical-XML/graph-DB vs prompt-XML/Why1st example with line-by-line "what is wrong / what to write" annotations, lists anti-patterns (`<?xml ?>` declaration, `<whyGraph>` root, `<nodes>/<relations>` separation, `<node id kind>`, camelCase tags, free-form `type="serves"`), and ends on a one-line rule: *the tag IS the semantic anchor; if the tag is generic, the graph is decoration.* This is the section a fresh agent should read before writing the graph.
+- **`docs/Why1st.md` §2** — short pointer paragraph. Tells the reader to read §2a *before* writing the graph and gives a one-sentence diagnosis of the simplification trap.
+- **`docs/why-contracts-v1.md` head** — short paragraph naming the contracts-at-file-head pattern as *progressive disclosure*. A model reading 20 lines learns PURPOSE / PRD_REF / INVARIANTS / LINKS and decides whether to load the rest. Notes that `SKILL.md` popularized the same pattern recently; Why1st has had it from the start. Token saving is real but secondary; attention shaping is the primary effect.
+- **`docs/why-graph.xml`** — one inline comment near the first `FEATURE_*` block: *"tag name carries the entity identity; do NOT replace with generic `<node id="..." kind="feature">` — see §2a."*
+- **AGENTS.md** — untouched. The failure is in the WHY layer, not in behavior.
+- **Validator** — untouched. Already accepts canonical shape; not its job to police format aesthetics.
+
+**Verified before ship.** A fresh Explore subagent was given only the updated `Why1st.md`, `why-graph-principles.md`, `why-contracts-v1.md`, and the dogfood `why-graph.xml`, plus a tiny fictional PRD (FocusKit — CLI + dashboard). It produced canonical prompt-XML on first attempt: `<Why_Graph schema="0.8">` root, no `<?xml ?>`, `<USECASE_START ID="UC-START">`, `<FEATURE_CLI_START ID="FEAT-CLI-START">`, inline `<REL TYPE TARGET>`, all UPPER_SNAKE_CASE semantic tags. In its self-check it explicitly named the simplifications it consciously avoided. v7 docs land the rationale; without that verification, the doc edit was talk.
+
+**What stayed out of v7:**
+
+- A separate `docs/why-spirit.md` doc — proliferation against delta-layer.
+- Any `AGENTS.md` change — the failure is in the WHY layer, not behavior.
+- Adopter prompt template under `.lab/shareables/` — held back as v7.1 follow-up only if docs alone aren't enough. Verification suggests they are.
+- Conflating contracts and graph shape — the downstream adopter's contracts were roughly fine in spirit (`<!-- START_DOC_CONTRACT: NAME -->` with PURPOSE / PRD_REF / INVARIANTS). Only the graph collapsed to classical XML. v7 keeps the two failures separate; the contracts paragraph is about progressive disclosure, not about correcting a contract mistake.
+
+**Recurring-pattern note.** v6.1 fixed a recurring leak (local-project names creeping into public docs). v7 fixes a recurring simplification (graph format collapsing to `<node id>` shape). Both root-cause the same way: the public docs encoded the *what* clearly but the *why* implicitly. Future versions should treat any "agents keep doing X wrong" report as a signal that the WHY of the relevant rule is under-specified, not that agents need more rules.
+
+**Evidence:**
+
+```
+$ python scripts/validate-why.py
+WHY validator: nodes=19 relations=14 anchors_validated=0 anchors_skipped=0 errors=0 warnings=1
 WHY validator: OK
 ```
 

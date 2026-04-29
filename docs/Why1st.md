@@ -55,6 +55,8 @@ The explanatory docs in this repo (`Why1st.md`, `why-graph-principles.md`, and `
 > **PRD -> Why Graph -> anchors/contracts -> validators**
 
 Take any one away and the chain breaks.
+
+**Before you write the graph, read `why-graph-principles.md` §2a.** The Why Graph is `.xml` for tooling reasons but is not classical XML and not a graph-DB schema — its tag shapes are engineered for transformer attention, not for parser elegance. Strong agents who skip §2a tend to silently simplify the format to `<?xml ?> + <nodes><node id="..." kind="..."> + <relations>` — which parses, validates, and quietly fails the actual job (the format becomes invisible to the model in long context). §2a explains the choice with side-by-side good/bad examples so the rationale lands before the format gets simplified away.
 Keep them paired and agents can answer, quickly and reliably:
 
 - what matters

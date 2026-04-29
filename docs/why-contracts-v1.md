@@ -5,6 +5,8 @@ Companion docs: `Why1st.md` (the idea), `why-graph-principles.md` (the graph).
 
 The goal: anchor-first navigation that survives refactors, with intent readable where the code lives.
 
+**Why contracts live at the file head.** A module contract sits in the first ~20 lines of the file on purpose. A model that reads only those 20 lines learns PURPOSE + PRD_REF + INVARIANTS + LINKS — enough to decide whether to load the full file or move on. This is *progressive disclosure*: the same idea recently popularized by `SKILL.md`, but built into Why1st from the start. The token-saving is real but secondary; the primary effect is attention shaping. The model spends its context on files that matter and skips files that don't, without you writing a routing prompt.
+
 ---
 
 ## 0) TL;DR

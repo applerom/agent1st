@@ -64,7 +64,10 @@
   </USECASE_CONTRIBUTE>
 
   <!-- ==================== FEATURES ==================== -->
-  <!-- Features are implementable, testable. Each maps to real docs or code. -->
+  <!-- Features are implementable, testable. Each maps to real docs or code.
+       Tag name carries the entity identity. Do NOT replace with generic
+       <node id="FEAT-CORE" kind="feature"> — see why-graph-principles.md §2a
+       for why prompt-XML tag shapes are not classical XML. -->
 
   <FEATURE_CORE ID="FEAT-CORE" STATE="IMPLEMENTED" PRIORITY="CRITICAL">
     <INTENT>Minimal AGENTS.md — 11 principles, delta-layer, drop-in</INTENT>

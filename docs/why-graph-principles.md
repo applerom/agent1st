@@ -53,6 +53,89 @@ Keep one file per repo. Do not shard until the file visibly outgrows one canonic
 
 ---
 
+## 2a) Tag shapes — prompt-XML, not classical XML
+
+The graph file ends in `.xml` for tooling reasons (parsers, validators, syntax highlighting). The conventions inside it are deliberately **not** classical XML and **not** a graph-database schema. They are *prompt-XML* — tag shapes engineered to act as transformer-attention anchors, lifting from Anthropic and OpenAI prompt-engineering guidance about delimited blocks.
+
+If the format choice does not feel motivated, a strong agent will silently simplify it to whatever its training prior made cheap — `<?xml ?>` + `<nodes><node id="..." kind="...">` + `<relations><relation from to type/>`. That is classical XML / graph-DB framing. It parses. It validates. It also fails the actual job.
+
+This section exists so you do not make that simplification.
+
+### Why these tags
+
+Three forces shape every tag:
+
+1. **Transformer attention.** Long, distinctive tag pairs like `<FEATURE_LIVE_DEBUGGABILITY>...</FEATURE_LIVE_DEBUGGABILITY>` repeat the entity identity at open and close. A model sees that pair as a salient anchor zone even in saturated context. A generic `<node>...</node>` is invisible — too common, attention slides off.
+2. **Greppability from code anchors.** When code carries `START_FEATURE_CONTRACT: FEATURE_LIVE_DEBUGGABILITY`, a model can `grep FEATURE_LIVE_DEBUGGABILITY` and land on both the graph entry and the code. With `<node id="...">` the tag-side hit is gone — only the attribute matches, and only if the tool inspects attributes.
+3. **Avoid semantic interference.** Pure `<?xml version="1.0"?>` declarations and lowercase generic tags (`<node>`, `<dependsOn>`, `<metadata>`) tell a strong model "this is generic XML, treat as such." Models are flooded with classical XML in training and tune it out. UPPER_SNAKE_CASE tags with semantic load break out of that pattern and stay visible.
+
+### Side-by-side: same data, two shapes
+
+**Classical XML / graph-DB shape — what to avoid:**
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<whyGraph project="YourProject" version="1">
+  <nodes>
+    <node id="FEATURE_LIVE_DEBUGGABILITY" kind="feature" title="Live debuggability">
+      <summary>Let the user understand active agent work...</summary>
+      <prdRef path="docs/PRD.md" section="13" />
+      <dependsOn ref="FEATURE_ADAPTER_CONTRACT" />
+    </node>
+  </nodes>
+  <relations>
+    <relation from="FEATURE_LIVE_DEBUGGABILITY" to="USECASE_OBSERVE" type="serves" />
+  </relations>
+</whyGraph>
+```
+
+What is wrong, line by line:
+
+- `<?xml ?>` declaration cues classical-XML defaults in the model.
+- `<whyGraph>` and `<node>` carry no semantic load — pure structure.
+- `kind="feature"` hides the family in an attribute. The tag itself does not anchor attention.
+- Separate `<nodes>` and `<relations>` blocks read as a graph-DB schema. The reader has to cross-reference to assemble one entity's full picture; the relations are not visible at the entity.
+- camelCase children (`<dependsOn>`, `<prdRef>`, `<summary>`) look like data fields, not navigation tags.
+
+**Prompt-XML / Why1st shape — what to write:**
+```xml
+<Why_Graph schema="0.8" project="YourProject">
+  <PROJECT VERSION="0.1" DATE="2026-04-29">
+    <WHAT>Map product intent to durable docs and code anchors.</WHAT>
+    <WHY>Drift between PRD and code kills long-lived agent-driven projects.</WHY>
+  </PROJECT>
+
+  <FEATURE_LIVE_DEBUGGABILITY ID="FEAT-LIVE-DEBUG" STATE="PLANNED" PRIORITY="HIGH">
+    <INTENT>Let the user understand active agent work well enough to decide whether to wait or intervene manually.</INTENT>
+    <PRD_REF>docs/PRD.md §13</PRD_REF>
+    <REL TYPE="DEPENDS_ON" TARGET="FEATURE:FEAT-ADAPTER-CONTRACT"/>
+  </FEATURE_LIVE_DEBUGGABILITY>
+</Why_Graph>
+```
+
+Same information. Different attention surface:
+
+- No `<?xml ?>` declaration. Tooling does not need it; its presence cues the wrong defaults.
+- Root `<Why_Graph schema="0.8">` is uppercase-distinctive. `schema="0.8"` is a soft mark — there is no XSD.
+- Tag name `<FEATURE_LIVE_DEBUGGABILITY>` IS the entity identity. The `ID="FEAT-LIVE-DEBUG"` attribute is the short cross-reference form used in `TARGET=` strings.
+- Each entity carries its own `<REL>` children inline — relations belong with the entity, not in a separate block.
+- Inner tags (`<INTENT>`, `<PRD_REF>`, `<REL TYPE TARGET>`) are UPPERCASE and semantic. They act as sub-entity attention anchors.
+
+### Anti-patterns — if you find yourself writing these, stop
+
+- `<?xml version="1.0" encoding="UTF-8"?>` at the file head. Drop it.
+- Generic root: `<whyGraph>`, `<graph>`, `<root>`. Use `<Why_Graph schema="0.8" project="...">`.
+- Separate `<nodes>` and `<relations>` blocks. Each entity carries its own `<REL>` children inline.
+- Tag = generic container, identity = attribute: `<node id="FEAT-X" kind="feature">`. Wrong. Tag IS the entity: `<FEATURE_X ID="FEAT-X">`.
+- camelCase or lowercase tags: `<dependsOn>`, `<prdRef>`, `<metadata>`, `<summary>`. Wrong. UPPER_SNAKE_CASE with meaning: `<REL TYPE="DEPENDS_ON">`, `<PRD_REF>`, `<INTENT>`.
+- Free-form `type="serves" / "enables" / "informs"` on relations. Use the fixed vocabulary in §4.
+- `<title>` / `<summary>` attributes that paraphrase the tag. The tag is the headline; `<INTENT>` carries the body.
+
+### One-line rule
+
+> The tag IS the semantic anchor. If the tag is generic, the graph is decoration.
+
+---
+
 ## 3) Node families (common set)
 
 These are XML element names. Use the ones your project actually has. Do not invent node families for concepts that don't exist yet.

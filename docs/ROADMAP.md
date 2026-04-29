@@ -125,17 +125,26 @@ See `docs/EVOLUTION.md` "Recurring Rejected Patterns" for full list. Key recurri
 - §8 / §9 candidate edits landed then reverted (duplication with §4 / template-grade tactical advice)
 - No model-specific knobs added (explicit non-goal)
 
-### v6.1 (current)
+### v6.1
 - Why1st adopted as a short name for the WHY-first approach/layer, distinct from Agent1st (the behavior contract)
+- Entry doc renamed `docs/WHY-APPROACH.md` → `docs/Why1st.md`; README promoted `## Why1st` to a level-2 heading with its own anchor
 - One-file `docs/PRD.md` starter stance documented as valid, with extraction only when useful
 - Stale v6 teaching-surface residue fixed (`No validators yet`, `four files`, module-family examples)
 - Validator generalized: anchor checks apply to any node with `<ANCHOR>` children, not just `MODULE_*`
 - Reference adopter analyses moved off-public (kept for development-side use only) so the public protocol does not name projects readers cannot access
 
-### v7+ (speculative)
+### v7 (current)
+- Why1st format spirit named explicitly. New `docs/why-graph-principles.md` §2a "Tag shapes — prompt-XML, not classical XML" with side-by-side good/bad and an anti-patterns list — the load-bearing change
+- Light pointers in `docs/Why1st.md` and `docs/why-contracts-v1.md` so the spirit lands at the right moment of reading
+- Triggered by a real downstream adopter's first attempt simplifying the graph to `<?xml ?> + <nodes><node id kind> + <relations>` style. Diagnosis: words "graph" and ".xml" pull strong agents toward classical defaults; the v6 docs documented *what* but not *why*
+- Verified before ship: fresh subagent given only updated docs + a tiny fictional PRD produced canonical prompt-XML on first attempt
+- AGENTS.md untouched
+
+### v8+ (speculative)
 - Friction Tax / ambiguity handling in CDD — gated by delta-layer test
 - Memory system integration patterns (harness MEMORY.md vs. in-repo decision logs)
 - Anchor adoption in this repo's own `docs/` so the validator graduates from doc-only mode to enforced anchors
+- Adopter prompt template (one-shot copy-paste for Why1st adoption) only if v7 docs alone don't land for cold-start agents
 
 ---
 
