@@ -22,6 +22,7 @@ Agents who contribute to new versions should add their transition notes.
 | v7 | `docs/why-graph-principles.md` §2a (load-bearing) + light pointers in `Why1st.md` and `why-contracts-v1.md` | Why1st format spirit named: graph file is *prompt-XML*, not classical XML or graph-DB schema. New §2a "Tag shapes — prompt-XML, not classical XML" with the three forces (transformer attention, greppability, semantic interference), side-by-side good/bad examples, and an anti-patterns list. Triggered by a real downstream adopter cold-reading `#why1st` and silently simplifying to `<?xml ?> + <nodes><node id="..." kind="..."> + <relations>` — the rationale was missing from v6 docs, not the format. Verified before ship: a fresh subagent given only the updated docs + a tiny fictional PRD produced canonical prompt-XML. | Claude Opus 4.7 (primary) |
 | v8 | `Why1st.md` §8 sharpening + new §11 (three opt-in extensions) + `why-graph-principles.md` §2a "do not compress" guard | After v7 was empirically verified by a cold-start adopter (PRD-only, real working app produced), a focused audit surfaced three small Tier-1 fixes (compression-failure guard, pin-vs-reference, "don't edit the Core") plus three opt-in extension patterns (semantic logs / tests + UI / subagent orchestration). All extensions are opt-in with hard partition from the canonical chain (PRD → Why Graph → contracts → validator). AGENTS.md untouched. | Claude Opus 4.7 (primary), with Codex-side audit by GPT-5.5 |
 | v8.1 | `docs/why-graph.xml`, `why-graph-principles.md` §2, PRD §10, ROADMAP §5; stale handoffs pruned | Closing pass after v8: drop the `schema="0.8"` and `<PROJECT VERSION="0.8">` inertia fields (never tied to an XSD or migration rule); close the corresponding open question; prune 11 v3/v4/v5-era raw review files from `docs/handoffs/` because they created misleading `rg` results for fresh agents (curated conclusions stay in this file). A development-side audit of a parallel public project (GRACE Marketplace) confirmed the Why1st thesis but produced no public-surface change — borrow candidates parked in ROADMAP "Proposed" with explicit "awaiting adoption signal" gates. AGENTS.md untouched. | GPT-5.5 Codex (handoffs pruning + open-question framing in commit `7ffffa1` + GRACE audit) and Claude Opus 4.7 (version-field removal, EVOLUTION/ROADMAP integration, advisor pressure-test) |
+| v8.2 | new `docs/why-semantic-logs.md` + `Why1st.md` §11.1 cross-link | Promised in v8 EVOLUTION ("§11.1 is concise on purpose; if adopter feedback shows §11.1 needs more depth, extract later") and triggered by a real adopter who already had Agent1st+Why1st in place and asked for implementation guidance for semantic logs. The new pair file extracts §11.1 to depth: minimum event shape (required vs conditional fields), why this works for transformer-based agents (vocabulary stability, same-string grep across layers, attention finite), where logs live (JSONL first), the smallest useful slice, and anti-patterns. The load-bearing claim is unchanged from §11.1 — the `anchor` field uses verbatim Why Graph and code-anchor names, so one grep lands in three artifacts. AGENTS.md untouched; canonical chain unchanged; the new file is an opt-in extension paired with §11.1, not a new layer. | GPT-5.5 Codex (initial draft from cross-project reference analysis in `.lab/`) and Claude Opus 4.7 (spirit pass — lead with WHY at top, transformer-attention §3 added in parallel to `why-graph-principles.md` §2a, Playwright digression dropped to §11.2 cross-link, implementation slice tightened to 6 steps) |
 
 ---
 
@@ -536,6 +537,35 @@ So the candidates are parked in ROADMAP under "From GRACE Marketplace audit" wit
 External validation feels like a reason to expand. It is not. GRACE confirms the *thesis* — the strongest possible win — and that confirmation is itself the deliverable. Adding GRACE's vocabulary, lint rules, or extension shapes preemptively would convert that win into ceremony for adopters who do not have the problem yet. The deeper move is to record what the audit found, leave the public surface alone, and let real adoption pressure decide which borrow is worth the tokens.
 
 This is the same shape as the v6 spirit pass — which deferred the §1 Role Contract candidate and reverted §8/§9 candidate edits — applied at the Why1st surface instead of at AGENTS.md.
+
+**Evidence:**
+
+```
+$ python scripts/validate-why.py
+WHY validator: nodes=19 relations=14 anchors_validated=0 anchors_skipped=0 errors=0 warnings=1
+WHY validator: OK
+```
+
+---
+
+## v8.1 → v8.2: §11.1 grows to depth — adopter pull triggers the extraction promised in v8
+
+**Era:** v8 deliberately kept §11.1 (semantic logs) at five paragraphs and recorded the boundary explicitly: *"A separate doc for semantic logs. §11.1 is concise on purpose; if adopter feedback shows §11.1 needs more depth, extract later."* That extraction landed in v8.2.
+
+**Primary agents:** GPT-5.5 Codex (initial implementation draft distilled from a cross-project reference analysis kept in lab notes) and Claude Opus 4.7 (spirit pass — lead with WHY at the top, parallel structure to `why-graph-principles.md` §2a, dropped a Playwright digression that belonged in §11.2, tightened the implementation slice from 9 numbered steps to 6, audit of vocabulary so the new doc reuses the chain's words instead of inventing a fresh schema).
+
+**The trigger.** An adopter who had already implemented the Agent1st+Why1st base — minimal `AGENTS.md`, PRD, Why Graph, contracts — asked for implementation guidance to add semantic logs. Five paragraphs in §11.1 told them the principle and the load-bearing trick (anchor field matches Why Graph names) but did not tell them where logs live, what the minimum event shape actually is, what to log vs not log, or what a good first slice looks like. The depth was missing because v8 wanted depth to be pulled by adopter pressure, not pushed by speculation. The pull arrived.
+
+**What landed.**
+
+- **`docs/why-semantic-logs.md` — new paired file in the `why-*` namespace.** Twelve sections: TL;DR, the problem this layer solves, the core idea, why this works for transformer-based agents (the parallel of `why-graph-principles.md` §2a — three forces: vocabulary stability creates an attention bridge, same-string grep is the cheapest tool a model has, attention is finite per AGENTS.md §4), when to adopt vs not, minimum event shape (required + conditional fields), what to log / what not to log, where logs live (JSONL first), the smallest useful slice (6 steps), what semantic logs are *not* (not decision memory, not raw logs, not test evidence on their own, not graph-staleness signal), anti-patterns, optional validator extension, and where this fits in the rest of the chain.
+- **`Why1st.md` §11.1** updated: the field-shape line corrected to match (`ts`, `event`, `anchor`, `component` required; `expected` / `actual` / correlation id conditional) and a cross-link added pointing to the new file. The five-paragraph version stays as the entry; the new file is the depth.
+
+**What did not change.** AGENTS.md (byte-identical to v5.1 since v6 spirit pass). The canonical chain (PRD → Why Graph → contracts/anchors → validator). The hard partition between chain and §11 extensions. The graph (no new ARTIFACT entry — extensions stay out of the graph by design; promoting them would muddy the partition adopters rely on to know what is required vs opt-in).
+
+**Spirit-pass discipline.** This is the second consecutive version where the change responds to a named adopter signal rather than a speculative improvement. v8.1 closed inertia fields and parked the GRACE-audit candidates as "awaiting signal." v8.2 took one of those parked-style situations — *a candidate that had been waiting for a signal* — and shipped it because the signal arrived. The pattern is becoming explicit: adopter pull → spirit-pass through Why1st voice → extract.
+
+**What stayed in the lab.** The reference analyses that informed the new file (cross-project semantic-logging audit, GRACE-marketplace audit, harmon1st adoption audit) live in development-side notes, not on the public surface. The public artifact is the principle in §11.1 plus the implementation guide in `docs/why-semantic-logs.md`. Adopters do not need to know which reference projects taught the pattern — they need the pattern, sized for their problem.
 
 **Evidence:**
 

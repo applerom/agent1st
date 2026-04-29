@@ -289,13 +289,15 @@ Adopt an extension only when your project actually has the surface it addresses.
 
 When a project has runtime workflows (jobs, integrations, scheduled tasks, agent runners), important boundaries should emit compact structured events that a future agent can read.
 
-A useful minimum event shape: `timestamp`, `event_code`, `anchor`, `expected`, `actual`, `component`, `correlation_id`, plus project-specific metadata.
+A useful minimum event shape: `ts`, `event`, `anchor`, `component`, plus `expected` / `actual` when the boundary has a check-able expectation, plus a correlation id when events span boundaries.
 
 The load-bearing trick: **the `anchor` field uses the same names as your Why Graph and code anchors.** A model can grep the same string across logs ↔ graph ↔ code and orient instantly. Without that link, semantic logs are just structured logs — they help humans, but they do not pull their weight as agent context.
 
 Keep separate from rationale memory. Semantic logs answer *what happened.* They do not answer *why we decided X.* If your project needs durable rationale beyond what PRD and graph carry, that is a separate artifact, not a fatter log.
 
 When NOT to bother: small projects with no runtime surface; CLIs that compute and exit; throwaway scripts. Adding semantic logs to a project that does not need them is the canonical way to make Why1st feel like ceremony.
+
+**Implementation guide:** see `docs/why-semantic-logs.md` for event shape, where logs live, the smallest useful first slice, and anti-patterns. The guide is opt-in; this paragraph is enough for projects that just need the principle.
 
 ### 11.2 Tests and UI evidence — agent self-sufficiency
 

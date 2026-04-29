@@ -189,6 +189,12 @@ See `docs/EVOLUTION.md` "Recurring Rejected Patterns" for full list. Key recurri
 - A development-side audit of GRACE Marketplace (a parallel public project that independently rediscovered prompt-XML, contracts near code, and validators) confirmed the Why1st thesis. Borrow candidates extracted but **not** landed — held in §"From GRACE Marketplace" pending an adoption signal
 - AGENTS.md untouched
 
+### v8.2
+- New paired file `docs/why-semantic-logs.md` extracts §11.1 depth: minimum event shape (required vs conditional fields), why semantic logs work for transformer-based agents (parallel structure to `why-graph-principles.md` §2a — vocabulary stability, same-string grep across layers, attention finite per AGENTS.md §4), where logs live (JSONL first), the smallest useful slice (6 steps), what semantic logs are *not*, anti-patterns
+- `Why1st.md` §11.1 updated: field shape corrected, cross-link added to the new pair file. The five-paragraph version stays as the entry; new file is the depth
+- Triggered by a real adopter who already had the Agent1st+Why1st base in place and asked for implementation guidance for §11.1. v8 EVOLUTION had explicitly held depth back ("if adopter feedback shows §11.1 needs more depth, extract later") — that signal arrived
+- AGENTS.md untouched. Canonical chain unchanged. Hard partition between chain and §11 extensions preserved (no new graph ARTIFACT entry)
+
 ### v9+ (speculative)
 - Friction Tax / ambiguity handling in CDD — gated by delta-layer test
 - Memory system integration patterns (harness MEMORY.md vs. in-repo decision logs vs. skill-based gateways) — likely a decision guide, not a required artifact
