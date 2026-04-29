@@ -134,6 +134,10 @@ Same information. Different attention surface:
 
 > The tag IS the semantic anchor. If the tag is generic, the graph is decoration.
 
+### Adapting §2a locally
+
+When you copy this file into your project and shorten it, **retain at minimum:** tag identity (tag IS the entity), inline relations (`<REL>` children, not a separate `<relations>` block), no `<?xml?>` declaration, no generic `<node id kind>`, and one sentence on transformer attention. Compress further and the next agent on your project will lose the rationale §2a was written to prevent — they will see a working graph, no explanation of *why* it works, and silently regress to the classical-XML simplification on the next major edit.
+
 ---
 
 ## 3) Node families (common set)

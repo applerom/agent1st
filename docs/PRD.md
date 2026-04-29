@@ -100,6 +100,8 @@ Not in scope: beginners looking for a prompt-engineering tutorial, or users of w
 
 ## 10) Open questions
 
-- Where does cross-session memory live — harness (Claude Code `MEMORY.md`), repo (decision logs), or skills (intent1st-style gateways)? See `docs/ROADMAP.md` §3.
+- Where does cross-session memory live — harness (Claude Code `MEMORY.md`), repo (decision logs), or skills (intent1st-style gateways)? Current evidence suggests the answer may stay project-local rather than become one portable format. See `docs/ROADMAP.md` §3.
 - Should project-local extensions (CI integration, acceptance automation, observability contracts) get their own reference variant in this repo, or remain correctly project-local?
-- How do we measure "less drift" without introducing metrics that themselves become ceremony?
+- How do we measure "less drift" without introducing metrics that themselves become ceremony? Candidate signals: fewer repeated mistakes, fewer stale graph/anchor repairs, faster handoffs, and lower human correction load. No canonical metric yet.
+- How should public proof evolve while reference adopters are still maturing? Current stance: keep unstable local examples off-public; replace shape-only claims with public links as adopter projects become stable and public.
+- Do graph/schema version numbers carry enough value to keep, or should Why1st prefer validator compatibility, dates, and content history over abstract version fields?

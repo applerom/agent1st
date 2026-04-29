@@ -216,19 +216,32 @@ The question this section answers: when an adopter repo uses the WHY layer, how 
 <!-- Adopter addendum — project-specific. Agent1st Core below is unmodified. -->
 ## Required Reading
 
-Before substantial work, ensure these files are in context:
+Before substantial work, ensure these files are in context.
 
+**Pin always (during the session):**
 - `docs/PRD.md` — product truth
-- `docs/why-graph.xml` — intent-to-implementation map (pin during session)
-- `docs/why-graph-principles.md` — graph authoring guide (reference)
-- `docs/why-contracts-v1.md` — contract and anchor rules (reference)
+- `docs/why-graph.xml` — intent-to-implementation map
+
+**Reference on demand (read when you touch them):**
+- `docs/Why1st.md` — the layer's idea
+- `docs/why-graph-principles.md` — graph authoring guide
+- `docs/why-contracts-v1.md` — contract and anchor rules
+- `scripts/validate-why.py` — validator (run before claiming done)
 - `<any project-specific docs that matter>`
 
-The Core section below is the Agent1st protocol, unmodified.
+## Harness exceptions
+
+Anything project-specific — Hello Agent handshake tweaks, output-contract exceptions, harness-specific role names — goes here, **above** the separator. Do not edit them into the Core.
+
+The Core section below is the Agent1st protocol, byte-identical to canonical. Editing the Core directly breaks the upgrade path and creates audit noise across versions.
 ---
 ```
 
-The addendum is yours. The Core is Agent1st's. Keep them visibly separate so future protocol upgrades don't collide with your additions.
+The addendum is yours. The Core is Agent1st's. Keep them visibly separate.
+
+**Pin vs reference matters.** Real cold-start adopters have pinned 8+ files and turned the graph layer into context tax. The list is not "pin everything that exists"; it is "pin what answers *what are we building and where does it live*." Everything else opens on demand.
+
+**Don't edit the Core.** A common adoption mistake is editing the canonical protocol body "just slightly" — usually around the `Hello Agent` handshake or to add a strict-output exception. The rationale is always good. The cost is real: future Agent1st upgrades will conflict with your local edits, and a future agent reading your `AGENTS.md` cannot tell which rules are protocol and which are local. Put the local part in the addendum above the separator. If a tweak feels load-bearing enough to belong in the Core, raise it as a protocol change, not as a local edit.
 
 **Smoke test for adoption:** after you add one module contract and your reading-list mechanism, a fresh agent should be able to answer *"what is this file for, and what else moves with it?"* from the contract and the graph alone — without reading the code. If that fails, your contract is noise.
 
@@ -263,3 +276,49 @@ The behavior layer defines how people act.
 The WHY layer defines what they are acting on, and how they know they are still aligned.
 
 Adopt when the project will live long enough to need both.
+
+---
+
+## 11) Optional extensions for real-project surfaces
+
+Some projects need more than the canonical chain. The patterns below are **opt-in**. They are **not** part of the canonical Why1st chain (PRD → Why Graph → contracts/anchors → validator). The chain stays small on purpose.
+
+Adopt an extension only when your project actually has the surface it addresses. If you don't need it, ignore it — the protocol does not require it.
+
+### 11.1 Semantic logs as future agent context
+
+When a project has runtime workflows (jobs, integrations, scheduled tasks, agent runners), important boundaries should emit compact structured events that a future agent can read.
+
+A useful minimum event shape: `timestamp`, `event_code`, `anchor`, `expected`, `actual`, `component`, `correlation_id`, plus project-specific metadata.
+
+The load-bearing trick: **the `anchor` field uses the same names as your Why Graph and code anchors.** A model can grep the same string across logs ↔ graph ↔ code and orient instantly. Without that link, semantic logs are just structured logs — they help humans, but they do not pull their weight as agent context.
+
+Keep separate from rationale memory. Semantic logs answer *what happened.* They do not answer *why we decided X.* If your project needs durable rationale beyond what PRD and graph carry, that is a separate artifact, not a fatter log.
+
+When NOT to bother: small projects with no runtime surface; CLIs that compute and exit; throwaway scripts. Adding semantic logs to a project that does not need them is the canonical way to make Why1st feel like ceremony.
+
+### 11.2 Tests and UI evidence — agent self-sufficiency
+
+`AGENTS.md §2 (Done Is Not a Mood)` says completion needs "the best evidence the current harness allows." For projects with a UI, that evidence usually means tests plus a way for the agent to actually *see* the UI — Playwright assertions, browser-use, snapshots, screenshots. For backends, it means API debug-trace assertions. For jobs, semantic-log assertions over a fixture run.
+
+**Match evidence to risk surface.** Deterministic logic gets unit tests. UI behavior gets visual checks. API contracts get response-shape assertions. Jobs get runtime-event assertions over fixtures.
+
+**The adopter principle most teams miss:** an agent should set up the test+evidence harness *itself*, not ask the human. Most users do not know they can grant Playwright access; agents who silently wait for permission spin instead of working. If your harness allows browser tools, install them, write the tests, capture the evidence, attach to the completion claim. This is `AGENTS.md §1 (Role Contract)` applied to test infrastructure: the agent owns the route, including the route to its own evidence.
+
+When NOT to bother: backend-only libraries; pure-CLI projects; throwaway prototypes.
+
+### 11.3 Subagent orchestration as project-local pattern
+
+When a project has recurring delegation (parallel exploration, fan-out validation, large refactors split across subagents), a project-local artifact like `docs/agent-orchestration.md` is a useful answer to "where does subagent know-how live": role matrix, prompt patterns, evaluation rubric, durable lessons from prior delegations.
+
+This is **not** Agent1st core and **not** part of the canonical Why1st chain. `AGENTS.md §9 (Delegation Design)` is the principle; this artifact is its project-local extension. Reference it from the adopter addendum **only when the project actually delegates regularly.** A solo-agent project with occasional one-shot subagents does not need it.
+
+The same applies to Codex-style `.codex/agents/*.toml` profiles, harness-specific subagent routers, and decision-context maps — they are project-local extensions above Why1st, not parts of it.
+
+---
+
+### Hard partition — please do not blur
+
+Every extension above is opt-in. If you adopt all three you have not adopted "more Why1st" — you have built a project-local extension stack on top of Why1st. Mark them as such in your repo so the next agent can tell what is canonical (the chain) from what is yours (the extensions).
+
+A project that has only the canonical chain is using Why1st correctly. A project that has the extensions and skips the chain is not using Why1st at all.

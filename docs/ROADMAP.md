@@ -52,6 +52,17 @@ The "standard version" has been delivered as the **WHY layer**, living flat in `
 
 **Open question:** Should the WHY layer recommend a specific memory format, or just principles for memory hygiene?
 
+Current leaning: no single memory location is portable enough to prescribe. The useful future artifact is likely a decision guide — when to use harness memory, repo decision logs, skills, or a hybrid — not a new required file.
+
+### 4. Success Signals and Public Evidence
+
+**Current state:** `docs/PRD.md` names success signals, but Agent1st does not yet define how to measure "less drift" without creating ceremony.
+
+**Open questions:**
+- Which lightweight signals show reduced agent drift without becoming process theater? Candidates: repeated-mistake rate, stale graph/anchor repairs, handoff reuse, time-to-orientation for fresh agents, and human correction load.
+- How should reference-adopter evidence move from private development notes to public links as projects mature? Current stance: early or unstable adopter examples stay described by shape and stack; public, stable adopters can be linked after review.
+- First public candidate to track: [`applerom/harness-observatory`](https://github.com/applerom/harness-observatory), an Agent1st/Why1st-adjacent local-first research app. Do not promote it from candidate to canonical example until its examples are stable enough not to mislead adopters.
+
 ---
 
 ## Proposed (Not Yet Accepted)
@@ -133,18 +144,33 @@ See `docs/EVOLUTION.md` "Recurring Rejected Patterns" for full list. Key recurri
 - Validator generalized: anchor checks apply to any node with `<ANCHOR>` children, not just `MODULE_*`
 - Reference adopter analyses moved off-public (kept for development-side use only) so the public protocol does not name projects readers cannot access
 
-### v7 (current)
+### v7
 - Why1st format spirit named explicitly. New `docs/why-graph-principles.md` §2a "Tag shapes — prompt-XML, not classical XML" with side-by-side good/bad and an anti-patterns list — the load-bearing change
 - Light pointers in `docs/Why1st.md` and `docs/why-contracts-v1.md` so the spirit lands at the right moment of reading
 - Triggered by a real downstream adopter's first attempt simplifying the graph to `<?xml ?> + <nodes><node id kind> + <relations>` style. Diagnosis: words "graph" and ".xml" pull strong agents toward classical defaults; the v6 docs documented *what* but not *why*
 - Verified before ship: fresh subagent given only updated docs + a tiny fictional PRD produced canonical prompt-XML on first attempt
 - AGENTS.md untouched
+- **Empirical confirmation:** a real cold-start adopter (PRD-only, agent told to read `#why1st`) produced a working app with a valid prompt-XML graph, 11 anchors, 21 unit tests, and module contracts on 16 files in its first version
 
-### v8+ (speculative)
+### v8 (current)
+- New harmon1st-style cold-start audit produced three small Tier-1 fixes plus three opt-in extension patterns:
+  - **§2a "do not compress" guard** in `why-graph-principles.md` — when adopters copy the file locally and shorten it, retain at minimum the load-bearing rationale anchors. New meta-failure: agent A writes correct graph + compressed local guide → agent B loses the WHY
+  - **Pin-vs-reference** sharpening in `Why1st.md` §8 — pin always: `AGENTS.md` + `PRD.md` + `why-graph.xml`; reference on demand: principles, contracts, validator. Stops cold-start adopters from pinning 8+ files as context tax
+  - **"Don't edit the Core" clarity** in `Why1st.md` §8 — Hello Agent tweaks, output-contract exceptions, harness handshake refinements go in the addendum **above** the separator, not inside the Core. Common adoption mistake named explicitly
+- New `Why1st.md §11` "Optional extensions for real-project surfaces" — three opt-in patterns for projects that need them, hard partition from canonical chain:
+  - 11.1 Semantic logs as future agent context — runtime events with anchor names matching the graph, so a model can grep across logs ↔ graph ↔ code
+  - 11.2 Tests and UI evidence — agent self-sufficiency: the agent sets up Playwright/snapshots/test harness itself instead of asking the human
+  - 11.3 Subagent orchestration as project-local pattern — `docs/agent-orchestration.md` style is project-local extension, not Agent1st core
+- AGENTS.md untouched
+- Includes drop-in surface cleanup from a Codex-side audit: public history docs no longer reference `.lab/` paths; `applerom/harness-observatory` named as a public reference candidate (only because it is a public GitHub repo)
+
+### v9+ (speculative)
 - Friction Tax / ambiguity handling in CDD — gated by delta-layer test
-- Memory system integration patterns (harness MEMORY.md vs. in-repo decision logs)
+- Memory system integration patterns (harness MEMORY.md vs. in-repo decision logs vs. skill-based gateways) — likely a decision guide, not a required artifact
 - Anchor adoption in this repo's own `docs/` so the validator graduates from doc-only mode to enforced anchors
-- Adopter prompt template (one-shot copy-paste for Why1st adoption) only if v7 docs alone don't land for cold-start agents
+- Adopter prompt template (one-shot copy-paste for Why1st adoption) only if v7 + v8 docs alone don't land for cold-start agents
+- Versioning simplification — decide whether `schema="0.8"` and `<PROJECT VERSION="...">` earn their place, or whether Why1st should drop abstract version fields in favor of dates, validator compatibility, and git history
+- Validator extension: lint that emitted log anchors resolve to graph entries (only if §11.1 adoption requests it)
 
 ---
 

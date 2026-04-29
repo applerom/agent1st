@@ -20,6 +20,7 @@ Agents who contribute to new versions should add their transition notes.
 | v6 | `scripts/validate-why.py` + paired doc updates; `AGENTS.md` byte-identical to v5.1 | WHY validator MVP lands. `AGENTS.md` survives the spirit pass unchanged: §1 deferred at the front door, §8 + §9 candidate edits initially landed then reverted. The v6 process contribution is the spirit-pass discipline itself. | Claude Opus 4.7 (primary), filtering GPT-5.5-pro's `docs/handoffs/v6-handoff-gpt-5.5-pro.md` and a Codex-native adopter's adaptation through the spirit lens |
 | v6.1 | `docs/Why1st.md` Why1st short name + validator generalization + public/private surface cleanup | Why1st named as a short alias for the WHY-first approach/layer (not a second behavior protocol). Validator generalized from `MODULE_*`-only to any node with anchors. Reference-adopter analyses moved off-public so the public protocol does not point at projects readers cannot access. Stale v6 teaching-surface residue fixed. | GPT-5.5 Codex (initial pass) + Claude Opus 4.7 (spirit pass and surface cleanup) |
 | v7 | `docs/why-graph-principles.md` §2a (load-bearing) + light pointers in `Why1st.md` and `why-contracts-v1.md` | Why1st format spirit named: graph file is *prompt-XML*, not classical XML or graph-DB schema. New §2a "Tag shapes — prompt-XML, not classical XML" with the three forces (transformer attention, greppability, semantic interference), side-by-side good/bad examples, and an anti-patterns list. Triggered by a real downstream adopter cold-reading `#why1st` and silently simplifying to `<?xml ?> + <nodes><node id="..." kind="..."> + <relations>` — the rationale was missing from v6 docs, not the format. Verified before ship: a fresh subagent given only the updated docs + a tiny fictional PRD produced canonical prompt-XML. | Claude Opus 4.7 (primary) |
+| v8 | `Why1st.md` §8 sharpening + new §11 (three opt-in extensions) + `why-graph-principles.md` §2a "do not compress" guard | After v7 was empirically verified by a cold-start adopter (PRD-only, real working app produced), a focused audit surfaced three small Tier-1 fixes (compression-failure guard, pin-vs-reference, "don't edit the Core") plus three opt-in extension patterns (semantic logs / tests + UI / subagent orchestration). All extensions are opt-in with hard partition from the canonical chain (PRD → Why Graph → contracts → validator). AGENTS.md untouched. | Claude Opus 4.7 (primary), with Codex-side audit by GPT-5.5 |
 
 ---
 
@@ -289,7 +290,7 @@ The delta-layer principle and the anti-micromanagement stance both say the same 
 
 **Reference adopters that shaped v5:**
 
-- **A Python/FastAPI adopter** — the richer variant. Backend plus TypeScript frontend. Full relation vocabulary, class/method contracts, intent1st integration, validator scripts. The deep analysis lives off-public in `.lab/`; public docs describe the patterns, not the project.
+- **A Python/FastAPI adopter** — the richer variant. Backend plus TypeScript frontend. Full relation vocabulary, class/method contracts, intent1st integration, validator scripts. The deep analysis lives off-public in private development-side notes; public docs describe the patterns, not the project.
 - **A separate TypeScript adopter** — the simpler variant. Trimmed node families, adoption-notes doc that articulated the governance-graph vs. knowledge-graph distinction that `Why1st.md` §5 now carries.
 
 Neither adopter copied the other. Both carried the same idea. That convergence was the signal that the WHY layer was ready to be documented.
@@ -386,7 +387,7 @@ $ git diff <pre-v6>..HEAD -- AGENTS.md
 (no changes)
 ```
 
-**Process note:** The Codex-native adopter mapping was delegated to an Explore subagent rather than done by the primary agent. The 600-word report came back in under a minute and gave the validator-design pattern (STATE-aware enforcement) without burning primary-agent context on raw exploration. The validator MVP that shipped uses that pattern; the lab folder (`.lab/`, gitignored) carries the reusable subagent brief so the next exploration starts warm, not cold.
+**Process note:** The Codex-native adopter mapping was delegated to an Explore subagent rather than done by the primary agent. The 600-word report came back in under a minute and gave the validator-design pattern (STATE-aware enforcement) without burning primary-agent context on raw exploration. The validator MVP that shipped uses that pattern; private gitignored lab notes carry the reusable subagent brief so the next exploration starts warm, not cold.
 
 ---
 
@@ -400,17 +401,17 @@ $ git diff <pre-v6>..HEAD -- AGENTS.md
 - **One-file PRD stance made explicit.** The WHY docs now say starting with one `docs/PRD.md` that also holds early design, roadmap, and plan is valid. Splitting docs is useful only when the split reduces drift more than it creates maintenance overhead.
 - **Stale v6 teaching-surface issues fixed.** `docs/why-graph.xml` no longer claims there are no validators; `docs/VISION.md` no longer says "four files" while listing five; `why-graph-principles.md` examples use `MODULE_*` tags that match family-qualified `MODULE:` targets.
 - **Validator generalized.** `scripts/validate-why.py` now validates anchors under any node with `<ANCHOR>` children, not only `MODULE_*` nodes, while preserving STATE-aware enforcement.
-- **Public/private surface separated.** Named reference-adopter analyses (one deep analysis of the original Python/FastAPI adopter, plus an in-flight summary of three real adopters) were moved to the gitignored `.lab/` folder. Public docs no longer name local-only projects readers cannot open. Development-side context lives in `.lab/` for primary and subagent use; the protocol surface stays self-contained.
+- **Public/private surface separated.** Named reference-adopter analyses (one deep analysis of the original Python/FastAPI adopter, plus an in-flight summary of three real adopters) were moved off the public surface into private development-side notes. Public docs no longer name local-only projects readers cannot open. Development-side context stays local for primary and subagent use; the protocol surface stays self-contained.
 - **Brand unification.** The entry doc was renamed `docs/WHY-APPROACH.md` → `docs/Why1st.md`. The graph artifact ID followed: `ART-WHY-APPROACH` → `ART-WHY1ST`. README promoted the WHY-layer section to a level-2 heading (`## Why1st`) so external links to the brand have a clean anchor. Older paired files (`why-graph.xml`, `why-graph-principles.md`, `why-contracts-v1.md`, `validate-why.py`) keep their lowercase `why-*` prefix as a stable artifact namespace inside Why1st — only the entry doc carries the brand name. References in earlier EVOLUTION sections use the current path; the rename happened in v6.1.
 
 **What stayed out of core:**
 
-- Named adopter analyses on the public surface. They moved to `.lab/`. Public docs describe the patterns those adopters validated, not the projects themselves.
+- Named adopter analyses on the public surface. They moved off-public. Public docs describe the patterns those adopters validated, not the projects themselves.
 - Codex agent profiles, exact model settings, and orchestrator implementation details remain project-local examples.
 - Runtime observability with anchor coordinates is documented as a powerful extension, not required baseline.
 - Heavy "every function gets a contract" enforcement remains adopter-specific. The portable rule is lighter: govern graph-referenced, public, complex, or frequently edited regions first.
 
-**Recurring-pattern note:** This is the second time agents working on Agent1st have re-added local-project references into public docs. The principled fix is in `.lab/README.md` (rule: never name local-only projects in `AGENTS.md`, `docs/*`, or `README.md`) plus a durable feedback memory so future agents don't re-derive the same wrong shape.
+**Recurring-pattern note:** This is the second time agents working on Agent1st have re-added local-project references into public docs. The principled fix is a private lab rule: never name local-only projects in `AGENTS.md`, `docs/*`, or `README.md`, plus durable feedback memory so future agents don't re-derive the same wrong shape.
 
 **Evidence:**
 
@@ -448,10 +449,55 @@ WHY validator: OK
 
 - A separate `docs/why-spirit.md` doc — proliferation against delta-layer.
 - Any `AGENTS.md` change — the failure is in the WHY layer, not behavior.
-- Adopter prompt template under `.lab/shareables/` — held back as v7.1 follow-up only if docs alone aren't enough. Verification suggests they are.
+- Adopter prompt template in the private shareables staging area — held back as v7.1 follow-up only if docs alone don't land for cold-start agents. Verification suggests they are.
 - Conflating contracts and graph shape — the downstream adopter's contracts were roughly fine in spirit (`<!-- START_DOC_CONTRACT: NAME -->` with PURPOSE / PRD_REF / INVARIANTS). Only the graph collapsed to classical XML. v7 keeps the two failures separate; the contracts paragraph is about progressive disclosure, not about correcting a contract mistake.
 
 **Recurring-pattern note.** v6.1 fixed a recurring leak (local-project names creeping into public docs). v7 fixes a recurring simplification (graph format collapsing to `<node id>` shape). Both root-cause the same way: the public docs encoded the *what* clearly but the *why* implicitly. Future versions should treat any "agents keep doing X wrong" report as a signal that the WHY of the relevant rule is under-specified, not that agents need more rules.
+
+**Evidence:**
+
+```
+$ python scripts/validate-why.py
+WHY validator: nodes=19 relations=14 anchors_validated=0 anchors_skipped=0 errors=0 warnings=1
+WHY validator: OK
+```
+
+---
+
+## v7 → v8: Tier-1 cold-start fixes plus opt-in extension patterns
+
+**Era:** v7 named the Why1st format spirit and got empirically verified — a real cold-start adopter (PRD-only, agent told to read `#why1st`) produced a working app with a valid prompt-XML graph, 11 anchors, 21 unit tests, module contracts on 16 files. The protocol transferred. The next question is no longer "do the docs land?" but "what does the cold-start audit teach us, and how do we let real-project surfaces (semantic logs, tests with UI evidence, subagent orchestration) come in without breaking drop-in adoption?"
+
+**Primary agent:** Claude Opus 4.7. **Codex-side audit:** GPT-5.5 (cross-project review of harmon1st's adoption, semantic-logging patterns across reference adopters, harness-observatory as a public candidate).
+
+**The new failure mode v8 catches.** The harmon1st adopter wrote a correct local Why Graph but compressed its local copy of `why-graph-principles.md` from ~218 lines to ~74, dropping most of v7's §2a rationale. Agent A succeeded; agent B on the same project would now read only the local guide and lose the WHY. This is the same root cause as v6.1 (local-project names leaking into public docs) and v7 (graph format collapsing to `<node>`): docs encoded *what* clearly, *why* implicitly. **Compressed adaptation drops the why first.** The v8 fix: tell adopters explicitly which rationale anchors not to compress when they shorten a doc locally.
+
+**Tier-1 — small load-bearing fixes:**
+
+- **`docs/why-graph-principles.md` §2a — "Adapting §2a locally" guard.** When you copy this file into your project and shorten it, retain at minimum: tag identity, inline relations, no `<?xml?>`, no generic `<node id kind>`, and one sentence on transformer attention. Compress further and the next agent loses the rationale §2a was written to prevent.
+- **`docs/Why1st.md` §8 — "Pin vs reference."** Pin always: `AGENTS.md`, `docs/PRD.md`, `docs/why-graph.xml`. Reference on demand: principles, contracts, validator, project-local memory. Stops cold-start adopters from pinning 8+ files and turning the layer into context tax.
+- **`docs/Why1st.md` §8 — "Don't edit the Core."** Hello Agent tweaks, output-contract exceptions, harness handshake refinements go above the separator in the addendum, not inside the canonical body. The harmon1st adopter modified the Core "just slightly" while claiming it was unmodified — a real adoption mistake, named explicitly.
+
+**Tier-2 — opt-in extensions for real-project surfaces.** New `Why1st.md §11` introduces three patterns with a hard partition from the canonical chain (PRD → Graph → contracts → validator). Adopt only when the project actually has the surface. Skipping them is fine; the protocol does not require them.
+
+- **§11.1 Semantic logs as future agent context.** When a project has runtime workflows, important boundaries should emit compact structured events whose `anchor` field uses the same names as the Why Graph and code anchors. A model can grep one string across logs ↔ graph ↔ code and orient instantly. Without that link, semantic logs are just structured logs. Keep separate from rationale memory: logs answer *what happened*, not *why we decided*.
+- **§11.2 Tests and UI evidence — agent self-sufficiency.** `AGENTS.md §2 (Done Is Not a Mood)` says completion needs "the best evidence the current harness allows." For projects with a UI, that means the agent should set up Playwright/snapshot/browser-use *itself*, not ask the human. Most users do not know they can grant browser tools; agents who silently wait for permission spin instead of working. This is `AGENTS.md §1 (Role Contract)` applied to the agent's own evidence path.
+- **§11.3 Subagent orchestration as project-local pattern.** When a project recurringly delegates, a project-local `docs/agent-orchestration.md` (role matrix, prompt patterns, evaluation rubric, durable lessons) is a useful answer to "where does subagent know-how live." This is project-local extension, not Agent1st core. `AGENTS.md §9 (Delegation Design)` is the principle; the artifact is yours.
+
+**The hard partition.** Section 11 ends with: *"A project that has only the canonical chain is using Why1st correctly. A project that has the extensions and skips the chain is not using Why1st at all."* This is the spirit-pass guard against complexity creep. The chain stays small. Extensions are explicitly opt-in, named, and scoped to surfaces that justify them.
+
+**Surface cleanup also landed in this commit.** GPT-5.5's audit replaced public mentions of `.lab/` (the gitignored development-side folder) in `EVOLUTION.md` history with neutral "private development-side notes" phrasing, sharpened a few PRD open questions (drift metrics, public-proof maturity, version-field necessity), and added ROADMAP §4 ("Success Signals and Public Evidence") naming `applerom/harness-observatory` as the first public reference candidate. That last point is OK only because the GitHub repo is public — the rule "do not name local-only projects on the public surface" still holds.
+
+**What stayed out of v8:**
+
+- AGENTS.md changes. The behavior layer is byte-identical to v5.1 since the v6 spirit pass.
+- A separate `docs/why1st-runtime.md` doc for semantic logs. §11.1 is concise on purpose; if adopter feedback shows §11.1 needs more depth, extract later.
+- A separate `docs/why1st-tests.md`. Same logic — §11.2 is a paragraph, extracted only if real adopters need more.
+- Validator extension to lint log↔graph anchor alignment. Defer until adopters of §11.1 ask for it.
+- Memory decision guide (4-layer split: PRD / Graph / runtime logs / decision memory). Worth doing eventually; not yet.
+- Versioning simplification (`schema="0.8"`, `<PROJECT VERSION>`). Open question stays.
+
+**Recurring-pattern note.** Three versions in a row — v6.1, v7, v8 — diagnosed the same shape of failure: **the WHY of the rule was under-specified, so adopters/agents reproduced the local-prior shape instead of the protocol intent.** Each fix was small and rationale-thickening. None added rules or principles. The pattern itself is now documented enough that future versions can name it as the first thing to check when an adopter "does X wrong": is the WHY explicit, or have we left the agent to infer it?
 
 **Evidence:**
 
