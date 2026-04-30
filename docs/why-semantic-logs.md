@@ -3,6 +3,8 @@
 This is one proven shape of the optional **semantic logs** extension to Why1st (`Why1st.md` §11.1).
 Companion docs: `Why1st.md` (the idea), `why-graph-principles.md` (the graph), `why-contracts-v1.md` (contracts and anchors).
 
+**Relationship to `AGENTS.md` §10 "Semantic Logging."** AGENTS.md §10 is the behavior principle ("logs are future context") that applies to *all* agent-produced records — chat handoffs, decision notes, runtime events. This document is the **runtime-events instantiation** of that principle: structured boundary events with anchors that bridge the Why1st chain. Same idea, narrower surface. A fresh agent who finds both does not need to choose between them — §10 is the rule, this guide is one of its applications.
+
 The goal: when a future agent shows up after a job has run, a request has failed, or a workflow has produced an unexpected result, they should be able to read what happened **in the same vocabulary as the PRD, the Why Graph, and the code anchors** — without reconstructing intent from raw stdout, code archaeology, or chat history.
 
 **Why this is not just "more logs."** Raw logs preserve detail. Semantic logs preserve meaning. The two are different artifacts, not competing ones — keep both. The thing that turns a structured log into agent context is one specific decision: the **anchor** field uses verbatim the same UPPER_SNAKE_CASE names that live in the Why Graph and in `START_*` code markers. A model in a fresh session can `grep FEATURE_LIVE_DEBUGGABILITY` and get hits in three artifacts — graph, code, log — and orient instantly. That cross-layer greppability is the load-bearing claim. Without it, semantic logs are just structured logs that help humans.

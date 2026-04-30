@@ -96,6 +96,14 @@ To point an agent at this layer for adoption in another repo, hand it the entry 
 
 The artifact files (`why-graph.xml`, `why-graph-principles.md`, `why-contracts-v1.md`, `validate-why.py`) keep the lowercase `why-*` prefix on purpose — they form a stable artifact namespace inside Why1st. Only the entry doc (`Why1st.md`) carries the brand name.
 
+### Optional extensions
+
+For projects that grow past the canonical chain, `Why1st.md` §11 describes opt-in extensions for real-project surfaces (semantic logs, tests + UI evidence, subagent orchestration). They are **not** required to use Why1st correctly — adopt one only when your project has the surface it addresses.
+
+| Doc | One line |
+|---|---|
+| [`docs/why-semantic-logs.md`](docs/why-semantic-logs.md) | Implementation guide for §11.1 — runtime events with anchors that bridge logs ↔ graph ↔ code. JSONL-first, smallest useful slice, anti-patterns. |
+
 ---
 
 ## Design, evolution, and reference

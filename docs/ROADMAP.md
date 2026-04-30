@@ -169,7 +169,7 @@ See `docs/EVOLUTION.md` "Recurring Rejected Patterns" for full list. Key recurri
 - AGENTS.md untouched
 - **Empirical confirmation:** a real cold-start adopter (PRD-only, agent told to read `#why1st`) produced a working app with a valid prompt-XML graph, 11 anchors, 21 unit tests, and module contracts on 16 files in its first version
 
-### v8 (current)
+### v8
 - New harmon1st-style cold-start audit produced three small Tier-1 fixes plus three opt-in extension patterns:
   - **§2a "do not compress" guard** in `why-graph-principles.md` — when adopters copy the file locally and shorten it, retain at minimum the load-bearing rationale anchors. New meta-failure: agent A writes correct graph + compressed local guide → agent B loses the WHY
   - **Pin-vs-reference** sharpening in `Why1st.md` §8 — pin always: `AGENTS.md` + `PRD.md` + `why-graph.xml`; reference on demand: principles, contracts, validator. Stops cold-start adopters from pinning 8+ files as context tax
@@ -179,7 +179,7 @@ See `docs/EVOLUTION.md` "Recurring Rejected Patterns" for full list. Key recurri
   - 11.2 Tests and UI evidence — agent self-sufficiency: the agent sets up Playwright/snapshots/test harness itself instead of asking the human
   - 11.3 Subagent orchestration as project-local pattern — `docs/agent-orchestration.md` style is project-local extension, not Agent1st core
 - AGENTS.md untouched
-- Includes drop-in surface cleanup from a Codex-side audit: public history docs no longer reference `.lab/` paths; `applerom/harness-observatory` named as a public reference candidate (only because it is a public GitHub repo)
+- Includes drop-in surface cleanup from a Codex-side audit: public history docs no longer reference the gitignored development-side folder; `applerom/harness-observatory` named as a public reference candidate (only because it is a public GitHub repo)
 
 ### v8.1
 - Drop noise: `schema="0.8"` and `<PROJECT VERSION="0.8">` removed from the teaching graph. The fields were inertia from before Why1st was a named project — never tied to an XSD or migration rule. Closes the v8 open question on graph/schema version fields
