@@ -103,6 +103,7 @@ For projects that grow past the canonical chain, `Why1st.md` §11 describes opt-
 | Doc | One line |
 |---|---|
 | [`docs/why-semantic-logs.md`](docs/why-semantic-logs.md) | Implementation guide for §11.1 — runtime events with anchors that bridge logs ↔ graph ↔ code. JSONL-first, smallest useful slice, anti-patterns. |
+| [`docs/why-subagents.md`](docs/why-subagents.md) | Implementation guide for §11.3 — when an agent defaults to delegation, the four common shapes, the contract, anti-patterns. References Anthropic *Building Effective Agents*. |
 
 ---
 

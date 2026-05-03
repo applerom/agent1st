@@ -309,13 +309,15 @@ When NOT to bother: small projects with no runtime surface; CLIs that compute an
 
 When NOT to bother: backend-only libraries; pure-CLI projects; throwaway prototypes.
 
-### 11.3 Subagent orchestration as project-local pattern
+### 11.3 Subagent orchestration — delegate by default, crystallize the pattern later
 
-When a project has recurring delegation (parallel exploration, fan-out validation, large refactors split across subagents), a project-local artifact like `docs/agent-orchestration.md` is a useful answer to "where does subagent know-how live": role matrix, prompt patterns, evaluation rubric, durable lessons from prior delegations.
+The behavior most adopters miss: strong agents are trained on agentic work but default to single-thread *do-it-all-myself* mode. Independent reads, fan-out validation, context-heavy exploration, and lower-intelligence ops are usually faster, cheaper, and better when delegated to subagents — but the lead has to pick that route. `AGENTS.md §9 (Delegation Design)` is the rule; the question this section answers is *when does an agent default to delegation in the first place*.
 
-This is **not** Agent1st core and **not** part of the canonical Why1st chain. `AGENTS.md §9 (Delegation Design)` is the principle; this artifact is its project-local extension. Reference it from the adopter addendum **only when the project actually delegates regularly.** A solo-agent project with occasional one-shot subagents does not need it.
+When delegation becomes recurring (parallel exploration, fan-out validation, large refactors split across subagents), a project-local artifact like `docs/agent-orchestration.md` crystallizes the pattern: role matrix, prompt shapes, evaluation rubric, durable lessons. The artifact is the second move, not the first.
 
-The same applies to Codex-style `.codex/agents/*.toml` profiles, harness-specific subagent routers, and decision-context maps — they are project-local extensions above Why1st, not parts of it.
+This is **not** Agent1st core and **not** part of the canonical Why1st chain. The same applies to Codex-style `.codex/agents/*.toml` profiles, harness-specific subagent routers, and decision-context maps — they are project-local extensions above Why1st, not parts of it.
+
+**Implementation guide:** see `docs/why-subagents.md` for when to default to delegation, the four common delegation shapes, what to delegate vs do yourself, anti-patterns, and the artifact shape that emerges. The guide is opt-in; this paragraph is enough for projects that just need the principle.
 
 ---
 

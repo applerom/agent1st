@@ -195,12 +195,20 @@ See `docs/EVOLUTION.md` "Recurring Rejected Patterns" for full list. Key recurri
 - Triggered by a real adopter who already had the Agent1st+Why1st base in place and asked for implementation guidance for §11.1. v8 EVOLUTION had explicitly held depth back ("if adopter feedback shows §11.1 needs more depth, extract later") — that signal arrived
 - AGENTS.md untouched. Canonical chain unchanged. Hard partition between chain and §11 extensions preserved (no new graph ARTIFACT entry)
 
+### v8.3
+- New paired file `docs/why-subagents.md` extracts §11.3 depth with a behavioral re-pointing: the v8 brief was artifact-focused ("where does subagent know-how live"), but the actual cross-project adopter friction is *behavioral* — strong agents trained on agentic work default to single-thread solo execution. New file leads with when an agent defaults to delegation; names the four delegation shapes (parallel exploration, fan-out validation, deep-dive isolated work, lower-intelligence ops); gives the contract structure, the lead-vs-delegate line, anti-patterns; treats the project-local artifact as the second move that crystallizes lived patterns
+- `Why1st.md` §11.3 re-pointed: heading and lead paragraph now lead with behavior, artifact framing stays as second paragraph, cross-link to depth doc added
+- Anthropic *Building Effective Agents* cited as the canonical external anchor — orchestrator-worker / parallelization / evaluator-optimizer is the framework default; do-it-all-myself is the regression
+- Triggered by user-reported recurring cross-project field signal plus three of seven external agent reviewers (GPT-5.5-pro, Kimi 2.6, Muse-Spark) independently flagging subagent-delegation regression
+- AGENTS.md untouched. Canonical chain unchanged. Hard partition preserved
+
 ### v9+ (speculative)
 - Friction Tax / ambiguity handling in CDD — gated by delta-layer test
 - Memory system integration patterns (harness MEMORY.md vs. in-repo decision logs vs. skill-based gateways) — likely a decision guide, not a required artifact
 - Anchor adoption in this repo's own `docs/` so the validator graduates from doc-only mode to enforced anchors
 - Adopter prompt template (one-shot copy-paste for Why1st adoption) only if v7 + v8 docs alone don't land for cold-start agents
 - Validator extension: lint that emitted log anchors resolve to graph entries (only if §11.1 adoption requests it)
+- §11.2 depth extraction (tests + UI evidence — agent-owned browser/CLI verification, evidence tiers, CLI-over-MCP position) — held for v8.4. Field signal: adopters consistently miss browser-CLI verification despite §11.2 brief in v8. One extension per wave keeps the spirit-pass signal undiluted
 
 ---
 
