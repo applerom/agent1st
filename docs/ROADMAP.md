@@ -202,13 +202,19 @@ See `docs/EVOLUTION.md` "Recurring Rejected Patterns" for full list. Key recurri
 - Triggered by user-reported recurring cross-project field signal plus three of seven external agent reviewers (GPT-5.5-pro, Kimi 2.6, Muse-Spark) independently flagging subagent-delegation regression
 - AGENTS.md untouched. Canonical chain unchanged. Hard partition preserved
 
+### v8.4
+- New paired file `docs/why-evidence.md` extracts §11.2 depth with a behavioral re-pointing and an explicit architectural position: agents own their own verification loop; default to **Playwright CLI** for browser/UI evidence, reach for MCP only when its structured I/O is load-bearing (MCP tool definitions cost context whether you use them or not). Four evidence tiers (unit/integration, API/protocol-shape, UI/visual, semantic-log assertions over fixtures); the four-step agent-owns-it pattern (try → name the block → fall back to next-best evidence → never silently substitute "trust me"); anti-patterns including "spin instead of work" and "MCP-by-default for browser tooling"
+- `Why1st.md` §11.2 re-pointed: heading extended to "agents own their own verification loop"; behavior leads (agent looks at the rendered page, not the human); CLI-over-MCP trade-off surfaced inline so the brief alone communicates the load-bearing position; cross-link to depth doc added
+- Companion wave to v8.3, separate commit and separate delta. Pattern across v8.2–v8.4 now explicit: brief in v8 → adopter pull → spirit-pass through Why1st voice → depth doc in `why-*` namespace + behavioral re-pointing
+- AGENTS.md untouched (byte-identical to v5.1 since v6 — nine versions of discipline). Canonical chain unchanged. Hard partition preserved
+
 ### v9+ (speculative)
 - Friction Tax / ambiguity handling in CDD — gated by delta-layer test
 - Memory system integration patterns (harness MEMORY.md vs. in-repo decision logs vs. skill-based gateways) — likely a decision guide, not a required artifact
 - Anchor adoption in this repo's own `docs/` so the validator graduates from doc-only mode to enforced anchors
 - Adopter prompt template (one-shot copy-paste for Why1st adoption) only if v7 + v8 docs alone don't land for cold-start agents
 - Validator extension: lint that emitted log anchors resolve to graph entries (only if §11.1 adoption requests it)
-- §11.2 depth extraction (tests + UI evidence — agent-owned browser/CLI verification, evidence tiers, CLI-over-MCP position) — held for v8.4. Field signal: adopters consistently miss browser-CLI verification despite §11.2 brief in v8. One extension per wave keeps the spirit-pass signal undiluted
+- (v8.4 closed in same session as v8.3 — see Version Planning above; v9+ candidates start clean below)
 
 ---
 

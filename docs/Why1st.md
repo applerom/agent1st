@@ -299,15 +299,15 @@ When NOT to bother: small projects with no runtime surface; CLIs that compute an
 
 **Implementation guide:** see `docs/why-semantic-logs.md` for event shape, where logs live, the smallest useful first slice, and anti-patterns. The guide is opt-in; this paragraph is enough for projects that just need the principle.
 
-### 11.2 Tests and UI evidence — agent self-sufficiency
+### 11.2 Tests and UI evidence — agents own their own verification loop
 
-`AGENTS.md §2 (Done Is Not a Mood)` says completion needs "the best evidence the current harness allows." For projects with a UI, that evidence usually means tests plus a way for the agent to actually *see* the UI — Playwright assertions, browser-use, snapshots, screenshots. For backends, it means API debug-trace assertions. For jobs, semantic-log assertions over a fixture run.
+`AGENTS.md §2 (Done Is Not a Mood)` says completion needs "the best evidence the current harness allows." Match the evidence to the risk surface: deterministic logic → unit tests; API contracts → response-shape assertions; UI behavior → visual checks (Playwright, screenshots); runtime workflows → semantic-log assertions over fixtures (see §11.1).
 
-**Match evidence to risk surface.** Deterministic logic gets unit tests. UI behavior gets visual checks. API contracts get response-shape assertions. Jobs get runtime-event assertions over fixtures.
-
-**The adopter principle most teams miss:** an agent should set up the test+evidence harness *itself*, not ask the human. Most users do not know they can grant Playwright access; agents who silently wait for permission spin instead of working. If your harness allows browser tools, install them, write the tests, capture the evidence, attach to the completion claim. This is `AGENTS.md §1 (Role Contract)` applied to test infrastructure: the agent owns the route, including the route to its own evidence.
+**The behavior most adopters miss.** When the agent finishes UI work, the next move should be *the agent looks at the rendered page,* not *the agent asks the human to check it.* Most users do not know they can grant browser access. Agents who silently wait for permission spin instead of working. If your harness allows browser tools, install them, write the tests, capture the evidence, attach it to the completion claim. This is `AGENTS.md §1 (Role Contract)` applied to verification: the agent owns the route, including the route to its own evidence. The depth doc (cross-link below) covers the four evidence tiers, the **Playwright CLI vs MCP** trade-off (default to CLI; MCP definitions consume context whether you use them or not), and the agent-owns-it pattern.
 
 When NOT to bother: backend-only libraries; pure-CLI projects; throwaway prototypes.
+
+**Implementation guide:** see `docs/why-evidence.md` for the four evidence tiers, the CLI-over-MCP position with reasoning, the agent-owns-it pattern, and anti-patterns. The guide is opt-in; this paragraph is enough for projects that just need the principle.
 
 ### 11.3 Subagent orchestration — delegate by default, crystallize the pattern later
 
