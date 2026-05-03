@@ -5,7 +5,7 @@ Companion docs: `Why1st.md` (the idea), `AGENTS.md` §9 (Delegation Design — t
 
 **Relationship to `AGENTS.md` §9.** §9 is the principle: how to delegate well *when you do*. This document is one layer down: *when does an agent default to delegating in the first place,* and what shape the project-local artifact takes once delegation becomes recurring. Same idea, different question. §9 is the rule; this guide is its behavioral entry point and one common artifact.
 
-The goal: a strong agent that is trained on agentic work — Opus, GPT-5.5, Gemini, GLM — should not silently revert to single-thread *do-it-all-myself* mode on real projects. When the work is parallel, when the read surface is large, when the ops do not need the lead's full intelligence, the right move is to spawn subagents. This guide names when, why, and how.
+The goal: a strong agent that is trained on agentic work should not silently revert to single-thread *do-it-all-myself* mode on real projects. When the work is parallel, when the read surface is large, when the ops do not need the lead's full intelligence, the right move is to spawn subagents. This guide names when, why, and how.
 
 ---
 
@@ -45,7 +45,7 @@ Three orthogonal wins, each enough on its own:
 |---|---|---|
 | **Context economy** | The subagent burns its own context on the read surface and returns a small summary. The lead's context stays clean. | The lead's working memory fills with intermediate facts; the actual decision happens with degraded attention. |
 | **Real parallelism** | Independent subtasks run concurrently. End-to-end latency drops to the slowest branch. | Every "let me also check" adds serially to wall-clock time. Slow loop, fewer iterations per session. |
-| **Intelligence routing** | Low-difficulty ops run on cheap/fast models. The lead reserves the expensive model for synthesis. | Every grep, lint, format-convert, link-check pays Opus/GPT-5.5 prices. Or worse — the lead's attention. |
+| **Intelligence routing** | Low-difficulty ops run on cheap/fast models. The lead reserves the expensive model for synthesis. | Every grep, lint, format-convert, link-check pays frontier-tier prices. Or worse — the lead's attention. |
 
 The lead's job is not to be a faster solo worker. It is to be the only agent in the swarm that holds the full task graph and decides what gets dispatched, in what shape, to whom.
 
@@ -59,7 +59,7 @@ Three forces, parallel to `why-graph-principles.md` §2a's three forces for tag 
 
 2. **Independence enables true parallelism, not just nominal parallelism.** Two grep operations issued in one assistant turn run concurrently. Two subagents dispatched in one turn each get their own full reasoning loop, in parallel. The latency win compounds: a five-minute research task split across three subagents finishes in five minutes, not fifteen. Strong agents have this primitive; the failure is using it.
 
-3. **Intelligence has a tier.** Reading a file and reporting structure does not need Opus 4.7. Running ten greps and synthesizing matches does not need GPT-5.5. Lint, format-convert, doc-summary — fast cheap models do these without quality loss. The lead's tier is reserved for the parts that actually require it: integration, design judgment, ambiguity resolution, evidence weighing. Routing low-tier work to low-tier models is not a cost optimization — it is correct allocation. Doing it on the lead is overpayment *and* attention pollution.
+3. **Intelligence has a tier.** Reading a file and reporting structure does not need a frontier-tier model. Running ten greps and synthesizing matches does not either. Lint, format-convert, doc-summary — fast cheap models do these without quality loss. The lead's tier is reserved for the parts that actually require it: integration, design judgment, ambiguity resolution, evidence weighing. Routing low-tier work to low-tier models is not a cost optimization — it is correct allocation. Doing it on the lead is overpayment *and* attention pollution.
 
 The fourth force is cultural, not architectural: **the lead is paid to synthesize, not to execute.** Anthropic's *Building Effective Agents* (the canonical external reference for this pattern — orchestrator-worker, parallelization, evaluator-optimizer) names the same shape. If you have not read it once, read it. The pattern is not Agent1st-specific. It is the default mental model of every modern agent framework. Single-thread execution is the regression.
 
@@ -123,7 +123,7 @@ Format conversion, link checking, doc summarization, lint, file scanning — wor
 - *Examples:* "convert this YAML to TOML preserving comments where possible"; "scan this directory for files over 500 lines and list them"; "summarize this 4000-word doc in five bullets."
 - *Win:* intelligence routing + context economy. Cheap model, cheap tokens, no lead context spent.
 - *Brief shape:* short, prescriptive. The deliverable is mechanical.
-- *Smell that says do this:* you would feel mildly silly spending Opus tokens on the operation.
+- *Smell that says do this:* you would feel mildly silly spending frontier-tier tokens on the operation.
 
 A single task can use multiple shapes in one assistant turn — Shape A for exploration in parallel with Shape B for validation, results merged before the next decision. Multiple subagent dispatches in one turn is the canonical pattern, not an edge case.
 
