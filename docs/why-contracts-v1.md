@@ -217,10 +217,18 @@ export function renderSources(sources: Source[]): JSX.Element { ... }
 
 ## 6) Rationale
 
+This shape is the file-level realization of two AGENTS.md principles:
+
+- **§4 Attention Engineering** — the contract sits in the first ~20 lines so the most load-bearing facts (PURPOSE, INVARIANTS, LINKS) are visible at the decision point. An agent that reads only the file head still leaves with what matters.
+- **§5 Semantic Hygiene** — field keys and `START_*:` markers carry meaning, not just labels. Anchor names match graph references one-to-one, so the same concept is named the same across code, graph, and PRD.
+
+Concrete properties this gives:
+
 - **High-contrast anchors** reduce context entropy — agents find the right region without parsing the whole file.
-- **Contracts front-load intent and invariants** — the "why" is where the code is.
+- **Front-loaded intent and invariants** — the "why" is where the code is.
 - **Anchor-first retrieval** is robust to refactors; line-number references rot on first edit.
-- **Stable field keys** allow deterministic validation with simple scripts.
+- **Greppability** — every field is a single-command project-wide query (`grep -rn "^# PURPOSE:"`, `grep -rn "LINKS:"`). English, upper-case, anchored after the colon — this shape exists for that. The same property gives validators a deterministic input.
+- **LINKS as dependency map** — the field an agent reads **before** changing a method. PRD reference, graph node, related anchors. Without LINKS, "which other places must I think about" is a grep-and-guess. With LINKS, it is a read.
 
 ---
 
