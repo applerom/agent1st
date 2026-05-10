@@ -208,7 +208,15 @@ See `docs/EVOLUTION.md` "Recurring Rejected Patterns" for full list. Key recurri
 - Companion wave to v8.3, separate commit and separate delta. Pattern across v8.2–v8.4 now explicit: brief in v8 → adopter pull → spirit-pass through Why1st voice → depth doc in `why-*` namespace + behavioral re-pointing
 - AGENTS.md untouched (byte-identical to v5.1 since v6 — nine versions of discipline). Canonical chain unchanged. Hard partition preserved
 
+### v8.5
+- `docs/why-contracts-v1.md` §6 strengthened: explicit cross-references to AGENTS.md §4 (Attention Engineering) and §5 (Semantic Hygiene) so contracts are named as the file-level realization of those principles. **Greppability** named as a deliberate property of the shape (English, upper-case, anchored after `:`), not just a side effect of "deterministic validation." **LINKS as dependency map** surfaced as the field an agent reads before changing a method — the alternative is grep-and-guess
+- New `docs/experiments/` directory introduced as a parallel track for hypotheses that have not yet earned a place in stable. Hard partition from canonical chain and from `Why1st.md` §11 stable extensions. Not linked from the main README "Optional extensions" table by design. Stable continues to evolve only under spirit-pass discipline; experiments hold ideas that need empirical signal first. Lifecycle (open / promoting / resolved), no fixed timelines, treated as a labeled side-track like in many packaged systems
+- First experiment: `docs/experiments/hieroglyph-anchors.md` — replace one contract field key (PURPOSE) with a single CJK character (`旨`); hypothesis explicitly worth running because the answer is unknown; three measurable falsifiability criteria (token cost, attention/recall in long context, greppability); §5 tension acknowledged up front
+- AGENTS.md untouched. Canonical chain unchanged. No new "Optional extensions" entry — experiments are deliberately separate
+
 ### v9+ (speculative)
+*Hypotheses without observed adoption-failure signal should land in `docs/experiments/` first. Entries here are gated either by a delta-layer test or by known-failure signal already in hand.*
+
 - Friction Tax / ambiguity handling in CDD — gated by delta-layer test
 - Memory system integration patterns (harness MEMORY.md vs. in-repo decision logs vs. skill-based gateways) — likely a decision guide, not a required artifact
 - Anchor adoption in this repo's own `docs/` so the validator graduates from doc-only mode to enforced anchors

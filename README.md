@@ -108,6 +108,18 @@ For projects that grow past the canonical chain, `Why1st.md` §11 describes opt-
 
 ---
 
+## Experimental track
+
+Beyond the stable core, the project keeps a parallel **experimental track** in [`docs/experiments/`](docs/experiments/) for hypotheses that have not yet earned a place in stable. Examples: alternative anchor shapes, alternative artifact formats, untested intuitions about what would help agents in long contexts.
+
+Stable evolves under spirit-pass discipline — every change tied to an observed adoption failure. Experimental is the place for *bets* that need empirical signal first.
+
+If you adopt Agent1st+Why1st in a project, default to **stable**. Opt into a specific experiment only when you have a project where running it makes sense, and report what you saw — positive, negative, or null. Negative signal is useful too: it kills bad hypotheses before they pollute the core.
+
+See [`docs/experiments/`](docs/experiments/) for the full track and current open experiments.
+
+---
+
 ## Design, evolution, and reference
 
 | Doc | For whom | One line |
