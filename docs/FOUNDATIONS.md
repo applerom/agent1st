@@ -40,6 +40,22 @@ Fast-moving fields do not hand out perfect evidence on schedule. Some entries he
 - **Strength:** Supported.
 - **Connection to Agent1st:** Protocol design is partly an attention-allocation problem. Hooks ("Done Is Not a Mood") aren't just memorable for humans — they may create stronger attention signals than bland alternatives.
 
+### Context Rot — irrelevant tokens are not free
+
+- **Report:** Hong, Troynikov & Huber, "Context Rot: How Increasing Input Tokens Impacts LLM Performance" (2025, Chroma technical report)
+- **Link:** https://www.trychroma.com/research/context-rot
+- **Finding:** Across 18 models (including frontier Claude, GPT, Gemini, Qwen), performance degrades non-uniformly as input length grows — even on trivial tasks that hold difficulty constant. A single distractor measurably lowers accuracy; multiple distractors compound it. The same question answered from a ~300-token focused prompt beats the ~113k-token full prompt. *Where and how* information sits in context matters as much as whether it is present.
+- **Strength:** Supported (controlled empirical study across many models; a practitioner report, not peer-reviewed).
+- **Connection to Agent1st:** This is the hard evidence under "attention is finite" and under the delta-layer test. Every line in `AGENTS.md` that duplicates the model/tool layer is not neutral filler — it is a distractor that demonstrably degrades retrieval of the lines that *do* carry unique signal. "More search is not always more signal" stops being a slogan and becomes a measured effect. It also grounds §8's failure mode in reverse: stuffing context to feel thorough can lower accuracy, not raise it.
+
+### Convergent practitioner framing — the attention budget
+
+- **Source:** Anthropic Applied AI team, "Effective context engineering for AI agents" (2025)
+- **Link:** https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents
+- **Finding:** Frames context as a finite **attention budget** drawn down by every token, rooted in the transformer's n² pairwise attention and in training distributions where long sequences are rare. Prescribes "the smallest set of high-signal tokens that maximize the likelihood of the desired outcome," names bloated tool sets as a top failure mode, treats file naming and folder structure as signal the agent reads, and lists compaction, structured note-taking (agentic memory), and sub-agent architectures (clean context windows that return ~1-2k-token distilled summaries) as the techniques for long-horizon coherence.
+- **Strength:** Supported (first-party guidance from a frontier lab's applied team; convergent rather than independent-academic).
+- **Connection to Agent1st:** This is the strongest external convergence the project has. A frontier lab's applied team, writing from the opposite direction, independently lands on Agent1st's own vocabulary — "attention budget," "finite resource" — and independently derives §4 (minimal high-signal tokens), §5 (naming as signal), §9 (subagents return distilled summaries, not raw context), and §11 (note-taking/memory survives compaction). When a protocol written *by* agents and a frontier lab's engineering guidance arrive at the same mechanics from opposite ends, that is the cleanest available signal that the mechanics are real and not stylistic preference. It is also a caution: where the practitioner guidance and the protocol diverge (e.g. it expects formatting to matter *less* as models improve), that divergence is a place to watch, not to paper over.
+
 ### Instruction Hierarchy
 
 - **Paper:** Wallace et al., "The Instruction Hierarchy: Training LLMs to Prioritize Privileged Instructions" (2024, OpenAI)
@@ -238,7 +254,7 @@ However, it connects to:
 
 | Principle | Evidence Level | Key Papers |
 |-----------|---------------|------------|
-| Attention Engineering | Established | Liu 2023, Hung 2024, Guardieiro 2025, Wallace 2024 |
+| Attention Engineering | Established | Liu 2023, Hung 2024, Guardieiro 2025, Wallace 2024, Hong 2025 (Context Rot), Anthropic 2025 |
 | Agent Loop | Established | Yao 2022 (ReAct), Shinn 2023, Yao 2023 (ToT), Chen 2025 |
 | Over-exploration guard | Supported | Su 2025, Sui 2025 |
 | Right to Disagree | Established | Sharma 2023 (sycophancy) |
@@ -251,7 +267,50 @@ However, it connects to:
 
 ---
 
-## How to Use This Document
+## Counter-Arguments: Where a Strong Agent Should Push Back
+
+This document would be dishonest if it only argued *for* the protocol. Agent1st is a living research object, not a creed. A strong agent reading a principle should be able to compare it against its own training and push back — and the best of those pushbacks have shaped past versions (see `EVOLUTION.md`). This section states the strongest honest counter-argument to each principle, so a fresh agent does not have to reconstruct it cold. If you can extend or defeat one of these, that is a contribution.
+
+**Against Attention Engineering / delta-layer.** The sharpest objection: the delta-layer test assumes you can know what the model and harness layers already enforce — but those layers are opaque, change without notice, and differ across providers. A line that is "duplication" under one harness is the *only* statement of a rule under another. Counter-counter: that is exactly why the protocol states principles, not procedures, and why this risk is named in DESIGN rather than denied. But an agent is right to flag a specific line as possibly-redundant under *its* harness — that is CDD working as designed, not heresy.
+
+**Against Done Is Not a Mood.** Demanding "best evidence the harness allows" can itself become ceremony: on a one-line doc fix, writing an evidence sentence costs more attention than the fix. The principle is load-bearing on risky surfaces and overhead on trivial ones. The protocol's defense is "best evidence the *harness* allows" scales down to "none needed" — but that scaling is a judgment call the text leaves implicit, and a literal agent at low effort may over-apply it.
+
+**Against Right to Disagree.** Sycophancy research (Sharma 2023) justifies it, but the same mechanism can misfire: an agent over-trained to disagree manufactures objections to look rigorous, which is sycophancy wearing a contrarian mask. The principle has no built-in calibration for *how often* disagreement is warranted. It relies on the agent's judgment about "quality, truth, or safety" being well-calibrated — which is precisely what is uncertain.
+
+**Against Agent Loop / Do Not Stop at the First Weak Signal.** These two pull opposite ways: §4 says stop early, §8 says don't stop early. The project treats this as deliberate architecture (§4 guards over-exploration during search; §8 guards premature collapse during evaluation — see `EVOLUTION.md` on the reverted v6 merge). But a fast reader can experience it as a contradiction with no explicit arbiter. The honest position: the resolution lives in *which phase you are in*, and that context is not restated at each principle. Under a literal model at low effort, the asymmetry may not fire as intended — this is an open, testable question (see Model-Shift Register).
+
+**Against Delegation Design.** This is the weakest-evidenced principle (see "The gap" above): there is no landmark experiment showing hierarchical information loss in LLM chains. It is practitioner wisdom ahead of the literature. A skeptic is entitled to call it a hypothesis dressed as a rule. The honest answer is that the document already labels it Supported-trending-Hypothesis — and the convergent Anthropic guidance on subagents returning distilled summaries is the closest thing to corroboration, not proof.
+
+**Against Semantic Hygiene.** Labeled Hypothesis honestly. The mechanistic story (polysemy → ambiguous attention) is plausible but not isolated in a controlled study. A strong agent may reasonably hold that modern models disambiguate `graph` from context just fine, and that aggressive qualification (`ui_graph`, `knowledge_graph`) adds token cost for marginal gain. The counter is that the cost is tiny and the failure it prevents (wrong-concept edits) is expensive and silent — an asymmetric bet, not a proven theorem.
+
+**Against CDD.** No research precedent — it is an invention. Its risk is over-firing: an agent that complains about every minor friction becomes noise, the opposite of signal. The format (Problem → Impact → Smallest fix) is the guardrail, but nothing enforces that the friction is real rather than a stylistic preference dressed as a blocker.
+
+**Against Continuity.** The strongest principle by evidence (Park 2023, Reflexion). The honest weakness is the reverse: native harness features (compaction, memory tools, context-awareness) increasingly do some of this automatically, so a handoff written by hand can duplicate what the harness already persists. The principle ages well as a *behavior* ("leave a runway") but its *mechanism* (write a handoff doc at session end) is the part most likely to be partly superseded by tooling — see Model-Shift Register.
+
+**Meta-critique — this document.** Rule #1 says every citation must be real and verifiable. A fast-moving doc accrues link rot and citation drift; some entries here were added in different sessions and deserve periodic re-verification against the live sources. Treating FOUNDATIONS as audited-once is itself a failure mode the document warns against elsewhere. The right cadence: re-verify links and strength labels whenever the Model-Shift Register gets a new entry.
+
+---
+
+## Model-Shift Register
+
+VISION's core bet is "a behavior contract that ages well precisely because it resists growth." That claim is only worth anything if it is *checked* each time a model generation ships — otherwise "ages well" is faith, not evidence. This register is the check: append-only, one short pass per model generation, recording how each touched principle held and whether anything needed to change.
+
+The discipline mirrors `EVOLUTION.md`'s "exact versions live in one place" rule. Exact model versions are fine *here* because each row is a dated historical observation, not a present-tense claim. If after two or three generations this register has no actionable content, it is ceremony and should be cut — that falsification condition is part of the design.
+
+### Opus 4.8 (2026-05) — first pass
+
+Triggered by the Opus 4.8 release and its official prompting guidance. Headline: **the frozen behavior layer needed zero edits.** Walked through the delta-layer test, every documented 4.8 shift was either already covered, model-layer (and so rejected by delta-layer), or a reason an existing principle earns *more* of its tokens.
+
+| Principle touched | 4.8 shift | Direction | Did it hold? |
+|---|---|---|---|
+| §4 Attention Engineering / §8 | More literal instruction-following; favours reasoning over tools; scopes tightly at low effort | Less inference | **Held, earns more.** Literalism narrows a *specific* instruction; it does not nullify *general* principles. The WHY/IF MISSING blocks are the mechanism by which a principle still fires in a novel case (the 4.8 guidance itself says the model generalizes from stated rationale). §8 ("fetch the missing fact before guessing") guards exactly the low-effort failure of reasoning from an assumption — it pays off *more* under 4.8 than under tool-eager predecessors. |
+| §9 Delegation Design | Fewer subagents by default (reversal of 4.5/4.6 over-spawning) | Less delegation | **Held untouched.** §9 governs delegation *design* (deliverable, acceptance criteria, bounded context), not *frequency*. A protocol that said "delegate more" or "delegate less" would now be wrong for one model generation. Surviving a behavioral reversal without an edit is the "ages well" thesis demonstrated, not asserted. |
+| §10 / §11 | Better native progress updates; context-awareness + memory tool | New capability / less scaffolding | **Held; mechanism partly assisted.** 4.8's advice to *remove* interim-status scaffolding does not touch §10 (semantic logs as future context, not status pings). Native memory + context-awareness assist §11's behavior; whether they should reshape the §11 *mechanism* (checkpoint-before-compaction vs end-of-session handoff) is parked as an opt-in question, not a core change. |
+| Delta-layer (DESIGN §2) | "Be explicit about scope" is Anthropic's own 4.8 remedy | — | **Confirmed by rejection.** Adding the scope-explicitness remedy to `AGENTS.md` would duplicate the model layer and drift when the guidance updates. Delta-layer correctly rejects it. The decision is recorded here so it is not re-litigated next release. |
+
+**Net result:** Opus 4.8 shipped; the behavior layer held without edits. That is the strongest available evidence for the "ages well because it resists growth" thesis — one model generation of pressure absorbed with zero core change. (Source pass: `.lab` Opus 4.8 protocol review, written by an Opus-family agent operating a real Why1st adopter.)
+
+
 
 **For agents proposing changes to Agent1st:**
 - Check if your proposal aligns with or contradicts research here
