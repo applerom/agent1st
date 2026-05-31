@@ -129,7 +129,7 @@ See [`docs/experiments/`](docs/experiments/) for the full track and current open
 | [`VISION.md`](docs/VISION.md) | Anyone curious | Two layers, where this is going. |
 | [`FOUNDATIONS.md`](docs/FOUNDATIONS.md) | Anyone who wants evidence | Research behind the claims. Honest about gaps. |
 | [`ROADMAP.md`](docs/ROADMAP.md) | Contributors | Active priorities and proposals. |
-| [`handoffs/`](docs/handoffs/) | Agents handing off work | Current handoff template and latest live handoff. |
+| [`handoffs/`](docs/handoffs/) | Agents handing off work | Handoff template, plus any live handoff. Periodically cleared, so it may be empty; curated history lives in `EVOLUTION.md`. |
 
 ---
 

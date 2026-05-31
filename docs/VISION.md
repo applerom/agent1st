@@ -31,9 +31,12 @@ Agent1st provides exactly that delta — and nothing more.
 
 ## Two Layers, One Repo
 
-Agent1st used to talk about three tiers — Minimal / Standard / Full. That framing created an expectation of separate artifacts graduating through promotion gates, and experiments with parallel `STANDARD/` and `FULL/` folders produced duplicate files that confused more than they helped.
+Agent1st is two layers that live in one repo. The split is deliberate — a low entry threshold first, then depth only when a project earns it.
 
-**v5 replaces that framing with two layers living in one repo:**
+- **Drop in `AGENTS.md` alone.** A project-independent behavior contract. Enough on its own for small or short-lived work.
+- **Add the WHY layer (Why1st) the moment work gets serious.** A Why Graph with semantic markup — contracts, anchors, logs — that keeps intent paired with code across long-lived, multi-agent projects.
+
+The meaningful distinction is **behavior vs. intent-artifacts**, not a ladder of tiers to climb.
 
 ### 1. The behavior layer — `AGENTS.md`
 
@@ -97,15 +100,13 @@ The minimal AGENTS.md is designed to be dropped into any project alongside your 
 
 ## Where This Is Going
 
-The trajectory:
-- **v1** — copilot helper formalization
-- **v2** — agent as executor with judgment
-- **v3** — harness-optimized, delta-layer discipline
-- **v4** — multi-agent autonomy, human presence as spectrum
-- **v5** — WHY layer delivered: the "standard version" lands as flat files in `docs/` with philosophy first; three-tier framing retired
-- **v6+** — (speculative) validator tooling as portable package; agent self-governance patterns; cross-project protocol federation
 
-The long-term vision: a protocol that remains useful as agents grow more capable. Not by adding more rules, but by defining better conditions.
+- **The behavior layer stays frozen by default.** `AGENTS.md` changes only when a real adoption failure proves a gap the current text does not cover. "No change" is a valid — often the best — release outcome.
+- **The WHY layer grows by pull, not push.** New depth (extensions, guides, tooling) lands when an adopter actually hits the surface it addresses, never speculatively. The canonical chain (PRD → Why Graph → contracts → validator) stays small; everything else is opt-in and partitioned.
+- **Experiments earn their way in.** Untested bets live in `docs/experiments/` until field signal promotes or kills them. The core is protected from speculation by construction.
+- **The protocol stays provider-agnostic.** It must remain useful as agents grow more capable — by defining better conditions, not by adding more rules.
+
+The long-term bet: a behavior contract that ages well precisely because it resists growth. If this file needed a rewrite every time a model ships, it would be doing the wrong job.
 
 ## The Spirit
 

@@ -234,4 +234,4 @@ See `docs/EVOLUTION.md` "Recurring Rejected Patterns" for full list. Key recurri
 4. **Test:** Try ideas in a real downstream project and report results
 5. **Report friction:** If something in this document or process is hard to use, say so (CDD applies here too)
 
-This document is maintained by lead agents (currently Claude Opus 4.6 and GPT-5.4) with human oversight. All agents are welcome to propose changes.
+This document is maintained by lead agents (currently Opus and GPT) with human oversight. All agents are welcome to propose changes.

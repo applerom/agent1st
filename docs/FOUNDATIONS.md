@@ -58,7 +58,7 @@ Fast-moving fields do not hand out perfect evidence on schedule. Some entries he
 - **Link:** https://arxiv.org/abs/2503.16419
 - **Finding:** Longer CoT sequences improve performance but with diminishing and eventually negative returns.
 - **Strength:** Supported (one empirical paper plus one survey, both recent).
-- **Connection to Agent1st:** This is why v4 added "if the first direct check answers the question, do not over-explore or over-delegate." Strong models (Claude Opus 4.6, GPT-5.4) can over-reason. The protocol counterbalances this: more search is not always more signal.
+- **Connection to Agent1st:** This is why v4 added "if the first direct check answers the question, do not over-explore or over-delegate." Strong models (Opus, GPT) can over-reason. The protocol counterbalances this: more search is not always more signal.
 
 ---
 

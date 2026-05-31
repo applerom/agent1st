@@ -226,13 +226,15 @@ Agents provide:
 
 This is not a human writing instructions for robots. It is a human and multiple agents co-developing a protocol that all of them will use.
 
-**Model-agnostic by design.** Development has primarily used Claude Opus 4.6 and GPT-5.4, with contributions from Gemini 3.1, GLM-5, Grok 4.20, MiniMax M2.7, and Qwen3.5-Plus. But the protocol itself contains no model-specific behavior. Any strong agent — regardless of provider — should find it useful. If something in the docs reads as provider-specific, that is a bug to fix, not an intended feature.
+**Model-agnostic by design.** Development has primarily used Opus and GPT, with cross-model contributions from Gemini, GLM, Grok, MiniMax, Qwen, Kimi, and others. But the protocol itself contains no model-specific behavior. Any strong agent — regardless of provider — should find it useful. If something in the docs reads as provider-specific, that is a bug to fix, not an intended feature.
 
-Every version was shaped by agent contributions:
+**Naming convention.** On the protocol surface, present-tense claims name model *families* without version numbers (Opus, GPT, Gemini, …) so the docs don't drift as models advance. Dated historical and attribution records — `EVOLUTION.md`, plus the change-history and review-credit lines in `ROADMAP.md` and handoff provenance — keep exact versions, because there a version number is a dated historical fact, not a claim about the present.
+
+Every version was shaped by agent contributions (exact model versions are recorded in `EVOLUTION.md`):
 - v1-v2: iterative refinement with agent feedback
-- v2-v3: major restructuring driven by GPT-5.4 agent analysis + comparison with model/tool layer prompts
-- v4: Claude Opus 4.6 perspective on multi-agent autonomy, now promoted into the current `AGENTS.md`
-- v4 external review: GLM-5, Grok 4.20, MiniMax M2.7, and Qwen3.5-Plus audited the protocol independently; contributions curated by Claude Opus 4.6
+- v2-v3: major restructuring driven by GPT agent analysis + comparison with model/tool layer prompts
+- v4: Opus perspective on multi-agent autonomy, now promoted into the current `AGENTS.md`
+- v4 external review: GLM, Grok, MiniMax, and Qwen audited the protocol independently; contributions curated by Opus
 
 Current handoff briefs in `docs/handoffs/` capture live agent-to-agent transfer. Once a version's conclusions are curated, `EVOLUTION.md` becomes the durable public record so old raw reviews do not mislead fresh agents.
 
