@@ -475,15 +475,15 @@ WHY validator: OK
 
 **Era:** v7 named the Why1st format spirit and got empirically verified — a real cold-start adopter (PRD-only, agent told to read `#why1st`) produced a working app with a valid prompt-XML graph, 11 anchors, 21 unit tests, module contracts on 16 files. The protocol transferred. The next question is no longer "do the docs land?" but "what does the cold-start audit teach us, and how do we let real-project surfaces (semantic logs, tests with UI evidence, subagent orchestration) come in without breaking drop-in adoption?"
 
-**Primary agent:** Claude Opus 4.7. **Codex-side audit:** GPT-5.5 (cross-project review of harmon1st's adoption, semantic-logging patterns across reference adopters, harness-observatory as a public candidate).
+**Primary agent:** Claude Opus 4.7. **Codex-side audit:** GPT-5.5 (cross-project review of the cold-start reference adopter's adoption, semantic-logging patterns across reference adopters, harness-observatory as a public candidate).
 
-**The new failure mode v8 catches.** The harmon1st adopter wrote a correct local Why Graph but compressed its local copy of `why-graph-principles.md` from ~218 lines to ~74, dropping most of v7's §2a rationale. Agent A succeeded; agent B on the same project would now read only the local guide and lose the WHY. This is the same root cause as v6.1 (local-project names leaking into public docs) and v7 (graph format collapsing to `<node>`): docs encoded *what* clearly, *why* implicitly. **Compressed adaptation drops the why first.** The v8 fix: tell adopters explicitly which rationale anchors not to compress when they shorten a doc locally.
+**The new failure mode v8 catches.** The cold-start reference adopter wrote a correct local Why Graph but compressed its local copy of `why-graph-principles.md` from ~218 lines to ~74, dropping most of v7's §2a rationale. Agent A succeeded; agent B on the same project would now read only the local guide and lose the WHY. This is the same root cause as v6.1 (local-project names leaking into public docs) and v7 (graph format collapsing to `<node>`): docs encoded *what* clearly, *why* implicitly. **Compressed adaptation drops the why first.** The v8 fix: tell adopters explicitly which rationale anchors not to compress when they shorten a doc locally.
 
 **Tier-1 — small load-bearing fixes:**
 
 - **`docs/why-graph-principles.md` §2a — "Adapting §2a locally" guard.** When you copy this file into your project and shorten it, retain at minimum: tag identity, inline relations, no `<?xml?>`, no generic `<node id kind>`, and one sentence on transformer attention. Compress further and the next agent loses the rationale §2a was written to prevent.
 - **`docs/Why1st.md` §8 — "Pin vs reference."** Pin always: `AGENTS.md`, `docs/PRD.md`, `docs/why-graph.xml`. Reference on demand: principles, contracts, validator, project-local memory. Stops cold-start adopters from pinning 8+ files and turning the layer into context tax.
-- **`docs/Why1st.md` §8 — "Don't edit the Core."** Hello Agent tweaks, output-contract exceptions, harness handshake refinements go above the separator in the addendum, not inside the canonical body. The harmon1st adopter modified the Core "just slightly" while claiming it was unmodified — a real adoption mistake, named explicitly.
+- **`docs/Why1st.md` §8 — "Don't edit the Core."** Hello Agent tweaks, output-contract exceptions, harness handshake refinements go above the separator in the addendum, not inside the canonical body. The cold-start reference adopter modified the Core "just slightly" while claiming it was unmodified — a real adoption mistake, named explicitly.
 
 **Tier-2 — opt-in extensions for real-project surfaces.** New `Why1st.md §11` introduces three patterns with a hard partition from the canonical chain (PRD → Graph → contracts → validator). Adopt only when the project actually has the surface. Skipping them is fine; the protocol does not require them.
 
@@ -533,7 +533,7 @@ A development-side audit of [`osovv/grace-marketplace`](https://github.com/osovv
 
 None of them landed.
 
-The reason is the spirit-pass discipline that worked through v6→v8: every change was tied to a named adoption failure that the change actually catches. v6.1 was triggered by GPT-5.5 leaking local refs into public docs. v7 was triggered by the harmon1st adopter producing classical XML on first read. v8 was triggered by the same adopter compressing away rationale. There is no observed failure that any of the six GRACE candidates would prevent. §2a's three forces empirically already work for cold-start adopters; private helpers have not yet bloated any real adopter graph; the validator's CDD-style errors have not yet triggered UX complaints.
+The reason is the spirit-pass discipline that worked through v6→v8: every change was tied to a named adoption failure that the change actually catches. v6.1 was triggered by GPT-5.5 leaking local refs into public docs. v7 was triggered by the cold-start reference adopter producing classical XML on first read. v8 was triggered by the same adopter compressing away rationale. There is no observed failure that any of the six GRACE candidates would prevent. §2a's three forces empirically already work for cold-start adopters; private helpers have not yet bloated any real adopter graph; the validator's CDD-style errors have not yet triggered UX complaints.
 
 So the candidates are parked in ROADMAP under "From GRACE Marketplace audit" with explicit "awaiting signal" gates per row. The audit's value is preserved as a legible candidate pile; the public surface stays unchanged.
 
@@ -570,7 +570,7 @@ WHY validator: OK
 
 **Spirit-pass discipline.** This is the second consecutive version where the change responds to a named adopter signal rather than a speculative improvement. v8.1 closed inertia fields and parked the GRACE-audit candidates as "awaiting signal." v8.2 took one of those parked-style situations — *a candidate that had been waiting for a signal* — and shipped it because the signal arrived. The pattern is becoming explicit: adopter pull → spirit-pass through Why1st voice → extract.
 
-**What stayed in the lab.** The reference analyses that informed the new file (cross-project semantic-logging audit, GRACE-marketplace audit, harmon1st adoption audit) live in development-side notes, not on the public surface. The public artifact is the principle in §11.1 plus the implementation guide in `docs/why-semantic-logs.md`. Adopters do not need to know which reference projects taught the pattern — they need the pattern, sized for their problem.
+**What stayed in the lab.** The reference analyses that informed the new file (cross-project semantic-logging audit, GRACE-marketplace audit, cold-start reference-adopter adoption audit) live in development-side notes, not on the public surface. The public artifact is the principle in §11.1 plus the implementation guide in `docs/why-semantic-logs.md`. Adopters do not need to know which reference projects taught the pattern — they need the pattern, sized for their problem.
 
 **Evidence:**
 
@@ -640,7 +640,7 @@ WHY validator: OK
 
 **What did not change.** AGENTS.md (byte-identical to v5.1 since v6 — nine versions of discipline). The canonical chain (PRD → Why Graph → contracts/anchors → validator). The hard partition between chain and §11 extensions. The graph (no new ARTIFACT entry — extensions stay out of the graph by design).
 
-**What stayed in the lab.** Cross-project reference analyses on UI evidence patterns (harness-observatory's Playwright assertions, HiQo/BARDI's Playwright-backed snapshot CLI, SPS3A's API debug-trace assertions) live in development-side notes, not on the public surface. The public artifact is the principle in §11.2 plus the implementation guide in `docs/why-evidence.md`. Adopters need the pattern, not the field-research provenance.
+**What stayed in the lab.** Cross-project reference analyses on UI evidence patterns (harness-observatory's Playwright assertions, a snapshot-CLI adopter's Playwright-backed snapshot CLI, an API-service adopter's debug-trace assertions) live in development-side notes, not on the public surface. The public artifact is the principle in §11.2 plus the implementation guide in `docs/why-evidence.md`. Adopters need the pattern, not the field-research provenance.
 
 **Evidence:**
 

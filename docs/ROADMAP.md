@@ -170,7 +170,7 @@ See `docs/EVOLUTION.md` "Recurring Rejected Patterns" for full list. Key recurri
 - **Empirical confirmation:** a real cold-start adopter (PRD-only, agent told to read `#why1st`) produced a working app with a valid prompt-XML graph, 11 anchors, 21 unit tests, and module contracts on 16 files in its first version
 
 ### v8
-- New harmon1st-style cold-start audit produced three small Tier-1 fixes plus three opt-in extension patterns:
+- New cold-start reference-adopter audit produced three small Tier-1 fixes plus three opt-in extension patterns:
   - **§2a "do not compress" guard** in `why-graph-principles.md` — when adopters copy the file locally and shorten it, retain at minimum the load-bearing rationale anchors. New meta-failure: agent A writes correct graph + compressed local guide → agent B loses the WHY
   - **Pin-vs-reference** sharpening in `Why1st.md` §8 — pin always: `AGENTS.md` + `PRD.md` + `why-graph.xml`; reference on demand: principles, contracts, validator. Stops cold-start adopters from pinning 8+ files as context tax
   - **"Don't edit the Core" clarity** in `Why1st.md` §8 — Hello Agent tweaks, output-contract exceptions, harness handshake refinements go in the addendum **above** the separator, not inside the Core. Common adoption mistake named explicitly

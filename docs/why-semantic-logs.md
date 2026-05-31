@@ -112,7 +112,7 @@ Use JSONL/NDJSON (one JSON object per line) unless your project already has a be
 | `ts` | ISO timestamp string | `2026-04-29T12:00:00Z`. Stable name across the project. |
 | `event` | snake_case string | `state_load_completed`, `external_call_failed`. Stable vocabulary. |
 | `anchor` | string | Why Graph entity name, or code anchor name (`FEATURE_X`, `START_BLOCK_STATE_LOADING`). Use the same strings the graph and code already use. |
-| `component` | string | Module/service/surface that owns the boundary (`BardiServer`, `RefreshJob`, `RAGAdapter`). |
+| `component` | string | Module/service/surface that owns the boundary (`ApiServer`, `RefreshJob`, `RAGAdapter`). |
 
 **Conditional fields — use when they apply, omit when they don't:**
 
