@@ -61,6 +61,7 @@ There are no fixed timelines. An experiment lives as long as it is generating us
 | Experiment | Status | One line |
 |---|---|---|
 | [`hieroglyph-anchors.md`](hieroglyph-anchors.md) | Open | Replace one English contract field key with a single CJK character; measure whether token cost, attention/recall in long context, or grep workflow shifts. |
+| [`terraform-agent1st.md`](terraform-agent1st.md) | Open | First domain specialization, deployed for dogfood: a Terraform behavior-layer skill (artifact in `.agents/skills/terraform/`) derived from the agent cost vector; tests whether Agent1st specializes by derivation without core growth — and whether canonical Terraform practices flip sign under agent costs. |
 
 ---
 
