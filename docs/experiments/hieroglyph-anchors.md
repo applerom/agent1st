@@ -67,6 +67,8 @@ Note that `START_MODULE_CONTRACT:`, `:END_MODULE_CONTRACT`, `INVARIANTS:`, etc. 
 
 Optional fourth: report whether the substitution **felt** distracting, helpful, or neutral while you were working. Subjective signal is weak but not zero — note it as subjective.
 
+> **Tokenizer-generation note (2026-06):** the newest frontier Claude generation ships a new tokenizer — the same content tokenizes to roughly 30% more tokens than under the prior generation, and its CJK behavior is unmeasured. Two consequences for criterion 1: numbers measured under a prior-generation tokenizer do not transfer (re-baseline, don't extrapolate), and the measurement itself got cheaper — the token-counting endpoint returns counts under both tokenizers in one call (`input_tokens` + `input_tokens_prior_tokenizer`) when given the newest model, so the A/B costs one request per sample. "Name the model and tokenizer" was already a requirement above; this note exists because that requirement just became load-bearing.
+
 ---
 
 ## What would falsify it

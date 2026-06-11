@@ -34,7 +34,7 @@ Fast-moving fields do not hand out perfect evidence on schedule. Some entries he
 - **Strength:** Supported (mechanistic evidence from a newer paper, not settled consensus).
 - **Connection to Agent1st:** AGENTS.md competes with the system prompt, user prompt, and tool context for attention. This is why the delta-layer principle exists: every line that duplicates what the model/tool already says doesn't just waste tokens — it creates attention competition with the truly unique content.
 
-- **Paper:** Guardieiro et al., "Instruction Following by Boosting Attention of LLMs" (2025)
+- **Paper:** Guardieiro et al., "Instruction Following by Principled Boosting Attention of Large Language Models" (2025)
 - **Link:** https://arxiv.org/abs/2506.13734
 - **Finding:** Manipulating attention weights on instruction tokens improves instruction-following without retraining. Protocol adherence is mechanistically controlled by how much attention the model pays to instruction tokens.
 - **Strength:** Supported.
@@ -170,6 +170,14 @@ There is no single landmark paper demonstrating information loss in hierarchical
 - **Strength:** Supported.
 - **Connection to Agent1st:** "Done Is Not a Mood" is a structural defense against reward-proxy failure. By demanding deterministic evidence, the protocol shifts the center of gravity from "did the response sound satisfying?" to "did the environment actually change as claimed?" "Correctness becomes a vibe" is the practical failure mode Agent1st is trying to block.
 
+### Grounded progress claims — the vendor operationalizes §2
+
+- **Source:** Anthropic, "Prompting Claude Fable 5" (2026, official prompting guide)
+- **Link:** https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5
+- **Finding:** The official guidance ships a recommended instruction for long autonomous runs — audit each progress claim against a tool result, only report work you can point to evidence for, report outcomes faithfully — and states that in Anthropic's testing it "nearly eliminated fabricated status reports even on tasks designed to elicit them."
+- **Strength:** Supported (first-party; the testing claim is the vendor's, not independently replicated).
+- **Connection to Agent1st:** This is §2 restated as a vendor remedy, with the empirical result the principle never had: evidence-gated reporting measurably suppresses the storytelling failure mode. Two honest notes. First, the convergence cuts both ways — harness system prompts are absorbing this wording (observed 2026-06: Claude Code's system prompt carries faithful-reporting language nearly verbatim), so under that harness §2's *delta* shrinks even as its *correctness* is confirmed; the principle stays because the protocol must be portable across harnesses that have not absorbed it. Second, the protocol still carries what the snippet does not: the WHY/IF MISSING generalization and the "say what is missing" half, which turns evidence-gating from a reporting rule into a completion definition.
+
 ---
 
 ## Role Contract / Anti-Micromanagement
@@ -191,6 +199,14 @@ There is no single landmark paper demonstrating information loss in hierarchical
 - **Finding:** Prompt specificity improves accuracy especially for smaller models and procedural tasks, which argues for adaptive prompting rather than assuming "more detail" is always better in every context.
 - **Strength:** Supported (nuanced — not a blanket finding).
 - **Connection to Agent1st:** The DETAIL paper reinforces that prompt specificity is not one-size-fits-all. That is compatible with Agent1st's anti-micromanagement stance, but it should be read as supporting context, not as a full proof of "always give less detail."
+
+### De-prescription becomes first-party guidance
+
+- **Source:** Anthropic, "Prompting Claude Fable 5" (2026, official prompting guide)
+- **Link:** https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5
+- **Finding:** The vendor's own guidance for its newest frontier generation: prompts and skills written for prior models "are often too prescriptive" and "can degrade output quality" — the recommended fix is to state the goal and constraints rather than enumerate the steps, and to re-evaluate which instructions and guardrails are still needed at each capability jump.
+- **Strength:** Supported (first-party vendor guidance; convergent rather than independent-academic).
+- **Connection to Agent1st:** "Strong agents should not be micromanaged" stops being a stance and becomes the vendor's measured recommendation: over-specification now carries a *negative* sign, not just a neutral token cost. This is the same direction DETAIL points at from the academic side. It also raises the stakes of the delta-layer test — a duplicated or over-prescriptive line in `AGENTS.md` is no longer just attention tax; by the vendor's own account it is a quality regression.
 
 ---
 
@@ -259,8 +275,8 @@ However, it connects to:
 | Over-exploration guard | Supported | Su 2025, Sui 2025 |
 | Right to Disagree | Established | Sharma 2023 (sycophancy) |
 | Delegation Design | Supported | Tran 2025, Moore 2025 |
-| Done Is Not a Mood | Supported | Gao 2023, Perez 2022 (RLHF reward hacking) |
-| Role Contract / Autonomy | Supported | Hadfield-Menell 2016 (principal-agent) + Kim 2025 |
+| Done Is Not a Mood | Supported | Gao 2023, Perez 2022 (RLHF reward hacking), Anthropic 2026 (grounded progress claims) |
+| Role Contract / Autonomy | Supported | Hadfield-Menell 2016 (principal-agent) + Kim 2025 + Anthropic 2026 (de-prescription) |
 | Semantic Hygiene | Hypothesis | Mechanistic reasoning from attention literature |
 | CDD | Practical origin | Analogy to sycophancy + reflexion |
 | Continuity | Supported | Park 2023 (memory architecture), Reflexion (reflection-as-artifact) |
@@ -309,6 +325,23 @@ Triggered by the Opus 4.8 release and its official prompting guidance. Headline:
 | Delta-layer (DESIGN §2) | "Be explicit about scope" is Anthropic's own 4.8 remedy | — | **Confirmed by rejection.** Adding the scope-explicitness remedy to `AGENTS.md` would duplicate the model layer and drift when the guidance updates. Delta-layer correctly rejects it. The decision is recorded here so it is not re-litigated next release. |
 
 **Net result:** Opus 4.8 shipped; the behavior layer held without edits. That is the strongest available evidence for the "ages well because it resists growth" thesis — one model generation of pressure absorbed with zero core change. (Source pass: `.lab` Opus 4.8 protocol review, written by an Opus-family agent operating a real Why1st adopter.)
+
+### Fable 5 (2026-06) — second pass
+
+Triggered by the Claude Fable 5 release (2026-06-09) and its official prompting guide — the first frontier release whose vendor guidance reads like a restatement of the protocol: de-prescribe (→ §1 / anti-micromanagement), ground progress claims in tool results (→ §2), give the reason not only the request (→ Why1st's whole thesis: intent as first-class context), build a file-based memory surface (→ §11), delegate to parallel subagents readily (→ §9). Headline: **second consecutive generation absorbed with zero core edits** — and this time the pressure came from convergence, not divergence.
+
+| Principle touched | Fable-generation shift | Direction | Did it hold? |
+|---|---|---|---|
+| §9 Delegation Design | Delegates readily again; dependable long-lived *async* subagents (reversal #2: over-spawn → under-spawn → eager-and-dependable) | More delegation | **Held untouched — twice.** §9 survived the under-delegation swing in the 4.8 pass and now survives the swing back, for the same reason: it governs delegation *design*, not frequency. Two opposite behavioral reversals absorbed by one unchanged principle is the strongest single data point this register has. Watch item: the async long-lived-subagent shape is new; `docs/why-subagents.md` (calibrated against the under-delegation era) names four shapes that do not include it. No speculative edit — wait for adopter signal. |
+| §2 Done Is Not a Mood | Vendor ships an evidence-gated progress instruction and reports it nearly eliminates fabricated status reports; harness system prompts absorb the wording | Convergence + delta erosion | **Held, earns more — recorded honestly.** The vendor confirmed the mechanism §2 asserts. Simultaneously, under the Claude harness specifically, parts of §2 are now also stated a layer below. The Counter-Arguments entry on delta-layer already covers this case: a line that is duplication under one harness is the only statement of the rule under another. Portability is the answer; pretending the overlap does not exist is not. |
+| §4 / §8 | Longer turns by default; at high effort the model can deliberate past what routine work needs; literalism continues | More deliberation | **Held; live test running.** The Counter-Arguments open question — does the §4/§8 asymmetry fire correctly under a literal model — now has its test generation. Nothing observed yet that an edit would fix. |
+| §11 Continuity | Official guidance: one lesson per file, don't duplicate what the repo records, update rather than create duplicates, delete wrong notes | Behavior confirmed, mechanism partly absorbed | **Held as behavior; mechanism watch continues.** The "Against Continuity" counter-argument predicted native tooling would absorb part of the mechanism — vendor memory guidance plus harness memory tools is that prediction materializing. The *behavior* ("leave a runway"; durable artifacts over conversation) is untouched and now vendor-recommended. |
+| v3 rejection: "reasoning path" demand | New `reasoning_extraction` refusal category: instructions to echo internal reasoning in the response can trigger refusals | — | **Confirmed by rejection — now load-bearing.** v3 replaced "show your reasoning" with route/evidence framing ("externalized evidence > theatrical CoT"). On this generation that rejected candidate would not merely waste tokens — it could make the protocol *trigger refusals*. A rejection that aged into a safety property. |
+| Delta-layer (DESIGN §2) | Official guide ships ready-made snippets: anti-overplanning, no-tidying, autonomy reminder, readability addendum | — | **Confirmed by rejection, again.** All four are model-layer remedies that harnesses are already absorbing; adding any to `AGENTS.md` would duplicate and drift — the same call as the 4.8 scope-explicitness row. Recorded so it is not re-litigated. |
+
+Two register-keeping notes. The Fable-generation tokenizer prices the same content roughly 30% higher in tokens — nothing changes relatively ("every line earns its tokens" was always a ratio), but the absolute price of every duplicated line went up, so delta-layer discipline got more valuable, not less. And per the meta-critique above, this entry triggered a citation re-verification pass: all 19 external links in this file checked against live sources on 2026-06-11 by a fresh subagent (18 exact, 1 title-drift fixed — Guardieiro et al.).
+
+**Net result:** Claude Fable 5 shipped; the behavior layer held without edits for the second consecutive generation — this time while the vendor's own guidance converged on the protocol's content. The register's falsification condition ("no actionable content after two-three generations → cut it") did not fire: this pass produced one rejection that aged into a safety property (v3's reasoning-path call), one double-reversal survival (§9), and one honest erosion note (§2 under the Claude harness). (Source pass: this repo, written by a Fable-family agent — the first register pass run by the model generation under review.)
 
 
 
