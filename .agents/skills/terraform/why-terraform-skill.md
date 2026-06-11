@@ -64,7 +64,7 @@ Consequences in Terraform:
   retrieval contest* every time it matters. The nearest fact beats the right
   fact often enough to be an engineering concern, not a curiosity.
 
-Hence: effective values visible at the decision point, one module level,
+Hence: effective values visible at the decision point, shallow module trees,
 component-grouped files, and no invisible CLI state deciding what gets
 destroyed.
 
@@ -150,8 +150,9 @@ Negative signal kills bad hypotheses; that is a contribution, not a complaint.
 
 ## For humans skimming this
 
-The skill bans things you may be fond of: `this` as a local name, workspaces
-for environments, DRY as a default reflex, refactors as free tidying. It does
+The skill bans things you may be fond of: `this` as a local name, CLI
+workspaces for environments, DRY as a default reflex, refactors as free
+tidying. It does
 not claim these were wrong for your team. It claims your team changed — the
 implementer is no longer human, and "best practice" was never a property of
 the practice alone. It was always a property of the practice *and* of who

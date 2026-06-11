@@ -21,9 +21,9 @@ Agents invert the cost structure:
 Every rule below derives from these three inversions. Where popular human
 practice conflicts with them, this skill says so explicitly.
 
-This skill is a behavior layer: pair it with a baseline Terraform reference
-for syntax-level and architecture-level guidance, and let local project policy
-override both when they conflict.
+This skill is a behavior layer, never a syntax authority: pair it with a
+baseline Terraform reference for syntax-level and architecture-level guidance,
+and let local project policy override both when they conflict.
 
 The derivation behind these rules — including the transformer mechanics —
 lives in [`why-terraform-skill.md`](why-terraform-skill.md) next to this file.
@@ -59,6 +59,14 @@ Each completion claim names its rung. Exit code 0 is not evidence; the diff cont
 - save the plan (`-out`, then `terraform show`) and cite resource addresses, not impressions
 - before editing a stack you did not create this session, run plan first: code is not reality, and a "no changes" plan is the sync evidence
 
+The expected diff is a stated artifact, not a thought:
+
+```text
+expected: ~ aws_iam_role.app (permissions boundary only); nothing added, destroyed, or replaced
+plan:     1 to change, 0 to add, 0 to destroy — match, proceed
+mismatch: the plan shows -/+ aws_db_instance.orders — stop, quote the line, escalate (rule 1)
+```
+
 WHY:
 - HCL is intent; only state operations touch truth
 
@@ -70,7 +78,7 @@ IF MISSING:
 DRY saves writing labor. You do not pay writing labor — you pay attention per indirection hop.
 
 - abstract only behind a contract: module name + inputs + outputs must carry full meaning without opening the source
-- module depth: one level; compose in the root
+- module depth: one level by default, composing in the root; a deeper level must pay with a full contract at its seam — depth is a refactor signal, not a law
 - repetition is fine when the copies fit on one screen and shared names keep them greppable
 - the real repetition risk for you is edit drift between copies — counter it with semantic names and grep, not with deeper variable chains
 - keep effective values visible at the decision point; a value reachable only through default -> tfvars -> local -> module input is invisible
@@ -102,7 +110,8 @@ IF MISSING:
 
 Same code plus invisible CLI state equals different infrastructure.
 
-- prefer directory-per-environment over workspaces; where workspaces exist, print `terraform workspace show` before any plan or apply
+- prefer directory-per-environment over CLI workspaces; where CLI workspaces exist, print `terraform workspace show` before any plan or apply
+- HCP Terraform / Enterprise workspaces are a different concept: a governance boundary, not CLI session state — follow the project's baseline there, and name the target (org, project, workspace) next to every plan and apply
 - no `*.auto.tfvars` magic; pass `-var-file` explicitly and record the exact command next to the plan it produced
 - providers are configured in roots, never inside shared modules
 - pin Terraform and provider versions; an unpinned version is hidden context too
@@ -194,7 +203,7 @@ IF MISSING:
 |---|---|
 | DRY everything into modules | indirection now costs more than repetition |
 | `this` for module singletons | zero-meaning addresses in plans, state, logs |
-| workspaces for environments | invisible CLI state decides what gets destroyed |
+| CLI workspaces for environments | invisible session state decides what gets destroyed |
 | constraints in comments and wikis | prose is skippable; validation blocks fire |
 | tidy refactors any time | every address change is a state operation |
 | review the HCL | review the plan; HCL is intent, the plan is truth |

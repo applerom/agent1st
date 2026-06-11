@@ -89,6 +89,23 @@ Deliberately not ported: §9 Delegation Design (orchestration is not Terraform-s
 
 ---
 
+## Revision log
+
+- **2026-06-11, pre-probe.** An external full-project review (GPT-5.5-pro, with
+  skill claims cross-checked against HashiCorp primary docs) landed four edits
+  before any field signal: rule 5 now separates CLI workspaces (hidden session
+  state — avoid) from HCP Terraform / Enterprise workspaces (governance
+  boundaries — follow the baseline, evidence the target), fixing a semantic
+  collision the skill carried inside a rule derived from §5; rule 3 reframes
+  module depth as a paid refactor signal, not a law (the §4 idiom); rule 2
+  gains a three-line expected-diff artifact shape; the intro names the skill
+  "never a syntax authority". Declined from the same review: a domain CDD
+  example (redundant — rules 1 and 2 already enforce the stop), and
+  stable-surface changes (README sharpening, an enterprise tone variant) —
+  no observed adoption failure, and the reviewer itself read the current
+  surface correctly. Measurements unchanged; the probe starts from the
+  revised artifact.
+
 ## How to report back
 
 Bring the five measurements above, plus: which rules fired, which never did, and any place where the skill and the baseline reference gave conflicting advice — that conflict is signal about where the delta boundary actually runs. Standard track lifecycle applies: promote, iterate, or reject with an `EVOLUTION.md` row.

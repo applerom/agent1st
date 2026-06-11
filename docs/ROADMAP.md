@@ -59,7 +59,7 @@ Current leaning: no single memory location is portable enough to prescribe. The 
 **Current state:** `docs/PRD.md` names success signals, but Agent1st does not yet define how to measure "less drift" without creating ceremony.
 
 **Open questions:**
-- Which lightweight signals show reduced agent drift without becoming process theater? Candidates: repeated-mistake rate, stale graph/anchor repairs, handoff reuse, time-to-orientation for fresh agents, and human correction load.
+- Which lightweight signals show reduced agent drift without becoming process theater? Candidates: repeated-mistake rate, stale graph/anchor repairs, handoff reuse, time-to-orientation for fresh agents, and human correction load. An external full-project review (GPT-5.5-pro, 2026-06-11) added three countable probes to the pool: re-edit count after an agent handoff, share of tasks closed with reproducible evidence, and nearest-plausible-file incidents before vs after Why1st adoption.
 - How should reference-adopter evidence move from private development notes to public links as projects mature? Current stance: early or unstable adopter examples stay described by shape and stack; public, stable adopters can be linked after review.
 - First public candidate to track: [`applerom/harness-observatory`](https://github.com/applerom/harness-observatory), an Agent1st/Why1st-adjacent local-first research app. Do not promote it from candidate to canonical example until its examples are stable enough not to mislead adopters.
 
@@ -111,6 +111,15 @@ A parallel public project ([osovv/grace-marketplace](https://github.com/osovv/gr
 | Operational-packet shape (execution / graph delta / verification delta / failure / checkpoint) as a `docs/agent-orchestration.md` template | Held | A real Why1st adopter doing recurring subagent delegation needing more shape than `Why1st.md §11.3` |
 | Validator issue codes + remediation strings | Held | Validator UX complaints that the current CDD-style messages don't address |
 | Optional "autonomous readiness" validator profile | Held | Adopter request for a stricter pre-shipping check than the standard graph/anchor lint |
+
+### From GPT-5.5-pro full-project review (2026-06-11)
+
+The review's terraform-skill fixes landed directly in the experimental artifact (see `docs/experiments/terraform-agent1st.md`, Revision log). Two project-level proposals are held:
+
+| Proposal | Status | Awaiting signal |
+|----------|--------|----------------|
+| Enterprise one-pager — the same rules restated in neutral policy-reader tone | Held | An actual enterprise adopter blocked by the manifesto tone; DESIGN treats the tone as load-bearing, so a parallel artifact needs demand, not prediction |
+| Sharpen in README that Agent1st does not replace project-specific docs | Held | An observed misreading; the reviewer itself reconstructed the layering correctly from the current surface, which is evidence against urgency |
 
 ---
 
