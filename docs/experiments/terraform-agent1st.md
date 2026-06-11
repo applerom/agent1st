@@ -1,7 +1,7 @@
 # Experiment: terraform-agent1st — first domain specialization
 
 **Status:** Open — artifact deployed for dogfood (in this repository and in the maintainer's real DevOps practice). No field signal yet.
-**Artifact:** [`.agents/skills/terraform/SKILL.md`](../../.agents/skills/terraform/SKILL.md) — a deployable skill, paired with [`why-terraform-skill.md`](../../.agents/skills/terraform/why-terraform-skill.md) carrying the derivation and transformer grounding so the reasoning travels with the rules across repositories.
+**Artifact:** [`.agents/skills/terraform-agent1st/SKILL.md`](../../.agents/skills/terraform-agent1st/SKILL.md) — a deployable skill, paired with [`why-terraform-skill.md`](../../.agents/skills/terraform-agent1st/why-terraform-skill.md) carrying the derivation and transformer grounding so the reasoning travels with the rules across repositories.
 **Stable equivalent:** none. `AGENTS.md` stays universal; this is the first test of whether the protocol specializes downward without core growth.
 
 ---
@@ -105,6 +105,22 @@ Deliberately not ported: §9 Delegation Design (orchestration is not Terraform-s
   no observed adoption failure, and the reviewer itself read the current
   surface correctly. Measurements unchanged; the probe starts from the
   revised artifact.
+
+- **2026-06-11, pre-probe (naming).** The first deployer's field instinct —
+  rename to plain `terraform`, since "agent1st" is implied by the repo —
+  surfaced a real bug and a naming decision. The bug: the directory
+  (`terraform`) did not match the frontmatter name (`terraform-agent1st`),
+  which the Agent Skills spec requires; fixed by renaming the directory.
+  The decision: the qualifier stays. The skill's designed deployment is
+  *paired* with a baseline Terraform reference, so a plain `terraform` name
+  collides with what baseline skills are actually called and reads as the
+  syntax authority the skill explicitly is not — while the unfamiliar
+  qualifier costs nothing, because name and description load together and
+  the description resolves it. Also confirmed against the spec: a bundled
+  reference file (`why-terraform-skill.md`) is the standard's own
+  progressive-disclosure pattern. **Watch item for the probe:** does the
+  qualified name confuse agents in the field? Field signal beats this
+  reasoning if they diverge.
 
 ## How to report back
 

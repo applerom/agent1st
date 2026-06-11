@@ -144,9 +144,16 @@ Negative signal kills bad hypotheses; that is a contribution, not a complaint.
 
 - Pair with a baseline Terraform reference skill; this is a behavior delta,
   not a replacement. Local project policy overrides both.
-- The skill's name is `terraform-agent1st`. Deploy the folder under whatever
-  directory name your skills convention expects; keep `SKILL.md` and this
-  file together so the derivation travels with the rules.
+- The name is qualified — `terraform-agent1st`, not `terraform` — on purpose:
+  this skill is designed to sit *next to* a baseline Terraform skill, and a
+  plain `terraform` name would collide with the baseline and read as the
+  syntax authority this skill explicitly is not. The description resolves the
+  qualifier wherever the skill lands; name and description load together.
+- Keep the directory named `terraform-agent1st` — the Agent Skills spec
+  requires the frontmatter name to match the parent directory — and keep
+  `SKILL.md` and this file together so the derivation travels with the rules.
+  A bundled reference file loaded on demand is the spec's own recommended
+  pattern (progressive disclosure), not a deviation from it.
 
 ## For humans skimming this
 
