@@ -63,8 +63,9 @@ Each completion claim names its rung. Exit code 0 is not evidence; the diff cont
 4. `apply` + post-check — real
 
 - before running plan, state the expected diff: what adds, what changes, what destroys
-- a plan matching the expectation is evidence; a mismatch is stop-and-explain, not retry-until-quiet
+- a plan matching the expectation is evidence; a mismatch is stop-and-explain, not retry-until-quiet — and not quietly revising the expectation until it matches the plan
 - save the plan (`-out`, then `terraform show`) and cite resource addresses, not impressions
+- when the plan is too long to hold in attention, stop eyeballing: run `terraform show -json` on the saved plan and query every delete and replace action before judging the match
 - apply consumes the reviewed plan artifact — in CI, the apply stage takes the saved plan file from the plan stage, it does not re-plan
 - before editing a stack you did not create this session, run plan first: code is not reality, and a "no changes" plan is the sync evidence
 - native `terraform test` (1.6+) for reusable modules and logic-heavy stacks; mock providers (1.7+) keep unit runs cheap; integration tests only when native tests are not enough; do not force brittle tests while the main risk is still architecture or access
@@ -125,6 +126,7 @@ DRY saves writing labor. You do not pay writing labor — you pay attention per 
 
 - abstract only behind a contract: module name + inputs + outputs must carry full meaning without opening the source
 - no thin wrappers: if the module cannot be named anything but the resource type it wraps, use the resource directly
+- consuming a maintained registry or vendor-verified module is buying a contract, not hiding one — judge it by its interface, version pin, examples, and plan diff, the same surface you review for any module
 - module depth: one level by default, composing in the root; a deeper level must pay with a full contract at its seam — depth is a refactor signal, not a law
 - providers are configured in roots, never inside shared modules; shared modules declare `required_providers` only
 - repetition is fine when the copies fit on one screen and shared names keep them greppable; the real risk is edit drift between copies — counter it with semantic names and grep, not with deeper variable chains
@@ -146,6 +148,7 @@ Same code plus invisible CLI state equals different infrastructure.
 - S3 backend: `use_lockfile = true` (Terraform 1.10+) — DynamoDB lock tables are deprecated; every state store gets versioning, encryption at rest, and restricted access
 - one environment = one directory with its own backend and identity; CLI workspaces are not environment isolation — same backend, same credentials, invisible session state (this is HashiCorp's own current position); where CLI workspaces exist anyway, print `terraform workspace show` before any plan or apply
 - HCP Terraform / Enterprise workspaces are a different concept — a governance boundary, not CLI session state; follow the project's setup there and name the target (org, project, workspace) next to every plan and apply
+- before any plan or apply, evidence the target identity: cloud account / subscription / project and the backend key or workspace, one line next to the command — never trust ambient shell identity silently
 - no `*.auto.tfvars` magic; pass `-var-file` explicitly and record the exact command next to the plan it produced
 - never commit state, plan files, `.terraform/`, or secret-bearing tfvars; always commit `.terraform.lock.hcl`
 
@@ -160,7 +163,7 @@ IF MISSING:
 Your training data contains every historical version of every provider, blended.
 
 - pin `required_version`, pin providers in roots (exact or pessimistic minor), let shared modules declare minimums; pin module sources by `version` or `?ref=` — an unpinned version is hidden context and an open supply-chain door
-- before emitting a version-gated feature, check the project's floor:
+- before emitting a version-gated feature, check the project's floor (Terraform floors below; OpenTofu versions its own features — check the binary actually pinned):
 
 | Feature | Floor |
 |---|---|
@@ -207,6 +210,7 @@ IF MISSING:
 You will never see secret values — only references. Then the reference must carry all the meaning.
 
 - `sensitive = true` masks display only — the value still lands in state and plan; on 1.10+/1.11+ use ephemeral values and write-only arguments to keep secrets out of state entirely; best of all, keep secret material out of Terraform and pass references to a secrets manager
+- write-only arguments leave no trace in state — which also means rotating the value alone produces no diff; pair the secret with its provider's version/trigger argument and put that trigger in the expected diff
 - identity-based auth over static credentials everywhere: OIDC / workload identity / assume-role for CI and providers; no long-lived keys in code, tfvars, or env files
 - secret names and paths follow the same semantic hygiene as code names — under blindness, the name is the only signal
 - verify secrets by behavior (post-check), never by reading values into context; scan plan output before quoting it anywhere durable
@@ -252,7 +256,7 @@ IF MISSING:
 3. state the expected diff before running plan
 4. keep one stack and one objective per loop
 5. if tooling or provider friction reduced your effectiveness, say so in the handoff: Problem (1 line), Impact (1 line), Smallest fix (1-3 bullets)
-6. local policy overrides this skill
+6. local policy overrides this skill — on conflict, follow local policy and name the conflict in the handoff; one thing does not move: apply authority comes from explicit delegation (rule 1), never inferred from a policy document
 
 Status: experimental — part of the Agent1st experiments track. Protocol,
 measurements, and report path:

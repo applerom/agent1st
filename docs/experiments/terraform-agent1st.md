@@ -155,6 +155,38 @@ Deliberately not ported: §9 Delegation Design (orchestration is not Terraform-s
   agent attention — the falsification line about length applies with more
   force than it did to the 222-line delta.
 
+- **2026-06-12, pre-probe (external review round 2).** The maintainer collected
+  a second round of external reviews on the rewritten skill: a follow-up
+  GPT-5.5-pro deep review (claims again verified against HashiCorp and OpenTofu
+  primary docs) plus a seven-model panel (Gemini 3.1 Pro, GLM-5.1, Grok 4.3,
+  Kimi 2.6, MiniMax-M3, Muse-Spark, Qwen3.7-Max) reviewing the whole project
+  with a Terraform focus. Seven compact edits landed, all in `SKILL.md`:
+  an identity preflight before plan/apply (rule 6 — wrong-account applies come
+  from ambient shell identity, the same invisible-session-state failure the
+  rule already names); a JSON plan guard for plans too long to eyeball
+  (rule 2, `terraform show -json` — proposed convergently by two reviewers);
+  an honest-expectation clause (rule 2 — a mismatch is not resolved by quietly
+  revising the expectation to match the plan; MiniMax-M3's catch); the
+  write-only rotation caveat (rule 9 — rotation alone produces no diff without
+  the provider's version/trigger argument); a verified-module consumption line
+  (rule 5 — two reviewers independently read the DRY inversion as anti-module,
+  which the cost model never was); tool-specific version floors (rule 7); and
+  a policy-collision clause (How to Apply — local policy governs practice,
+  apply authority still requires explicit delegation). Declined with reasons:
+  explicit `apply -target` naming (already escalation-gated as surgery in
+  rule 1), invariant cost-tiering with a break-glass process (no observed
+  failure; watch for check-block spam in the probe), drift / rollback /
+  cost-estimation additions (covered by refreshed-state plans and the
+  reversibility boundary, or tool-specific), and a version-floor
+  self-maintenance rule (ceremony inside a runtime artifact). Parked watch
+  item: interaction between two domain skills in one repository (e.g.
+  Terraform repetition rules vs a future Kubernetes skill's templating
+  rules) — irrelevant until a second domain skill exists, which the track
+  guardrail already sequences. A meta-observation worth keeping: review value
+  tracked the reviewers' own evidence rungs — the two reviews that verified
+  primary sources or ran this repository's validator produced every landed
+  edit; the rest contributed convergence signal, not change.
+
 ## How to report back
 
 Bring the five measurements above, plus: which rules fired, which never did, and any place where the skill and the baseline reference gave conflicting advice — that conflict is signal about where the delta boundary actually runs. Standard track lifecycle applies: promote, iterate, or reject with an `EVOLUTION.md` row.
