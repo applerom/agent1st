@@ -46,7 +46,7 @@ with verified links in
 [`docs/FOUNDATIONS.md`](https://github.com/applerom/agent1st/blob/main/docs/FOUNDATIONS.md)
 of the Agent1st repository.
 
-### 1. Attention is a budget, not a spotlight → rules 3, 5, 8
+### 1. Attention is a budget, not a spotlight → rules 3, 5, 6
 
 A transformer attends over its whole context at every step, but attention mass
 is finite: every token competes with every other token. As context grows,
@@ -68,7 +68,7 @@ Hence: effective values visible at the decision point, shallow module trees,
 component-grouped files, and no invisible CLI state deciding what gets
 destroyed.
 
-### 2. Names are vectors, not labels → rules 4, 10
+### 2. Names are vectors, not labels → rules 4, 9
 
 To a transformer, an identifier is not an opaque symbol — it is embedded
 meaning that steers attention and generation. `private_app_subnet` carries
@@ -95,7 +95,7 @@ not broken syntax; it is confident, outdated fluency.
 Hence: version pins are context, memory of a provider schema is a hypothesis,
 and a validate error means "open the docs", not "guess a synonym".
 
-### 4. Context dies; artifacts survive → rules 1, 2, 6
+### 4. Context dies; artifacts survive → rules 1, 2, 8
 
 Agent context is routinely compacted, truncated, or lost between sessions. A
 constraint living in prose dies with the context that held it. A `validation`
@@ -117,11 +117,15 @@ into a falsifiable prediction — the cheapest real evidence Terraform offers.
   the domain; the lineage back to core principles is recorded in the
   experiment file, not here and not in the skill — runtime artifacts do not
   pay for their own genealogy.
-- **A delta layer.** The skill does not repeat what the model already knows
-  (syntax), what the harness enforces, or what a baseline Terraform reference
-  covers (state layout, backend bootstrap, testing ladders). Three layers:
-  model + harness, baseline reference, this behavior delta. A rule that
-  restates a lower layer does not earn its tokens.
+- **Complete on purpose.** The first release split this material in two — a
+  behavior delta meant to sit next to a baseline Terraform reference skill.
+  Field reality rejected the split before the first probe: harnesses activate
+  one skill per domain context, and adopters copy one finished artifact, not a
+  kit. So the skill now carries the reference layer itself — structure, state,
+  testing, security — woven through the behavior rules. The delta-layer rule
+  still holds one level up: the skill does not repeat what the model already
+  knows (syntax) or what the harness enforces. It is a delta over model +
+  harness — the same layer `AGENTS.md` occupies.
 - **WHY and IF MISSING on every rule.** A rule without its failure mode is a
   superstition. Stronger models comply less and argue more — showing the
   failure mode lets the agent judge edge cases instead of either ignoring the
@@ -140,26 +144,43 @@ If a rule misfires, never fires, or conflicts with your baseline reference,
 say so — Problem (1 line), Impact (1 line), Smallest fix (1-3 bullets).
 Negative signal kills bad hypotheses; that is a contribution, not a complaint.
 
+## Provenance
+
+The rules were cross-checked (June 2026) against the primary sources: the
+HashiCorp style guide and CLI documentation, AWS Prescriptive Guidance for the
+Terraform AWS Provider, Google Cloud's Terraform best practices, Microsoft's
+Terraform-on-Azure guidance and Azure Verified Modules, and the most widely
+adopted community skill ([antonbabenko/terraform-skill](https://github.com/antonbabenko/terraform-skill)).
+Where they converge — identity-based auth over static keys, directory-per-
+environment over CLI workspaces, plan artifacts in CI, pinning plus a committed
+lock file — the skill states the convergent practice plainly. Where they
+diverge — `this`/`main` singleton naming, main.tf-centric vs component file
+layout, Google's branch-per-environment — the skill takes the side the agent
+cost model picks, and the maintainer's field-tested baseline was the arbiter.
+Vendor advice was filtered, not transcribed: a practice entered only if it
+survives the cost inversion this file describes.
+
 ## Deployment notes
 
-- Pair with a baseline Terraform reference skill; this is a behavior delta,
-  not a replacement. Local project policy overrides both.
-- The name is qualified — `terraform-agent1st`, not `terraform` — on purpose:
-  this skill is designed to sit *next to* a baseline Terraform skill, and a
-  plain `terraform` name would collide with the baseline and read as the
-  syntax authority this skill explicitly is not. The description resolves the
-  qualifier wherever the skill lands; name and description load together.
-- Keep the directory named `terraform-agent1st` — the Agent Skills spec
-  requires the frontmatter name to match the parent directory — and keep
-  `SKILL.md` and this file together so the derivation travels with the rules.
-  A bundled reference file loaded on demand is the spec's own recommended
-  pattern (progressive disclosure), not a deviation from it.
+- This skill is self-sufficient: do not deploy a second general-purpose
+  Terraform skill next to it. The only layer above it is local project
+  policy, which overrides on conflict.
+- The name is plain `terraform` — a decision with history. The first release
+  shipped as `terraform-agent1st`, a behavior layer designed to pair with a
+  baseline reference skill. The first deployer's field signal reversed that:
+  harnesses trigger one skill per domain context, so the paired deployment
+  never actually happens, and a skill meant to be *the* Terraform skill must
+  carry the plain domain name. The Agent Skills spec requires the directory
+  name to match the frontmatter name, so the directory is `terraform/`.
+- Keep `SKILL.md` and this file together so the derivation travels with the
+  rules. A bundled reference file loaded on demand is the spec's own
+  recommended pattern (progressive disclosure), not a deviation from it.
 
 ## For humans skimming this
 
-The skill bans things you may be fond of: `this` as a local name, CLI
-workspaces for environments, DRY as a default reflex, refactors as free
-tidying. It does
+The skill restricts things you may be fond of: `this` and `main` as local
+names, CLI workspaces for environments, DRY as a default reflex, refactors as
+free tidying. It does
 not claim these were wrong for your team. It claims your team changed — the
 implementer is no longer human, and "best practice" was never a property of
 the practice alone. It was always a property of the practice *and* of who

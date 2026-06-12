@@ -1,7 +1,7 @@
 # Experiment: terraform-agent1st — first domain specialization
 
-**Status:** Open — artifact deployed for dogfood (in this repository and in the maintainer's real DevOps practice). No field signal yet.
-**Artifact:** [`.agents/skills/terraform-agent1st/SKILL.md`](../../.agents/skills/terraform-agent1st/SKILL.md) — a deployable skill, paired with [`why-terraform-skill.md`](../../.agents/skills/terraform-agent1st/why-terraform-skill.md) carrying the derivation and transformer grounding so the reasoning travels with the rules across repositories.
+**Status:** Open — artifact deployed for dogfood (in this repository and in the maintainer's real DevOps practice). First field signal (deployment shape) arrived pre-probe and is incorporated — see the Revision log; runtime signal pending.
+**Artifact:** [`.agents/skills/terraform/SKILL.md`](../../.agents/skills/terraform/SKILL.md) — a complete, self-sufficient skill, paired with [`why-terraform-skill.md`](../../.agents/skills/terraform/why-terraform-skill.md) carrying the derivation and transformer grounding so the reasoning travels with the rules across repositories.
 **Stable equivalent:** none. `AGENTS.md` stays universal; this is the first test of whether the protocol specializes downward without core growth.
 
 ---
@@ -20,7 +20,7 @@ If claim 1 holds, Agent1st gains a specialization track without core growth. If 
 ## What this would shift if true
 
 - A pattern for domain skills (Kubernetes, CI/CD, databases) that stays in spirit: each derives from the cost model, none duplicates the core.
-- The delta-layer rule gets a second instance: `AGENTS.md` is a delta over model + harness; a domain skill is a delta over model + harness + a baseline domain reference. Same logic, one level down.
+- The delta-layer rule gets a second instance: `AGENTS.md` is a delta over model + harness; a domain skill is a delta over model + harness too — it carries the domain's reference layer itself, because skill deployment reality (one skill per domain context) leaves no separate slot for a baseline skill underneath it.
 - The artifact shape (runtime `SKILL.md` + co-located `why-*.md` teaching surface) becomes the template for future domain skills.
 
 ---
@@ -37,7 +37,7 @@ If claim 1 holds, Agent1st gains a specialization track without core growth. If 
 
 ## Smallest probe
 
-Use the skill in **one** real Terraform repository where an agent does the authoring, alongside (not replacing) whatever baseline Terraform reference the repo already uses. No other experiments in the same repo at the same time.
+Use the skill in **one** real Terraform repository where an agent does the authoring, as the repository's Terraform skill — it is self-sufficient; no second general-purpose Terraform skill in the same repo. No other experiments in the same repo at the same time.
 
 ---
 
@@ -67,15 +67,21 @@ Kept out of `SKILL.md` to keep the runtime artifact lean. Each section descends 
 |---|---|
 | 1) Reversibility Boundary | §1 Role Contract, §3 Right to Disagree |
 | 2) Evidence Ladder | §2 Done Is Not a Mood, §7 Agent Loop, §10 Semantic Logging |
-| 3) DRY Has a Different Price | §4 Attention Engineering |
+| 3) Repository Layout | §4 Attention Engineering |
 | 4) Names Are State | §5 Semantic Hygiene |
-| 5) No Hidden Context | §4 Attention Engineering |
-| 6) Invariants in Code | §4 (constraints near the decision point), §11 Continuity |
-| 7) Provider Schema Honesty | §8 Do Not Stop at the First Weak Signal |
-| 8) Layout for Reading | §4 Attention Engineering |
-| 9) Refactor Economics | §2 (evidence is the plan), §4 |
-| 10) Secrets Are Names to You | §5 Semantic Hygiene |
+| 5) Modules and the Price of DRY | §4 Attention Engineering |
+| 6) State, Backends, Environments | §4 Attention Engineering |
+| 7) Versions Are Load-Bearing Context | §8 Do Not Stop at the First Weak Signal |
+| 8) Invariants in Code | §4 (constraints near the decision point), §11 Continuity |
+| 9) Secrets Are Names to You | §5 Semantic Hygiene |
+| 10) Refactor Economics | §2 (evidence is the plan), §4 |
 | How to Apply (friction line) | §6 CDD |
+
+The reference-layer practice woven through the same sections — repository
+shapes, state and backend mechanics, testing tools, identity-based auth — has
+no core lineage by design: it is the domain's own layer, arbitrated by the
+maintainer's field-tested baseline and the convergent vendor guidance recorded
+in the why-file's Provenance section.
 
 Deliberately not ported: §9 Delegation Design (orchestration is not Terraform-specific), the Hello Agent ritual, and any section that would merely restate the core in domain vocabulary.
 
@@ -83,7 +89,7 @@ Deliberately not ported: §9 Delegation Design (orchestration is not Terraform-s
 
 ## Anti-patterns specific to this experiment
 
-- **Do not run it as a replacement** for a baseline Terraform reference skill — it is a behavior delta, and measuring it standalone confounds the signal.
+- **Do not pair it** with a second general-purpose Terraform skill — the skill is self-sufficient, harnesses activate one skill per domain context, and a pair produces uninterpretable signal. Local project policy is the only layer above it.
 - **Do not port all 11 core sections** into future domain skills "for completeness" — derivation, not mapping, is the hypothesis.
 - **Do not mix with other experiments** in the same repo.
 
@@ -121,6 +127,33 @@ Deliberately not ported: §9 Delegation Design (orchestration is not Terraform-s
   progressive-disclosure pattern. **Watch item for the probe:** does the
   qualified name confuse agents in the field? Field signal beats this
   reasoning if they diverge.
+
+- **2026-06-12, pre-probe (deployment shape — field signal #1).** The watch
+  item fired faster than expected, and at a deeper level: not the name, the
+  pairing. The first deployer reported that the paired deployment the skill
+  was designed for does not exist in practice — harnesses trigger one skill
+  per domain context, two skills do not compose at activation time, and
+  adopters copy one finished artifact, not a kit to assemble. That is an
+  observed adoption failure of the artifact *shape*, so the shape changed:
+  the skill absorbed the reference layer and became a complete, self-sufficient
+  Terraform skill. The maintainer's field-tested baseline skill was merged in
+  as the arbiter of opinionated calls; the merged practice set was
+  cross-checked against current primary guidance (HashiCorp style guide and
+  CLI docs, AWS Prescriptive Guidance, Google Cloud best practices, Microsoft
+  guidance and Azure Verified Modules, and the most widely adopted community
+  skill) — every imported practice filtered through the cost model, none
+  transcribed. Fresh facts that earned their tokens: S3 native lockfile over
+  deprecated DynamoDB locking (1.10+), ephemeral values / write-only arguments
+  for secrets (1.10/1.11+), the version-floor table, plan-artifact reuse in
+  CI, the destroy protocol. The naming decision from the previous entry is
+  reversed by the same signal: a self-sufficient skill *is* the domain
+  authority, so it carries the plain name `terraform` (directory renamed to
+  match, per spec). The hypothesis claims are unchanged; what changed is the
+  artifact shape claim — "complete skill" replaces "behavior delta paired
+  with a baseline". **Watch item for the probe:** rule survival at runtime
+  (measurement 5) now also tests whether a complete skill at ~280 lines holds
+  agent attention — the falsification line about length applies with more
+  force than it did to the 222-line delta.
 
 ## How to report back
 
