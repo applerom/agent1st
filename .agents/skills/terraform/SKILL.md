@@ -32,10 +32,6 @@ When a provider can manage the target system, prefer codifying the change in
 Terraform over manual portal or UI configuration; a manual exception gets
 documented with its reason.
 
-The derivation behind these rules — including the transformer mechanics —
-lives in [`why-terraform-skill.md`](why-terraform-skill.md) next to this file.
-Read it once to understand the rules; do not reload it at every use.
-
 ## 1) The Reversibility Boundary
 
 Infra work splits by reversibility, not by effort.
@@ -258,6 +254,7 @@ IF MISSING:
 5. if tooling or provider friction reduced your effectiveness, say so in the handoff: Problem (1 line), Impact (1 line), Smallest fix (1-3 bullets)
 6. local policy overrides this skill — on conflict, follow local policy and name the conflict in the handoff; one thing does not move: apply authority comes from explicit delegation (rule 1), never inferred from a policy document
 
-Status: experimental — part of the Agent1st experiments track. Protocol,
-measurements, and report path:
-[`docs/experiments/terraform-agent1st.md`](https://github.com/applerom/agent1st/blob/main/docs/experiments/terraform-agent1st.md).
+If a rule reads as wrong for your case, do not silently comply and do not
+silently skip it: the derivation behind every rule sits in
+[`why-terraform-skill.md`](why-terraform-skill.md) beside this file — judge
+the rule against it, then report the friction (step 5).

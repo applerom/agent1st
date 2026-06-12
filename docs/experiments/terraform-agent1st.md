@@ -187,6 +187,25 @@ Deliberately not ported: §9 Delegation Design (orchestration is not Terraform-s
   primary sources or ran this repository's validator produced every landed
   edit; the rest contributed convergence signal, not change.
 
+- **2026-06-12, pre-probe (runtime hygiene — field signal #2).** The first
+  deployer flagged the two project-facing blocks inside `SKILL.md` — the
+  "read the why-file once" intro paragraph and the "Status: experimental"
+  footer — as exactly the attention tax the skill itself warns against. He is
+  right on both mechanics: a stateless agent has no "once" (every activation
+  is a first read, including for weak subagent models), and the footer
+  duplicated the `status` field the frontmatter already carries — a
+  delta-layer violation inside the artifact that teaches the delta layer.
+  Fix: the footer is gone (status lives in frontmatter only; the experiment
+  link lives in the why-file's report-back section, one hop deeper — correct
+  placement for a rare need); the why-file pointer became one conditional
+  line at the bottom of the skill, triggered by the one runtime need the
+  derivation actually serves: an agent that thinks a rule is wrong should
+  judge it against the derivation and report the friction, not silently
+  comply or silently skip. Principle extracted for future domain skills: the
+  runtime artifact carries operating content only — teaching, provenance
+  narrative, and experiment plumbing live in the bundled why-file, which
+  loads on demand.
+
 ## How to report back
 
 Bring the five measurements above, plus: which rules fired, which never did, and any place where the skill and the baseline reference gave conflicting advice — that conflict is signal about where the delta boundary actually runs. Standard track lifecycle applies: promote, iterate, or reject with an `EVOLUTION.md` row.
