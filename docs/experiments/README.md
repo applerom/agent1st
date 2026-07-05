@@ -62,6 +62,8 @@ There are no fixed timelines. An experiment lives as long as it is generating us
 |---|---|---|
 | [`hieroglyph-anchors.md`](hieroglyph-anchors.md) | Open | Replace one English contract field key with a single CJK character; measure whether token cost, attention/recall in long context, or grep workflow shifts. |
 | [`terraform-agent1st.md`](terraform-agent1st.md) | Open | First domain specialization, deployed for dogfood: a complete, self-sufficient Terraform skill (artifact in `.agents/skills/terraform/`) re-derived from the agent cost vector; tests whether Agent1st specializes by derivation without core growth — and whether canonical Terraform practices flip sign under agent costs. |
+| [`openspec-why1st.md`](openspec-why1st.md) | Open | Compose OpenSpec's change-lifecycle (compiled current view + dated archive) with Why1st's anchors/validators on a long-lived brownfield project; tests whether a maintained SDD tool supplies the attention fix a bespoke profile/slice system was built for — success measured as *net-fewer competing truth surfaces*, not "OpenSpec adopted." |
+| [`why-graph-sharding.md`](why-graph-sharding.md) | Open | Physically shard an outgrown Why Graph into vertical capability shards behind a small budget-capped router that owns all cross-capability edges, plus marker-keyed PRD refs; tests whether absence (not markers) fixes correct-but-stale attention competition without hiding coupling — never run on the same project as `openspec-why1st`. |
 
 ---
 
