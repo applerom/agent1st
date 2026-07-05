@@ -33,7 +33,7 @@ Same bar as `openspec-why1st.md`: **net-fewer competing truth surfaces, and net-
 
 1. **(H1)** On a project past the size threshold (below), router + capability shards cut pinned graph-context per session by ≥2× for leads and more for subagents, without an increase in wrong-era / wrong-capability edits.
 2. **(H2)** The **edge-home rule** (intra-capability edges live in the shard; cross-capability edges live only in the router) holds under real work without double-bookkeeping — drift incidents ≈ 0 with the validator enforcing both directions — and makes inter-capability coupling *more* visible than the monolith did, because it now sits in the one small always-pinned file.
-3. **(H3)** Marker-keyed PRD references (`PRD_REF` → an explicit `<!-- PRD_ANCHOR: ... -->` marker instead of §-numbers/heading text) make demotion and restructuring cheap enough that stale sections actually get demoted — attacking accumulation at its cause. This part is independently valuable: if sharding is falsified, keep the markers.
+3. **(H3)** Marker-keyed PRD references (`PRD_REF` → an explicit `<!-- PRD_ANCHOR: ... -->` marker instead of §-numbers/heading text) make demotion and restructuring cheap enough that stale sections actually get demoted — attacking accumulation at its cause. *Promoted to stable in v10* (`why-graph-principles.md` §5a, validator-enforced): for adopters already on v10-shape references, H3 reduces to observing whether demotions happen; for older adopters, probe step 1 is the migration.
 
 ---
 
@@ -63,7 +63,7 @@ Any two of: graph > ~100 elements or ~8k tokens; recurring CDD complaints about 
 
 On **one** long-lived brownfield adopter past the threshold (and *not* running `openspec-why1st` concurrently):
 
-1. **PRD anchors first** (H3, structure-neutral): add `<!-- PRD_ANCHOR: ... -->` markers, repoint `PRD_REF`s, extend the validator to check them. Validators green.
+1. **PRD anchors first** (H3, structure-neutral): if the adopter predates v10, add `<!-- PRD_ANCHOR: ... -->` markers and repoint `PRD_REF`s per `why-graph-principles.md` §5a; the stable validator already checks them. Validators green.
 2. Extend the project's `validate-why.py` port: multi-file resolution + edge-home rule + budgets.
 3. Carve out **one shard — the current strategic capability** (it benefits most). Move its vertical slice verbatim; move its cross-edges to the router with explicit `SOURCE=`; validate; commit.
 4. Strangler-repeat per capability, one commit each, validators green throughout. The monolith shrinks until it *is* the router.

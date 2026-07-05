@@ -27,7 +27,7 @@
     and `docs/Why1st.md` for why this file exists at all.
   -->
 
-  <PROJECT DATE="2026-04-29">
+  <PROJECT DATE="2026-07-05">
     <WHAT>Agent1st — behavior-layer protocol for AI-agent software development</WHAT>
     <WHY>Reduce drift between human intent and agent execution across long-lived projects</WHY>
     <TECH>
@@ -39,11 +39,14 @@
 
   <!-- ==================== USE CASES ==================== -->
   <!-- Use cases are user-facing value. Keep a small number, covered by features. -->
+  <!-- PRD_REF uses marker keys: docs/PRD.md#KEY resolves to a "PRD_ANCHOR: KEY"
+       comment in the PRD. Never section numbers or heading text — headings get
+       refactored; keys survive. See why-graph-principles.md §5a. -->
 
   <USECASE_ADOPT ID="UC-ADOPT" STATE="IMPLEMENTED" PRIORITY="CRITICAL">
     <WHAT>Drop AGENTS.md into a project; agent reads it and operates accordingly</WHAT>
     <WHY>Adoption friction is the main barrier; minimal AGENTS.md must stay drop-in</WHY>
-    <PRD_REF>docs/PRD.md §4</PRD_REF>
+    <PRD_REF>docs/PRD.md#USE-CASES</PRD_REF>
     <REL TYPE="COVERS" TARGET="FEATURE:FEAT-CORE"/>
     <REL TYPE="COVERS" TARGET="FEATURE:FEAT-BRIDGE"/>
   </USECASE_ADOPT>
@@ -51,14 +54,14 @@
   <USECASE_EXTEND ID="UC-EXTEND" STATE="IMPLEMENTED" PRIORITY="HIGH">
     <WHAT>Long-lived project adds the WHY layer on top of minimal AGENTS.md</WHAT>
     <WHY>Drift across sessions kills real projects; WHY layer makes intent durable</WHY>
-    <PRD_REF>docs/PRD.md §4</PRD_REF>
+    <PRD_REF>docs/PRD.md#USE-CASES</PRD_REF>
     <REL TYPE="COVERS" TARGET="FEATURE:FEAT-WHY"/>
   </USECASE_EXTEND>
 
   <USECASE_CONTRIBUTE ID="UC-CONTRIBUTE" STATE="IMPLEMENTED" PRIORITY="MEDIUM">
     <WHAT>Agent proposes a change to the protocol itself</WHAT>
     <WHY>Protocol is agent-developed; contribution path must be legible to agents</WHY>
-    <PRD_REF>docs/PRD.md §4</PRD_REF>
+    <PRD_REF>docs/PRD.md#USE-CASES</PRD_REF>
     <REL TYPE="COVERS" TARGET="FEATURE:FEAT-DESIGN"/>
     <REL TYPE="COVERS" TARGET="FEATURE:FEAT-EVOLVE"/>
   </USECASE_CONTRIBUTE>
@@ -76,7 +79,7 @@
       <CHECK>Every line passes delta-layer test (DESIGN.md §2)</CHECK>
       <CHECK>Ends with `Agent1st Mode ON` handshake</CHECK>
     </ACCEPT>
-    <PRD_REF>docs/PRD.md §5</PRD_REF>
+    <PRD_REF>docs/PRD.md#FEATURES</PRD_REF>
     <REL TYPE="IMPLEMENTED_BY" TARGET="ARTIFACT:ART-AGENTS-MD"/>
   </FEATURE_CORE>
 
@@ -88,7 +91,8 @@
       <CHECK>At least one dogfooded example lives in this repo</CHECK>
       <CHECK>A deterministic validator runs over the dogfooded graph and exits 0</CHECK>
     </ACCEPT>
-    <PRD_REF>docs/PRD.md §5; §6</PRD_REF>
+    <PRD_REF>docs/PRD.md#FEATURES</PRD_REF>
+    <PRD_REF>docs/PRD.md#DOD</PRD_REF>
     <REL TYPE="IMPLEMENTED_BY"  TARGET="ARTIFACT:ART-WHY1ST"/>
     <REL TYPE="IMPLEMENTED_BY"  TARGET="ARTIFACT:ART-WHY-PRINCIPLES"/>
     <REL TYPE="IMPLEMENTED_BY"  TARGET="ARTIFACT:ART-WHY-CONTRACTS"/>
@@ -98,19 +102,19 @@
 
   <FEATURE_BRIDGE ID="FEAT-BRIDGE" STATE="IMPLEMENTED" PRIORITY="HIGH">
     <INTENT>Claude Code bridge — CLAUDE.md imports AGENTS.md, no second source of truth</INTENT>
-    <PRD_REF>docs/PRD.md §5</PRD_REF>
+    <PRD_REF>docs/PRD.md#FEATURES</PRD_REF>
     <REL TYPE="IMPLEMENTED_BY" TARGET="ARTIFACT:ART-CLAUDE-MD"/>
   </FEATURE_BRIDGE>
 
   <FEATURE_DESIGN ID="FEAT-DESIGN" STATE="IMPLEMENTED" PRIORITY="MEDIUM">
     <INTENT>Design rationale for agents modifying the protocol</INTENT>
-    <PRD_REF>docs/PRD.md §5</PRD_REF>
+    <PRD_REF>docs/PRD.md#FEATURES</PRD_REF>
     <REL TYPE="IMPLEMENTED_BY" TARGET="ARTIFACT:ART-DESIGN"/>
   </FEATURE_DESIGN>
 
   <FEATURE_EVOLVE ID="FEAT-EVOLVE" STATE="IMPLEMENTED" PRIORITY="MEDIUM">
     <INTENT>Evolution history — what changed, what was rejected, and why</INTENT>
-    <PRD_REF>docs/PRD.md §5</PRD_REF>
+    <PRD_REF>docs/PRD.md#FEATURES</PRD_REF>
     <REL TYPE="IMPLEMENTED_BY" TARGET="ARTIFACT:ART-EVOLUTION"/>
   </FEATURE_EVOLVE>
 

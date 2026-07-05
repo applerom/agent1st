@@ -47,7 +47,7 @@ A worked example of the substituted shape (one field only):
 # VERSION: 2026-05-10
 # START_MODULE_CONTRACT:
 # 旨: Provider abstractions for embeddings and chat generation.
-# PRD_REF: docs/PRD.md §9
+# PRD_REF: docs/PRD.md#PROVIDERS
 # WHY_REF: docs/why-graph.xml
 # SCOPE: embeddings; chat; error translation
 # INVARIANTS:

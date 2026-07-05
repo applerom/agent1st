@@ -34,6 +34,7 @@ Everything else in this repo is documentation *about* the protocol — design ra
 Not in scope: beginners looking for a prompt-engineering tutorial, or users of weak models that need step-by-step scripts.
 
 ## 4) Use cases
+<!-- PRD_ANCHOR: USE-CASES -->
 
 - **UC-ADOPT** — A human drops `AGENTS.md` into a project and wants the agent to read it and operate accordingly.
 - **UC-EXTEND** — A project outgrows the minimal layer and needs intent-to-code navigation (WHY layer).
@@ -42,6 +43,7 @@ Not in scope: beginners looking for a prompt-engineering tutorial, or users of w
 - **UC-REVIEW** — A human or agent audits whether a completion claim matches evidence.
 
 ## 5) Features
+<!-- PRD_ANCHOR: FEATURES -->
 
 | ID | Feature | State |
 |---|---|---|
@@ -55,6 +57,7 @@ Not in scope: beginners looking for a prompt-engineering tutorial, or users of w
 | FEAT-HANDOFF | Handoff briefs as first-class artifacts | shipped |
 
 ## 6) Definition of Done — per feature class
+<!-- PRD_ANCHOR: DOD -->
 
 **For `AGENTS.md` (the protocol file):**
 - Every line passes the delta-layer test (`DESIGN.md` §2).

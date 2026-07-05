@@ -25,6 +25,7 @@ The goal: anchor-first navigation that survives refactors, with intent readable 
 - Anchors **wrap** the code they describe — the implementation is inside the envelope.
 - Anchor names must match `START_*` markers referenced from `docs/why-graph.xml`.
 - Keep anchor names short, descriptive, and stable across refactors. Renaming an anchor is a graph-level change.
+- PRD references use marker keys — `docs/PRD.md#KEY` resolving to a `<!-- PRD_ANCHOR: KEY -->` comment in the PRD — never section numbers or heading text. Headings get refactored; keys survive. See `why-graph-principles.md` §5a.
 - Field keys (PURPOSE, INVARIANTS, etc.) stay in English for deterministic parsing; narrative can be in any language your team uses.
 
 ---
@@ -35,7 +36,7 @@ The goal: anchor-first navigation that survives refactors, with intent readable 
 - `FILE` — repo-relative path
 - `VERSION` — semver or `YYYY-MM-DD`
 - `PURPOSE` — why this file exists
-- `PRD_REF` — pointer into `docs/PRD.md`
+- `PRD_REF` — marker-keyed pointer into `docs/PRD.md` (`docs/PRD.md#KEY`)
 - `WHY_REF` — pointer into `docs/why-graph.xml` (optional but recommended)
 - `SCOPE` — primary responsibilities
 - `INVARIANTS` — policy-critical guarantees
@@ -62,7 +63,7 @@ The goal: anchor-first navigation that survives refactors, with intent readable 
 # VERSION: <semver or YYYY-MM-DD>
 # START_MODULE_CONTRACT:
 # PURPOSE: <why this module exists>
-# PRD_REF: docs/PRD.md §...
+# PRD_REF: docs/PRD.md#<KEY>
 # WHY_REF: docs/why-graph.xml
 # SCOPE: <primary responsibilities, semicolon-separated>
 # INVARIANTS:
@@ -83,7 +84,7 @@ The goal: anchor-first navigation that survives refactors, with intent readable 
 # START_CONTRACT:
 # PURPOSE: <class role>
 # LINKS:
-# - PRD: docs/PRD.md §...
+# - PRD: docs/PRD.md#<KEY>
 # :END_CONTRACT
 class <RealClassName>:
     ...
@@ -101,7 +102,7 @@ class <RealClassName>:
 # OUTPUTS:
 # - <return shape and meaning>
 # LINKS:
-# - PRD: docs/PRD.md §...
+# - PRD: docs/PRD.md#<KEY>
 # - ANCHORS: START_BLOCK_...
 # :END_CONTRACT
 def <real_method_name>(...):
@@ -128,7 +129,7 @@ def <real_method_name>(...):
 # VERSION: 2025-10-02
 # START_MODULE_CONTRACT:
 # PURPOSE: Provider abstractions for embeddings and chat generation.
-# PRD_REF: docs/PRD.md §9
+# PRD_REF: docs/PRD.md#PROVIDERS
 # WHY_REF: docs/why-graph.xml
 # SCOPE: embeddings; chat; error translation
 # INVARIANTS:
@@ -139,7 +140,7 @@ def <real_method_name>(...):
 # START_CONTRACT:
 # PURPOSE: OpenAI-backed embeddings and chat provider.
 # LINKS:
-# - PRD: docs/PRD.md §9
+# - PRD: docs/PRD.md#PROVIDERS
 # :END_CONTRACT
 class OpenAIProvider:
     # START_METHOD_embed:
@@ -164,7 +165,7 @@ class OpenAIProvider:
 // VERSION: 2026-04-11
 // START_MODULE_CONTRACT:
 // PURPOSE: Home page client-side composition and chat surface.
-// PRD_REF: docs/PRD.md §4
+// PRD_REF: docs/PRD.md#UC-ASK
 // WHY_REF: docs/why-graph.xml
 // SCOPE: chat UI; history rendering; source list
 // INVARIANTS:
@@ -193,7 +194,7 @@ export function HomePageClient() {
 // OUTPUTS:
 // - JSX element, empty when no sources
 // LINKS:
-// - PRD: docs/PRD.md §4
+// - PRD: docs/PRD.md#UC-ASK
 // - WHY: docs/why-graph.xml
 // :END_CONTRACT
 export function renderSources(sources: Source[]): JSX.Element { ... }

@@ -182,7 +182,7 @@ A stale graph is not the end of the WHY layer. It is the moment the WHY layer pr
 
 The fastest path that has actually worked in production:
 
-1. **Write a minimal PRD.** One or two pages. Use case, features, DoD, early roadmap, and any design constraints that would otherwise live only in your head. Don't try to be complete; try to be real. See `docs/PRD.md` in this repo as an example.
+1. **Write a minimal PRD.** One or two pages. Use case, features, DoD, early roadmap, and any design constraints that would otherwise live only in your head. Don't try to be complete; try to be real. Put a `<!-- PRD_ANCHOR: KEY -->` marker under each section the graph will reference — the graph points at keys, never at section numbers or heading text, so the PRD stays refactorable from day one. See `docs/PRD.md` in this repo as an example.
 2. **Sketch a Why Graph.** Start with three to five `FEATURE_*` nodes for the things that matter today. Link each to an API, surface, or module. It is normal for the first version to be half wrong.
 3. **Add a contract to one touched file.** Pick the next file you'd edit anyway. Add a `START_MODULE_CONTRACT:` header with PURPOSE, PRD_REF, INVARIANTS. See `docs/why-contracts-v1.md`.
 4. **Add anchors where they help navigation.** Not everywhere — where an agent would otherwise have to guess.

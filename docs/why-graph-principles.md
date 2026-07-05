@@ -13,7 +13,7 @@ This is a **reference, not a law.** It describes one proven shape of the Why Gra
 2. For delegated subagents, pass only the relevant graph subtree, touched contracts, acceptance criteria, and evidence format unless the delegation truly needs the full layer.
 3. For intent-changing or cross-cutting work: update the graph **first**, then contracts/anchors, then code. For local edits inside an already well-mapped feature: update graph and contracts in the same change set, not necessarily before the first keystroke.
 4. Every feature node should reach code through a surface, module, or artifact — no orphans.
-5. Use anchors (`path#ANCHOR_NAME`), never line numbers.
+5. Use anchors (`path#ANCHOR_NAME`), never line numbers. Same rule for `PRD_REF`: marker keys (`docs/PRD.md#KEY`), never section numbers or heading text (§5a).
 6. Run your validators. If they don't exist yet, that's the next thing to build.
 
 ---
@@ -107,7 +107,7 @@ What is wrong, line by line:
 
   <FEATURE_LIVE_DEBUGGABILITY ID="FEAT-LIVE-DEBUG" STATE="PLANNED" PRIORITY="HIGH">
     <INTENT>Let the user understand active agent work well enough to decide whether to wait or intervene manually.</INTENT>
-    <PRD_REF>docs/PRD.md §13</PRD_REF>
+    <PRD_REF>docs/PRD.md#FEAT-LIVE-DEBUG</PRD_REF>
     <REL TYPE="DEPENDS_ON" TARGET="FEATURE:FEAT-ADAPTER-CONTRACT"/>
   </FEATURE_LIVE_DEBUGGABILITY>
 </Why_Graph>
@@ -210,12 +210,41 @@ Example:
 
 ---
 
+## 5a) PRD_REF — pointing the graph at the PRD
+
+The same anchor discipline, applied to the PRD itself. Section numbers and heading text are foreign keys into a document that gets restructured — and the most fragile keys possible. When `PRD_REF` says `docs/PRD.md §5.1`, every PRD reorganization breaks the reference web silently, so restructuring becomes expensive, so nobody demotes stale sections, so stale content accumulates. The fragile key is not a cosmetic issue; it is the *cause* of spec rot.
+
+The fix mirrors code anchors — a marker in the PRD, a key in the reference:
+
+```markdown
+## 4) Use cases
+<!-- PRD_ANCHOR: USE-CASES -->
+```
+
+```xml
+<PRD_REF>docs/PRD.md#USE-CASES</PRD_REF>
+```
+
+Rules:
+
+- Marker shape: `<!-- PRD_ANCHOR: KEY -->` on its own line right under the heading it anchors. Invisible in rendered Markdown, greppable in source.
+- Keys are stable UPPER-KEBAB. When a PRD section defines a graph entity, reuse the entity ID as the key (`UC-ASK`, `FEAT-LIVE-DEBUG`) — then one grep lands on the PRD section, the graph node, and the code contract at once.
+- One reference per `PRD_REF` element. A node touching two sections carries two elements.
+- Add markers where the graph points, not under every heading — same restraint as code anchors.
+- Never section numbers, never heading text. Renaming a heading or renumbering sections must not break the graph.
+
+Field evidence for the mechanism: the identical marker discipline on the code side survived a real cross-file refactor with a one-attribute graph edit and a green validator. Headings do not survive contact with a real restructuring; markers do.
+
+The validator enforces marker-keyed refs regardless of node `STATE` — the PRD carries intent before any code exists, so a `PLANNED` feature's PRD section must already be there.
+
+---
+
 ## 6) Authoring workflow
 
 In order. Skipping a step is how the graph becomes decoration.
 
 1. **Start from value.** Add or update the `UC-*` the work serves.
-2. **Name the feature.** Add or update a `FEAT-*` with `INTENT`, optional `ACCEPT` (acceptance criteria), and `PRD_REF` back to `docs/PRD.md`.
+2. **Name the feature.** Add or update a `FEAT-*` with `INTENT`, optional `ACCEPT` (acceptance criteria), and `PRD_REF` back to `docs/PRD.md` — marker key form, see §5a.
 3. **Map it.** Connect the feature to APIs, surfaces, modules, and artifacts via `REL` edges.
 4. **Add anchors.** In each touched file, add or confirm anchor names that match what the graph points to.
 5. **Then implement.** Write code inside the anchored blocks.
@@ -256,7 +285,7 @@ That is enough structure to tell an agent: this endpoint is here for UC-ASK, its
 
 At minimum, check that every `<ANCHOR ... COORD="path#ANCHOR">` points to a real `START_*` marker in a real file. That one check catches more drift than every other lint combined.
 
-This repo ships a stdlib-only MVP: `python scripts/validate-why.py`. It verifies unique IDs, `REL TYPE` against the documented vocabulary, `REL TARGET` resolution, consistent TARGET style, and STATE-aware anchor enforcement (`PLANNED`/`DEPRECATED` skipped; `STARTED`/`DONE`/`IMPLEMENTED` enforced). On a graph with no anchors yet, it degrades to a warning instead of failing — adopt it as a starting point and tighten as your graph grows.
+This repo ships a stdlib-only MVP: `python scripts/validate-why.py`. It verifies unique IDs, `REL TYPE` against the documented vocabulary, `REL TARGET` resolution, consistent TARGET style, STATE-aware anchor enforcement (`PLANNED`/`DEPRECATED` skipped; `STARTED`/`DONE`/`IMPLEMENTED` enforced), and marker-keyed `PRD_REF` resolution (`path#KEY` must find a `PRD_ANCHOR: KEY` comment in the target file; legacy section-number refs warn instead of failing). On a graph with no anchors yet, it degrades to a warning instead of failing — adopt it as a starting point and tighten as your graph grows.
 
 Add as your graph grows:
 

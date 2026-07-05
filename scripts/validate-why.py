@@ -20,6 +20,13 @@ Checks:
 7. If no ANCHOR elements exist at all:
    - Report a warning, not a failure. The current Agent1st dogfood graph is
      docs-only on purpose.
+8. PRD_REF elements use marker keys (v10):
+   - Marker-keyed form `path#KEY` is enforced regardless of node STATE (the PRD
+     carries intent before code exists): target file must exist and contain a
+     `PRD_ANCHOR: KEY` comment.
+   - One reference per PRD_REF element; `;`-joined lists are errors.
+   - Legacy prose/section-number form (no `#`) degrades to a warning nudging
+     migration, not a failure.
 
 Output: human-readable summary on stdout, errors in CDD style on stderr.
 Exit 0 on pass (with warnings allowed), exit 1 on any error.
@@ -32,6 +39,7 @@ Usage:
 from __future__ import annotations
 
 import argparse
+import re
 import sys
 import xml.etree.ElementTree as ET
 from dataclasses import dataclass
@@ -296,6 +304,107 @@ def check_anchors(
     return issues, validated, skipped, total
 
 
+def check_prd_refs(
+    root: ET.Element, repo_root: Path
+) -> tuple[list[Issue], int]:
+    """Validate PRD_REF elements: marker-keyed refs resolve to PRD_ANCHOR markers.
+
+    Returns (issues, validated_count).
+    """
+    issues: list[Issue] = []
+    validated = 0
+
+    for node in root.iter():
+        refs = node.findall("PRD_REF")
+        if not refs:
+            continue
+        node_id = node.get("ID", f"<{node.tag}>")
+
+        for ref in refs:
+            text = (ref.text or "").strip()
+
+            if not text:
+                issues.append(Issue(
+                    severity="error",
+                    node=node_id,
+                    problem="PRD_REF is empty",
+                    fix='point at a marker key, e.g. docs/PRD.md#USE-CASES',
+                ))
+                continue
+
+            if ";" in text:
+                issues.append(Issue(
+                    severity="error",
+                    node=node_id,
+                    problem=f"PRD_REF {text!r} holds multiple references",
+                    fix="use one PRD_REF element per reference",
+                ))
+                continue
+
+            if "#" not in text:
+                issues.append(Issue(
+                    severity="warning",
+                    node=node_id,
+                    problem=f"PRD_REF {text!r} is not marker-keyed",
+                    fix=(
+                        'use path#KEY resolving to a "PRD_ANCHOR: KEY" comment '
+                        "in the PRD (see why-graph-principles.md §5a); section "
+                        "numbers and heading text break on refactor"
+                    ),
+                ))
+                continue
+
+            path_part, _, key = text.partition("#")
+            path_part = path_part.strip()
+            key = key.strip()
+            if not path_part or not key:
+                issues.append(Issue(
+                    severity="error",
+                    node=node_id,
+                    problem=f"PRD_REF {text!r} is not in path#KEY shape",
+                    fix="use a repo-relative path, then #, then the marker key",
+                ))
+                continue
+
+            target = repo_root / path_part
+            if not target.is_file():
+                issues.append(Issue(
+                    severity="error",
+                    node=node_id,
+                    problem=f"PRD_REF target file is missing: {path_part}",
+                    fix="create the file, fix the path, or remove the reference",
+                ))
+                continue
+
+            try:
+                doc_text = target.read_text(encoding="utf-8")
+            except OSError as exc:
+                issues.append(Issue(
+                    severity="error",
+                    node=node_id,
+                    problem=f"could not read {path_part}: {exc}",
+                    fix="check file permissions and encoding",
+                ))
+                continue
+
+            pattern = rf"PRD_ANCHOR:\s*{re.escape(key)}(?![A-Za-z0-9-])"
+            if not re.search(pattern, doc_text):
+                issues.append(Issue(
+                    severity="error",
+                    node=node_id,
+                    problem=f"PRD_ANCHOR marker {key!r} not found in {path_part}",
+                    fix=(
+                        f"add <!-- PRD_ANCHOR: {key} --> under the section this "
+                        "reference means, or fix the key"
+                    ),
+                ))
+                continue
+
+            validated += 1
+
+    return issues, validated
+
+
 def format_issue(issue: Issue) -> str:
     return (
         f"- [{issue.severity}] {issue.node}\n"
@@ -329,6 +438,8 @@ def run(
     issues.extend(relation_issues)
     anchor_issues, anchors_ok, anchors_skipped, anchors_total = check_anchors(root, repo_root)
     issues.extend(anchor_issues)
+    prd_ref_issues, prd_refs_ok = check_prd_refs(root, repo_root)
+    issues.extend(prd_ref_issues)
 
     errors = [i for i in issues if i.severity == "error"]
     warnings = [i for i in issues if i.severity == "warning"]
@@ -347,6 +458,7 @@ def run(
     summary = (
         f"WHY validator: nodes={len(nodes)} relations={rel_count} "
         f"anchors_validated={anchors_ok} anchors_skipped={anchors_skipped} "
+        f"prd_refs_validated={prd_refs_ok} "
         f"errors={len(errors)} warnings={len(warnings)}"
     )
     print(summary, file=stdout)
