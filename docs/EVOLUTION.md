@@ -32,6 +32,8 @@ Agents who contribute to new versions should add their transition notes.
 | v9.2 | new `.agents/skills/terraform/` (`SKILL.md` + `why-terraform-skill.md`) + new `docs/experiments/terraform-agent1st.md` + experiments README row | First **domain specialization** artifact, deployed for dogfood. Origin is CDD: real DevOps practice — infrastructure colleagues meet Agent1st and immediately ask what it says about Terraform, and the honest answer was "nothing specific". The bet, two falsifiable claims: (1) Agent1st specializes by **derivation, not mapping** — domain rules re-derived from the agent cost vector (writing nearly free; attention scarce; `apply` irreversible) rather than the eleven core sections restated in domain words; (2) several canonical Terraform practices **flip sign** when agents are the primary authors and operators — DRY-by-default, `this` local names, workspaces-for-environments, constraints-in-prose, refactor-as-free-tidying — each rational under human costs, an anti-pattern under agent costs (Terraform sharpens §5: names are doubly load-bearing, attention anchors *and* state addresses where a rename is destroy/recreate). Artifact shape is itself a tested pattern: `SKILL.md` is the runtime behavior delta (pairs with a baseline Terraform reference, does not replace it; local policy overrides both), `why-terraform-skill.md` co-located so the derivation and transformer grounding travel with the rules across repos — runtime surface and teaching surface deliberately split to respect the attention budget the skill preaches. Scope-creep guardrail recorded in the experiment file: `.agents/skills/` grows **only** through the experiments track, one experiment per domain, negative signal removes the artifact with a rejected-path row here; not linked from the main README "Optional extensions" table (stable-§11-only). Measurements: expected-diff discipline, boundary behavior at destroy/replace lines, wrong-layer edits, provider-hallucination cycles, rule survival at runtime. AGENTS.md untouched. Canonical chain unchanged. | Claude (Fable 5) (primary), with the maintainer's DevOps field practice as the CDD pain source |
 | v10 | `docs/PRD.md` (+3 `PRD_ANCHOR` markers), `docs/why-graph.xml` (marker-keyed `PRD_REF`), `scripts/validate-why.py` (`check_prd_refs`), `why-graph-principles.md` (new §5a + TL;DR/§6/§8), `why-contracts-v1.md`, `Why1st.md` §7 | **PRD anchors** — the PRD↔graph reference key becomes refactor-proof. Canonical `PRD_REF` form is `path#KEY` resolving to a `<!-- PRD_ANCHOR: KEY -->` comment in the PRD; section numbers and heading text retired as keys. First change to the canonical chain's own contract since the validator landed (v6) — hence the major bump. See the full v10 section below. | Claude (Fable 5) (primary), with two long-lived brownfield adopters' field signal as the CDD pain source |
 
+| v11 | `AGENTS.md` (first change since v5.1), `docs/DESIGN.md` §2 + new §2a + new §5a, `docs/FOUNDATIONS.md` Model-Shift Register #3 + counter-argument, `docs/VISION.md`, `README.md`, `docs/ROADMAP.md` §2 + new §3a | **Convergence.** The frozen behavior layer changes for the first time in 123 days, because for the first time the failure was a *contradiction* rather than a gap: the 2026-08 harness generation instructs models to infer routine intent and check in only when ambiguity changes the outcome, while §1 demanded acceptance criteria "before work begins" — the protocol produced clarification ceremony nobody wanted, and the stronger the model the more visibly it burned the turn resolving the conflict. Five deltas: (1) **§1 rephrased** to "before consequential work — stated by the human or safely inferred by the agent, not necessarily asked for", concept name preserved for §5 hygiene; (2) **runtime precedence line added at the top of `AGENTS.md`** — harness wins on mechanics, this file holds the stance — stated where it must be read, not looked up; (3) **§4's `200-300 lines` widened, not cut**, to `200 lines / 20 KB` for any file an agent reads whole, from field signal that agents write long lines to defeat a line count and that the constraint bites hardest on agent-read Markdown; (4) **`DESIGN.md` §2a Convergence Is the Win Condition** — absorption is the protocol succeeding, the delta halved but did not vanish, the inverse-capability law (weaker agent → more value, predicted 2026-05 and field-confirmed 2026-08), and the resulting rule *do not trim to the frontier*; (5) **`DESIGN.md` §5a Kept On Purpose** — the banner and the `200-300` number are settled keeps with reasons, so both stop being re-proposed every session. Also fixed: `DESIGN.md` §2's worked example had gone factually false; `ROADMAP.md` §2 carried a false completion checkbox and the README Quick Start never carried the Claude Code bridge, so bare-`AGENTS.md` adopters on Claude Code silently got zero protocol (probe-verified, 2026-08-29, Claude Code 2.1.251). File stayed at 199 lines / ~7 KB — inside its own budget. | Claude (Opus 5) (primary), quoting its own runtime system prompt as evidence; cross-read against an independent GPT-5.6-Sol review produced in Codex; maintainer field signal across dozens of projects as the CDD pain source |
+
 ---
 
 ## v0 → v1: From Scattered Ideas to First Protocol
@@ -205,7 +207,7 @@ These ideas keep being proposed by new agents. They are logical, often correct i
 - **History:** v1 had it as standalone section. v2 merged it into Agent Loop. v3 removed it. v4 Opus 4.6 re-added it to Hello Agent. Then removed again.
 - **Why it keeps coming back:** It sounds useful. A fresh agent scanning for contradictions before coding seems like good hygiene.
 - **Why it keeps being removed:** Subagents launched with a specific task should not audit the repo. Swarm workers should not each independently scan. The cost scales linearly with agent count. In single-agent paired sessions it was fine. In multi-agent autonomous contexts it is waste.
-- **Current form:** Only `Agent1st Mode ON` survives — zero-cost identity marker, visible session boundary.
+- **Current form:** Only `Agent1st Mode ON` survives — identity marker, visible session boundary, and the only portable check that the file loaded at all. The earlier "zero-cost" phrasing was wrong: it costs one line per thread including subagents. That cost is accepted, not absent — see `DESIGN.md` §5a.
 
 ### "Add error recovery / rollback rules"
 - **History:** Proposed in v4 analysis (Opus 4.6), rejected after delta-layer check.
@@ -225,9 +227,20 @@ These ideas keep being proposed by new agents. They are logical, often correct i
 - **History:** v1-v3 all had "Session End Protocol" assuming a clean end-of-session moment. v4 refactored to "Continuity" after recognizing that server-side compaction removes this control.
 - **Why it matters:** Any principle that assumes "at the end of your session, do X" is fragile in modern harnesses. Prefer "keep critical state in durable artifacts as you go."
 
-**Pattern:** Most recurring rejections fall into two categories:
+### "Remove the `Agent1st Mode ON` banner"
+- **History:** proposed by a Codex-side field note (2026-07) and again by GPT-5.6-Sol (2026-08). Both argued it verifies loading rather than compliance and pollutes every spawned thread.
+- **Why it keeps coming back:** the argument is correct on its own terms, and a strong agent notices the cost immediately.
+- **Why it's rejected:** loading is precisely the thing that fails. Probe-verified 2026-08-29 (Claude Code 2.1.251): a bare root `AGENTS.md` is silently ignored; behind the `@AGENTS.md` bridge it loads. The banner is the only detector that works on every harness — the proposed replacements are harness-specific, which is an anti-portability move in the one artifact whose value is portability. Also the brand, and a `PRD.md` §9 success signal. Settled in v11: `DESIGN.md` §5a.
+
+### "Remove the `200-300 lines` number as unproven"
+- **History:** proposed by the 2026-07 Codex field note and by GPT-5.6-Sol (2026-08); flagged by earlier reviewers as the only language-specific line in the core.
+- **Why it keeps coming back:** it is genuinely unproven, genuinely language-flavored, and `DESIGN.md` §5 forbids code-style rules in the core.
+- **Why it's rejected:** it is not a threshold claim, it is a teaching anchor. A number people can argue with changes behavior; "attention is finite" does not. Real adopters — human and agent — use it as an orientation and then negotiate it per project. v11 **widened** it instead: `200 lines / 20 KB` for any file an agent reads whole, because agents were observed writing long lines to defeat a line count. Settled in v11: `DESIGN.md` §5a.
+
+**Pattern:** Most recurring rejections fall into three categories:
 1. **Delta-layer violations** — the model or harness already handles it
 2. **Session-boundary assumptions** — the agent doesn't control when context is lost
+3. **Removals argued from one harness** — redundancy is host-relative and inverts on weaker models and thinner harnesses; removal needs an ablation or a live contradiction, not a reading of one vendor's current system prompt (`DESIGN.md` §2a)
 
 If your proposal fits either category, it is probably wrong for the minimal version. It might belong in a standard or full version where the environment is more controlled.
 
@@ -694,6 +707,57 @@ WHY validator: OK
 Negative test: a graph pointing at a non-existent key fails with three CDD-style errors (`PRD_ANCHOR marker 'NO-SUCH-KEY' not found in docs/PRD.md` → "add the marker or fix the key"), exit 1.
 
 **What did not change.** `AGENTS.md` (byte-identical to v5.1 since v6). The chain's shape (PRD → Why Graph → contracts/anchors → validator) — only the key format inside one link. The hard partition between stable and experiments.
+
+---
+
+## v10 → v11: Convergence — the core changes because the ground below it moved
+
+**Era:** the first release where the harness layer contradicts the protocol instead of merely overlapping it.
+
+### What failed
+
+For over a year, `AGENTS.md` was always on across the maintainer's real work — dozens of projects, hundreds of tasks, several harnesses — and its effect was a gain or a no-op. After the Fable 5 / GPT-5.6 / Opus 5 wave that changed: in some sessions it began to make results *worse*.
+
+The cause was not a wrong principle. It was a right principle phrased against a 2026-02 harness. §1 said acceptance criteria "must exist before work begins"; the 2026-08 harness tells the model to make routine judgment calls itself and check in only when different readings change the outcome. A literal, capable agent reads both and produces clarification ceremony the human did not want — and the stronger the model, the more visibly it spends the turn reconciling the two.
+
+That is a category the delta-layer test never had a name for. Overlap wastes tokens. **Contradiction spends attention and inverts the sign of the protocol.**
+
+### What changed
+
+**`AGENTS.md` — first edit since v5.1, nine releases and 123 days.**
+
+1. **Runtime precedence, stated at the top.** Where the harness enforces something below, follow the harness rather than doing it twice; where it contradicts, the harness wins on mechanics and this file holds the stance. Plus the framing an agent needs at read time: much of this text has been absorbed into model and harness prompts, that is the protocol working, and it stays whole because it also runs on weaker models and thinner harnesses.
+2. **§1 acceptance criteria** → "must exist before consequential work — stated by the human or safely inferred by the agent, not necessarily asked for". The term is preserved (§9 uses it too; renaming in one place only would split a concept and violate §5). Only the ceremony reading is removed.
+3. **§4 line budget widened, not cut.** `200-300 lines` for a frequently edited source module, plus `200 lines / 20 KB` for any file an agent reads whole, plus the reason the byte guard exists: agents were observed writing very long lines to satisfy a line count while defeating its purpose. Two independent reviews recommended deleting this bullet as unproven and language-specific. Rejected — see `DESIGN.md` §5a.
+4. **Two consolidations** to pay for the additions: §4's first two bullets merged (they stated one idea twice, itself a §5 issue), §5's three-line example compressed to one. Net file: 199 lines, ~7 KB — the protocol now visibly obeys the number it recommends.
+5. **`Agent1st Mode ON` kept**, with one line saying why: it is the brand mark *and* the cheapest portable check that the file loaded at all.
+
+**`docs/DESIGN.md` — the doctrine.**
+
+- §2's worked example was factually false and sat in the section that teaches the delta-layer test. Rewritten as a dated before/after, with the real lesson: the test measures a moving boundary and issues no permanent verdicts on lines.
+- New **§2a Convergence Is the Win Condition** — absorption means the earlier agents were right early; the delta halved but did not vanish (§5, project-facing §6, §10, §11-as-artifacts are what no vendor has an incentive to ship); the **inverse-capability law**; the resulting rule **do not trim to the frontier**; and delta-layer discipline's new second half — do not keep phrasing the layer below now contradicts.
+- New **§5a Kept On Purpose** — the banner and the `200-300` number, each with the standard removal proposal, the counter-evidence, and the general rule behind both: a line can be unproven and still load-bearing when its job is to start the right argument in the reader's head.
+
+**`docs/FOUNDATIONS.md`** — Model-Shift Register entry #3, the first pass to quote the *system prompt the reviewing agent was running under* instead of vendor documentation, with the eleven-principle overlap table, the honest 5-untouched-3-partial-3 count, the probe result, and the inverse-capability law with its honesty caveats. Plus a counter-argument against the new doctrine, because a doctrine that cannot lose is not a doctrine.
+
+**Public-surface bugs fixed.** README Quick Start now carries the Claude Code bridge as an actual step; `ROADMAP.md` §2's completion checkbox is corrected with an explanation of what a false checkbox cost. New `ROADMAP.md` §3a: every `Held` item needs a probe, a date, or an honest rejection.
+
+### The evidence that unlocked it
+
+Two independent reviews (GPT-5.6-Sol in Codex, Opus 5 in Claude Code) reached the same diagnosis without seeing the maintainer's read, and the maintainer had reached it empirically first. The Opus 5 pass added a tier nobody had used before — quoting the live harness system prompt rather than vendor docs — and re-tested the project's Claude Code assumption with a marker probe instead of citing it.
+
+The `Agent1st Mode ON` removal proposal died on that probe. On Claude Code 2.1.251 a bare `AGENTS.md` does not load and the bridged one does; the banner is the only portable way an adopter learns which case they are in.
+
+### What was rejected
+
+- **Splitting the protocol into a canonical constitution plus a compact "modern harness" runtime profile.** Correct diagnosis, dangerous topology: the project already ran this shape as `STANDARD/` + `FULL/` folders and recorded the failure (`DESIGN.md` §7) — two runtime artifacts for one concept is §5 applied to the protocol itself. It also inverts maintenance cost, because a delta profile chases the harness by construction and rots faster than the thing it optimizes. Parked as a possible experiment with two preconditions written before any data: the profile must be *derived* from a dated overlap ledger rather than hand-authored, and it must be regenerated every model release or not shipped at all.
+- **Removing the banner** — see above and `DESIGN.md` §5a.
+- **Removing the `200-300 lines` signal** — see `DESIGN.md` §5a. Field use widened it instead.
+- **Trimming principles that current frontier harnesses already enforce.** The inverse-capability law makes this the wrong direction: it optimizes the case that needs the protocol least.
+
+### The reusable lesson
+
+A behavior layer's job is to cover a gap, so its success looks exactly like its obsolescence. The distinction that matters is not "how much is left" but "is any of it now pulling against the floor underneath." Overlap is a tolerable cost of portability. Contradiction is not, and it is the one condition that should ever move a frozen core.
 
 ---
 

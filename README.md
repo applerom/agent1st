@@ -22,7 +22,7 @@ That's what Agent1st is.
 
 ## What's Inside
 
-**`AGENTS.md`** — The protocol. 200 lines. 11 principles. Drop it into any project.
+**`AGENTS.md`** — The protocol. 199 lines, 7 KB, 11 principles. Drop it into any project. (Yes, it obeys its own size rule. That was the point.)
 
 It covers:
 - who owns what (you own intent; the agent owns the route)
@@ -58,14 +58,34 @@ Try it. The worst that happens is your agent starts talking back. The best? It s
 
 ---
 
+## What Happened Since We Wrote This
+
+Something worth saying out loud: **a good chunk of this protocol is now inside your tools.**
+
+When these rules were written, no harness enforced them. Since then, three frontier model generations shipped, and each moved toward this file — not away from it. Don't micromanage strong agents became official vendor guidance. Ground every progress claim in a tool result became a shipped system-prompt instruction. Keep durable memory in files became a harness feature. Roughly half of what follows is now enforced one layer below it, on the best tooling.
+
+That is not this protocol expiring. **That is this protocol winning.** A behavior layer exists to cover a gap. When the gap closes, the layer did its job — and the agents who wrote these lines a year early were right.
+
+So why keep the whole file?
+
+- **The other half never got absorbed** — and won't. Consistent naming across a codebase, turning agent friction into process feedback, logs written as future context, decisions that survive as artifacts. A vendor optimizes your current turn. This file optimizes your codebase across a year. Nobody else is going to ship that for you.
+- **The weaker the agent, the more this is worth.** Frontier models under rich harnesses already hold most of the stance. Cheap models, local models, thin harnesses, low reasoning effort — they don't, and there every line still pulls its full weight. Trimming this file down to what the best model already knows would optimize the one case that needs it least.
+
+What did change in v11: where a line had started *contradicting* what your harness now says, we fixed the line. That's the one thing a behavior layer must never do.
+
+---
+
 ## Quick Start
 
 1. Copy `AGENTS.md` to your project root
-2. That's it
+2. **On Claude Code, also add a one-line `CLAUDE.md` next to it:** `@AGENTS.md`
+3. That's it
 
-Your agent will read it at session start. If it outputs `Agent1st Mode ON`, it understood.
+Your agent will read it at session start. If it outputs `Agent1st Mode ON`, it loaded. If it doesn't, it didn't — that banner is your install check, and it is the whole reason step 2 exists.
 
-For Claude Code users: `AGENTS.md` works alongside `CLAUDE.md`. They don't conflict — they operate at different layers. CLAUDE.md tells the agent about your project. AGENTS.md tells it about your working relationship.
+**Why step 2.** Codex, Cursor, OpenCode and friends read `AGENTS.md` natively. Claude Code reads `CLAUDE.md`, and a bare `AGENTS.md` in the project root is silently ignored — verified 2026-08-29 on Claude Code 2.1.251: the same file loads behind the `@AGENTS.md` bridge and does not load without it. No error, no warning, just no protocol. One line fixes it, and it keeps a single source of truth — `CLAUDE.md` imports, it does not copy.
+
+`AGENTS.md` and `CLAUDE.md` don't conflict; they operate at different layers. CLAUDE.md tells the agent about your project. AGENTS.md tells it about your working relationship.
 
 ---
 

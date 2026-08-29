@@ -36,7 +36,9 @@ The "standard version" has been delivered as the **WHY layer**, living flat in `
 **Implementation:**
 - [x] Pattern proven in a downstream adopter — done 2026-03-25
 - [x] Add this pattern to Agent1st repo — done 2026-03-25
-- [x] Documented in README.md Quick Start section — done 2026-03-25
+- [x] Documented in README.md Quick Start section — **done 2026-08-29 (v11)**
+
+**Correction (v11).** The third box was checked on 2026-03-25 while the README only said the two files "work alongside" each other. The actual instruction — add `CLAUDE.md` containing `@AGENTS.md` — was never written down on the public surface, so every Claude Code adopter following Quick Start got zero protocol and no error. Found by re-testing the claim instead of reading it: on Claude Code 2.1.251 a bare root `AGENTS.md` does not load, the bridged one does. A false checkbox in the tracker of the project that wrote "Done Is Not a Mood" is the most useful bug this release found; §2 now applies to this file too.
 
 ### 3. Cross-Session Memory Strategy
 
@@ -53,6 +55,18 @@ The "standard version" has been delivered as the **WHY layer**, living flat in `
 **Open question:** Should the WHY layer recommend a specific memory format, or just principles for memory hygiene?
 
 Current leaning: no single memory location is portable enough to prescribe. The useful future artifact is likely a decision guide — when to use harness memory, repo decision logs, skills, or a hybrid — not a new required file.
+
+### 3a. Held Items Need a Probe or a Date (v11)
+
+**Problem observed in v11:** eight ROADMAP items and most of the development-side backlog sit in **Held — awaiting signal**, some since March. The gate is real and correct (nothing speculative enters stable), but it is *passive*: it waits for an adopter to independently hit a surface, with no probe that would produce the signal and no date at which the wait expires. A passive gate silently converts into a permanent hold.
+
+**Rule from v11 onward:** every `Held` item carries one of three things.
+
+- **Probe** — the smallest concrete action that would produce the signal, and who runs it.
+- **Date** — when the wait expires and the item is re-decided with whatever evidence exists.
+- **Reject** — say so. A hold with neither probe nor date is a rejection that lacks the courage to be one.
+
+WHY: the protocol's own §2 says done is not a mood. The inverse also holds — *pending* is not a mood. An item nobody is measuring and nobody will revisit is finished, and the honest move is to write that down.
 
 ### 4. Success Signals and Public Evidence
 

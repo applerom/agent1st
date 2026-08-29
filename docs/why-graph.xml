@@ -27,7 +27,7 @@
     and `docs/Why1st.md` for why this file exists at all.
   -->
 
-  <PROJECT DATE="2026-07-05">
+  <PROJECT DATE="2026-08-29">
     <WHAT>Agent1st — behavior-layer protocol for AI-agent software development</WHAT>
     <WHY>Reduce drift between human intent and agent execution across long-lived projects</WHY>
     <TECH>
@@ -77,6 +77,8 @@
     <ACCEPT>
       <CHECK>Every principle has WHY and IF MISSING blocks</CHECK>
       <CHECK>Every line passes delta-layer test (DESIGN.md §2)</CHECK>
+      <CHECK>No line contradicts what a current harness enforces (DESIGN.md §2a)</CHECK>
+      <CHECK>File stays within its own §4 budget: 200 lines / 20 KB</CHECK>
       <CHECK>Ends with `Agent1st Mode ON` handshake</CHECK>
     </ACCEPT>
     <PRD_REF>docs/PRD.md#FEATURES</PRD_REF>

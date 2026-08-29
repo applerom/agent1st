@@ -101,12 +101,15 @@ The minimal AGENTS.md is designed to be dropped into any project alongside your 
 ## Where This Is Going
 
 
-- **The behavior layer stays frozen by default.** `AGENTS.md` changes only when a real adoption failure proves a gap the current text does not cover. "No change" is a valid — often the best — release outcome.
+- **The behavior layer stays frozen by default.** `AGENTS.md` changes only when a real adoption failure proves a gap the current text does not cover, or when the layer below it starts contradicting a line that used to be additive. "No change" is a valid — often the best — release outcome; it held for nine consecutive releases.
+- **Absorption is the win condition, not erosion.** When a vendor ships a principle from this file into a model or harness prompt, the protocol succeeded — it covered a real gap early enough that the industry closed it. The layer keeps the line anyway, because the delta is host-relative and inverts on weaker models and thinner harnesses: the weaker the agent, the more this file is worth. See `DESIGN.md` §2a.
 - **The WHY layer grows by pull, not push.** New depth (extensions, guides, tooling) lands when an adopter actually hits the surface it addresses, never speculatively. The canonical chain (PRD → Why Graph → contracts → validator) stays small; everything else is opt-in and partitioned.
 - **Experiments earn their way in.** Untested bets live in `docs/experiments/` until field signal promotes or kills them. The core is protected from speculation by construction.
 - **The protocol stays provider-agnostic.** It must remain useful as agents grow more capable — by defining better conditions, not by adding more rules.
 
 The long-term bet: a behavior contract that ages well precisely because it resists growth. If this file needed a rewrite every time a model ships, it would be doing the wrong job.
+
+The bet has now been tested three generations deep. The contract did not need a rewrite; it needed one line rephrased where a harness had started pulling the other way, and one number widened where the field had outgrown it. That is the intended failure rate.
 
 ## The Spirit
 

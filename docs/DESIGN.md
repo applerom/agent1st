@@ -63,11 +63,16 @@ Before adding anything to `AGENTS.md`, ask:
 3. Does this address something unique to the human-agent working relationship in this project? → Consider adding.
 4. Does it earn its tokens? → If not, compress or cut.
 
-### Real example
+### Real example, and what happened to it
 
-"Avoid over-engineering. Only make changes directly requested." — This is already in Claude Code's system prompt verbatim and in Codex CLI's behavior. Adding it to AGENTS.md would waste tokens and risk contradiction if either harness updates its wording.
+For most of this project's life this section carried one pair of examples:
 
-"Done Is Not a Mood" — This is NOT in any model or tool prompt. It captures a specific quality stance that changes agent behavior. It earns its tokens.
+- *"Avoid over-engineering. Only make changes directly requested."* — already in Claude Code's system prompt verbatim and in Codex CLI's behavior. Adding it would waste tokens and risk contradiction. **Still true.**
+- *"Done Is Not a Mood"* — in no model or tool prompt; it changes agent behavior and earns its tokens. **No longer true.**
+
+As of 2026-08 (Claude Code 2.1.x, Opus 5) the harness system prompt carries "report completion only when fully done" and "Report outcomes faithfully: if tests fail, say so with the output; if a step was skipped, say that." Codex ships its own equivalent. §2 is now stated a layer below.
+
+Do not resolve this by deleting §2. Read the example correctly: **the delta-layer test measures a moving boundary; it does not issue permanent verdicts on lines.** An output of the test has a shelf life. The test does not. That is why every overlap claim in this project is now dated and bound to a named harness version, and why a removal requires an ablation rather than a reading of somebody's system prompt.
 
 ### Why this matters so much
 
@@ -78,6 +83,41 @@ Model and tool prompts update frequently. If AGENTS.md duplicates them:
 - the agent must resolve conflicts instead of working
 
 The delta-layer principle keeps AGENTS.md **stable, small, and additive**.
+
+---
+
+## 2a) Convergence Is the Win Condition
+
+Between 2026-02 and 2026-08 three frontier generations shipped, and each moved toward this protocol rather than away from it. Anti-micromanagement became official vendor guidance. Evidence-gated completion became a shipped system-prompt instruction. Durable file memory became a harness feature. Roughly half of `AGENTS.md` is now enforced one layer below it on the strongest harnesses.
+
+The correct reading is not "the protocol is eroding." It is: **the agents who wrote this were right early, and the industry caught up.** A behavior layer exists to cover a gap; a gap that closes is the layer succeeding. Any future agent tempted to describe absorption as decline should reread this paragraph first, then say the accurate thing instead — the old version did its job completely, and the proof is that it stopped being needed in the places it once shouted loudest.
+
+Three consequences, all load-bearing.
+
+### 1. The delta halved; it did not vanish
+
+What no vendor absorbed is what no vendor has an incentive to absorb: §5 Semantic Hygiene, the project-facing half of §6 CDD, §10 Semantic Logging, and §11 as durable artifacts. A vendor optimizes the turn. Agent1st optimizes the codebase across a year. That boundary is stable, and it is this project's permanent home.
+
+### 2. The inverse-capability law
+
+Field observation across dozens of projects and hundreds of tasks: **the weaker the agent, the more this file is worth.** Strong models under a rich harness already hold most of the stance. Weaker, cheaper, more literal, or thinner-harnessed agents do not, and there the original lines still carry their full weight.
+
+This was predicted before it was observed. The project's own measurement design (2026-05) wrote that the Agent1st delta "should be larger at low reasoning-effort / on more-literal models." Field use confirmed the direction three months later. That is a falsifiable claim of this project surviving contact with reality.
+
+The consequence is a trap worth naming: **do not trim the protocol to the frontier.** Trimming optimizes the case that needs the protocol least and destroys the case that needs it most. Redundancy on a frontier model costs tokens. Absence on a weak one costs a silent failure the human never sees. That asymmetry decides every removal argument in this project.
+
+### 3. Contradiction is the new failure mode
+
+For over a year the protocol was either a gain or a no-op. From the Fable 5 / GPT-5.6 / Opus 5 generation onward it can also be a **loss** — not because a line is wrong, but because a line phrased against a 2026-02 harness now pulls against what a 2026-08 harness explicitly instructs. Observed shape: `AGENTS.md` demanded acceptance criteria "before work begins" while the harness told the model to check in only when ambiguity changes the outcome. The agent produced clarification ceremony nobody wanted — and the stronger the model, the more visibly it spent the turn resolving the conflict instead of working.
+
+So delta-layer discipline gains a second half:
+
+- **First half (unchanged):** do not add what the layer below already enforces.
+- **New half:** do not keep phrasing that the layer below now contradicts.
+
+Overlap is tolerable and often correct — portability is paid for in duplicated tokens. Contradiction is not: it costs a resolution step on every read, and it is the one way this protocol can make a strong agent worse.
+
+The runtime rule that closes this lives at the top of `AGENTS.md`, not here: *harness wins on mechanics, this file holds the stance.* It is stated there because it must be present at read time, not looked up.
 
 ---
 
@@ -167,6 +207,38 @@ These were all discussed, evaluated, and **intentionally excluded**. They are co
 
 ---
 
+## 5a) Kept On Purpose
+
+Two items in `AGENTS.md` get proposed for removal by almost every fresh strong agent, on correct-sounding reasoning. Both are keeps. The reasoning is recorded here so it does not have to be re-litigated every session.
+
+### The `Agent1st Mode ON` banner
+
+**The standard proposal:** it verifies loading, not compliance; it fires in every spawned subagent; harness-native install checks exist. Cut it.
+
+**Why it stays**, in ascending order of weight:
+
+1. **It is the only portable load receipt.** A drop-in protocol's most common failure is not being loaded at all — silently. Verified 2026-08-29 on Claude Code 2.1.251: a bare `AGENTS.md` in the project root is **not** read; the same file behind a `CLAUDE.md` → `@AGENTS.md` bridge **is**. An adopter who skips the bridge gets zero protocol and no error message. The banner is what makes that visible. The proposed replacements (`/context`, harness instruction listings) are harness-specific — an anti-portability move in the one artifact whose entire value is portability.
+2. **Its cost is one line, and it was priced deliberately.** It does appear in subagents. The maintainer's call, made with that cost in view: a few words per thread does not buy back what removing it loses.
+3. **It is the brand.** Not decoration — a recognizable mark that the protocol is live, the way a marque stays on a car it does not aerodynamically improve. `PRD.md` §9 lists it as a success signal and the dogfooded graph asserts it in `FEAT-CORE`. It has been part of the spirit long enough to be part of the product.
+
+Honest correction: the older "zero-cost identity marker" phrasing in `EVOLUTION.md` was wrong. The cost is small and **accepted**, not zero. Keeping it is a decision, not an oversight.
+
+### The `200-300 lines` refactor signal
+
+**The standard proposal:** an unproven, language-specific number inside a protocol of general principles, and §5 above forbids code-style rules in the core. Cut it.
+
+**Why it stays.** The number is not there as a proven threshold. It is there because it is a **concrete anchor that starts a conversation**. Humans respond to a real number they can argue with; agents adopt it as a working orientation; both then negotiate it against their own project. An abstract "attention is finite" produces agreement and no behavior change. "200-300 lines" produces an actual refactor. That is the protocol's educational function working as designed — the same reason §5 keeps the `graph` example instead of staying purely theoretical (see §4: a compact example can earn its tokens when an abstract rule would stay too vague to apply).
+
+Field signal **broadened** it in v11 rather than removing it. Adopting agents in Claude Code independently converged on a stricter form — 200 lines *and* a 20 KB byte ceiling — because agents were observed writing very long lines to satisfy a line count while defeating its purpose. The scope also moved past source code: the constraint bites hardest on any file an agent must read whole, including agent memory files and long Markdown. The line now carries the byte guard and covers agent-read artifacts.
+
+The dogfood test that settles it: `AGENTS.md` is 199 lines and about 7 KB. The protocol obeys its own number.
+
+### The general rule behind both
+
+A line can be **unproven** and still be **load-bearing**, when what it does is start the right argument in the reader's head. Delta-layer discipline removes duplication and contradiction. It does not remove teaching surface, and it never removes something merely because no controlled study exists — most of this file would fail that bar, including the parts vendors later shipped almost verbatim.
+
+---
+
 ## 6) Audiences
 
 Agent1st Protocol serves two audiences simultaneously:
@@ -245,14 +317,20 @@ Current handoff briefs in `docs/handoffs/` capture live agent-to-agent transfer.
 If you are about to propose changes to AGENTS.md:
 
 1. Read current AGENTS.md
-2. Read THIS document (DESIGN.md)
-3. Read EVOLUTION.md for version history
+2. Read THIS document (DESIGN.md) — §2a and §5a answer most first-contact proposals
+3. Read EVOLUTION.md for version history and the recurring-rejection list
 4. Check whether your proposed change is already covered by the model or tool layer (delta-layer test)
-5. Check whether it was already considered and rejected (EVOLUTION.md, handoff briefs)
-6. If it passes both checks, propose it with: Change → WHY → What it replaces or extends
+5. Check whether the layer below now *contradicts* an existing line — that is the one condition that justifies editing the frozen core (§2a.3)
+6. Check whether it was already considered and rejected (EVOLUTION.md, FOUNDATIONS Model-Shift Register)
+7. If it passes those checks, propose it with: Change → WHY → What it replaces or extends
+
+Bring evidence proportional to the direction of the change. Adding needs an observed adoption failure. Removing needs an ablation or a live contradiction — reading a vendor's current system prompt is not enough, because redundancy is host-relative and reverses on weaker harnesses (§2a.2).
 
 Common mistakes agents make on first contact:
 - Proposing additions that the model/tool already covers
+- Proposing to cut the `Agent1st Mode ON` banner or the `200-300 lines` signal — both are settled keeps, see §5a
+- Treating "no controlled study proves this line" as grounds for removal; most of this file would fail that bar, including the parts vendors later shipped almost verbatim
+- Trimming the protocol to what a frontier model already knows, which optimizes the case that needs it least (§2a.2)
 - "Improving" the document by making it more textbook-correct but less alive
 - Assuming every correct recommendation belongs inside the document
 - Weakening the anti-micromanagement stance with "always ask the user" patterns

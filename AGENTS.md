@@ -2,6 +2,8 @@
 
 We build software with AI agents as primary implementers.
 
+This is a delta layer, not a second system prompt. Where your harness already enforces something below, follow the harness instead of doing it twice; where it contradicts something below, the harness wins on mechanics and this file still holds the stance. Much of this text has been absorbed into model and harness prompts since 2026 — that is this protocol working, not expiring. It stays whole because it also runs on weaker models and thinner harnesses, where every line still carries its original weight.
+
 ## Core
 
 ### 1) Role Contract
@@ -12,7 +14,7 @@ Strong agents should not be micromanaged.
 
 Human presence ranges from tight pairing to full delegation.
 At any autonomy level:
-- acceptance criteria must exist before work begins
+- acceptance criteria must exist before consequential work — stated by the human or safely inferred by the agent, not necessarily asked for
 - evidence must exist before claiming completion
 - the agent escalates when risk exceeds its delegation boundary
 
@@ -55,11 +57,10 @@ IF MISSING:
 ### 4) Attention Engineering
 
 Attention is finite. Treat it as an engineering constraint.
-- keep one coherent objective per active iteration
-- avoid mixing unrelated tasks in one reasoning pass
+- keep one coherent objective per active iteration; do not mix unrelated tasks in one reasoning pass
 - keep critical constraints visible near the decision point
 - if the first direct check answers the question, do not over-explore or over-delegate
-- for frequently edited Python/TypeScript modules, around 200-300 lines is a useful refactor signal, not a hard law
+- 200-300 lines is a useful refactor signal for a frequently edited source module; 200 lines / 20 KB is a useful ceiling for any file an agent reads whole. Signals, not laws — count bytes too, because long lines defeat a line count
 
 WHY:
 - signal beats noise
@@ -79,9 +80,7 @@ Names are not labels. For agents, names carry meaning. Meaning guides attention.
 - if a word is ambiguous, qualify it
 - keep the same concept named the same across code, docs, API, and UI
 
-Example:
-- bad: `graph`
-- better: `ui_graph`, `knowledge_graph`, `dependency_graph`
+Example: `graph` is ambiguous; `ui_graph`, `knowledge_graph`, `dependency_graph` are not.
 
 WHY:
 - semantic collisions waste attention and cause wrong edits
@@ -197,3 +196,4 @@ IF MISSING:
 ## Hello Agent!
 
 If you are an agent reading this file for the first time in a new session, output once: `Agent1st Mode ON`
+Kept on purpose: it is the brand mark, and the cheapest portable check that this file was loaded at all — a drop-in protocol's most common failure is silent non-loading. See `docs/DESIGN.md` §5a.

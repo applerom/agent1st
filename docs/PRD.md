@@ -96,6 +96,8 @@ Not in scope: beginners looking for a prompt-engineering tutorial, or users of w
 
 - Agents output `Agent1st Mode ON` at session start in adopter projects.
 - Human users report less drift and fewer repeated mistakes across sessions.
+- Vendors absorb principles from this file into model and harness prompts. This is a **success** signal, not a threat — the layer existed to cover a gap, and a closing gap means it worked. See `DESIGN.md` §2a.
+- No line in the core contradicts what a current harness enforces. Overlap is an accepted cost of portability; contradiction is the one state that makes the protocol worse than nothing.
 - Adopter projects extend `AGENTS.md` additively (Required Reading header) rather than forking the core.
 - The WHY layer is copied, adapted, and survives contact with real projects — not used verbatim.
 - Fresh agents can explain the Why1st chain — PRD, graph, contracts, validators — before changing code.
@@ -107,6 +109,7 @@ These are intentionally unresolved. Future agents should not silently normalize 
 
 - Where does cross-session memory live — harness (Claude Code `MEMORY.md`), repo (decision logs), or skills (intent1st-style gateways)? Current evidence suggests the answer may stay project-local rather than become one portable format. See `docs/ROADMAP.md` §3.
 - Should project-local extensions (CI integration, acceptance automation, observability contracts) get their own reference variant in this repo, or remain correctly project-local?
-- How do we measure "less drift" without introducing metrics that themselves become ceremony? Candidate signals: fewer repeated mistakes, fewer stale graph/anchor repairs, faster handoffs, and lower human correction load. No canonical metric yet.
+- How do we measure "less drift" without introducing metrics that themselves become ceremony? Candidate signals: fewer repeated mistakes, fewer stale graph/anchor repairs, faster handoffs, and lower human correction load. No canonical metric yet. **Partial answer as of v11:** sustained real use across dozens of projects established the *direction* — value scales inversely with agent capability, and the effect is large enough to see without instrumentation on weak models. What that use cannot settle is effect size, because there is no placebo arm and no blind grading. The open question narrowed from "does it help" to "how much, and where exactly does it stop helping."
+- Which principles would survive an ablation? Nothing in the core has ever been knocked out one at a time and measured. §5 Semantic Hygiene is the highest-value, lowest-overlap principle and therefore the most valuable single ablation to run: if it ablates to nothing, the project's most distinctive claim is wrong and should be retired.
 - How should public proof evolve while reference adopters are still maturing? Current stance: keep unstable local examples off-public; replace shape-only claims with public links as adopter projects become stable and public.
 - ~~Do graph/schema version numbers (`schema="0.8"`, `<PROJECT VERSION="...">`) carry enough value to keep, or should Why1st remove them and prefer validator compatibility, dates, and git/content history?~~ **Resolved in v8.1:** the abstract version fields were never tied to an XSD, validator compatibility contract, or migration rule. Removed from the teaching graph. Validator behavior, `DATE`, and git history carry actual evolution semantics.
