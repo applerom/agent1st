@@ -66,13 +66,13 @@ Kept out of `SKILL.md` to keep the runtime artifact lean. Each section descends 
 | SKILL.md section | Derives from |
 |---|---|
 | 1) Reversibility Boundary | §1 Role Contract, §3 Right to Disagree |
-| 2) Evidence Ladder | §2 Done Is Not a Mood, §7 Agent Loop, §10 Semantic Logging |
+| 2) Evidence Ladder | §2 Done Is Not a Mood, §8 Semantic Logging |
 | 3) Repository Layout | §4 Attention Engineering |
 | 4) Names Are State | §5 Semantic Hygiene |
 | 5) Modules and the Price of DRY | §4 Attention Engineering |
 | 6) State, Backends, Environments | §4 Attention Engineering |
-| 7) Versions Are Load-Bearing Context | §8 Do Not Stop at the First Weak Signal |
-| 8) Invariants in Code | §4 (constraints near the decision point), §11 Continuity |
+| 7) Versions Are Load-Bearing Context | §4 Attention Engineering, §9 Durable State |
+| 8) Invariants in Code | §4 (constraints near the decision point), §9 Durable State |
 | 9) Secrets Are Names to You | §5 Semantic Hygiene |
 | 10) Refactor Economics | §2 (evidence is the plan), §4 |
 | How to Apply (friction line) | §6 CDD |
@@ -83,7 +83,7 @@ no core lineage by design: it is the domain's own layer, arbitrated by the
 maintainer's field-tested baseline and the convergent vendor guidance recorded
 in the why-file's Provenance section.
 
-Deliberately not ported: §9 Delegation Design (orchestration is not Terraform-specific), the Hello Agent ritual, and any section that would merely restate the core in domain vocabulary.
+Deliberately not ported: §7 Delegation Design (orchestration is not Terraform-specific), the Hello Agent ritual, and any section that would merely restate the core in domain vocabulary.
 
 ---
 

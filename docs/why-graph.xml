@@ -27,7 +27,7 @@
     and `docs/Why1st.md` for why this file exists at all.
   -->
 
-  <PROJECT DATE="2026-08-29">
+  <PROJECT DATE="2026-08-31">
     <WHAT>Agent1st — behavior-layer protocol for AI-agent software development</WHAT>
     <WHY>Reduce drift between human intent and agent execution across long-lived projects</WHY>
     <TECH>
@@ -73,12 +73,13 @@
        for why prompt-XML tag shapes are not classical XML. -->
 
   <FEATURE_CORE ID="FEAT-CORE" STATE="IMPLEMENTED" PRIORITY="CRITICAL">
-    <INTENT>Minimal AGENTS.md — 11 principles, delta-layer, drop-in</INTENT>
+    <INTENT>Minimal AGENTS.md — 9 distinct principles, 165 lines, delta-layer, drop-in</INTENT>
     <ACCEPT>
       <CHECK>Every principle has WHY and IF MISSING blocks</CHECK>
       <CHECK>Every line passes delta-layer test (DESIGN.md §2)</CHECK>
       <CHECK>No line contradicts what a current harness enforces (DESIGN.md §2a)</CHECK>
-      <CHECK>File stays within its own §4 budget: 200 lines / 20 KB</CHECK>
+      <CHECK>File stays under 200 lines without merging distinct concepts for mechanical compression</CHECK>
+      <CHECK>Contains principles, not release notes or compatibility routing</CHECK>
       <CHECK>Ends with `Agent1st Mode ON` handshake</CHECK>
     </ACCEPT>
     <PRD_REF>docs/PRD.md#FEATURES</PRD_REF>
@@ -118,6 +119,8 @@
     <INTENT>Evolution history — what changed, what was rejected, and why</INTENT>
     <PRD_REF>docs/PRD.md#FEATURES</PRD_REF>
     <REL TYPE="IMPLEMENTED_BY" TARGET="ARTIFACT:ART-EVOLUTION"/>
+    <REL TYPE="IMPLEMENTED_BY" TARGET="ARTIFACT:ART-AGENTS-V5-ARCHIVE"/>
+    <REL TYPE="IMPLEMENTED_BY" TARGET="ARTIFACT:ART-AGENTS-V11-ARCHIVE"/>
   </FEATURE_EVOLVE>
 
   <!-- ==================== ARTIFACTS ==================== -->
@@ -126,7 +129,15 @@
        When you add markers, point ANCHOR entries at them. -->
 
   <ARTIFACT ID="ART-AGENTS-MD" FILE="AGENTS.md" TYPE="PROTOCOL" STATE="IMPLEMENTED">
-    <WHAT>The minimal protocol. Drop-in. 11 principles. Never repo-specific.</WHAT>
+    <WHAT>The minimal protocol. Drop-in. 9 distinct principles. Never repo-specific.</WHAT>
+  </ARTIFACT>
+
+  <ARTIFACT ID="ART-AGENTS-V5-ARCHIVE" FILE="docs/_archive/AGENTS-min-v5.1-default-2026.md" TYPE="HISTORY" STATE="IMPLEMENTED">
+    <WHAT>Byte-exact snapshot of the v5.1 default that stayed frozen for 123 days.</WHAT>
+  </ARTIFACT>
+
+  <ARTIFACT ID="ART-AGENTS-V11-ARCHIVE" FILE="docs/_archive/AGENTS-min-v11.md" TYPE="HISTORY" STATE="IMPLEMENTED">
+    <WHAT>Byte-exact snapshot of the Opus 5 convergence revision.</WHAT>
   </ARTIFACT>
 
   <ARTIFACT ID="ART-CLAUDE-MD" FILE="CLAUDE.md" TYPE="BRIDGE" STATE="IMPLEMENTED">

@@ -1,9 +1,9 @@
 # Why Subagents — delegate by default, crystallize the pattern later
 
 This is one proven shape of the optional **subagent orchestration** extension to Why1st (`Why1st.md` §11.3).
-Companion docs: `Why1st.md` (the idea), `AGENTS.md` §9 (Delegation Design — the principle).
+Companion docs: `Why1st.md` (the idea), `AGENTS.md` §7 (Delegation Design — the principle).
 
-**Relationship to `AGENTS.md` §9.** §9 is the principle: how to delegate well *when you do*. This document is one layer down: *when does an agent default to delegating in the first place,* and what shape the project-local artifact takes once delegation becomes recurring. Same idea, different question. §9 is the rule; this guide is its behavioral entry point and one common artifact.
+**Relationship to `AGENTS.md` §7.** §7 is the principle: how to delegate well *when you do*. This document is one layer down: *when does an agent default to delegating in the first place,* and what shape the project-local artifact takes once delegation becomes recurring. Same idea, different question. §7 is the rule; this guide is its behavioral entry point and one common artifact.
 
 The goal: a strong agent that is trained on agentic work should not silently revert to single-thread *do-it-all-myself* mode on real projects. When the work is parallel, when the read surface is large, when the ops do not need the lead's full intelligence, the right move is to spawn subagents. This guide names when, why, and how.
 
@@ -113,7 +113,7 @@ A bounded task with a clear deliverable that does not require ongoing lead-side 
 
 - *Examples:* "implement and test the `redis` cache adapter against the existing `Cache` interface"; "write a migration script that produces this output format from this input"; "diagnose why this specific test fails and propose a fix."
 - *Win:* context economy. The subagent does the full reasoning loop in its own window; the lead receives the patch, the test, and the explanation.
-- *Brief shape:* full contract — purpose, interface, acceptance criteria, return format. This is where most of §9 (Delegation Design) gets exercised.
+- *Brief shape:* full contract — purpose, interface, acceptance criteria, return format. This is where most of §7 (Delegation Design) gets exercised.
 - *Smell that says do this:* the work is one or two coherent hours of focused execution, not interleaved with other decisions you are making.
 
 ### Shape D — lower-intelligence ops
@@ -131,7 +131,7 @@ A single task can use multiple shapes in one assistant turn — Shape A for expl
 
 ## 6) The delegation contract
 
-A subagent receives no conversation context. The brief is the entire world.
+A subagent may receive no context, a filtered slice, or a fork of the parent conversation. The delegation contract is the only context the lead can safely assume arrived and stayed salient.
 
 A good brief carries:
 
@@ -139,11 +139,12 @@ A good brief carries:
 - **Inputs and constraints.** File paths, line numbers, exact strings. Anything the subagent cannot find on its own. If the prior conversation discovered that approach Y was rejected and approach Z works, say so — the subagent does not see the conversation.
 - **Acceptance criteria — what the deliverable looks like.** A list of bullets, a patch with a passing test, a five-line summary, a verdict + reasoning, a file written to a specific path.
 - **Latitude — what the subagent is allowed to decide vs. what to escalate.** "If you find Z, do W; if you find anything else, return findings without acting."
-- **Length budget for the response.** Subagents over-narrate by default. "Report in under 200 words" or "return only the patch + the test output" prunes ahead of the work.
+- **Right to report operational truth.** Say explicitly that blockers, missing context, repeated friction, unsafe assumptions, and a better alternative are valid outcomes. A subagent forced to look successful will hide the fact the contract failed.
+- **Length budget for the normal result.** Prune narration, not complaints. A response budget never forbids the subagent from reporting why the requested result is unsafe, impossible, or based on missing evidence.
 
-A bad brief — and the canonical failure mode — is a one-line command-style prompt. *"Find security issues in the auth code."* The subagent has no context, no constraints, no acceptance criteria, no latitude, no budget. It will produce something. That something will be diluted, off-target, and the lead will spend more tokens correcting than was saved by dispatching. AGENTS.md §9 is the principle this codifies. Read it once.
+A bad brief — and the canonical failure mode — is a one-line command-style prompt. *"Find security issues in the auth code."* The subagent has no context, no constraints, no acceptance criteria, no latitude, no budget. It will produce something. That something will be diluted, off-target, and the lead will spend more tokens correcting than was saved by dispatching. AGENTS.md §7 is the principle this codifies. Read it once.
 
-The subagent's return contract mirrors the brief: **evidence, not narrative**. File paths and line numbers, exact commands run with exit codes, the patch and the test output, the table the lead asked for. If the subagent only describes what it intended to do, the dispatch failed even if the output looks reasonable.
+The subagent's return contract mirrors the brief: **evidence plus operational truth, not performance theater**. Return file paths and line numbers, commands and exit codes, the patch and test output — and also limitations, blockers, friction, fallback, or a better route when they matter. If the subagent only describes what it intended to do, or hides failure to fit the requested shape, the dispatch failed even if the answer sounds confident.
 
 ---
 
@@ -200,7 +201,7 @@ Keep these layers separate. Conflating them is how subagent orchestration become
 - **Not "always delegate."** The bias is toward delegation when the conditions in §4 apply. Mandatory delegation kills the times when solo execution is correct.
 - **Not a hierarchy of agents.** Subagents are tools the lead uses. They are not direct reports with their own backlogs. The lead owns the task graph.
 - **Not a substitute for thinking.** Delegating to "save tokens" while skipping the actual reasoning produces dispatched-but-aimless work. The lead's job is the synthesis, not the dispatch.
-- **Not a replacement for `AGENTS.md` §9.** §9 says how to delegate well. This guide says when delegation is the right move at all. They stack; they do not replace each other.
+- **Not a replacement for `AGENTS.md` §7.** §7 says how to delegate well. This guide says when delegation is the right move at all. They stack; they do not replace each other.
 - **Not graph-staleness signal.** Subagent dispatch quality and graph health are different drift signals; one does not measure the other.
 
 ---
@@ -226,7 +227,7 @@ External anchors for the pattern this guide describes:
 
 - **Anthropic, *Building Effective Agents*** (https://www.anthropic.com/engineering/building-effective-agents) — the canonical write-up of orchestrator-worker, parallelization, and evaluator-optimizer patterns. Provider-agnostic vocabulary, drawn from Anthropic production work but applicable across stacks. If you read one external thing on this topic, read this one.
 - **Harness-native subagent docs** — Claude Code subagents, Codex agent profiles, Cursor background agents, OpenAI Agents SDK handoffs. These are the tooling layer; this guide is the behavior layer above them. Do not confuse "I have the tool" with "I use the tool by default."
-- **`AGENTS.md §9 (Delegation Design)`** — the protocol-level rule. This guide is its behavioral entry point.
+- **`AGENTS.md §7 (Delegation Design)`** — the protocol-level rule. This guide is its behavioral entry point.
 
 The point of citing external references is not credentialism. It is to make clear that the *do-it-all-myself default* is the regression, and the *delegate-by-default* posture is what every modern agent framework already assumes. Adopting this is not Agent1st invention; it is catching up to the operating model the frameworks were built for.
 

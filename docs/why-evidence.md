@@ -63,7 +63,7 @@ Three forces, parallel to `why-graph-principles.md` §2a's three forces for tag 
 
 3. **Self-sufficiency loops close faster than human-in-the-loop.** A round-trip through the human takes minutes-to-hours of wall-clock time even when the human is responsive. A round-trip through `npx playwright test` takes seconds. Agents bottlenecked on human verification iterate slowly; agents that verify themselves iterate at machine speed. The compounded latency is the difference between *the agent ships ten useful iterations per session* and *the agent ships two and asks for help eight times*.
 
-The fourth force is cultural: **evidence the next agent can read is durable; "the agent said it works" is not.** A test in the repo, a screenshot saved to artifacts, a semantic log line in a JSONL file — those survive the session ending. The agent's confidence does not. AGENTS.md §11 (Continuity) is the abstract form; this guide is one of its concrete applications.
+The fourth force is cultural: **evidence the next agent can read is durable; "the agent said it works" is not.** A test in the repo, a screenshot saved to artifacts, a semantic log line in a JSONL file — those survive the session ending. The agent's confidence does not. AGENTS.md §9 (Durable State) is the abstract form; this guide is one of its concrete applications.
 
 ---
 

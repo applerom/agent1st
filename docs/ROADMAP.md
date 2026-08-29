@@ -49,7 +49,7 @@ The "standard version" has been delivered as the **WHY layer**, living flat in `
 
 **Direction for Agent1st:**
 - Behavior layer (`AGENTS.md`): no memory prescription — stays in harness layer.
-- WHY layer: recommend **durable artifacts** (already in Continuity principle) without prescribing format.
+- WHY layer: recommend **durable artifacts** (already in Durable State) without prescribing format.
 - Project-local extensions: each project picks a memory system that fits its harness (e.g., Claude Code `MEMORY.md`, intent1st skills, repo-local decision logs). Not a portable concern.
 
 **Open question:** Should the WHY layer recommend a specific memory format, or just principles for memory hygiene?
@@ -67,6 +67,21 @@ Current leaning: no single memory location is portable enough to prescribe. The 
 - **Reject** — say so. A hold with neither probe nor date is a rejection that lacks the courage to be one.
 
 WHY: the protocol's own §2 says done is not a mood. The inverse also holds — *pending* is not a mood. An item nobody is measuring and nobody will revisit is finished, and the honest move is to write that down.
+
+### 3b. v12 Distillation Check
+
+**Change under test:** v12 keeps one `AGENTS.md`, removes Agent Loop and the standalone weak-signal principle, drops universal file-size numbers, and preserves nine ideas as nine separate lessons. Exact v5.1 and v11 files are available in `docs/_archive/` as controls, not alternative product tiers.
+
+**Smallest useful probe:** run the same bounded set of representative tasks with current v12, archived v11, and an equal-size placebo. Blind-grade:
+
+- completion and evidence quality;
+- clarification ceremony and unnecessary pauses;
+- semantic naming errors;
+- delegation-contract quality;
+- durable state left for the next agent;
+- human comprehension of the working relationship after reading the file.
+
+**Stop rule:** if v12 materially regresses a retained behavior, restore the smallest missing semantic atom from the archive. If no meaningful difference appears, keep the shorter current file and record the null result.
 
 ### 4. Success Signals and Public Evidence
 
@@ -237,7 +252,20 @@ See `docs/EVOLUTION.md` "Recurring Rejected Patterns" for full list. Key recurri
 - First experiment: `docs/experiments/hieroglyph-anchors.md` — replace one contract field key (PURPOSE) with a single CJK character (`旨`); hypothesis explicitly worth running because the answer is unknown; three measurable falsifiability criteria (token cost, attention/recall in long context, greppability); §5 tension acknowledged up front
 - AGENTS.md untouched. Canonical chain unchanged. No new "Optional extensions" entry — experiments are deliberately separate
 
-### v9+ (speculative)
+### v9-v11
+- v9 / v9.1: model-shift register and stronger research grounding; core correctly remained frozen
+- v10: PRD anchors made graph references refactor-proof
+- v11: first core edit in 123 days; acceptance-criteria contradiction repaired and Claude Code bridge verified
+
+### v12
+- One ordinary `AGENTS.md`, 165 lines, 9 separate principles
+- Exact frozen v5.1 and Opus 5 v11 files preserved in `docs/_archive/`
+- Agent Loop and the standalone weak-signal principle retired after harness absorption
+- Universal numeric file thresholds removed; Attention Engineering remains
+- Multi-artifact instruction topology from the first draft rejected; protocol voice and human-facing teaching role restored
+- Evaluation continues in Active Priority §3b
+
+### Next
 *Hypotheses without observed adoption-failure signal should land in `docs/experiments/` first. Entries here are gated either by a delta-layer test or by known-failure signal already in hand.*
 
 - Friction Tax / ambiguity handling in CDD — gated by delta-layer test
@@ -245,7 +273,6 @@ See `docs/EVOLUTION.md` "Recurring Rejected Patterns" for full list. Key recurri
 - Anchor adoption in this repo's own `docs/` so the validator graduates from doc-only mode to enforced anchors
 - Adopter prompt template (one-shot copy-paste for Why1st adoption) only if v7 + v8 docs alone don't land for cold-start agents
 - Validator extension: lint that emitted log anchors resolve to graph entries (only if §11.1 adoption requests it)
-- (v8.4 closed in same session as v8.3 — see Version Planning above; v9+ candidates start clean below)
 
 ---
 

@@ -208,7 +208,7 @@ export function renderSources(sources: Source[]): JSX.Element { ... }
 1. Read the PRD and Why Graph for the affected feature.
 2. Update the graph first (see `why-graph-principles.md`).
 3. In the files you'll change, add or update contracts **before** writing the implementation.
-4. Keep patches small. For frequently edited modules, ~200–300 lines is a refactor signal (AGENTS.md §4).
+4. Keep patches coherent. If unrelated concepts compete for attention in one frequently edited module, split it at a semantic boundary (AGENTS.md §4–§5).
 5. Run your validators before claiming done:
    - anchor linter (every `START_*` has a matching `:END_*`)
    - graph↔anchor checker (every `<ANCHOR ... COORD="path#ANCHOR">` resolves)

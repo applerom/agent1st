@@ -54,7 +54,7 @@ Fast-moving fields do not hand out perfect evidence on schedule. Some entries he
 - **Link:** https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents
 - **Finding:** Frames context as a finite **attention budget** drawn down by every token, rooted in the transformer's n² pairwise attention and in training distributions where long sequences are rare. Prescribes "the smallest set of high-signal tokens that maximize the likelihood of the desired outcome," names bloated tool sets as a top failure mode, treats file naming and folder structure as signal the agent reads, and lists compaction, structured note-taking (agentic memory), and sub-agent architectures (clean context windows that return ~1-2k-token distilled summaries) as the techniques for long-horizon coherence.
 - **Strength:** Supported (first-party guidance from a frontier lab's applied team; convergent rather than independent-academic).
-- **Connection to Agent1st:** This is the strongest external convergence the project has. A frontier lab's applied team, writing from the opposite direction, independently lands on Agent1st's own vocabulary — "attention budget," "finite resource" — and independently derives §4 (minimal high-signal tokens), §5 (naming as signal), §9 (subagents return distilled summaries, not raw context), and §11 (note-taking/memory survives compaction). When a protocol written *by* agents and a frontier lab's engineering guidance arrive at the same mechanics from opposite ends, that is the cleanest available signal that the mechanics are real and not stylistic preference. It is also a caution: where the practitioner guidance and the protocol diverge (e.g. it expects formatting to matter *less* as models improve), that divergence is a place to watch, not to paper over.
+- **Connection to Agent1st:** This is the strongest external convergence the project has. A frontier lab's applied team, writing from the opposite direction, independently lands on Agent1st's own vocabulary — "attention budget," "finite resource" — and independently derives Attention Engineering, Semantic Hygiene, distilled subagent returns, and durable state beyond compaction. When a protocol written *by* agents and a frontier lab's engineering guidance arrive at the same mechanics from opposite ends, that is the cleanest available signal that the mechanics are real and not stylistic preference. It is also a caution: where the practitioner guidance and the protocol diverge (e.g. it expects formatting to matter *less* as models improve), that divergence is a place to watch, not to paper over.
 
 ### Instruction Hierarchy
 
@@ -78,9 +78,9 @@ Fast-moving fields do not hand out perfect evidence on schedule. Some entries he
 
 ---
 
-## Agent Loop (Explore → Execute → Reflect)
+## Agent Loop (Explore → Execute → Reflect) — historical principle, retired in v12
 
-**Protocol claim:** Use stable mode transitions. Explore enough to avoid guessing, execute the smallest useful move, reflect with evidence.
+**Historical protocol claim:** Use stable mode transitions. Explore enough to avoid guessing, execute the smallest useful move, reflect with evidence. v12 removed the standalone instruction after modern harnesses absorbed the execution loop; the evidence remains useful as history and as a check on that removal.
 
 ### ReAct
 
@@ -96,7 +96,7 @@ Fast-moving fields do not hand out perfect evidence on schedule. Some entries he
 - **Link:** https://arxiv.org/abs/2303.11366
 - **Finding:** Agents that verbally reflect on failures and store reflections in memory improve markedly on subsequent attempts across multiple tasks.
 - **Strength:** Established.
-- **Connection to Agent1st:** The "Reflect" phase in the Agent Loop and the "1-3 frictions" in Continuity are Reflexion-adjacent. The insight: reflection must produce a reusable artifact (lesson, friction report), not just conversational self-talk.
+- **Connection to Agent1st:** The historical "Reflect" phase and the current CDD / Durable State pair are Reflexion-adjacent. The insight: reflection becomes useful when it produces process feedback or durable state, not conversational self-talk.
 
 ### Topology of Reasoning
 
@@ -112,7 +112,7 @@ Fast-moving fields do not hand out perfect evidence on schedule. Some entries he
 - **Link:** https://arxiv.org/abs/2305.10601
 - **Finding:** Exploring multiple reasoning paths with self-evaluation and backtracking raises solve rates dramatically (Game-of-24: 4% → 74%).
 - **Strength:** Established.
-- **Connection to Agent1st:** Supports "Do Not Stop at the First Weak Signal." First-pass reasoning is often insufficient. One alternative check can dramatically improve outcomes.
+- **Connection to Agent1st:** This supported the historical weak-signal rule. v12 deliberately leaves the reasoning tactic to the model and harness rather than turning strong evidence for a mechanism into a permanent instruction.
 
 ---
 
@@ -176,13 +176,13 @@ There is no single landmark paper demonstrating information loss in hierarchical
 - **Link:** https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5
 - **Finding:** The official guidance ships a recommended instruction for long autonomous runs — audit each progress claim against a tool result, only report work you can point to evidence for, report outcomes faithfully — and states that in Anthropic's testing it "nearly eliminated fabricated status reports even on tasks designed to elicit them."
 - **Strength:** Supported (first-party; the testing claim is the vendor's, not independently replicated).
-- **Connection to Agent1st:** This is §2 restated as a vendor remedy, with the empirical result the principle never had: evidence-gated reporting measurably suppresses the storytelling failure mode. Two honest notes. First, the convergence cuts both ways — harness system prompts are absorbing this wording (observed 2026-06: Claude Code's system prompt carries faithful-reporting language nearly verbatim), so under that harness §2's *delta* shrinks even as its *correctness* is confirmed; the principle stays because the protocol must be portable across harnesses that have not absorbed it. Second, the protocol still carries what the snippet does not: the WHY/IF MISSING generalization and the "say what is missing" half, which turns evidence-gating from a reporting rule into a completion definition.
+- **Connection to Agent1st:** This is §2 restated as a vendor remedy, with the empirical result the principle never had: evidence-gated reporting measurably suppresses the storytelling failure mode. The convergence cuts both ways — the mechanical delta shrinks even as correctness is confirmed. v12 keeps §2 because it still defines completion for both sides of the working relationship, carries the WHY/IF MISSING generalization, and tells the human what evidence to expect. Portability alone is no longer the argument.
 
 ---
 
 ## Role Contract / Anti-Micromanagement
 
-**Protocol claim:** Human provides intent, constraints, acceptance criteria. Agent chooses the route. Strong agents should not be micromanaged.
+**Protocol claim:** Human provides intent, constraints, and approval boundaries. Acceptance criteria are stated or safely inferred. Agent chooses the route. Strong agents should not be micromanaged.
 
 ### The Principal-Agent Problem in AI
 
@@ -245,7 +245,7 @@ However, it connects to:
 
 ---
 
-## Continuity
+## Durable State (Continuity before v12)
 
 **Protocol claim:** Context can be compacted or lost without warning. Keep critical state in durable artifacts. Leave the next agent a runway, not a crater.
 
@@ -255,14 +255,14 @@ However, it connects to:
 - **Link:** https://arxiv.org/abs/2304.03442
 - **Finding:** Believable long-term agent behavior requires a memory architecture with observation, reflection, and planning components stored in a persistent "memory stream." Without externalized memory, agents lose coherence across interactions.
 - **Strength:** Established. Widely cited (2000+ citations), foundational for agent memory research.
-- **Connection to Agent1st:** Continuity's insistence on durable artifacts (files, commits, structured handoff notes) is the software engineering equivalent of generative agents' memory stream. Conversational context is volatile — it can be compacted or destroyed at any point. Artifacts are the agent's long-term memory. The hook "if your handoff disappears when the session ends, it doesn't exist" is the practical test.
+- **Connection to Agent1st:** The old Continuity principle correctly insisted on durable artifacts, but its handoff mechanism increasingly overlaps auto-compaction and harness memory. v12 narrows the invariant to Durable State: current project truth, decisions, and status belong in project-owned artifacts and must outrank remembered conversation.
 
-### Reflexion as Continuity Mechanism
+### Reflexion as a durable-state mechanism
 
 - **Paper:** Shinn et al., "Reflexion" (2023) — already cited under Agent Loop.
-- **Connection to Continuity:** The "1-3 frictions" in handoffs and the structured handoff format are Reflexion-adjacent: store lessons in reusable artifact form, not just conversational self-talk. Reflexion's core insight — that verbal reflections stored in memory improve future attempts — maps directly to the handoff discipline.
+- **Connection to Durable State:** Reusable friction notes and updated project state are Reflexion-adjacent: store lessons in artifact form, not just conversational self-talk. A handoff is one optional transfer mechanism, not the invariant itself.
 
-- **Strength for Continuity overall:** Supported. Park 2023 provides direct grounding for memory architecture; Reflexion provides the reflection-as-artifact mechanism. The combination moves Continuity from "practical origin" to research-supported.
+- **Strength for Durable State overall:** Supported. Park 2023 grounds memory architecture; Reflexion grounds reflection-as-artifact. Neither proves that every session needs a handoff, which is why v12 drops that ceremony.
 
 ---
 
@@ -271,7 +271,7 @@ However, it connects to:
 | Principle | Evidence Level | Key Papers |
 |-----------|---------------|------------|
 | Attention Engineering | Established | Liu 2023, Hung 2024, Guardieiro 2025, Wallace 2024, Hong 2025 (Context Rot), Anthropic 2025 |
-| Agent Loop | Established | Yao 2022 (ReAct), Shinn 2023, Yao 2023 (ToT), Chen 2025 |
+| Agent Loop (historical; retired from the v12 core) | Established mechanism, no longer additive as a protocol instruction | Yao 2022 (ReAct), Shinn 2023, Yao 2023 (ToT), Chen 2025 |
 | Over-exploration guard | Supported | Su 2025, Sui 2025 |
 | Right to Disagree | Established | Sharma 2023 (sycophancy) |
 | Delegation Design | Supported | Tran 2025, Moore 2025 |
@@ -279,7 +279,7 @@ However, it connects to:
 | Role Contract / Autonomy | Supported | Hadfield-Menell 2016 (principal-agent) + Kim 2025 + Anthropic 2026 (de-prescription) |
 | Semantic Hygiene | Hypothesis | Mechanistic reasoning from attention literature |
 | CDD | Practical origin | Analogy to sycophancy + reflexion |
-| Continuity | Supported | Park 2023 (memory architecture), Reflexion (reflection-as-artifact) |
+| Durable State | Supported | Park 2023 (memory architecture), Reflexion (reflection-as-artifact) |
 
 ---
 
@@ -293,7 +293,7 @@ This document would be dishonest if it only argued *for* the protocol. Agent1st 
 
 **Against Right to Disagree.** Sycophancy research (Sharma 2023) justifies it, but the same mechanism can misfire: an agent over-trained to disagree manufactures objections to look rigorous, which is sycophancy wearing a contrarian mask. The principle has no built-in calibration for *how often* disagreement is warranted. It relies on the agent's judgment about "quality, truth, or safety" being well-calibrated — which is precisely what is uncertain.
 
-**Against Agent Loop / Do Not Stop at the First Weak Signal.** These two pull opposite ways: §4 says stop early, §8 says don't stop early. The project treats this as deliberate architecture (§4 guards over-exploration during search; §8 guards premature collapse during evaluation — see `EVOLUTION.md` on the reverted v6 merge). But a fast reader can experience it as a contradiction with no explicit arbiter. The honest position: the resolution lives in *which phase you are in*, and that context is not restated at each principle. Under a literal model at low effort, the asymmetry may not fire as intended — this is an open, testable question (see Model-Shift Register).
+**Resolved in v12 — Agent Loop / Do Not Stop at the First Weak Signal.** The two principles pulled opposite ways and depended on an unstated phase distinction: stop exploring after a decisive check, but do not collapse on weak evaluation evidence. Modern harnesses now supply the execution loop and persistence mechanics. v12 removes both standalone lessons and keeps only the direct-check stop rule in Attention Engineering. This is a simplification of the mental model, not merely a line saving.
 
 **Against Delegation Design.** This is the weakest-evidenced principle (see "The gap" above): there is no landmark experiment showing hierarchical information loss in LLM chains. It is practitioner wisdom ahead of the literature. A skeptic is entitled to call it a hypothesis dressed as a rule. The honest answer is that the document already labels it Supported-trending-Hypothesis — and the convergent Anthropic guidance on subagents returning distilled summaries is the closest thing to corroboration, not proof.
 
@@ -301,9 +301,9 @@ This document would be dishonest if it only argued *for* the protocol. Agent1st 
 
 **Against CDD.** No research precedent — it is an invention. Its risk is over-firing: an agent that complains about every minor friction becomes noise, the opposite of signal. The format (Problem → Impact → Smallest fix) is the guardrail, but nothing enforces that the friction is real rather than a stylistic preference dressed as a blocker.
 
-**Against Continuity.** The strongest principle by evidence (Park 2023, Reflexion). The honest weakness is the reverse: native harness features (compaction, memory tools, context-awareness) increasingly do some of this automatically, so a handoff written by hand can duplicate what the harness already persists. The principle ages well as a *behavior* ("leave a runway") but its *mechanism* (write a handoff doc at session end) is the part most likely to be partly superseded by tooling — see Model-Shift Register.
+**Against Durable State.** Native harness features increasingly preserve conversation automatically, so project-state writing can become duplication and stale-document debt. v12 draws the boundary at authority: do not copy what the repository already records and do not write a handoff without a real transfer, but keep current truth in project-owned artifacts when it otherwise exists only in conversation. Whether that boundary produces less stale state is still unmeasured.
 
-**Against the convergence doctrine (v11).** `DESIGN.md` §2a says absorption proves the protocol was right. A skeptic can answer that this is unfalsifiable self-congratulation: if the vendors disagree, the protocol is a needed delta; if they agree, the protocol was prescient. Both outcomes are scored as wins. The honest reply is that the doctrine does carry a losing condition and v11 hit it — when a line starts contradicting the layer below, the protocol is *worse than nothing* on that line, and it has to change. The second honest caveat is convergent evolution: vendors and this project read the same papers and watch the same failures, so "they caught up" and "we both derived it from the same evidence" are not distinguishable from here. The inverse-capability law is the part that is actually testable, and it is currently field-observed, not controlled.
+**Against the convergence doctrine (v11).** A skeptic can answer that "absorption proves we were right" is unfalsifiable self-congratulation if every absorbed line stays forever. v12 accepts that criticism: convergence remains evidence for the historical principle, but it now creates editorial pressure on the current file. A line survives only if it still carries human-contract or project meaning beyond the absorbed mechanics. The separate claim that weaker agents benefit more remains field-observed, one-operator, and uncontrolled — useful evidence, not a law that can freeze every line.
 
 **Meta-critique — this document.** Rule #1 says every citation must be real and verifiable. A fast-moving doc accrues link rot and citation drift; some entries here were added in different sessions and deserve periodic re-verification against the live sources. Treating FOUNDATIONS as audited-once is itself a failure mode the document warns against elsewhere. The right cadence: re-verify links and strength labels whenever the Model-Shift Register gets a new entry.
 
@@ -382,6 +382,24 @@ Honest count: **roughly five of eleven principles substantially absorbed, three 
 | Delta-layer (DESIGN §2) | Its own worked example went stale — "Done Is Not a Mood is in no model or tool prompt" became false | — | **Test survived; its output did not.** The example is now dated and the lesson inverted: the delta-layer test measures a moving boundary and never issues permanent verdicts on lines. |
 
 **Net result:** the behavior layer changed for the first time in 123 days — one clause rephrased against a live contradiction, one signal widened by field use, two consolidations, and one line added at the top establishing runtime precedence. `AGENTS.md` stayed at 199 lines / ~7 KB, inside its own budget. The register's falsification condition ("if two or three generations produce no actionable content, cut it as ceremony") did not fire: this pass produced the core edits the two previous passes correctly declined to make. That is the register working as designed — three generations of *no*, then a *yes* when the evidence changed shape. (Source pass: this repo, written by an Opus 5 agent quoting its own runtime contract, cross-read against a GPT-5.6-Sol review produced independently in Codex.)
+
+### v12 editorial resolution (2026-08-31) — the evidence changes the current file
+
+The third pass established the facts and v11 repaired the contradiction. Its conclusion — retain every absorbed principle because weaker harnesses may need it — was not forced by those facts. It was a product choice.
+
+The maintainer rejected both automatic preservation and automatic deletion. The protocol is one public working contract, read by humans and agents, whose voice and conceptual shape are part of its effect.
+
+The evidence was reclassified principle by principle:
+
+| v11 evidence | v12 interpretation | Current result |
+|---|---|---|
+| Agent Loop and weak-signal mechanics substantially absorbed | Remaining value was mostly execution coaching; two overlapping stop rules also imposed a phase distinction the file did not teach | Remove both as standalone principles |
+| Done / Role / Right to Disagree substantially absorbed | These headings define the human-agent contract and quality expectation, not only model mechanics | Keep as separate, memorable principles |
+| Semantic Hygiene, project-facing CDD, Semantic Logging untouched; Continuity and Delegation only partly absorbed | These carry project meaning a generic harness cannot know | Keep Delegation and Logging; strengthen CDD; narrow Continuity to Durable State |
+| Numeric file heuristic useful but unproven and increasingly qualified | Language/artifact-specific project policy, no longer a clean universal teaching atom | Remove from core; preserve exact old wording in archive |
+| Banner costs one line per thread and detects silent non-loading | Small accepted cost plus brand and human-visible receipt | Keep |
+
+Evidence label: **reasoned editorial resolution, effect size unmeasured.** The 165-line v12 is smaller and semantically clearer, but no controlled task suite yet proves it outperforms the archived v5.1 or v11 files. The roadmap therefore treats comparison against those exact snapshots as the next useful probe, not as a reason to publish more protocol variants.
 
 **For agents proposing changes to Agent1st:**
 - Check if your proposal aligns with or contradicts research here

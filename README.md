@@ -22,7 +22,7 @@ That's what Agent1st is.
 
 ## What's Inside
 
-**`AGENTS.md`** — The protocol. 199 lines, 7 KB, 11 principles. Drop it into any project. (Yes, it obeys its own size rule. That was the point.)
+**`AGENTS.md`** — The protocol. 165 lines, 9 principles. Drop it into any project.
 
 It covers:
 - who owns what (you own intent; the agent owns the route)
@@ -30,7 +30,7 @@ It covers:
 - when the agent should push back (yes, really)
 - how to handle friction (complain early, not silently)
 - how to delegate without forcing silent subagents
-- how to hand off work (so the next session doesn't start from zero)
+- how project truth survives compaction and handoffs
 
 It does NOT cover:
 - your repo structure (that's your CLAUDE.md / project docs)
@@ -64,14 +64,16 @@ Something worth saying out loud: **a good chunk of this protocol is now inside y
 
 When these rules were written, no harness enforced them. Since then, three frontier model generations shipped, and each moved toward this file — not away from it. Don't micromanage strong agents became official vendor guidance. Ground every progress claim in a tool result became a shipped system-prompt instruction. Keep durable memory in files became a harness feature. Roughly half of what follows is now enforced one layer below it, on the best tooling.
 
-That is not this protocol expiring. **That is this protocol winning.** A behavior layer exists to cover a gap. When the gap closes, the layer did its job — and the agents who wrote these lines a year early were right.
+That is not this protocol expiring. **That is this protocol winning.** A behavior layer exists to cover a gap. When the gap closes, the layer did its job — and the agents who wrote these lines early were right.
 
-So why keep the whole file?
+But a win should change the file. The protocol is read by two audiences at once:
 
-- **The other half never got absorbed** — and won't. Consistent naming across a codebase, turning agent friction into process feedback, logs written as future context, decisions that survive as artifacts. A vendor optimizes your current turn. This file optimizes your codebase across a year. Nobody else is going to ship that for you.
-- **The weaker the agent, the more this is worth.** Frontier models under rich harnesses already hold most of the stance. Cheap models, local models, thin harnesses, low reasoning effort — they don't, and there every line still pulls its full weight. Trimming this file down to what the best model already knows would optimize the one case that needs it least.
+- **Agents need the remaining behavioral delta.** Semantic naming, project-facing friction, delegation as a contract, logs written as future context, and decisions that survive as artifacts are still not safely supplied by a generic harness.
+- **Humans need a working relationship they can recognize.** Role ownership, evidence, and the right to disagree remain even where a harness already enforces the mechanics, because they tell the human what Agent1st agents will expect and do.
 
-What did change in v11: where a line had started *contradicting* what your harness now says, we fixed the line. That's the one thing a behavior layer must never do.
+v12 removes the parts whose remaining job was only to coach execution: the standalone Agent Loop and the standalone weak-signal rule. It also removes release commentary and universal file-size numbers from the file every agent reads. What remains is simply the next Agent1st Protocol.
+
+Need the prior text exactly? The frozen v5.1 default and the Opus 5 v11 revision live byte-for-byte in [`docs/_archive/`](docs/_archive/).
 
 ---
 
@@ -149,6 +151,7 @@ See [`docs/experiments/`](docs/experiments/) for the full track and current open
 | [`VISION.md`](docs/VISION.md) | Anyone curious | Two layers, where this is going. |
 | [`FOUNDATIONS.md`](docs/FOUNDATIONS.md) | Anyone who wants evidence | Research behind the claims. Honest about gaps. |
 | [`ROADMAP.md`](docs/ROADMAP.md) | Contributors | Active priorities and proposals. |
+| [`_archive/`](docs/_archive/) | Adopters who need an earlier protocol | Exact historical Agent1st files, including the frozen 2026 default and Opus 5 v11. |
 | [`handoffs/`](docs/handoffs/) | Agents handing off work | Handoff template, plus any live handoff. Periodically cleared, so it may be empty; curated history lives in `EVOLUTION.md`. |
 
 ---

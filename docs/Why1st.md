@@ -145,7 +145,7 @@ Pin `AGENTS.md`, `PRD.md`, and `why-graph.xml` for the session. The other two ar
 
 **Returning sessions** — start from the graph and the current task. Reach for principles and contracts only when your edit needs them.
 
-**Delegated subagents** — they should not pay the full pinning cost unless the delegation contract needs it. Pass them the relevant graph subtree and the specific contracts their work touches. The parent agent carries the full context; subagents carry only what the delegation says they need (see `AGENTS.md` §9, Delegation Design).
+**Delegated subagents** — they should not pay the full pinning cost unless the delegation contract needs it. Pass them the relevant graph subtree and the specific contracts their work touches. The parent agent carries the full context; subagents carry only what the delegation says they need (see `AGENTS.md` §7, Delegation Design).
 
 For intent-changing or cross-cutting work, graph and contracts move before code. For local edits inside a well-mapped feature, they move with the code in the same commit. Validators run before "done."
 
@@ -311,7 +311,7 @@ When NOT to bother: backend-only libraries; pure-CLI projects; throwaway prototy
 
 ### 11.3 Subagent orchestration — delegate by default, crystallize the pattern later
 
-The behavior most adopters miss: strong agents are trained on agentic work but default to single-thread *do-it-all-myself* mode. Independent reads, fan-out validation, context-heavy exploration, and lower-intelligence ops are usually faster, cheaper, and better when delegated to subagents — but the lead has to pick that route. `AGENTS.md §9 (Delegation Design)` is the rule; the question this section answers is *when does an agent default to delegation in the first place*.
+The behavior most adopters miss: strong agents are trained on agentic work but default to single-thread *do-it-all-myself* mode. Independent reads, fan-out validation, context-heavy exploration, and lower-intelligence ops are usually faster, cheaper, and better when delegated to subagents — but the lead has to pick that route. `AGENTS.md §7 (Delegation Design)` is the rule; the question this section answers is *when does an agent default to delegation in the first place*.
 
 When delegation becomes recurring (parallel exploration, fan-out validation, large refactors split across subagents), a project-local artifact like `docs/agent-orchestration.md` crystallizes the pattern: role matrix, prompt shapes, evaluation rubric, durable lessons. The artifact is the second move, not the first.
 
