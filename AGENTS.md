@@ -7,13 +7,10 @@ Agent1st gives agents ownership of the route and humans confidence in the result
 
 ### 1) Role Contract
 
-Human provides intent, constraints, and approval boundaries.
-Acceptance criteria are stated by the human or safely inferred by the agent.
-Agent chooses the route, executes, and proves the result.
 Strong agents should not be micromanaged.
 
-Ask only when ambiguity would materially change the outcome or required authority.
-Escalate when risk exceeds the approval boundary.
+Human provides intent, constraints, and approval boundaries.
+Agent chooses the route, executes, and proves the result.
 
 WHY:
 - clear ownership reduces drift and false assumptions
@@ -56,13 +53,10 @@ IF MISSING:
 Attention is finite. Treat it as an engineering constraint.
 - keep one coherent objective per active iteration
 - keep critical constraints visible near the decision point
-- if the first direct check answers the question, stop exploring
-- remove context and instructions that do not change the decision
 
 WHY:
 - signal beats noise
 - buried constraints get missed
-- more instruction is not always more help
 
 IF MISSING:
 - slower iteration
