@@ -38,7 +38,7 @@ The "standard version" has been delivered as the **WHY layer**, living flat in `
 - [x] Add this pattern to Agent1st repo — done 2026-03-25
 - [x] Documented in README.md Quick Start section — **done 2026-08-29 (v11)**
 
-**Correction (v11).** The third box was checked on 2026-03-25 while the README only said the two files "work alongside" each other. The actual instruction — add `CLAUDE.md` containing `@AGENTS.md` — was never written down on the public surface, so every Claude Code adopter following Quick Start got zero protocol and no error. Found by re-testing the claim instead of reading it: on Claude Code 2.1.251 a bare root `AGENTS.md` does not load, the bridged one does. A false checkbox in the tracker of the project that wrote "Done Is Not a Mood" is the most useful bug this release found; §2 now applies to this file too.
+**Correction (v11).** The third box was checked on 2026-03-25 while the README only said the two files "work alongside" each other. The actual instruction — add `CLAUDE.md` containing `@AGENTS.md` — was never written down on the public surface, so every Claude Code adopter following Quick Start got zero protocol and no error. Found by re-testing the claim instead of reading it: on Claude Code 2.1.251 a bare root `AGENTS.md` does not load, the bridged one does. A false checkbox in the tracker of the project that wrote "Done Is Not a Mood" is the most useful bug this release found. Done was not a mood here either.
 
 ### 3. Cross-Session Memory Strategy
 
@@ -66,22 +66,23 @@ Current leaning: no single memory location is portable enough to prescribe. The 
 - **Date** — when the wait expires and the item is re-decided with whatever evidence exists.
 - **Reject** — say so. A hold with neither probe nor date is a rejection that lacks the courage to be one.
 
-WHY: the protocol's own §2 says done is not a mood. The inverse also holds — *pending* is not a mood. An item nobody is measuring and nobody will revisit is finished, and the honest move is to write that down.
+WHY: Done Is Not a Mood. The inverse also holds — *pending* is not a mood. An item nobody is measuring and nobody will revisit is finished, and the honest move is to write that down.
 
-### 3b. v12 Distillation Check
+### 3b. v13 Graduation Check
 
-**Change under test:** v12 keeps one `AGENTS.md`, removes Agent Loop and the standalone weak-signal principle, drops universal file-size numbers, and preserves nine ideas as nine separate lessons. Exact v5.1 and v11 files are available in `docs/_archive/` as controls, not alternative product tiers.
+**Change under test:** v13 removes Role Contract, Done Is Not a Mood, and Right to Disagree from the every-task file. The ideas stay; the repeated instructions leave. Exact v12.1 is the control, not a second product.
 
-**Smallest useful probe:** run the same bounded set of representative tasks with current v12, archived v11, and an equal-size placebo. Blind-grade:
+**Smallest useful probe:** run the same bounded tasks with current v13, archived v12.1, and an equal-size placebo. Blind-grade:
 
-- completion and evidence quality;
-- clarification ceremony and unnecessary pauses;
+- route ownership and unnecessary pauses;
+- completion honesty and evidence quality;
+- useful dissent when the request is wrong;
 - semantic naming errors;
 - delegation-contract quality;
 - durable state left for the next agent;
 - human comprehension of the working relationship after reading the file.
 
-**Stop rule:** if v12 materially regresses a retained behavior, restore the smallest missing semantic atom from the archive. If no meaningful difference appears, keep the shorter current file and record the null result.
+**Stop rule:** if a departed behavior regresses, restore the smallest missing atom. If nothing moves, keep six. Six is the result, not the target.
 
 ### 4. Success Signals and Public Evidence
 
@@ -263,6 +264,13 @@ See `docs/EVOLUTION.md` "Recurring Rejected Patterns" for full list. Key recurri
 - Agent Loop and the standalone weak-signal principle retired after harness absorption
 - Universal numeric file thresholds removed; Attention Engineering remains
 - Multi-artifact instruction topology from the first draft rejected; protocol voice and human-facing teaching role restored
+- Evaluation continues in Active Priority §3b
+
+### v13
+- Role Contract, Done Is Not a Mood, and Right to Disagree graduate from every-task instruction to teaching surface and archive
+- Six principles remain because six still change work; no seventh heading is manufactured from scraps
+- Exact nine-principle v12.1 preserved in `docs/_archive/`
+- Why1st grows in relative importance without moving into the minimal core
 - Evaluation continues in Active Priority §3b
 
 ### Next

@@ -208,7 +208,7 @@ export function renderSources(sources: Source[]): JSX.Element { ... }
 1. Read the PRD and Why Graph for the affected feature.
 2. Update the graph first (see `why-graph-principles.md`).
 3. In the files you'll change, add or update contracts **before** writing the implementation.
-4. Keep patches coherent. If unrelated concepts compete for attention in one frequently edited module, split it at a semantic boundary (AGENTS.md §4–§5).
+4. Keep patches coherent. If unrelated concepts compete for attention in one frequently edited module, split it at a semantic boundary (AGENTS.md §1–§2).
 5. Run your validators before claiming done:
    - anchor linter (every `START_*` has a matching `:END_*`)
    - graph↔anchor checker (every `<ANCHOR ... COORD="path#ANCHOR">` resolves)
@@ -220,8 +220,8 @@ export function renderSources(sources: Source[]): JSX.Element { ... }
 
 This shape is the file-level realization of two AGENTS.md principles:
 
-- **§4 Attention Engineering** — the contract sits in the first ~20 lines so the most load-bearing facts (PURPOSE, INVARIANTS, LINKS) are visible at the decision point. An agent that reads only the file head still leaves with what matters.
-- **§5 Semantic Hygiene** — field keys and `START_*:` markers carry meaning, not just labels. Anchor names match graph references one-to-one, so the same concept is named the same across code, graph, and PRD.
+- **§1 Attention Engineering** — the contract sits in the first ~20 lines so the most load-bearing facts (PURPOSE, INVARIANTS, LINKS) are visible at the decision point. An agent that reads only the file head still leaves with what matters.
+- **§2 Semantic Hygiene** — field keys and `START_*:` markers carry meaning, not just labels. Anchor names match graph references one-to-one, so the same concept is named the same across code, graph, and PRD.
 
 Concrete properties this gives:
 

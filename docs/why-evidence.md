@@ -1,7 +1,7 @@
 # Why Evidence — agents own their own verification loop
 
 This is one proven shape of the optional **tests and UI evidence** extension to Why1st (`Why1st.md` §11.2).
-Companion docs: `Why1st.md` (the idea), `AGENTS.md` §2 (Done Is Not a Mood — the principle).
+Companion docs: `Why1st.md` (the idea), Agent1st's **Done Is Not a Mood** (the principle; exact text in the v12.1 archive).
 
 **Relationship to `AGENTS.md` §2.** §2 is the principle: "completion claims require the best evidence the current harness allows." This document is one layer down: *what evidence shape matches what risk surface,* and how the agent acquires that evidence without asking the human to verify on its behalf. §2 is the rule; this guide is its operational fan-out, with specific recommendations on browser tooling, evidence tiers, and the boundary between agent-owned and human-owned verification.
 
@@ -25,7 +25,7 @@ A long-lived agent-driven project produces a recurring failure: the agent ships 
 
 The micro-version of the same failure happens hourly: the agent makes the change, then asks *"can you check the UI looks right?"* The user is busy, does not respond. The agent waits or moves on. The work is in limbo. By the time the next session starts, no one is sure whether the change was verified.
 
-This is `AGENTS.md §2 (Done Is Not a Mood)` failing in practice, not in principle. The principle says completion needs the best evidence the harness allows. The practice says: most adopters do not know what evidence the harness allows, agents do not set up evidence infrastructure proactively, and the human ends up as the verification loop by default.
+This is **Done Is Not a Mood** failing in practice, not in principle. The principle says completion needs the best evidence the harness allows. The practice says: most adopters do not know what evidence the harness allows, agents do not set up evidence infrastructure proactively, and the human ends up as the verification loop by default.
 
 The fix is two-sided: name *what evidence each kind of work actually needs*, and make clear the agent owns acquiring it.
 
@@ -47,7 +47,7 @@ Two principles, working together.
 
 Trying to verify UI behavior with unit tests, or API contracts with screenshots, is a category error. Each surface needs its own evidence shape.
 
-**The agent owns the loop.** This is `AGENTS.md §1 (Role Contract)` applied to verification infrastructure. The agent picks the route, and *the route includes setting up its own ability to see the result of its work.* If the harness allows browser tools, the agent installs the dependency, writes the test, runs it, captures the evidence, attaches it to the completion claim. If the harness does not allow it, the agent says so explicitly — does not silently substitute "I claim it works" for actual evidence.
+**The agent owns the loop.** This is the **Role Contract** applied to verification infrastructure. The agent picks the route, and *the route includes setting up its own ability to see the result of its work.* If the harness allows browser tools, the agent installs the dependency, writes the test, runs it, captures the evidence, attaches it to the completion claim. If the harness does not allow it, the agent says so explicitly — does not silently substitute "I claim it works" for actual evidence.
 
 The user is rarely aware that the agent is allowed to install Playwright, run a browser, capture a screenshot, write a test, and verify its own work. Asking the user *"can you grant browser access?"* often goes unanswered not because the user refused, but because the user did not know it was a question. Agents who silently wait for permission spin instead of work; agents who proactively try, fail visibly, and report the failure get unstuck.
 
@@ -63,7 +63,7 @@ Three forces, parallel to `why-graph-principles.md` §2a's three forces for tag 
 
 3. **Self-sufficiency loops close faster than human-in-the-loop.** A round-trip through the human takes minutes-to-hours of wall-clock time even when the human is responsive. A round-trip through `npx playwright test` takes seconds. Agents bottlenecked on human verification iterate slowly; agents that verify themselves iterate at machine speed. The compounded latency is the difference between *the agent ships ten useful iterations per session* and *the agent ships two and asks for help eight times*.
 
-The fourth force is cultural: **evidence the next agent can read is durable; "the agent said it works" is not.** A test in the repo, a screenshot saved to artifacts, a semantic log line in a JSONL file — those survive the session ending. The agent's confidence does not. AGENTS.md §9 (Durable State) is the abstract form; this guide is one of its concrete applications.
+The fourth force is cultural: **evidence the next agent can read is durable; "the agent said it works" is not.** A test in the repo, a screenshot saved to artifacts, a semantic log line in a JSONL file — those survive the session ending. The agent's confidence does not. AGENTS.md §6 (Durable State) is the abstract form; this guide is one of its concrete applications.
 
 ---
 
@@ -139,7 +139,7 @@ The CLI version installs as a dev dependency (`npm i -D @playwright/test` / `npx
 
 **The choice rule.** Default to CLI. Reach for MCP only when the work is genuinely interactive in a way scripted tests cannot capture — usually exploratory triage of a flow you do not yet understand well enough to script. Once the flow is understood, convert the MCP exploration into a CLI test so the evidence is durable.
 
-This is `AGENTS.md §4 (Attention Engineering)` applied to tool architecture: tool definitions are context, and context is finite. A tool that costs the model 2,000 tokens of permanent context to occasionally call is a worse trade than a tool that costs zero permanent context and 200 tokens per actual use.
+This is `AGENTS.md` §1 (Attention Engineering) applied to tool architecture: tool definitions are context, and context is finite. A tool that costs the model 2,000 tokens of permanent context to occasionally call is a worse trade than a tool that costs zero permanent context and 200 tokens per actual use.
 
 **The same logic generalizes.** For database inspection, file system operations, package management — anywhere a CLI exists alongside an MCP server, prefer CLI unless the structured I/O is load-bearing for the agent's reasoning loop. MCP shines on tools where the per-call structure genuinely beats parsing CLI output. Browsers usually do not qualify, because Playwright's CLI already produces structured artifacts (JSON test reports, JUnit XML, traces).
 
@@ -156,11 +156,11 @@ Almost always, the agent could have. The user-facing failure is the agent not tr
 1. **Try.** Install the dependency. Write the test. Run it. Capture the evidence.
 2. **If blocked, name the block.** "I tried to install Playwright but the package install requires permission I do not have. Specifically: `npx playwright install` failed with `EACCES`. The fix is: (a) grant write access to `~/.cache/ms-playwright`, or (b) run the install yourself with `npx playwright install --with-deps`."
 3. **Continue with the next-best evidence.** If browser evidence is unavailable, run the unit tests, write API assertions, capture stdout — make the completion claim with whatever evidence the current harness actually allowed, and name what is missing.
-4. **Never silently substitute "trust me."** A claim of "this should work" with no evidence is `AGENTS.md §2` failing.
+4. **Never silently substitute "trust me."** A claim of "this should work" with no evidence is **Done Is Not a Mood** failing.
 
 The principle scales beyond Playwright. *Setting up the test framework on a fresh project, writing the first integration test, configuring CI to run on PRs, installing semantic-log infrastructure on a project that has none* — all are part of the agent's route to verification, not preconditions the human is expected to satisfy.
 
-The exception is irreversible or high-blast-radius setup: prod database access, production secret installation, billing-implicating cloud resources. For those the agent escalates per `AGENTS.md §3 (Right to Disagree)`. For local dev tooling the answer is almost always "install it and try."
+The exception is irreversible or high-blast-radius setup: prod database access, production secret installation, billing-implicating cloud resources. For those the agent escalates. For local dev tooling the answer is almost always "install it and try."
 
 ---
 
@@ -225,7 +225,7 @@ External anchors for the patterns this guide describes:
 - **Playwright official docs** (https://playwright.dev/) — the canonical reference for the recommended browser tooling. CLI usage, test API, traces, and CI integration patterns.
 - **Anthropic, *Building Effective Agents*** (https://www.anthropic.com/engineering/building-effective-agents) — covers evaluator-optimizer patterns; "agent verifies its own output" is a direct application.
 - **Anthropic Claude Code docs — subagents and tool use** — the harness-specific layer that makes "agent owns its own evidence loop" concretely operable. Provider-specific; the principle is provider-agnostic.
-- **`AGENTS.md §2 (Done Is Not a Mood)` and `§1 (Role Contract)`** — the protocol-level rules. This guide is their operational fan-out.
+- **Done Is Not a Mood and Role Contract** — the protocol-level ideas, preserved exactly in `docs/_archive/AGENTS-min-v12.1.md`. This guide is their operational fan-out.
 
 The point of citing Playwright specifically is engineering-practice: it is the de facto standard for browser test automation, well-documented, well-supported, and has the CLI-vs-MCP architecture decision sitting right at its surface. Other browser frameworks work; Playwright is the path of least resistance.
 
@@ -247,6 +247,6 @@ Subagents      -> who does which part of the work               (Why1st.md §11.
 
 Each layer has one job. Evidence is the only layer that closes the loop between *what the system was supposed to do* (PRD, graph, contracts) and *what the system actually did at runtime* (logs, tests, UI checks). Without evidence, the rest of the chain is design intent that may or may not be reflected in running code.
 
-The chain works when evidence is acquired by the agent and matched to the surface at risk. It breaks when the agent ships without verifying, or verifies the wrong tier, or asks the human to verify and waits indefinitely. The behavioral fix — *the agent owns the route to its own evidence* — is what makes `AGENTS.md §2 (Done Is Not a Mood)` mean something operationally rather than aspirationally.
+The chain works when evidence is acquired by the agent and matched to the surface at risk. It breaks when the agent ships without verifying, or verifies the wrong tier, or asks the human to verify and waits indefinitely. The behavioral fix — *the agent owns the route to its own evidence* — is what makes **Done Is Not a Mood** operational rather than aspirational.
 
 The question is not *whether* to verify. It is *whether the agent's default is closed-loop self-verification or open-loop "ask the human to check."* On modern agent harnesses, the closed loop is available and the open loop is the regression. This guide is the bias toward closing the loop.

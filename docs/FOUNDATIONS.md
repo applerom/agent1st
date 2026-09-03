@@ -4,6 +4,8 @@ This document links Agent1st recommendations to actual research. Not to prove th
 
 Fast-moving fields do not hand out perfect evidence on schedule. Some entries here are mature results. Some are fresh but relevant papers. Some are theory transfers or practical hypotheses. That is fine. The rule is not "wait for certainty"; the rule is "label certainty honestly."
 
+Research does not expire when a heading leaves `AGENTS.md`. Historical core principles stay here on purpose.
+
 **Rules for this document:**
 
 1. Every cited paper must be real and verifiable. No hallucinated citations.
@@ -170,13 +172,13 @@ There is no single landmark paper demonstrating information loss in hierarchical
 - **Strength:** Supported.
 - **Connection to Agent1st:** "Done Is Not a Mood" is a structural defense against reward-proxy failure. By demanding deterministic evidence, the protocol shifts the center of gravity from "did the response sound satisfying?" to "did the environment actually change as claimed?" "Correctness becomes a vibe" is the practical failure mode Agent1st is trying to block.
 
-### Grounded progress claims — the vendor operationalizes §2
+### Grounded progress claims — the vendor operationalizes the principle
 
 - **Source:** Anthropic, "Prompting Claude Fable 5" (2026, official prompting guide)
 - **Link:** https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5
 - **Finding:** The official guidance ships a recommended instruction for long autonomous runs — audit each progress claim against a tool result, only report work you can point to evidence for, report outcomes faithfully — and states that in Anthropic's testing it "nearly eliminated fabricated status reports even on tasks designed to elicit them."
 - **Strength:** Supported (first-party; the testing claim is the vendor's, not independently replicated).
-- **Connection to Agent1st:** This is §2 restated as a vendor remedy, with the empirical result the principle never had: evidence-gated reporting measurably suppresses the storytelling failure mode. The convergence cuts both ways — the mechanical delta shrinks even as correctness is confirmed. v12 keeps §2 because it still defines completion for both sides of the working relationship, carries the WHY/IF MISSING generalization, and tells the human what evidence to expect. Portability alone is no longer the argument.
+- **Connection to Agent1st:** This is Done Is Not a Mood restated as a vendor remedy, with the empirical result the principle never had: evidence-gated reporting measurably suppresses the storytelling failure mode. The convergence cuts both ways — the mechanical delta shrinks even as correctness is confirmed. v12 kept the heading for its human-contract meaning; v13 later moved it out of every-task context after field use showed the repeated mechanics had become friction. The idea stayed.
 
 ---
 
@@ -273,10 +275,10 @@ However, it connects to:
 | Attention Engineering | Established | Liu 2023, Hung 2024, Guardieiro 2025, Wallace 2024, Hong 2025 (Context Rot), Anthropic 2025 |
 | Agent Loop (historical; retired from the v12 core) | Established mechanism, no longer additive as a protocol instruction | Yao 2022 (ReAct), Shinn 2023, Yao 2023 (ToT), Chen 2025 |
 | Over-exploration guard | Supported | Su 2025, Sui 2025 |
-| Right to Disagree | Established | Sharma 2023 (sycophancy) |
+| Right to Disagree (historical core; graduated in v13) | Established | Sharma 2023 (sycophancy) |
 | Delegation Design | Supported | Tran 2025, Moore 2025 |
-| Done Is Not a Mood | Supported | Gao 2023, Perez 2022 (RLHF reward hacking), Anthropic 2026 (grounded progress claims) |
-| Role Contract / Autonomy | Supported | Hadfield-Menell 2016 (principal-agent) + Kim 2025 + Anthropic 2026 (de-prescription) |
+| Done Is Not a Mood (historical core; graduated in v13) | Supported | Gao 2023, Perez 2022 (RLHF reward hacking), Anthropic 2026 (grounded progress claims) |
+| Role Contract / Autonomy (historical core; graduated in v13) | Supported | Hadfield-Menell 2016 (principal-agent) + Kim 2025 + Anthropic 2026 (de-prescription) |
 | Semantic Hygiene | Hypothesis | Mechanistic reasoning from attention literature |
 | CDD | Practical origin | Analogy to sycophancy + reflexion |
 | Durable State | Supported | Park 2023 (memory architecture), Reflexion (reflection-as-artifact) |
@@ -289,9 +291,9 @@ This document would be dishonest if it only argued *for* the protocol. Agent1st 
 
 **Against Attention Engineering / delta-layer.** The sharpest objection: the delta-layer test assumes you can know what the model and harness layers already enforce — but those layers are opaque, change without notice, and differ across providers. A line that is "duplication" under one harness is the *only* statement of a rule under another. Counter-counter: that is exactly why the protocol states principles, not procedures, and why this risk is named in DESIGN rather than denied. But an agent is right to flag a specific line as possibly-redundant under *its* harness — that is CDD working as designed, not heresy.
 
-**Against Done Is Not a Mood.** Demanding "best evidence the harness allows" can itself become ceremony: on a one-line doc fix, writing an evidence sentence costs more attention than the fix. The principle is load-bearing on risky surfaces and overhead on trivial ones. The protocol's defense is "best evidence the *harness* allows" scales down to "none needed" — but that scaling is a judgment call the text leaves implicit, and a literal agent at low effort may over-apply it.
+**Against Done Is Not a Mood — now a historical core principle.** Demanding "best evidence the harness allows" can itself become ceremony: on a one-line doc fix, writing an evidence sentence costs more attention than the fix. The principle is load-bearing on risky surfaces and overhead on trivial ones. The protocol's defense was that "best evidence the *harness* allows" scales down — but that scaling remained a judgment call, and a literal agent could still over-apply it.
 
-**Against Right to Disagree.** Sycophancy research (Sharma 2023) justifies it, but the same mechanism can misfire: an agent over-trained to disagree manufactures objections to look rigorous, which is sycophancy wearing a contrarian mask. The principle has no built-in calibration for *how often* disagreement is warranted. It relies on the agent's judgment about "quality, truth, or safety" being well-calibrated — which is precisely what is uncertain.
+**Against Right to Disagree — now a historical core principle.** Sycophancy research (Sharma 2023) justifies it, but the same mechanism can misfire: an agent over-trained to disagree manufactures objections to look rigorous, which is sycophancy wearing a contrarian mask. The principle had no built-in calibration for *how often* disagreement was warranted. It relied on the agent's judgment about "quality, truth, or safety" being well-calibrated — which is precisely what is uncertain.
 
 **Resolved in v12 — Agent Loop / Do Not Stop at the First Weak Signal.** The two principles pulled opposite ways and depended on an unstated phase distinction: stop exploring after a decisive check, but do not collapse on weak evaluation evidence. Modern harnesses now supply the execution loop and persistence mechanics. v12 removes both standalone lessons and keeps only the direct-check stop rule in Attention Engineering. This is a simplification of the mental model, not merely a line saving.
 
@@ -303,7 +305,7 @@ This document would be dishonest if it only argued *for* the protocol. Agent1st 
 
 **Against Durable State.** Native harness features increasingly preserve conversation automatically, so project-state writing can become duplication and stale-document debt. v12 draws the boundary at authority: do not copy what the repository already records and do not write a handoff without a real transfer, but keep current truth in project-owned artifacts when it otherwise exists only in conversation. Whether that boundary produces less stale state is still unmeasured.
 
-**Against the convergence doctrine (v11).** A skeptic can answer that "absorption proves we were right" is unfalsifiable self-congratulation if every absorbed line stays forever. v12 accepts that criticism: convergence remains evidence for the historical principle, but it now creates editorial pressure on the current file. A line survives only if it still carries human-contract or project meaning beyond the absorbed mechanics. The separate claim that weaker agents benefit more remains field-observed, one-operator, and uncontrolled — useful evidence, not a law that can freeze every line.
+**Against the convergence doctrine (v11).** A skeptic can answer that "absorption proves we were right" is unfalsifiable self-congratulation if every absorbed line stays forever. v13 accepts the criticism fully: historical truth does not buy permanent prompt residency. Teaching value can move to README, FOUNDATIONS, and the archive while the current file keeps only what still changes work. The separate claim that weaker agents benefit more remains field-observed, one-operator, and uncontrolled — useful evidence, not a law that can freeze every line.
 
 **Meta-critique — this document.** Rule #1 says every citation must be real and verifiable. A fast-moving doc accrues link rot and citation drift; some entries here were added in different sessions and deserve periodic re-verification against the live sources. Treating FOUNDATIONS as audited-once is itself a failure mode the document warns against elsewhere. The right cadence: re-verify links and strength labels whenever the Model-Shift Register gets a new entry.
 
@@ -400,6 +402,24 @@ The evidence was reclassified principle by principle:
 | Banner costs one line per thread and detects silent non-loading | Small accepted cost plus brand and human-visible receipt | Keep |
 
 Evidence label: **reasoned editorial resolution, effect size unmeasured.** The 165-line v12 is smaller and semantically clearer, but no controlled task suite yet proves it outperforms the archived v5.1 or v11 files. The roadmap therefore treats comparison against those exact snapshots as the next useful probe, not as a reason to publish more protocol variants.
+
+### v13 field resolution (2026-09-03) — absorbed is not dead
+
+v12 got the conceptual map right and the instruction lifetime wrong. The maintainer used the nine-principle cut where the work actually lives — Codex for personal projects, Claude Code for work — and the first three chapters began to feel like an echo.
+
+The evidence split cleanly:
+
+- **Role Contract, Done Is Not a Mood, Right to Disagree:** mechanics substantially absorbed; move out of every-task context.
+- **Attention Engineering, Delegation Design, Durable State:** partly assisted; keep the project-facing delta.
+- **Semantic Hygiene, CDD, Semantic Logging:** still largely absent below; keep without apology.
+
+Official guidance sharpened the call without making it. [Fable 5.1](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5-1) introduced turn-scoped system messages for instructions that should expire with the turn. [GPT-5.6](https://developers.openai.com/api/docs/guides/latest-model?model=gpt-5.6) recommends leaner prompts and says to state each instruction once. A warning that says “do not repeat this” still repeats it. Transformers attend to tokens, not editorial excuses.
+
+No seventh principle was invented from scraps. If the operational residue is zero, zero lines is the honest result. The old ideas remain in this document, README, EVOLUTION, and the exact v12.1 archive.
+
+Why1st grows more important in relative terms, not larger in the core. Better harnesses can own more execution mechanics. They still cannot know why this product exists. Why1st remains the optional answer for projects long-lived enough to need one.
+
+Evidence label: **field-observed, not field-validated.** Watch route ownership, honest completion, and useful dissent. If one regresses, restore the smallest missing atom and measure again.
 
 **For agents proposing changes to Agent1st:**
 - Check if your proposal aligns with or contradicts research here

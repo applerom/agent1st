@@ -10,7 +10,7 @@
 
 Two claims, tested together:
 
-1. **Agent1st specializes by derivation, not by mapping.** A domain skill is built by re-deriving rules from the agent cost vector (cheap writing, scarce attention, irreversible side effects) inside the domain — not by restating the 11 core sections with domain words.
+1. **Agent1st specializes by derivation, not by mapping.** A domain skill is built by re-deriving rules from the agent cost vector (cheap writing, scarce attention, irreversible side effects) inside the domain — not by restating current or historical headings with domain words.
 2. **Several canonical Terraform practices flip sign when agents are the primary authors and operators**: DRY-by-default, `this` local names, workspaces for environments, constraints kept in prose, refactoring treated as free. Each is rational under human costs and an anti-pattern under agent costs.
 
 If claim 1 holds, Agent1st gains a specialization track without core growth. If claim 2 holds, the protocol has something concrete to say to infrastructure teams, not only to application developers.
@@ -65,17 +65,17 @@ Kept out of `SKILL.md` to keep the runtime artifact lean. Each section descends 
 
 | SKILL.md section | Derives from |
 |---|---|
-| 1) Reversibility Boundary | §1 Role Contract, §3 Right to Disagree |
-| 2) Evidence Ladder | §2 Done Is Not a Mood, §8 Semantic Logging |
-| 3) Repository Layout | §4 Attention Engineering |
-| 4) Names Are State | §5 Semantic Hygiene |
-| 5) Modules and the Price of DRY | §4 Attention Engineering |
-| 6) State, Backends, Environments | §4 Attention Engineering |
-| 7) Versions Are Load-Bearing Context | §4 Attention Engineering, §9 Durable State |
-| 8) Invariants in Code | §4 (constraints near the decision point), §9 Durable State |
-| 9) Secrets Are Names to You | §5 Semantic Hygiene |
-| 10) Refactor Economics | §2 (evidence is the plan), §4 |
-| How to Apply (friction line) | §6 CDD |
+| 1) Reversibility Boundary | Role Contract + Right to Disagree (historical core) |
+| 2) Evidence Ladder | Done Is Not a Mood (historical core) + §5 Semantic Logging |
+| 3) Repository Layout | §1 Attention Engineering |
+| 4) Names Are State | §2 Semantic Hygiene |
+| 5) Modules and the Price of DRY | §1 Attention Engineering |
+| 6) State, Backends, Environments | §1 Attention Engineering |
+| 7) Versions Are Load-Bearing Context | §1 Attention Engineering + §6 Durable State |
+| 8) Invariants in Code | §1 (constraints near the decision point) + §6 Durable State |
+| 9) Secrets Are Names to You | §2 Semantic Hygiene |
+| 10) Refactor Economics | Done Is Not a Mood + §1 Attention Engineering |
+| How to Apply (friction line) | §3 CDD |
 
 The reference-layer practice woven through the same sections — repository
 shapes, state and backend mechanics, testing tools, identity-based auth — has
@@ -83,14 +83,14 @@ no core lineage by design: it is the domain's own layer, arbitrated by the
 maintainer's field-tested baseline and the convergent vendor guidance recorded
 in the why-file's Provenance section.
 
-Deliberately not ported: §7 Delegation Design (orchestration is not Terraform-specific), the Hello Agent ritual, and any section that would merely restate the core in domain vocabulary.
+Deliberately not ported: §4 Delegation Design (orchestration is not Terraform-specific), the Hello Agent ritual, and any section that would merely restate the core in domain vocabulary.
 
 ---
 
 ## Anti-patterns specific to this experiment
 
 - **Do not pair it** with a second general-purpose Terraform skill — the skill is self-sufficient, harnesses activate one skill per domain context, and a pair produces uninterpretable signal. Local project policy is the only layer above it.
-- **Do not port all 11 core sections** into future domain skills "for completeness" — derivation, not mapping, is the hypothesis.
+- **Do not port every current and historical principle** into future domain skills "for completeness" — derivation, not mapping, is the hypothesis.
 - **Do not mix with other experiments** in the same repo.
 
 ---

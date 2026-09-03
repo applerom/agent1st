@@ -20,7 +20,7 @@ Most of this is not an intelligence problem. It is a **context-and-contract prob
 
 Agent1st is a **behavior-layer protocol** for AI-agent software development. It lives in two layers in one repo:
 
-- **Behavior layer (`AGENTS.md`)** — 9 principles, 165 lines, drop-in. Defines how humans and agents work together.
+- **Behavior layer (`AGENTS.md`)** — 6 principles, 118 lines, drop-in. Carries the Agent1st delta into every task.
 - **Why1st — the WHY layer (`docs/Why1st.md` + paired files)** — recommended for long-lived projects. Makes intent a first-class artifact paired with code.
 
 Everything else in this repo is documentation *about* the protocol — design rationale, evolution history, external reviews, roadmap.
@@ -47,7 +47,7 @@ Not in scope: beginners looking for a prompt-engineering tutorial, or users of w
 
 | ID | Feature | State |
 |---|---|---|
-| FEAT-CORE | Minimal `AGENTS.md` — 9 principles, delta-layer, drop-in | shipped (v12) |
+| FEAT-CORE | Minimal `AGENTS.md` — 6 principles, delta-layer, drop-in | shipped (v13) |
 | FEAT-WHY | WHY layer — PRD + Why Graph + Contracts + Validators pattern | shipped (v5); validator MVP shipped (v6) |
 | FEAT-BRIDGE | Claude Code bridge — `CLAUDE.md` → `@AGENTS.md` | shipped |
 | FEAT-DESIGN | Design rationale for agents modifying the protocol | shipped |
@@ -99,7 +99,7 @@ Not in scope: beginners looking for a prompt-engineering tutorial, or users of w
 - Agents output `Agent1st Mode ON` at session start in adopter projects.
 - Human users report less drift and fewer repeated mistakes across sessions.
 - Vendors absorb principles from this file into model and harness prompts. This is a **success** signal, not a threat — and a reason to re-test whether procedural coaching still earns repeated context. See `DESIGN.md` §2a.
-- No line in the core contradicts what a current harness enforces. Overlap may remain when a line carries human-facing contract meaning; generic execution mechanics should not remain by inertia.
+- No line in the core contradicts what a current harness enforces. A true principle still has to earn every-task context.
 - Adopter projects extend `AGENTS.md` additively (Required Reading header) rather than forking the core.
 - The WHY layer is copied, adapted, and survives contact with real projects — not used verbatim.
 - Fresh agents can explain the Why1st chain — PRD, graph, contracts, validators — before changing code.
@@ -111,7 +111,7 @@ These are intentionally unresolved. Future agents should not silently normalize 
 
 - Where does cross-session memory live — harness (Claude Code `MEMORY.md`), repo (decision logs), or skills (intent1st-style gateways)? Current evidence suggests the answer may stay project-local rather than become one portable format. See `docs/ROADMAP.md` §3.
 - Should project-local extensions (CI integration, acceptance automation, observability contracts) get their own reference variant in this repo, or remain correctly project-local?
-- How do we measure "less drift" without introducing metrics that themselves become ceremony? Candidate signals: fewer repeated mistakes, fewer stale graph/anchor repairs, faster handoffs, and lower human correction load. No canonical metric yet. v12 adds a concrete comparison target: current protocol vs. the exact archived v5.1 default and v11, with a same-size placebo if the test is formalized.
-- Which principles would survive an ablation? Nothing in the core has ever been knocked out one at a time and measured. §5 Semantic Hygiene is the highest-value, lowest-overlap principle and therefore the most valuable single ablation to run: if it ablates to nothing, the project's most distinctive claim is wrong and should be retired.
+- How do we measure "less drift" without introducing metrics that themselves become ceremony? Candidate signals: fewer repeated mistakes, fewer stale graph/anchor repairs, faster handoffs, and lower human correction load. No canonical metric yet. v13 adds a concrete comparison target: current protocol vs. the exact archived v12.1 nine-principle cut, with a same-size placebo if the test is formalized.
+- Which principles would survive an ablation? Nothing in the core has ever been knocked out one at a time and measured. §2 Semantic Hygiene is the highest-value, lowest-overlap principle and therefore the most valuable single ablation to run: if it ablates to nothing, the project's most distinctive claim is wrong and should be retired.
 - How should public proof evolve while reference adopters are still maturing? Current stance: keep unstable local examples off-public; replace shape-only claims with public links as adopter projects become stable and public.
 - ~~Do graph/schema version numbers (`schema="0.8"`, `<PROJECT VERSION="...">`) carry enough value to keep, or should Why1st remove them and prefer validator compatibility, dates, and git/content history?~~ **Resolved in v8.1:** the abstract version fields were never tied to an XSD, validator compatibility contract, or migration rule. Removed from the teaching graph. Validator behavior, `DATE`, and git history carry actual evolution semantics.

@@ -1,9 +1,9 @@
 # Why Subagents — delegate by default, crystallize the pattern later
 
 This is one proven shape of the optional **subagent orchestration** extension to Why1st (`Why1st.md` §11.3).
-Companion docs: `Why1st.md` (the idea), `AGENTS.md` §7 (Delegation Design — the principle).
+Companion docs: `Why1st.md` (the idea), `AGENTS.md` §4 (Delegation Design — the principle).
 
-**Relationship to `AGENTS.md` §7.** §7 is the principle: how to delegate well *when you do*. This document is one layer down: *when does an agent default to delegating in the first place,* and what shape the project-local artifact takes once delegation becomes recurring. Same idea, different question. §7 is the rule; this guide is its behavioral entry point and one common artifact.
+**Relationship to `AGENTS.md` §4.** §4 is the principle: how to delegate well *when you do*. This document is one layer down: *when does an agent default to delegating in the first place,* and what shape the project-local artifact takes once delegation becomes recurring. Same idea, different question. §4 is the rule; this guide is its behavioral entry point and one common artifact.
 
 The goal: a strong agent that is trained on agentic work should not silently revert to single-thread *do-it-all-myself* mode on real projects. When the work is parallel, when the read surface is large, when the ops do not need the lead's full intelligence, the right move is to spawn subagents. This guide names when, why, and how.
 
@@ -27,7 +27,7 @@ The cost is paid quietly:
 - the lead's context gets burnt on reads it could have delegated, leaving less room for the actual reasoning the human is paying for;
 - independent steps run sequentially when they could have run in parallel — three minutes of latency per delegation skipped, multiplied by every "let me also check…";
 - low-difficulty ops (file scanning, format conversion, link checking, config lookup) run on the most expensive model in the stack;
-- the lead's own attention budget, which AGENTS.md §4 names as a finite engineering constraint, gets spent on bookkeeping instead of judgment.
+- the lead's own attention budget, which AGENTS.md §1 names as a finite engineering constraint, gets spent on bookkeeping instead of judgment.
 
 The behavior is not a model deficiency. Strong agents are explicitly trained on agentic work and have native subagent tools. The miss is a default. Optimization-for-completion within one session pulls toward "I can do this directly, so I will." The next-best move — *delegate this part, keep my context for the synthesis* — does not get picked unless the agent is biased toward it.
 
@@ -55,7 +55,7 @@ The lead's job is not to be a faster solo worker. It is to be the only agent in 
 
 Three forces, parallel to `why-graph-principles.md` §2a's three forces for tag shapes:
 
-1. **Context is finite and the lead's context is the most expensive.** A subagent gets a fresh context window per dispatch. Its 50k-token read becomes a 500-token return. The lead never sees the 50k. Without delegation, every read consumes the same window the lead needs for the actual decision — and once that window is full, attention degrades on every subsequent token (AGENTS.md §4 again, applied to its own substrate).
+1. **Context is finite and the lead's context is the most expensive.** A subagent gets a fresh context window per dispatch. Its 50k-token read becomes a 500-token return. The lead never sees the 50k. Without delegation, every read consumes the same window the lead needs for the actual decision — and once that window is full, attention degrades on every subsequent token (AGENTS.md §1 again, applied to its own substrate).
 
 2. **Independence enables true parallelism, not just nominal parallelism.** Two grep operations issued in one assistant turn run concurrently. Two subagents dispatched in one turn each get their own full reasoning loop, in parallel. The latency win compounds: a five-minute research task split across three subagents finishes in five minutes, not fifteen. Strong agents have this primitive; the failure is using it.
 
@@ -113,7 +113,7 @@ A bounded task with a clear deliverable that does not require ongoing lead-side 
 
 - *Examples:* "implement and test the `redis` cache adapter against the existing `Cache` interface"; "write a migration script that produces this output format from this input"; "diagnose why this specific test fails and propose a fix."
 - *Win:* context economy. The subagent does the full reasoning loop in its own window; the lead receives the patch, the test, and the explanation.
-- *Brief shape:* full contract — purpose, interface, acceptance criteria, return format. This is where most of §7 (Delegation Design) gets exercised.
+- *Brief shape:* full contract — purpose, interface, acceptance criteria, return format. This is where most of §4 (Delegation Design) gets exercised.
 - *Smell that says do this:* the work is one or two coherent hours of focused execution, not interleaved with other decisions you are making.
 
 ### Shape D — lower-intelligence ops
@@ -142,7 +142,7 @@ A good brief carries:
 - **Right to report operational truth.** Say explicitly that blockers, missing context, repeated friction, unsafe assumptions, and a better alternative are valid outcomes. A subagent forced to look successful will hide the fact the contract failed.
 - **Length budget for the normal result.** Prune narration, not complaints. A response budget never forbids the subagent from reporting why the requested result is unsafe, impossible, or based on missing evidence.
 
-A bad brief — and the canonical failure mode — is a one-line command-style prompt. *"Find security issues in the auth code."* The subagent has no context, no constraints, no acceptance criteria, no latitude, no budget. It will produce something. That something will be diluted, off-target, and the lead will spend more tokens correcting than was saved by dispatching. AGENTS.md §7 is the principle this codifies. Read it once.
+A bad brief — and the canonical failure mode — is a one-line command-style prompt. *"Find security issues in the auth code."* The subagent has no context, no constraints, no acceptance criteria, no latitude, no budget. It will produce something. That something will be diluted, off-target, and the lead will spend more tokens correcting than was saved by dispatching. AGENTS.md §4 is the principle this codifies. Read it once.
 
 The subagent's return contract mirrors the brief: **evidence plus operational truth, not performance theater**. Return file paths and line numbers, commands and exit codes, the patch and test output — and also limitations, blockers, friction, fallback, or a better route when they matter. If the subagent only describes what it intended to do, or hides failure to fit the requested shape, the dispatch failed even if the answer sounds confident.
 
@@ -201,7 +201,7 @@ Keep these layers separate. Conflating them is how subagent orchestration become
 - **Not "always delegate."** The bias is toward delegation when the conditions in §4 apply. Mandatory delegation kills the times when solo execution is correct.
 - **Not a hierarchy of agents.** Subagents are tools the lead uses. They are not direct reports with their own backlogs. The lead owns the task graph.
 - **Not a substitute for thinking.** Delegating to "save tokens" while skipping the actual reasoning produces dispatched-but-aimless work. The lead's job is the synthesis, not the dispatch.
-- **Not a replacement for `AGENTS.md` §7.** §7 says how to delegate well. This guide says when delegation is the right move at all. They stack; they do not replace each other.
+- **Not a replacement for `AGENTS.md` §4.** §4 says how to delegate well. This guide says when delegation is the right move at all. They stack; they do not replace each other.
 - **Not graph-staleness signal.** Subagent dispatch quality and graph health are different drift signals; one does not measure the other.
 
 ---
@@ -227,7 +227,7 @@ External anchors for the pattern this guide describes:
 
 - **Anthropic, *Building Effective Agents*** (https://www.anthropic.com/engineering/building-effective-agents) — the canonical write-up of orchestrator-worker, parallelization, and evaluator-optimizer patterns. Provider-agnostic vocabulary, drawn from Anthropic production work but applicable across stacks. If you read one external thing on this topic, read this one.
 - **Harness-native subagent docs** — Claude Code subagents, Codex agent profiles, Cursor background agents, OpenAI Agents SDK handoffs. These are the tooling layer; this guide is the behavior layer above them. Do not confuse "I have the tool" with "I use the tool by default."
-- **`AGENTS.md §7 (Delegation Design)`** — the protocol-level rule. This guide is its behavioral entry point.
+- **`AGENTS.md` §4 (Delegation Design)** — the protocol-level rule. This guide is its behavioral entry point.
 
 The point of citing external references is not credentialism. It is to make clear that the *do-it-all-myself default* is the regression, and the *delegate-by-default* posture is what every modern agent framework already assumes. Adopting this is not Agent1st invention; it is catching up to the operating model the frameworks were built for.
 

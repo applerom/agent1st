@@ -73,7 +73,7 @@
        for why prompt-XML tag shapes are not classical XML. -->
 
   <FEATURE_CORE ID="FEAT-CORE" STATE="IMPLEMENTED" PRIORITY="CRITICAL">
-    <INTENT>Minimal AGENTS.md — 9 distinct principles, 165 lines, delta-layer, drop-in</INTENT>
+    <INTENT>Minimal AGENTS.md — 6 distinct principles, 118 lines, delta-layer, drop-in</INTENT>
     <ACCEPT>
       <CHECK>Every principle has WHY and IF MISSING blocks</CHECK>
       <CHECK>Every line passes delta-layer test (DESIGN.md §2)</CHECK>

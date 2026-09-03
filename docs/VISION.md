@@ -20,14 +20,14 @@ It is:
 
 The common AGENTS.md pattern (repo layout, build commands, test instructions, style rules) is useful but solves a different problem. It answers "what is this repo?" Agent1st answers "how do we work together?"
 
-Most agents already know how to code, search, reason, and verify. What they lack is:
+Most agents already know how to code, search, reason, and verify. What projects still fail to give them is:
 - clarity on roles and boundaries
 - permission to disagree
 - quality expectations that go beyond "it compiles"
 - a framework for surfacing friction instead of hiding it
 - durable project state across long-running work
 
-Agent1st provides exactly that delta — and nothing more.
+The best harnesses now enforce part of that contract. Good. Agent1st helped point there. What no generic harness can supply is your project's meaning, vocabulary, friction, or truth.
 
 ## Two Layers, One Repo
 
@@ -76,18 +76,20 @@ The shift from three tiers to two layers is not a loss of ambition. It is a reco
 
 ### For agents (primary audience)
 
-AGENTS.md is context you read at session start. It tells you:
-- what role you have and what you own
-- what quality means here
-- how to handle friction
-- how project truth survives the session
-- what rights you have (including disagreement)
+AGENTS.md is context you read at session start. It tells you where the current harness still needs the project to speak:
+- how to protect attention
+- how names steer work
+- how to surface friction
+- how to delegate without silencing the truth
+- how logs and project state survive the session
 
 It does not prescribe a reasoning loop or tell you how to code and search. The model and harness already own that machinery.
 
+Earlier editions name the lessons that became that floor: role ownership, evidence, and the right to disagree. They are still Agent1st. They no longer need to rent space in every task.
+
 ### For humans (secondary audience)
 
-AGENTS.md is a working contract you share with your agents. It tells you:
+Agent1st is a working contract you share with your agents. It tells you:
 - what to provide (intent, constraints, approval boundaries)
 - what not to do (micromanage, over-control the path)
 - what to expect (evidence, complaints, disagreement)
@@ -103,14 +105,14 @@ The minimal AGENTS.md is designed to be dropped into any project alongside your 
 
 
 - **The behavior layer stays frozen by default.** `AGENTS.md` changes only when real use proves a gap, contradiction, or context cost. "No change" is a valid — often the best — release outcome; it held for nine consecutive releases.
-- **Absorption is the win condition, not erosion.** When a vendor ships a principle from this file into a model or harness prompt, the earlier protocol succeeded. Then the line gets a harder test: does it still define the human-agent relationship or teach a project-level behavior? If it only coaches execution the harness now owns, it can leave the current file and remain in history. See `DESIGN.md` §2a.
+- **Absorption is the win condition, not erosion.** When a vendor ships a principle from this file into a model or harness prompt, the earlier protocol succeeded. Then the line gets a harder test: does every task still need it? Teaching can move to README, FOUNDATIONS, and the archive. The current file keeps the delta. See `DESIGN.md` §2a.
 - **The WHY layer grows by pull, not push.** New depth (extensions, guides, tooling) lands when an adopter actually hits the surface it addresses, never speculatively. The canonical chain (PRD → Why Graph → contracts → validator) stays small; everything else is opt-in and partitioned.
 - **Experiments earn their way in.** Untested bets live in `docs/experiments/` until field signal promotes or kills them. The core is protected from speculation by construction.
 - **The protocol stays provider-agnostic.** It must remain useful as agents grow more capable — by defining better conditions, not by adding more rules.
 
 The long-term bet: a behavior contract that ages well because it resists both growth and taxonomy. If this file needed a new variant every time a model ships, it would be doing the wrong job.
 
-Three model generations first changed nothing, then exposed a contradiction, then justified a real distillation. v12 keeps one ordinary Agent1st Protocol, removes two execution-coaching principles and one universal numeric heuristic, and preserves the prior files exactly in history. That is evolution without pretending every old line must stay in every future context.
+Three model generations first changed nothing, then exposed a contradiction, then made part of the protocol ordinary harness behavior. v13 lets three principles graduate from the every-task file without demoting the ideas. The archive keeps the lesson. `AGENTS.md` keeps the delta.
 
 ## The Spirit
 

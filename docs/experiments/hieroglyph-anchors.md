@@ -17,7 +17,7 @@ The hypothesis is **worth running because the answer is unknown**, not because i
 
 - Tokenizer behavior on CJK characters varies; savings may be zero or negative.
 - Models are trained on far more `PURPOSE:` than `旨:` as section headers — semantic reliability may regress.
-- AGENTS.md §5 (Semantic Hygiene) is explicit that names carry meaning. A single CJK character is opaque to non-Chinese readers — opaque markers are a regression unless they pay for themselves elsewhere.
+- AGENTS.md §2 (Semantic Hygiene) is explicit that names carry meaning. A single CJK character is opaque to non-Chinese readers — opaque markers are a regression unless they pay for themselves elsewhere.
 
 If none of the three measured properties shifts positively, this experiment is rejected.
 
@@ -118,7 +118,7 @@ The maintainer will read, summarize, and either promote (with an EVOLUTION row a
 Three reasons, in order:
 
 1. **No observed adoption failure.** Spirit-pass discipline says core changes follow real pain. This idea originated as an agent suggestion, not a project complaint.
-2. **§5 tension.** Replacing a semantic English word with an opaque marker has to *pay for itself* in measurable ways — and that is not yet known.
+2. **§2 tension.** Replacing a semantic English word with an opaque marker has to *pay for itself* in measurable ways — and that is not yet known.
 3. **Tokenizer claim is unverified.** "Saves tokens" needs measurement, not intuition; in some BPE tokenizers a single CJK character expands to multiple byte tokens.
 
 If two or three of those resolve positively in the field, this experiment promotes to stable. Until then it lives here.

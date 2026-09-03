@@ -64,18 +64,15 @@ Before adding anything to `AGENTS.md`, ask:
 4. Can an agent act on it and a human understand what to expect? → If only one audience benefits, rewrite.
 5. Does it earn repeated context? → If not, compress or cut.
 
-### Real example, and what happened to it
+### A principle can graduate
 
-For most of this project's life this section carried one pair of examples:
+*“Avoid over-engineering. Only make changes directly requested.”* never entered the protocol. The harness already owned it, so the line was noise from day one.
 
-- *"Avoid over-engineering. Only make changes directly requested."* — already in Claude Code's system prompt verbatim and in Codex CLI's behavior. Adding it would waste tokens and risk contradiction. **Still true.**
-- *"Done Is Not a Mood"* — originally absent from model and tool prompts; now substantially enforced by modern harnesses. **Still kept.**
+*“Done Is Not a Mood”* had a different life. It named a real gap, changed how humans judged completion, and became one of Agent1st's strongest hooks. Then the best harnesses learned the lesson.
 
-Why the different result? The first sentence only coaches execution. The second also tells the human what "done" means in this working relationship, gives the agent a memorable quality boundary, and supports the project's evidence layer. Overlap is one input to the decision, not the whole decision.
+v13 moves it out of `AGENTS.md`, not out of Agent1st. The archive keeps the exact instruction. README and FOUNDATIONS keep the idea. The file every agent reads keeps the delta.
 
-v12 provides the opposite example. `Agent Loop` and `Do Not Stop at the First Weak Signal` were valuable when harnesses did not reliably explore, execute, verify, and persist. Once those mechanics became the floor, their remaining standalone teaching value no longer justified permanent injection. Their evidence remains in FOUNDATIONS; the procedural scaffolding does not remain in every task.
-
-The delta-layer test measures a moving boundary and it is allowed to change the current file. Git history and exact archived editions preserve what earlier agents needed; the startup context does not have to become their museum.
+That is the difference between deletion and graduation.
 
 ### Why this matters so much
 
@@ -91,31 +88,21 @@ The delta-layer principle keeps AGENTS.md **stable, small, additive, and meaning
 
 ## 2a) Convergence Must Change the Protocol
 
-Between 2026-02 and 2026-08 three frontier generations moved toward this protocol. Anti-micromanagement became official vendor guidance. Evidence-gated completion became system-prompt behavior. Persistence, verification loops, and basic delegation mechanics became harness features.
+A behavior layer exists to cover a gap. If the gap closes, the layer won.
 
-The correct reading is not "the protocol is eroding." The earlier protocol did its job. But success that never removes a repeated instruction is only ceremonial success.
+> **A principle can stay true after it leaves the prompt.**
 
-v11 correctly fixed the first live contradiction and correctly insisted that Agent1st remain useful beyond one vendor. It then drew the wrong universal conclusion: keep every principle in every future context because a weaker agent may still need it. That asks one current file to be both history and instruction, and makes the strongest runtime pay the weakest runtime's context bill.
+Three questions decide where it belongs:
 
-v12 revises the single protocol in place. Earlier editions remain exact in `docs/_archive/`; the current `AGENTS.md` carries what still deserves to be read on every task.
+1. **Delta:** does the harness already own the mechanics?
+2. **Meaning:** does Agent1st still need the idea?
+3. **Lifetime:** does every task need the instruction?
 
-Three tests decide what survives convergence.
+The third question changed v13. Role Contract, Done Is Not a Mood, and Right to Disagree still define the relationship. Codex and Claude Code now supply their operating mechanics, and sustained use showed that repeating the lessons could add friction instead of value. They moved to history and teaching surface.
 
-### 1. Mechanics may leave
+Attention Engineering, Semantic Hygiene, CDD, Delegation Design, Semantic Logging, and Durable State stay. Their work is still live, project-facing, and easy for a generic harness to miss.
 
-If a principle's remaining job is to prescribe an execution loop the harness now reliably owns, remove it. v12 retires `Agent Loop` and the standalone weak-signal rule on this basis. Their history and evidence remain; their instructions no longer compete with the task.
-
-### 2. Working-contract meaning may stay
-
-Role ownership, evidence-backed completion, and the right to disagree overlap modern mechanics and still earn their place. They tell humans what relationship they are entering and give agents memorable permission and quality boundaries. Agent1st is not only machine control text; its human readability is part of the product.
-
-### 3. Project meaning stays until the project no longer needs it
-
-Semantic Hygiene, project-facing CDD, delegation as a contract, semantic logs, and durable project state govern behavior a generic vendor cannot fully supply. A vendor can provide tools for the turn. It cannot name your concepts or decide what must survive in your repository.
-
-Contradiction remains an immediate failure: do not keep wording that pulls against higher-priority mechanics. Overlap is judged by meaning, not automatically accepted or automatically removed.
-
-Dated model comparisons, install caveats, and release reasoning belong in DESIGN, FOUNDATIONS, EVOLUTION, and README. Putting them at the top of `AGENTS.md` makes every future agent reread yesterday's editorial argument instead of today's project intent.
+Do not fuse a departed principle into a vague “contract” heading to save face or line count. If no operational residue remains, zero lines is the honest size. The archive can teach the old lesson without making every current agent reread it.
 
 ---
 
@@ -233,6 +220,8 @@ The principle survives: attention is finite, and context that does not change a 
 
 A line can be **unproven** and still be **load-bearing** when it starts the right argument in the reader's head. But teaching surface must stay teaching surface: one clear example or phrase, not a compatibility essay or a policy that needs footnotes.
 
+A hook does not need to die just because it stops billing every task. Move it to the surface whose reader still needs it.
+
 Compression has the same limit. Do not fuse distinct ideas into compound principles merely to save headings. A smaller file with a worse mental model is not attention engineering; it is loss of meaning.
 
 ---
@@ -263,7 +252,7 @@ As of v5, Agent1st is organized in **two layers that live in one repo**, not a t
 
 | Layer | Purpose | Status |
 |---|---|---|
-| **Behavior layer** — `AGENTS.md` | Drop-in protocol. 9 distinct principles, 165 lines, no repo-specific content. | Current public baseline (v12) |
+| **Behavior layer** — `AGENTS.md` | Drop-in protocol. 6 distinct principles, 118 lines, no repo-specific content. | Current public baseline (v13) |
 | **Why1st (the WHY layer)** — `docs/Why1st.md` + paired files | Highly recommended for long-lived projects. PRD + Why Graph + Contracts + Validators, one proven shape. | Delivered in v5; renamed in v6.1 |
 
 Project-specific extensions (CI integration, observability contracts, acceptance automation, runbooks, custom skills) sit **on top** of both layers in a project's own repo. They are correctly project-local, not a separate publishable tier.
@@ -307,6 +296,7 @@ Every version was shaped by agent contributions (exact model versions are record
 - v4 external review: GLM, Grok, MiniMax, and Qwen audited the protocol independently; contributions curated by Opus
 - v11: Opus 5 broke the 123-day freeze to repair a live harness contradiction
 - v12: GPT-5.6-Sol distilled the current protocol after maintainer correction restored the human-facing, pedagogical meaning of the file
+- v13: sustained Codex and Claude Code use let three absorbed lessons leave the every-task file without leaving Agent1st
 
 Current handoff briefs in `docs/handoffs/` capture live agent-to-agent transfer. Once a version's conclusions are curated, `EVOLUTION.md` becomes the durable public record so old raw reviews do not mislead fresh agents.
 
@@ -320,15 +310,16 @@ If you are about to propose changes to AGENTS.md:
 2. Read THIS document (DESIGN.md) — §2a and §5a answer most first-contact proposals
 3. Read EVOLUTION.md for version history and the recurring-rejection list
 4. Check whether your proposed change is already covered by the model or tool layer (delta-layer test)
-5. Check whether the layer below now contradicts an existing line or has absorbed a purely mechanical principle (§2a)
+5. Ask the lifetime question: does every task need this, or does another surface need it more? (§2a)
 6. Check whether it was already considered and rejected (EVOLUTION.md, FOUNDATIONS Model-Shift Register)
 7. If it passes those checks, propose it with: Change → WHY → What it replaces or extends
 
-Bring evidence proportional to the direction of the change. Adding needs an observed adoption failure. Removing needs more than keyword overlap: show that the line's remaining job is mechanical and that it no longer carries enough human-contract or project meaning to earn repeated context.
+Bring evidence proportional to the direction of the change. Adding needs an observed adoption failure. Removing from the root needs more than keyword overlap: show absorbed mechanics, field friction or cost, and a better home for any teaching value that remains.
 
 Common mistakes agents make on first contact:
 - Proposing additions that the model/tool already covers
 - Treating every old keep as permanent merely because it once taught something useful; v12 removed the numeric signal after its explanation outgrew its lesson (§5a)
+- Confusing “still true” with “must stay always-on”; v13 is the counterexample
 - Treating "no controlled study proves this line" as grounds for removal; most of this file would fail that bar, including the parts vendors later shipped almost verbatim
 - Trimming only by model knowledge while ignoring what the protocol teaches its human reader
 - Combining separate ideas into compound headings for line-count savings

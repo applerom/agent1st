@@ -36,7 +36,7 @@ It is navigation truth. It is not:
 - a replacement for the PRD
 - a substitute for the repo README or build scripts
 
-If your project also needs a domain graph, give it a different name and a different file. See `AGENTS.md` §5 (Semantic Hygiene).
+If your project also needs a domain graph, give it a different name and a different file. See `AGENTS.md` §2 (Semantic Hygiene).
 
 ---
 

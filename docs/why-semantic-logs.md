@@ -3,7 +3,7 @@
 This is one proven shape of the optional **semantic logs** extension to Why1st (`Why1st.md` §11.1).
 Companion docs: `Why1st.md` (the idea), `why-graph-principles.md` (the graph), `why-contracts-v1.md` (contracts and anchors).
 
-**Relationship to `AGENTS.md` §8 "Semantic Logging."** AGENTS.md §8 is the behavior principle ("logs are future context") that applies to *all* agent-produced records — chat handoffs, decision notes, runtime events. This document is the **runtime-events instantiation** of that principle: structured boundary events with anchors that bridge the Why1st chain. Same idea, narrower surface. A fresh agent who finds both does not need to choose between them — §8 is the rule, this guide is one of its applications.
+**Relationship to `AGENTS.md` §5 "Semantic Logging."** AGENTS.md §5 is the behavior principle ("logs are future context") that applies to *all* agent-produced records — chat handoffs, decision notes, runtime events. This document is the **runtime-events instantiation** of that principle: structured boundary events with anchors that bridge the Why1st chain. Same idea, narrower surface. A fresh agent who finds both does not need to choose between them — §5 is the rule, this guide is one of its applications.
 
 The goal: when a future agent shows up after a job has run, a request has failed, or a workflow has produced an unexpected result, they should be able to read what happened **in the same vocabulary as the PRD, the Why Graph, and the code anchors** — without reconstructing intent from raw stdout, code archaeology, or chat history.
 
@@ -76,7 +76,7 @@ Three forces, parallel to `why-graph-principles.md` §2a's three forces for tag 
 
 2. **Same-string grep is the cheapest tool a model has.** Models are good at one thing humans underuse: literal string search across files. `grep FEATURE_LIVE_DEBUGGABILITY` works only when the same identifier really is in three artifacts. Keeping vocabulary identical between layers is what makes that grep land. Translating between layers ("the `agent_job` log corresponds to the `AgentJob` graph node which is in `src/jobs/` somewhere") is a translation tax the agent pays every time, in tokens and in error rate.
 
-3. **Attention is finite (AGENTS.md §4).** A semantic log line carries one main signal — what happened at this boundary, in known vocabulary. Agents reading 200 such lines will spend their attention on the events that matter (warnings, errors, expected≠actual cases) because the wrappers are predictable and the deltas are not. A free-text log mixes signal and decoration; the agent has to re-read every line.
+3. **Attention is finite (AGENTS.md §1).** A semantic log line carries one main signal — what happened at this boundary, in known vocabulary. Agents reading 200 such lines will spend their attention on the events that matter (warnings, errors, expected≠actual cases) because the wrappers are predictable and the deltas are not. A free-text log mixes signal and decoration; the agent has to re-read every line.
 
 The primary audience of semantic logs is the **future agent**, not the present human. Humans benefit too. But if a format helps humans and not agents, the format failed.
 

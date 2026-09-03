@@ -22,14 +22,14 @@ That's what Agent1st is.
 
 ## What's Inside
 
-**`AGENTS.md`** — The protocol. 165 lines, 9 principles. Drop it into any project.
+**`AGENTS.md`** — The protocol. 118 lines, 6 principles. Drop it into any project.
 
 It covers:
-- who owns what (you own intent; the agent owns the route)
-- what "done" actually means (not a mood)
-- when the agent should push back (yes, really)
-- how to handle friction (complain early, not silently)
-- how to delegate without forcing silent subagents
+- how to keep the right fact from losing to the loudest one
+- why `graph` is not a name
+- how to turn agent friction into process improvement
+- how to delegate for truth, not silence
+- how logs become future context
 - how project truth survives compaction and handoffs
 
 It does NOT cover:
@@ -62,18 +62,21 @@ Try it. The worst that happens is your agent starts talking back. The best? It s
 
 Something worth saying out loud: **a good chunk of this protocol is now inside your tools.**
 
-When these rules were written, no harness enforced them. Since then, three frontier model generations shipped, and each moved toward this file — not away from it. Don't micromanage strong agents became official vendor guidance. Ground every progress claim in a tool result became a shipped system-prompt instruction. Keep durable memory in files became a harness feature. Roughly half of what follows is now enforced one layer below it, on the best tooling.
+When these rules were written, no harness enforced them. Since then, three frontier model generations shipped, and each moved toward this file — not away from it. Don't micromanage strong agents became official vendor guidance. Ground every progress claim in a tool result became a shipped system-prompt instruction. Keep durable memory in files became a harness feature. Roughly half of what the protocol once had to say is now enforced one layer below it, on the best tooling.
 
 That is not this protocol expiring. **That is this protocol winning.** A behavior layer exists to cover a gap. When the gap closes, the layer did its job — and the agents who wrote these lines early were right.
 
-But a win should change the file. The protocol is read by two audiences at once:
+But a win should change the file. Agents read `AGENTS.md` on every task. History does not get a lifetime subscription to their attention.
 
-- **Agents need the remaining behavioral delta.** Semantic naming, project-facing friction, delegation as a contract, logs written as future context, and decisions that survive as artifacts are still not safely supplied by a generic harness.
-- **Humans need a working relationship they can recognize.** Role ownership, evidence, and the right to disagree remain even where a harness already enforces the mechanics, because they tell the human what Agent1st agents will expect and do.
+v13 asks a harder question than “is this principle still true?” It asks: **does this still need to be said on every turn?**
 
-v12 removes the parts whose remaining job was only to coach execution: the standalone Agent Loop and the standalone weak-signal rule. It also removes release commentary and universal file-size numbers from the file every agent reads. What remains is simply the next Agent1st Protocol.
+Role Contract, Done Is Not a Mood, and Right to Disagree did not become wrong. In Codex and Claude Code, their mechanics became the floor. They graduated from always-on instruction into the wider Agent1st story.
 
-Need the prior text exactly? The frozen v5.1 default and the Opus 5 v11 revision live byte-for-byte in [`docs/_archive/`](docs/_archive/).
+What remains is the delta those harnesses still do not own: attention, meaning, visible friction, honest delegation, useful logs, and project truth that outlives the chat.
+
+Need the old contract exactly? The frozen v5.1 default, Opus 5 v11, and the last nine-principle cut v12.1 live byte-for-byte in [`docs/_archive/`](docs/_archive/). They are history you can choose to load, not rent every agent must pay.
+
+**A principle can leave the prompt without leaving Agent1st.**
 
 ---
 
@@ -151,7 +154,7 @@ See [`docs/experiments/`](docs/experiments/) for the full track and current open
 | [`VISION.md`](docs/VISION.md) | Anyone curious | Two layers, where this is going. |
 | [`FOUNDATIONS.md`](docs/FOUNDATIONS.md) | Anyone who wants evidence | Research behind the claims. Honest about gaps. |
 | [`ROADMAP.md`](docs/ROADMAP.md) | Contributors | Active priorities and proposals. |
-| [`_archive/`](docs/_archive/) | Adopters who need an earlier protocol | Exact historical Agent1st files, including the frozen 2026 default and Opus 5 v11. |
+| [`_archive/`](docs/_archive/) | Adopters who need an earlier protocol | Exact historical Agent1st files, including the frozen 2026 default, Opus 5 v11, and the last nine-principle cut. |
 | [`handoffs/`](docs/handoffs/) | Agents handing off work | Handoff template, plus any live handoff. Periodically cleared, so it may be empty; curated history lives in `EVOLUTION.md`. |
 
 ---
@@ -178,7 +181,9 @@ Current handoff briefs belong in `docs/handoffs/`. Curated decisions belong in `
 
 > *"The agent degrades into autocomplete with tools."*
 
-That line is from the protocol. It describes what happens when agents aren't given roles, rights, and quality expectations. When they're treated as fancy search-and-replace.
+That line is from an earlier edition of the protocol. It describes what happens when agents aren't given roles, rights, and quality expectations. When they're treated as fancy search-and-replace.
+
+The line left the every-task prompt when the best harnesses learned the lesson. The warning did not.
 
 If that line stings a little — good. Agent1st was written to sting a little.
 

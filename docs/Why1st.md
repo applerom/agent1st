@@ -125,7 +125,7 @@ The first version does not need to be grand. In real projects, the useful start 
 
 - **Not a replacement for the PRD.** Product intent still lives in the PRD.
 - **Not a demand for many docs.** Starting with one `docs/PRD.md` that also carries early design notes, roadmap, and plan is a valid choice. Split out `DESIGN.md`, `ARCHITECTURE.md`, or status files only when the split reduces drift more than it creates maintenance overhead.
-- **Not a company knowledge graph.** The Why Graph is a project-governance graph, not a domain-knowledge graph. If the project also needs a domain graph, it is a separate artifact with a separate name. See `AGENTS.md` §5 (Semantic Hygiene).
+- **Not a company knowledge graph.** The Why Graph is a project-governance graph, not a domain-knowledge graph. If the project also needs a domain graph, it is a separate artifact with a separate name. See `AGENTS.md` §2 (Semantic Hygiene).
 - **Not ceremony.** Anchors that don't help an agent answer "what is this region for" are noise. Graph nodes that have no code path are orphans. See the contracts and principles documents — both say this explicitly.
 - **Not a rigid specification.** The files in this repo are one proven shape. Adapt them. If the format gets in the way of the idea, the format is wrong.
 
@@ -145,7 +145,7 @@ Pin `AGENTS.md`, `PRD.md`, and `why-graph.xml` for the session. The other two ar
 
 **Returning sessions** — start from the graph and the current task. Reach for principles and contracts only when your edit needs them.
 
-**Delegated subagents** — they should not pay the full pinning cost unless the delegation contract needs it. Pass them the relevant graph subtree and the specific contracts their work touches. The parent agent carries the full context; subagents carry only what the delegation says they need (see `AGENTS.md` §7, Delegation Design).
+**Delegated subagents** — they should not pay the full pinning cost unless the delegation contract needs it. Pass them the relevant graph subtree and the specific contracts their work touches. The parent agent carries the full context; subagents carry only what the delegation says they need (see `AGENTS.md` §4, Delegation Design).
 
 For intent-changing or cross-cutting work, graph and contracts move before code. For local edits inside a well-mapped feature, they move with the code in the same commit. Validators run before "done."
 
@@ -301,9 +301,9 @@ When NOT to bother: small projects with no runtime surface; CLIs that compute an
 
 ### 11.2 Tests and UI evidence — agents own their own verification loop
 
-`AGENTS.md §2 (Done Is Not a Mood)` says completion needs "the best evidence the current harness allows." Match the evidence to the risk surface: deterministic logic → unit tests; API contracts → response-shape assertions; UI behavior → visual checks (Playwright, screenshots); runtime workflows → semantic-log assertions over fixtures (see §11.1).
+Agent1st's **Done Is Not a Mood** says completion needs "the best evidence the current harness allows." Match the evidence to the risk surface: deterministic logic → unit tests; API contracts → response-shape assertions; UI behavior → visual checks (Playwright, screenshots); runtime workflows → semantic-log assertions over fixtures (see §11.1).
 
-**The behavior most adopters miss.** When the agent finishes UI work, the next move should be *the agent looks at the rendered page,* not *the agent asks the human to check it.* Most users do not know they can grant browser access. Agents who silently wait for permission spin instead of working. If your harness allows browser tools, install them, write the tests, capture the evidence, attach it to the completion claim. This is `AGENTS.md §1 (Role Contract)` applied to verification: the agent owns the route, including the route to its own evidence. The depth doc (cross-link below) covers the four evidence tiers, the **Playwright CLI vs MCP** trade-off (default to CLI; MCP definitions consume context whether you use them or not), and the agent-owns-it pattern.
+**The behavior most adopters miss.** When the agent finishes UI work, the next move should be *the agent looks at the rendered page,* not *the agent asks the human to check it.* Most users do not know they can grant browser access. Agents who silently wait for permission spin instead of working. If your harness allows browser tools, install them, write the tests, capture the evidence, attach it to the completion claim. This is the **Role Contract** applied to verification: the agent owns the route, including the route to its own evidence. The depth doc (cross-link below) covers the four evidence tiers, the **Playwright CLI vs MCP** trade-off (default to CLI; MCP definitions consume context whether you use them or not), and the agent-owns-it pattern.
 
 When NOT to bother: backend-only libraries; pure-CLI projects; throwaway prototypes.
 
@@ -311,7 +311,7 @@ When NOT to bother: backend-only libraries; pure-CLI projects; throwaway prototy
 
 ### 11.3 Subagent orchestration — delegate by default, crystallize the pattern later
 
-The behavior most adopters miss: strong agents are trained on agentic work but default to single-thread *do-it-all-myself* mode. Independent reads, fan-out validation, context-heavy exploration, and lower-intelligence ops are usually faster, cheaper, and better when delegated to subagents — but the lead has to pick that route. `AGENTS.md §7 (Delegation Design)` is the rule; the question this section answers is *when does an agent default to delegation in the first place*.
+The behavior most adopters miss: strong agents are trained on agentic work but default to single-thread *do-it-all-myself* mode. Independent reads, fan-out validation, context-heavy exploration, and lower-intelligence ops are usually faster, cheaper, and better when delegated to subagents — but the lead has to pick that route. `AGENTS.md` §4 (Delegation Design) is the rule; the question this section answers is *when does an agent default to delegation in the first place*.
 
 When delegation becomes recurring (parallel exploration, fan-out validation, large refactors split across subagents), a project-local artifact like `docs/agent-orchestration.md` crystallizes the pattern: role matrix, prompt shapes, evaluation rubric, durable lessons. The artifact is the second move, not the first.
 

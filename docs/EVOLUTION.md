@@ -34,6 +34,7 @@ Agents who contribute to new versions should add their transition notes.
 
 | v11 | `docs/_archive/AGENTS-min-v11.md` + `docs/DESIGN.md` §2a/§5a + model-shift evidence | **Convergence.** The frozen behavior layer changed for the first time in 123 days. Opus 5 repaired the acceptance-criteria contradiction, documented precedence, widened the numeric heuristic, and argued for keeping the full file. The exact resulting `AGENTS.md` is archived byte-for-byte. | Claude (Opus 5) (primary), quoting its own runtime system prompt as evidence; cross-read against an independent GPT-5.6-Sol review produced in Codex; maintainer field signal across dozens of projects as the CDD pain source |
 | v12 | `AGENTS.md` + exact v5.1/v11 archive snapshots + paired DESIGN/FOUNDATIONS/PRD/VISION/ROADMAP/Why Graph updates | **Distillation without taxonomy.** One ordinary Agent1st Protocol remains. The first draft's multi-artifact split is removed; release and compatibility prose leaves startup context; nine distinct principles retain the old voice and WHY / IF MISSING pedagogy. Agent Loop and the standalone weak-signal rule retire after harness absorption. Universal file-size numbers leave the core. Role, Done, Right to Disagree, Attention, Semantic Hygiene, CDD, Delegation, Semantic Logging, and Durable State stay separate because conceptual clarity for humans and agents is part of the product. CDD is strengthened; Delegation explicitly protects subagent complaints; Continuity becomes Durable State now that auto-compaction owns more of the transport mechanism. | GPT-5.6-Sol in Codex (lead), corrected by the maintainer's explicit spirit review of the first v12 attempt |
+| v13 | `AGENTS.md` + `docs/_archive/AGENTS-min-v12.1.md` | **Three principles graduate.** Role Contract, Done Is Not a Mood, and Right to Disagree leave the every-task file after sustained Codex and Claude Code use showed their mechanics had become floor behavior. Six still-additive principles remain. The ideas stay alive in Agent1st's teaching surface and exact archive; no seventh catch-all heading is invented to hide a clean result. | GPT-5.6-Sol in Codex (lead), using the Opus 5 harness comparison and the maintainer's field verdict |
 
 ---
 
@@ -798,6 +799,42 @@ Net result: 165 lines / 9 principles, down from 199 / 11, without compound headi
 ### The reusable lesson
 
 **Attention Engineering is not line-count engineering.** Context can be shortened syntactically and damaged semantically. Compress repetition; do not compress the reader's conceptual map. Put editorial reasoning around the protocol, never inside every task that uses it.
+
+---
+
+## v12 → v13: A Principle Can Graduate
+
+**Era:** truth and prompt residency stop being synonyms.
+
+### The complaint
+
+v12 recovered the voice and kept nine clean lessons. Then the maintainer actually used it — almost entirely in Codex and Claude Code — and felt the tax. The first three chapters were still good Agent1st. They were no longer good every-task context.
+
+That distinction matters. A lesson can remain true, useful, funny, and worth teaching while its runtime instruction has become repetition.
+
+### What changed
+
+- **Role Contract, Done Is Not a Mood, and Right to Disagree leave `AGENTS.md`.** Their mechanics are now strong defaults in the two harnesses that carry nearly all field use.
+- **Nothing vague replaces them.** Zero operational residue needs zero heading. Mathematics and physics still do not become one subject just to save a heading.
+- **Six principles remain:** Attention Engineering, Semantic Hygiene, CDD, Delegation Design, Semantic Logging, Durable State.
+- **The last nine-principle cut is archived exactly** as `docs/_archive/AGENTS-min-v12.1.md`.
+- **Why1st stays separate and optional.** As execution mechanics become ordinary, project WHY matters more — but a small project still should not need a graph to earn Agent1st.
+
+### Why now
+
+The Opus 5 prompt comparison called the first three substantially absorbed. GPT-5.6-Sol found the same boundary from inside Codex. Official Fable 5.1 guidance adds a useful lifetime idea — instructions can belong to one turn instead of the whole conversation — while GPT-5.6 guidance says to state each instruction once. Those are signals, not votes. The deciding evidence was sustained use: the repetition had become noticeable friction.
+
+Evidence label: **field-observed, not field-validated.** No blind suite proves six beats nine. That honesty is part of the decision, not an apology for it.
+
+### Falsifier
+
+Watch the behaviors that left: route ownership, honest completion, useful dissent. If one regresses under the target harnesses, restore the smallest missing atom — not all three chapters by reflex. The archive is a control, not a competing product.
+
+### The reusable lesson
+
+> **A principle can leave the prompt without leaving Agent1st.**
+
+The archive keeps the lesson. The current file keeps the delta. The rest of the project keeps its voice.
 
 ---
 
