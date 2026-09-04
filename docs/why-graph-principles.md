@@ -285,7 +285,7 @@ That is enough structure to tell an agent: this endpoint is here for UC-ASK, its
 
 At minimum, check that every `<ANCHOR ... COORD="path#ANCHOR">` points to a real `START_*` marker in a real file. That one check catches more drift than every other lint combined.
 
-This repo ships a stdlib-only MVP: `python scripts/validate-why.py`. It verifies unique IDs, `REL TYPE` against the documented vocabulary, `REL TARGET` resolution, consistent TARGET style, STATE-aware anchor enforcement (`PLANNED`/`DEPRECATED` skipped; `STARTED`/`DONE`/`IMPLEMENTED` enforced), and marker-keyed `PRD_REF` resolution (`path#KEY` must find a `PRD_ANCHOR: KEY` comment in the target file; legacy section-number refs warn instead of failing). On a graph with no anchors yet, it degrades to a warning instead of failing — adopt it as a starting point and tighten as your graph grows.
+This repo ships a stdlib-only MVP: `python scripts/validate-why.py`. It verifies unique IDs, `REL TYPE` against the documented vocabulary, `REL TARGET` resolution, consistent TARGET style, STATE-aware anchor enforcement (`PLANNED`/`DEPRECATED` skipped; `STARTED`/`DONE`/`IMPLEMENTED` enforced), marker-keyed `PRD_REF` resolution (`path#KEY` must find a `PRD_ANCHOR: KEY` comment in the target file; legacy section-number refs warn instead of failing), and since v13.1 three drift checks the dogfood graph itself needed: every enforced `START_X` has its `:END_X`, every `FILE` attribute on an enforced node exists, and every `UC-*` / `FEAT-*` style ID the PRD names has a graph node (warning, because the PRD may lead the graph). On a graph with no anchors yet, it degrades to a warning instead of failing — adopt it as a starting point and tighten as your graph grows.
 
 Add as your graph grows:
 

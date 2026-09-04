@@ -1,4 +1,4 @@
-"""WHY-graph validator — Agent1st v6 MVP.
+"""WHY-graph validator — Agent1st v6 MVP, extended in v10 and v13.1.
 
 Mechanical drift detector, not a semantic proof system. Runs deterministically,
 uses stdlib only, and degrades honestly on docs-only graphs that have no
@@ -27,6 +27,15 @@ Checks:
    - One reference per PRD_REF element; `;`-joined lists are errors.
    - Legacy prose/section-number form (no `#`) degrades to a warning nudging
      migration, not a failure.
+9. Anchor envelopes close (v13.1): every enforced `START_X` marker has a
+   matching `:END_X` in the same file. An open envelope is an error.
+10. FILE attributes resolve (v13.1): any node with a FILE attribute points at an
+    existing regular file when its STATE is enforced; PLANNED/DEPRECATED nodes
+    are skipped. Missing files are errors.
+11. PRD coverage (v13.1): every ID the PRD names in a graph family the graph
+    already uses (e.g. `UC-*`, `FEAT-*`) exists as a graph node. A PRD ID the
+    graph does not know is a warning, not a failure: the PRD may lead the graph
+    for a while, but silent divergence is the failure mode this catches.
 
 Output: human-readable summary on stdout, errors in CDD style on stderr.
 Exit 0 on pass (with warnings allowed), exit 1 on any error.
@@ -299,6 +308,17 @@ def check_anchors(
                 ))
                 continue
 
+            if marker.startswith("START_"):
+                end_marker = ":END_" + marker[len("START_"):]
+                if end_marker not in text:
+                    issues.append(Issue(
+                        severity="error",
+                        node=node_id,
+                        problem=f"anchor envelope is open: {marker} has no {end_marker} in {path_part}",
+                        fix=f"add the {end_marker} line after the code the anchor wraps",
+                    ))
+                    continue
+
             validated += 1
 
     return issues, validated, skipped, total
@@ -405,6 +425,102 @@ def check_prd_refs(
     return issues, validated
 
 
+def check_file_attrs(
+    root: ET.Element, repo_root: Path
+) -> tuple[list[Issue], int]:
+    """Validate FILE attributes: enforced nodes must point at existing files.
+
+    Returns (issues, validated_count).
+    """
+    issues: list[Issue] = []
+    validated = 0
+
+    for node in root.iter():
+        file_attr = node.get("FILE")
+        if not file_attr:
+            continue
+        node_id = node.get("ID", f"<{node.tag}>")
+        state = node.get("STATE", "")
+        if state in SKIPPED_STATES:
+            continue
+        if state and state not in ENFORCED_STATES:
+            issues.append(Issue(
+                severity="error",
+                node=node_id,
+                problem=f"node has FILE but STATE={state!r} is neither enforced nor skipped",
+                fix=f"set STATE to one of {sorted(ENFORCED_STATES | SKIPPED_STATES)}",
+            ))
+            continue
+
+        target = repo_root / file_attr
+        if not target.is_file():
+            issues.append(Issue(
+                severity="error",
+                node=node_id,
+                problem=f"FILE target is missing or not a regular file: {file_attr}",
+                fix="create the file, fix the path, or retire the node (STATE=\"DEPRECATED\")",
+            ))
+            continue
+        validated += 1
+
+    return issues, validated
+
+
+_ID_PREFIX_RE = re.compile(r"^([A-Z]+)-")
+
+
+def check_prd_coverage(
+    root: ET.Element, nodes: dict[str, ET.Element], repo_root: Path
+) -> tuple[list[Issue], int]:
+    """Warn when the PRD names an ID in a graph family the graph does not define.
+
+    The PRD is discovered through PRD_REF targets, so the check needs no config.
+    Only families already present in the graph are scanned (e.g. UC-*, FEAT-*),
+    which keeps unrelated identifiers in the PRD out of scope.
+
+    Returns (issues, prd_ids_checked).
+    """
+    issues: list[Issue] = []
+    prefixes = {m.group(1) for m in map(_ID_PREFIX_RE.match, nodes) if m}
+    if not prefixes:
+        return issues, 0
+
+    prd_paths: list[str] = []
+    for ref in root.iter("PRD_REF"):
+        text = (ref.text or "").strip()
+        path_part = text.partition("#")[0].strip()
+        if path_part and path_part not in prd_paths:
+            prd_paths.append(path_part)
+
+    pattern = re.compile(
+        r"\b(" + "|".join(sorted(prefixes)) + r")-[A-Z0-9]+(?:-[A-Z0-9]+)*\b"
+    )
+    checked = 0
+    for path_part in prd_paths:
+        target = repo_root / path_part
+        if not target.is_file():
+            continue  # reported by check_prd_refs
+        try:
+            doc_text = target.read_text(encoding="utf-8")
+        except OSError:
+            continue
+        seen: set[str] = set()
+        for match in pattern.finditer(doc_text):
+            ident = match.group(0)
+            if ident in seen:
+                continue
+            seen.add(ident)
+            checked += 1
+            if ident not in nodes:
+                issues.append(Issue(
+                    severity="warning",
+                    node=path_part,
+                    problem=f"PRD names {ident} but the graph has no node with that ID",
+                    fix="add the node to the graph, or drop the ID from the PRD if it is retired",
+                ))
+    return issues, checked
+
+
 def format_issue(issue: Issue) -> str:
     return (
         f"- [{issue.severity}] {issue.node}\n"
@@ -440,6 +556,10 @@ def run(
     issues.extend(anchor_issues)
     prd_ref_issues, prd_refs_ok = check_prd_refs(root, repo_root)
     issues.extend(prd_ref_issues)
+    file_issues, files_ok = check_file_attrs(root, repo_root)
+    issues.extend(file_issues)
+    coverage_issues, prd_ids_checked = check_prd_coverage(root, nodes, repo_root)
+    issues.extend(coverage_issues)
 
     errors = [i for i in issues if i.severity == "error"]
     warnings = [i for i in issues if i.severity == "warning"]
@@ -458,7 +578,8 @@ def run(
     summary = (
         f"WHY validator: nodes={len(nodes)} relations={rel_count} "
         f"anchors_validated={anchors_ok} anchors_skipped={anchors_skipped} "
-        f"prd_refs_validated={prd_refs_ok} "
+        f"prd_refs_validated={prd_refs_ok} files_validated={files_ok} "
+        f"prd_ids_checked={prd_ids_checked} "
         f"errors={len(errors)} warnings={len(warnings)}"
     )
     print(summary, file=stdout)

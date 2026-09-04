@@ -7,9 +7,12 @@
     (2) serves as a copy-and-adapt example for adopters
 
     IMPORTANT — scope of this example:
-    - A validator MVP now ships as `scripts/validate-why.py`.
+    - A validator ships as `scripts/validate-why.py`.
       It validates this graph and currently reports one expected warning:
       this docs-only dogfood graph has no ANCHOR entries yet.
+      It also checks that every FILE below exists and that every UC-*/FEAT-*
+      ID the PRD names has a node here, so PRD and graph cannot drift apart
+      silently (they did once, in v13; caught by this check in v13.1).
     - No START_* markers in the markdown artifacts this graph points at.
       ANCHOR entries would live here if this repo governed source modules
       through the graph. It currently uses source as ARTIFACT examples only.
@@ -20,14 +23,14 @@
     - So this file teaches the skeleton, not an end-to-end enforced chain.
       Read it for the shape, not as a complete reference implementation.
 
-    It is deliberately small. Real projects have dozens of features, not five.
+    It is deliberately small. Real projects have dozens of features, not a handful.
     When you copy this file: keep the shape, replace the content.
 
     Read `docs/why-graph-principles.md` for the authoring guide,
     and `docs/Why1st.md` for why this file exists at all.
   -->
 
-  <PROJECT DATE="2026-08-31">
+  <PROJECT DATE="2026-09-04">
     <WHAT>Agent1st — behavior-layer protocol for AI-agent software development</WHAT>
     <WHY>Reduce drift between human intent and agent execution across long-lived projects</WHY>
     <TECH>
@@ -65,6 +68,21 @@
     <REL TYPE="COVERS" TARGET="FEATURE:FEAT-DESIGN"/>
     <REL TYPE="COVERS" TARGET="FEATURE:FEAT-EVOLVE"/>
   </USECASE_CONTRIBUTE>
+
+  <USECASE_HANDOFF ID="UC-HANDOFF" STATE="IMPLEMENTED" PRIORITY="MEDIUM">
+    <WHAT>Work transfers between agents across sessions without repeating discoveries</WHAT>
+    <WHY>Compaction and session ends lose context; a durable transfer artifact is the only thing that survives</WHY>
+    <PRD_REF>docs/PRD.md#USE-CASES</PRD_REF>
+    <REL TYPE="COVERS" TARGET="FEATURE:FEAT-HANDOFF"/>
+  </USECASE_HANDOFF>
+
+  <USECASE_REVIEW ID="UC-REVIEW" STATE="IMPLEMENTED" PRIORITY="MEDIUM">
+    <WHAT>A human or agent audits whether a completion claim matches evidence</WHAT>
+    <WHY>Completion without proof is storytelling; the repo must make the audit possible</WHY>
+    <PRD_REF>docs/PRD.md#USE-CASES</PRD_REF>
+    <REL TYPE="COVERS" TARGET="FEATURE:FEAT-WHY"/>
+    <REL TYPE="COVERS" TARGET="FEATURE:FEAT-FOUND"/>
+  </USECASE_REVIEW>
 
   <!-- ==================== FEATURES ==================== -->
   <!-- Features are implementable, testable. Each maps to real docs or code.
@@ -113,6 +131,7 @@
     <INTENT>Design rationale for agents modifying the protocol</INTENT>
     <PRD_REF>docs/PRD.md#FEATURES</PRD_REF>
     <REL TYPE="IMPLEMENTED_BY" TARGET="ARTIFACT:ART-DESIGN"/>
+    <REL TYPE="IMPLEMENTED_BY" TARGET="ARTIFACT:ART-VISION"/>
   </FEATURE_DESIGN>
 
   <FEATURE_EVOLVE ID="FEAT-EVOLVE" STATE="IMPLEMENTED" PRIORITY="MEDIUM">
@@ -121,7 +140,26 @@
     <REL TYPE="IMPLEMENTED_BY" TARGET="ARTIFACT:ART-EVOLUTION"/>
     <REL TYPE="IMPLEMENTED_BY" TARGET="ARTIFACT:ART-AGENTS-V5-ARCHIVE"/>
     <REL TYPE="IMPLEMENTED_BY" TARGET="ARTIFACT:ART-AGENTS-V11-ARCHIVE"/>
+    <REL TYPE="IMPLEMENTED_BY" TARGET="ARTIFACT:ART-AGENTS-V12-1-ARCHIVE"/>
   </FEATURE_EVOLVE>
+
+  <FEATURE_FOUND ID="FEAT-FOUND" STATE="IMPLEMENTED" PRIORITY="MEDIUM">
+    <INTENT>Research foundations with honest evidence labels, counter-arguments, and a model-shift register</INTENT>
+    <PRD_REF>docs/PRD.md#FEATURES</PRD_REF>
+    <REL TYPE="IMPLEMENTED_BY" TARGET="ARTIFACT:ART-FOUNDATIONS"/>
+  </FEATURE_FOUND>
+
+  <FEATURE_ROAD ID="FEAT-ROAD" STATE="IMPLEMENTED" PRIORITY="LOW">
+    <INTENT>Roadmap with proposed / held / rejected items; every held item carries a probe or a date</INTENT>
+    <PRD_REF>docs/PRD.md#FEATURES</PRD_REF>
+    <REL TYPE="IMPLEMENTED_BY" TARGET="ARTIFACT:ART-ROADMAP"/>
+  </FEATURE_ROAD>
+
+  <FEATURE_HANDOFF ID="FEAT-HANDOFF" STATE="IMPLEMENTED" PRIORITY="LOW">
+    <INTENT>Handoff briefs as first-class artifacts: one template, three modes, evidence over claims</INTENT>
+    <PRD_REF>docs/PRD.md#FEATURES</PRD_REF>
+    <REL TYPE="IMPLEMENTED_BY" TARGET="ARTIFACT:ART-HANDOFF-TEMPLATE"/>
+  </FEATURE_HANDOFF>
 
   <!-- ==================== ARTIFACTS ==================== -->
   <!-- Artifacts are the real files. Anchor TARGETs are illustrative here —
@@ -129,7 +167,7 @@
        When you add markers, point ANCHOR entries at them. -->
 
   <ARTIFACT ID="ART-AGENTS-MD" FILE="AGENTS.md" TYPE="PROTOCOL" STATE="IMPLEMENTED">
-    <WHAT>The minimal protocol. Drop-in. 9 distinct principles. Never repo-specific.</WHAT>
+    <WHAT>The minimal protocol. Drop-in. 6 distinct principles. Never repo-specific.</WHAT>
   </ARTIFACT>
 
   <ARTIFACT ID="ART-AGENTS-V5-ARCHIVE" FILE="docs/_archive/AGENTS-min-v5.1-default-2026.md" TYPE="HISTORY" STATE="IMPLEMENTED">
@@ -137,7 +175,11 @@
   </ARTIFACT>
 
   <ARTIFACT ID="ART-AGENTS-V11-ARCHIVE" FILE="docs/_archive/AGENTS-min-v11.md" TYPE="HISTORY" STATE="IMPLEMENTED">
-    <WHAT>Byte-exact snapshot of the Opus 5 convergence revision.</WHAT>
+    <WHAT>Byte-exact snapshot of the v11 convergence revision.</WHAT>
+  </ARTIFACT>
+
+  <ARTIFACT ID="ART-AGENTS-V12-1-ARCHIVE" FILE="docs/_archive/AGENTS-min-v12.1.md" TYPE="HISTORY" STATE="IMPLEMENTED">
+    <WHAT>Byte-exact snapshot of the last nine-principle cut. The control arm for the v13 graduation check.</WHAT>
   </ARTIFACT>
 
   <ARTIFACT ID="ART-CLAUDE-MD" FILE="CLAUDE.md" TYPE="BRIDGE" STATE="IMPLEMENTED">
@@ -168,16 +210,24 @@
     <WHAT>Why AGENTS.md is written the way it is. Read before modifying.</WHAT>
   </ARTIFACT>
 
+  <ARTIFACT ID="ART-FOUNDATIONS" FILE="docs/FOUNDATIONS.md" TYPE="GUIDE" STATE="IMPLEMENTED">
+    <WHAT>Research behind each principle, counter-arguments, and the append-only Model-Shift Register.</WHAT>
+  </ARTIFACT>
+
+  <ARTIFACT ID="ART-HANDOFF-TEMPLATE" FILE="docs/handoffs/TEMPLATE.md" TYPE="GUIDE" STATE="IMPLEMENTED">
+    <WHAT>Handoff template: mini, full, and subagent evidence-only modes.</WHAT>
+  </ARTIFACT>
+
   <ARTIFACT ID="ART-EVOLUTION" FILE="docs/EVOLUTION.md" TYPE="HISTORY" STATE="IMPLEMENTED">
     <WHAT>Version history and recurring rejected patterns.</WHAT>
   </ARTIFACT>
 
   <ARTIFACT ID="ART-VISION" FILE="docs/VISION.md" TYPE="GUIDE" STATE="IMPLEMENTED">
-    <WHAT>Where the protocol is going. Updated in v5 to reflect WHY layer.</WHAT>
+    <WHAT>Where the protocol is going: two layers, absorption as the win condition.</WHAT>
   </ARTIFACT>
 
   <ARTIFACT ID="ART-ROADMAP" FILE="docs/ROADMAP.md" TYPE="PLANNING" STATE="IMPLEMENTED">
-    <WHAT>Active priorities and proposals. Updated in v5 for WHY layer delivery.</WHAT>
+    <WHAT>Active priorities, held proposals with probe or date, and rejections with reasons.</WHAT>
   </ARTIFACT>
 
 </Why_Graph>
