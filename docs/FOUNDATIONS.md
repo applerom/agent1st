@@ -247,6 +247,25 @@ However, it connects to:
 
 ---
 
+## Semantic Logging
+
+**Protocol claim:** Logs are future context. Log meaningful boundaries in stable project vocabulary, make failures and fallbacks visible, add a next-step hint when useful.
+
+### Research basis
+
+No paper studies "structured logs as LLM agent context" directly. The claim rests on three grounded mechanisms and one field pattern:
+
+1. **Memory stream** (Park et al. 2023, cited under Durable State below). Observation records are the substrate that later reflection and planning read. A project's runtime log is that stream for the next agent. A log written in free text is a stream the agent must re-parse on every read; a log written in the project's own names is one it can query.
+2. **Same-string retrieval** — the Semantic Hygiene mechanism above, applied to logs. When the `anchor` field of an event carries the identical UPPER_SNAKE_CASE name the graph and the code use, one grep returns three artifacts. This is the claim `why-semantic-logs.md` calls load-bearing, and it is the same attention argument as `why-graph-principles.md` §2a.
+3. **Observability practice.** Structured events with stable attribute names are the industry answer to the same problem for humans and machines. OpenTelemetry's semantic conventions (https://opentelemetry.io/docs/specs/semconv/) exist so that the same field means the same thing across every producer. Agent1st adds only the link from those names to the project's intent vocabulary.
+
+Field pattern: the §11.1 extension was extracted into `why-semantic-logs.md` in v8.2 because an adopter with the base in place asked for it — pull, not push (`EVOLUTION.md`).
+
+- **Strength:** Practical origin; mechanism shared with Semantic Hygiene and Durable State. No controlled study.
+- **Connection to Agent1st:** §5 is the behavior ("write records the next agent can read"); `why-semantic-logs.md` is one runtime shape of it. Semantic Logging is one of three principles (with Semantic Hygiene and CDD) that no 2026 harness prompt addresses at all — see the Model-Shift Register — which is why it stays in the core without apology.
+
+---
+
 ## Durable State (Continuity before v12)
 
 **Protocol claim:** Context can be compacted or lost without warning. Keep critical state in durable artifacts. Leave the next agent a runway, not a crater.
@@ -281,6 +300,7 @@ However, it connects to:
 | Role Contract / Autonomy (historical core; graduated in v13) | Supported | Hadfield-Menell 2016 (principal-agent) + Kim 2025 + Anthropic 2026 (de-prescription) |
 | Semantic Hygiene | Hypothesis | Mechanistic reasoning from attention literature |
 | CDD | Practical origin | Analogy to sycophancy + reflexion |
+| Semantic Logging | Practical origin, mechanism grounded | Park 2023 (memory stream), same-string retrieval (Semantic Hygiene mechanism), OpenTelemetry semantic conventions |
 | Durable State | Supported | Park 2023 (memory architecture), Reflexion (reflection-as-artifact) |
 
 ---
@@ -313,7 +333,7 @@ This document would be dishonest if it only argued *for* the protocol. Agent1st 
 
 ## Model-Shift Register
 
-VISION's core bet is "a behavior contract that ages well precisely because it resists growth." That claim is only worth anything if it is *checked* each time a model generation ships — otherwise "ages well" is faith, not evidence. This register is the check: append-only, one short pass per model generation, recording how each touched principle held and whether anything needed to change.
+VISION's core bet is "a behavior contract that ages well precisely because it resists growth." That claim is only worth anything if it is *checked* each time a model generation ships — otherwise "ages well" is faith, not evidence. This register is the check: append-only, one short pass per model generation, plus a dated entry when a field observation changes the core (the v12 and v13 entries). Each records how every touched principle held and whether anything needed to change.
 
 The discipline mirrors `EVOLUTION.md`'s "exact versions live in one place" rule. Exact model versions are fine *here* because each row is a dated historical observation, not a present-tense claim. If after two or three generations this register has no actionable content, it is ceremony and should be cut — that falsification condition is part of the design.
 
@@ -328,7 +348,7 @@ Triggered by the Opus 4.8 release and its official prompting guidance. Headline:
 | §10 / §11 | Better native progress updates; context-awareness + memory tool | New capability / less scaffolding | **Held; mechanism partly assisted.** 4.8's advice to *remove* interim-status scaffolding does not touch §10 (semantic logs as future context, not status pings). Native memory + context-awareness assist §11's behavior; whether they should reshape the §11 *mechanism* (checkpoint-before-compaction vs end-of-session handoff) is parked as an opt-in question, not a core change. |
 | Delta-layer (DESIGN §2) | "Be explicit about scope" is Anthropic's own 4.8 remedy | — | **Confirmed by rejection.** Adding the scope-explicitness remedy to `AGENTS.md` would duplicate the model layer and drift when the guidance updates. Delta-layer correctly rejects it. The decision is recorded here so it is not re-litigated next release. |
 
-**Net result:** Opus 4.8 shipped; the behavior layer held without edits. That is the strongest available evidence for the "ages well because it resists growth" thesis — one model generation of pressure absorbed with zero core change. (Source pass: `.lab` Opus 4.8 protocol review, written by an Opus-family agent operating a real Why1st adopter.)
+**Net result:** Opus 4.8 shipped; the behavior layer held without edits. That is the strongest available evidence for the "ages well because it resists growth" thesis — one model generation of pressure absorbed with zero core change. (Source pass: a development-side Opus 4.8 protocol review, written by an Opus-family agent operating a real Why1st adopter.)
 
 ### Fable 5 (2026-06) — second pass
 
@@ -420,6 +440,35 @@ No seventh principle was invented from scraps. If the operational residue is zer
 Why1st grows more important in relative terms, not larger in the core. Better harnesses can own more execution mechanics. They still cannot know why this product exists. Why1st remains the optional answer for projects long-lived enough to need one.
 
 Evidence label: **field-observed, not field-validated.** Watch route ownership, honest completion, and useful dissent. If one regresses, restore the smallest missing atom and measure again.
+
+### Fable 5.1 and GPT-6 Astra (2026-09-04) — fourth model pass; the first after the graduation
+
+Triggered by two releases in one week: Claude Fable 5.1 with its [official prompting guide](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5-1), and GPT-6 Astra (2026-09-03) with OpenAI's [model guidance page](https://developers.openai.com/api/docs/guides/latest-model) — a rolling route, read on the date above. Written by a Fable 5.1 agent inside Claude Code, reading its own runtime contract: the evidence tier the 2026-08 pass introduced.
+
+**What the vendors now ship as prompt text.** The Fable 5.1 guide publishes two system-prompt blocks, *Finish the whole task* and *Delivering work*. Both appear verbatim in the Claude Code runtime prompt observed on 2026-09-04. Between them: the user's request is the scope of the deliverable; make routine judgment calls yourself and check in only when readings differ materially; if the task has a real problem, say so in a sentence and keep building under stated assumptions, and if the user reaffirms, deliver; complete every unblocked part and say exactly what was left out; a decided step is something to run, not to announce. The Astra guidance says the same from the other side: treat "can you…" as an instruction to act; "the user should be approving a concrete, reviewable result", not a plan; "if at any point you can parallelize work by delegating tasks to another agent… you should do so"; user instructions take precedence over skill files, and when a skill causes hesitation, name and quote the exact file.
+
+That is Role Contract, Right to Disagree, and most of Done Is Not a Mood, now recommended prompt text on both sides. v13 graduated them on field evidence; this pass confirms the graduation at the documentation level. **No restore.**
+
+| Principle (v13 numbering) | 2026-09 vendor signal | Did it hold? |
+|---|---|---|
+| §1 Attention Engineering | Fable 5.1: turn-scoped system messages; an explicit list of what a compaction summary must preserve; "remove suppressing lines before adding". GPT-5.6 (cited above): state each instruction once | **Held.** The harness now owns instruction *lifetime* mechanics. The project-facing delta — one objective per iteration, constraints near the decision point, drop what does not change the decision — is still nobody's job below this file. |
+| §2 Semantic Hygiene | nothing | **Untouched delta.** Astra's "name and quote the exact skill file" is the nearest neighbour: a vendor asking the agent to point at an artifact by its exact name is hygiene from the other end. |
+| §3 CDD | Both vendors now instruct: state a concern about the *task* briefly, then keep building | **Held; boundary sharpened.** Task-level disagreement is the graduated Right to Disagree, now floor. CDD's delta is friction about the *system* — tooling, docs, process — with a smallest fix attached. No vendor asks for that. Agents should not re-report task concerns under the CDD banner; that is the over-firing the counter-argument above predicted. |
+| §4 Delegation Design | Astra: delegate whenever work parallelizes. Fable 5.1: let the lead keep working while subagents run; results arrive as later messages | **Held — fourth swing survived.** Over-spawn (4.5) → under-spawn (4.8) → eager (Fable 5) → eager-and-async (now). §4 governs contract design, not frequency, and was untouched by all four. The 2026-06 watch item is now real on both sides: async subagents are the default shape, and `why-subagents.md` still describes four synchronous ones. Extension candidate, gated by adopter signal; not a core change. |
+| §5 Semantic Logging | nothing | **Untouched delta.** |
+| §6 Durable State | Harness memory rules (do not save what the repo records; treat recalled memory as dated; verify before recommending) and compaction-preservation lists converge on the mechanism | **Held; delta narrowed to authority.** Harness memory and compaction summaries are per-user, per-harness, and private. Project-owned artifacts are the only surface every agent and human shares. "Yesterday's conversation silently outranks today's repository" is exactly the failure both mechanisms can still cause. |
+
+**Voice note.** The Fable 5.1 guide names *mannered prose* as an anti-pattern to strip from prompts, and its example phrase — "this point earns its keep" — is this project's house register. The v12/v13 distillation had already moved the every-task file toward literal statements; the hooks live in README, DESIGN, and here. That split is now endorsed from the prompt side: the file the model reads on every task stays literal, and the surface humans read for adoption keeps the voice. No edit; recorded so the next voice pass does not re-import metaphors into `AGENTS.md`.
+
+**Register-keeping.** All 23 external links in this file were re-verified on 2026-09-04 by a fresh subagent: every page resolves and every title matches. The GPT-5.6 link is a rolling "latest model" route and will describe a different model after OpenAI's next release; it stays as the dated pointer it was. Hygiene findings from this pass — stale section numbers after the v13 renumbering, a nine-versus-six contradiction inside the dogfood graph, PRD features missing from the graph — are recorded in `EVOLUTION.md` v13.1, with the validator checks that now catch two of them mechanically.
+
+Evidence label: **vendor documentation plus one runtime prompt read from inside; no controlled measurement.** `ROADMAP.md` §3b now carries the owner and date for the measurement.
+
+**Net result:** zero core edits, hygiene-only release. The register's falsification condition did not fire: this pass produced one sharpened boundary (CDD versus task-level disagreement), one realized watch item (async delegation shape), and one confirmed direction (literal core, voiced teaching surface).
+
+---
+
+## Using this document
 
 **For agents proposing changes to Agent1st:**
 - Check if your proposal aligns with or contradicts research here
