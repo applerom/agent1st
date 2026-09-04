@@ -117,7 +117,7 @@ To point an agent at this layer for adoption in another repo, hand it the entry 
 | [`docs/why-graph.xml`](docs/why-graph.xml) | Teaching-size Why Graph for this repo. Copy the shape, replace the content. |
 | [`docs/why-graph-principles.md`](docs/why-graph-principles.md) | Portable authoring guide for the graph. Distilled from real adopters. |
 | [`docs/why-contracts-v1.md`](docs/why-contracts-v1.md) | Module / method / block anchor spec with Python + TypeScript examples. |
-| [`scripts/validate-why.py`](scripts/validate-why.py) | Stdlib-only validator MVP: graph IDs, relation targets, target style, anchors. |
+| [`scripts/validate-why.py`](scripts/validate-why.py) | Stdlib-only validator: graph IDs, relation targets, target style, anchors and their `:END_*` envelopes, `FILE` existence, marker-keyed PRD refs, PRD-ID coverage. |
 
 The artifact files (`why-graph.xml`, `why-graph-principles.md`, `why-contracts-v1.md`, `validate-why.py`) keep the lowercase `why-*` prefix on purpose — they form a stable artifact namespace inside Why1st. Only the entry doc (`Why1st.md`) carries the brand name.
 
@@ -143,6 +143,8 @@ If you adopt Agent1st+Why1st in a project, default to **stable**. Opt into a spe
 
 See [`docs/experiments/`](docs/experiments/) for the full track and current open experiments.
 
+One experiment ships a runtime artifact: [`.agents/skills/terraform/`](.agents/skills/terraform/) is an **experimental** Terraform skill despite its plain name. Its status lives in the skill's frontmatter and in [`docs/experiments/terraform-agent1st.md`](docs/experiments/terraform-agent1st.md); harnesses that read `.agents/skills/` will load it like any stable skill, so know what you are loading.
+
 ---
 
 ## Design, evolution, and reference
@@ -154,7 +156,7 @@ See [`docs/experiments/`](docs/experiments/) for the full track and current open
 | [`VISION.md`](docs/VISION.md) | Anyone curious | Two layers, where this is going. |
 | [`FOUNDATIONS.md`](docs/FOUNDATIONS.md) | Anyone who wants evidence | Research behind the claims. Honest about gaps. |
 | [`ROADMAP.md`](docs/ROADMAP.md) | Contributors | Active priorities and proposals. |
-| [`_archive/`](docs/_archive/) | Adopters who need an earlier protocol | Exact historical Agent1st files, including the frozen 2026 default, Opus 5 v11, and the last nine-principle cut. |
+| [`_archive/`](docs/_archive/) | Adopters who need an earlier protocol | Exact historical Agent1st files, including the frozen 2026 default, Opus 5 v11, and the last nine-principle cut, plus the archived v0 → v10 evolution notes. |
 | [`handoffs/`](docs/handoffs/) | Agents handing off work | Handoff template, plus any live handoff. Periodically cleared, so it may be empty; curated history lives in `EVOLUTION.md`. |
 
 ---

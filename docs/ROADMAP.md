@@ -44,13 +44,13 @@ The "standard version" has been delivered as the **WHY layer**, living flat in `
 
 **Current observed state:** Three competing approaches tried in downstream adopters:
 1. `decision-context.xml` — custom XML decision memory. **Assessment by human: not great.** Non-standard, hard to maintain.
-2. `intent1st` — durable meaning via skills. **Assessment: good concept, poor adoption.** Models forget to use SKILL-based access.
+2. A skill-based intent gateway (development-side prototype, not public) — durable meaning reached through skills. **Assessment: good concept, poor adoption.** Models forget to use skill-based access. Closed on the public surface in v13.1: no probe, no date, and harness-native memory now covers the surface it addressed.
 3. Claude Code `MEMORY.md` — built-in, automatic. Standard for Claude Code users.
 
 **Direction for Agent1st:**
 - Behavior layer (`AGENTS.md`): no memory prescription — stays in harness layer.
 - WHY layer: recommend **durable artifacts** (already in Durable State) without prescribing format.
-- Project-local extensions: each project picks a memory system that fits its harness (e.g., Claude Code `MEMORY.md`, intent1st skills, repo-local decision logs). Not a portable concern.
+- Project-local extensions: each project picks a memory system that fits its harness (e.g., Claude Code `MEMORY.md`, skill-based gateways, repo-local decision logs). Not a portable concern.
 
 **Open question:** Should the WHY layer recommend a specific memory format, or just principles for memory hygiene?
 
@@ -83,6 +83,8 @@ WHY: Done Is Not a Mood. The inverse also holds — *pending* is not a mood. An 
 - human comprehension of the working relationship after reading the file.
 
 **Stop rule:** if a departed behavior regresses, restore the smallest missing atom. If nothing moves, keep six. Six is the result, not the target.
+
+**Owner and date (v13.1, per §3a):** the maintainer runs the development-side pilot pair (two bounded tasks, baseline vs protocol; the harness and blind rubric exist, no run yet) as v13 vs the archived v12.1. Re-decide by **2026-10-15** with whatever evidence exists. The 2026-09 register pass found both vendors now ship the graduated mechanics as recommended prompt text, which is documentation-level confirmation, not the measurement this probe asks for.
 
 ### 4. Success Signals and Public Evidence
 
@@ -121,13 +123,15 @@ WHY: Done Is Not a Mood. The inverse also holds — *pending* is not a mood. An 
 | Per-directory AGENTS.md pattern doc | Proposed | Document the scoped-instructions pattern |
 | Skills specification for WHY-layer adopters | Proposed | Portable skill format beyond SKILL.md |
 
-### From intent1st Analysis (2026-03-25)
+### From a skill-based intent-gateway prototype (2026-03-25) — closed in v13.1
+
+A development-side prototype kept durable project meaning behind skills (canon / candidates / archive). It is not public, so the public surface describes it by shape only. All three items sat as *Proposed* for five months with no probe and no date; under §3a that is a rejection, recorded here so it is not re-litigated.
 
 | Proposal | Status | Notes |
 |----------|--------|-------|
-| Document intent1st relationship | Proposed | How it extends Agent1st philosophy |
-| Evaluate gateway pattern for WHY layer | Proposed | intent1st's canon/candidates/archive model |
-| Assess SKILL.md adoption barrier | Open question | Models don't reliably use skill-based access |
+| Document the gateway's relationship to Agent1st | Rejected (v13.1) | Private artifact; nothing for a public reader to open |
+| Evaluate the canon/candidates/archive gateway for the WHY layer | Rejected (v13.1) | Harness memory plus repo decision logs now cover the surface; §3 keeps the memory question open without this candidate |
+| Assess the SKILL.md adoption barrier | Closed (v13.1) | Observed answer: models do not reliably use skill-gated context; recorded in §3 above |
 
 ### From GRACE Marketplace audit (2026-04-29)
 
@@ -273,11 +277,17 @@ See `docs/EVOLUTION.md` "Recurring Rejected Patterns" for full list. Key recurri
 - Why1st grows in relative importance without moving into the minimal core
 - Evaluation continues in Active Priority §3b
 
+### v13.1
+- Hygiene after the graduation, zero core edits: stale `AGENTS.md §N` citations re-pointed, graduated principles cited as lessons with the archive path, PRD/graph drift closed and made mechanical (three new validator checks), EVOLUTION v0→v10 narratives archived, Semantic Logging grounded in FOUNDATIONS, Model-Shift Register entry for Fable 5.1 and GPT-6 Astra
+- §3b gains an owner and a date; the skill-gateway proposals close under §3a
+- `AGENTS.md` unchanged
+
 ### Next
 *Hypotheses without observed adoption-failure signal should land in `docs/experiments/` first. Entries here are gated either by a delta-layer test or by known-failure signal already in hand.*
 
 - Friction Tax / ambiguity handling in CDD — gated by delta-layer test
 - Memory system integration patterns (harness MEMORY.md vs. in-repo decision logs vs. skill-based gateways) — likely a decision guide, not a required artifact
+- ~~Validator: `FILE` existence and PRD-ID coverage~~ — **shipped in v13.1**, together with the `:END_*` envelope check the contracts spec had promised since v5
 - Anchor adoption in this repo's own `docs/` so the validator graduates from doc-only mode to enforced anchors
 - Adopter prompt template (one-shot copy-paste for Why1st adoption) only if v7 + v8 docs alone don't land for cold-start agents
 - Validator extension: lint that emitted log anchors resolve to graph entries (only if §11.1 adoption requests it)

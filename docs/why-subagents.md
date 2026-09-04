@@ -223,7 +223,7 @@ If you find yourself doing these, stop:
 
 ## 11) References
 
-External anchors for the pattern this guide describes:
+External sources for the pattern this guide describes:
 
 - **Anthropic, *Building Effective Agents*** (https://www.anthropic.com/engineering/building-effective-agents) — the canonical write-up of orchestrator-worker, parallelization, and evaluator-optimizer patterns. Provider-agnostic vocabulary, drawn from Anthropic production work but applicable across stacks. If you read one external thing on this topic, read this one.
 - **Harness-native subagent docs** — Claude Code subagents, Codex agent profiles, Cursor background agents, OpenAI Agents SDK handoffs. These are the tooling layer; this guide is the behavior layer above them. Do not confuse "I have the tool" with "I use the tool by default."

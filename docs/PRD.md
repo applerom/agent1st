@@ -80,6 +80,7 @@ Not in scope: beginners looking for a prompt-engineering tutorial, or users of w
 - At least one dogfooded example in this repo itself.
 - Staleness is named as the main failure mode, not pretended away.
 - A deterministic validator (`python scripts/validate-why.py`) ships with the layer and passes on the dogfooded graph.
+- PRD and graph name the same use cases and features; the validator warns on any PRD ID the graph does not define.
 
 ## 7) Non-goals
 
@@ -109,7 +110,7 @@ Not in scope: beginners looking for a prompt-engineering tutorial, or users of w
 
 These are intentionally unresolved. Future agents should not silently normalize the current artifacts as final doctrine; propose the smallest decision or experiment that would close the question.
 
-- Where does cross-session memory live — harness (Claude Code `MEMORY.md`), repo (decision logs), or skills (intent1st-style gateways)? Current evidence suggests the answer may stay project-local rather than become one portable format. See `docs/ROADMAP.md` §3.
+- Where does cross-session memory live — harness (Claude Code `MEMORY.md`), repo (decision logs), or skill-based gateways? Current evidence suggests the answer may stay project-local rather than become one portable format. See `docs/ROADMAP.md` §3.
 - Should project-local extensions (CI integration, acceptance automation, observability contracts) get their own reference variant in this repo, or remain correctly project-local?
 - How do we measure "less drift" without introducing metrics that themselves become ceremony? Candidate signals: fewer repeated mistakes, fewer stale graph/anchor repairs, faster handoffs, and lower human correction load. No canonical metric yet. v13 adds a concrete comparison target: current protocol vs. the exact archived v12.1 nine-principle cut, with a same-size placebo if the test is formalized.
 - Which principles would survive an ablation? Nothing in the core has ever been knocked out one at a time and measured. §2 Semantic Hygiene is the highest-value, lowest-overlap principle and therefore the most valuable single ablation to run: if it ablates to nothing, the project's most distinctive claim is wrong and should be retired.

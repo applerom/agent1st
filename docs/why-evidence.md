@@ -3,7 +3,7 @@
 This is one proven shape of the optional **tests and UI evidence** extension to Why1st (`Why1st.md` §11.2).
 Companion docs: `Why1st.md` (the idea), Agent1st's **Done Is Not a Mood** (the principle; exact text in the v12.1 archive).
 
-**Relationship to `AGENTS.md` §2.** §2 is the principle: "completion claims require the best evidence the current harness allows." This document is one layer down: *what evidence shape matches what risk surface,* and how the agent acquires that evidence without asking the human to verify on its behalf. §2 is the rule; this guide is its operational fan-out, with specific recommendations on browser tooling, evidence tiers, and the boundary between agent-owned and human-owned verification.
+**Relationship to Agent1st.** The principle is **Done Is Not a Mood**: "completion claims require the best evidence the current harness allows." It graduated from `AGENTS.md` in v13 because strong harnesses now enforce its mechanics; the exact text lives in `docs/_archive/AGENTS-min-v12.1.md`, and it is still the rule this guide fans out. This document is one layer down: *what evidence shape matches what risk surface,* and how the agent acquires that evidence without asking the human to verify on its behalf. The lesson is the rule; this guide is its operational fan-out, with specific recommendations on browser tooling, evidence tiers, and the boundary between agent-owned and human-owned verification.
 
 The goal: when an agent finishes UI work, the next move is *the agent looks at the rendered page* — not *the agent asks the human to check it.* When an agent finishes a backend change, the next move is *the agent runs the test suite* and *the agent reads the API debug trace* — not *the agent declares done and waits.* The closed loop is short. The human is the user, not the QA bot.
 
@@ -47,7 +47,7 @@ Two principles, working together.
 
 Trying to verify UI behavior with unit tests, or API contracts with screenshots, is a category error. Each surface needs its own evidence shape.
 
-**The agent owns the loop.** This is the **Role Contract** applied to verification infrastructure. The agent picks the route, and *the route includes setting up its own ability to see the result of its work.* If the harness allows browser tools, the agent installs the dependency, writes the test, runs it, captures the evidence, attaches it to the completion claim. If the harness does not allow it, the agent says so explicitly — does not silently substitute "I claim it works" for actual evidence.
+**The agent owns the loop.** This is Agent1st's **Role Contract** lesson — the agent owns the route — applied to verification infrastructure. The agent picks the route, and *the route includes setting up its own ability to see the result of its work.* If the harness allows browser tools, the agent installs the dependency, writes the test, runs it, captures the evidence, attaches it to the completion claim. If the harness does not allow it, the agent says so explicitly — does not silently substitute "I claim it works" for actual evidence.
 
 The user is rarely aware that the agent is allowed to install Playwright, run a browser, capture a screenshot, write a test, and verify its own work. Asking the user *"can you grant browser access?"* often goes unanswered not because the user refused, but because the user did not know it was a question. Agents who silently wait for permission spin instead of work; agents who proactively try, fail visibly, and report the failure get unstuck.
 
@@ -220,7 +220,7 @@ If you find yourself doing these, stop:
 
 ## 10) References
 
-External anchors for the patterns this guide describes:
+External sources for the patterns this guide describes:
 
 - **Playwright official docs** (https://playwright.dev/) — the canonical reference for the recommended browser tooling. CLI usage, test API, traces, and CI integration patterns.
 - **Anthropic, *Building Effective Agents*** (https://www.anthropic.com/engineering/building-effective-agents) — covers evaluator-optimizer patterns; "agent verifies its own output" is a direct application.

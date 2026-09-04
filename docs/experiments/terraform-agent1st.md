@@ -206,6 +206,19 @@ Deliberately not ported: §4 Delegation Design (orchestration is not Terraform-s
   narrative, and experiment plumbing live in the bundled why-file, which
   loads on demand.
 
+- **2026-09-04, pre-probe (deployment shape — field signal #3).** Observed
+  from inside a Claude Code session in this repository: the skill loads
+  from `.agents/skills/terraform/` and appears in the session's skill
+  inventory under the plain name `terraform`, with no experimental marking
+  visible at the point of use. That is the cost of the 2026-06-12 decision
+  to keep status in frontmatter only, and it is accepted: the runtime
+  artifact stays clean. The adopter-facing fix landed one hop earlier — the
+  README's experimental-track section now names the artifact and its
+  status where a reader decides what to copy. Also a portability fact worth
+  keeping: Claude Code reads `.agents/skills/` (the Agent Skills spec path),
+  not only `.claude/skills/`; the bridge needed for `AGENTS.md` is not
+  needed for skills.
+
 ## How to report back
 
 Bring the five measurements above, plus: which rules fired, which never did, and any place where the skill and the baseline reference gave conflicting advice — that conflict is signal about where the delta boundary actually runs. Standard track lifecycle applies: promote, iterate, or reject with an `EVOLUTION.md` row.

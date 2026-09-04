@@ -50,6 +50,8 @@ The pairing matters more than the format.
 - Why Graph points to anchors; anchors label real code blocks.
 - Validators catch the moment PRD, graph, and code diverge.
 
+**One word, four jobs — qualify "anchor" whenever the sentence is ambiguous.** A *code anchor* is a `START_*` / `:END_*` marker pair in a source file. A *PRD anchor* is a `<!-- PRD_ANCHOR: KEY -->` comment in the PRD. A *log anchor* is the `anchor` field of a semantic-log event, carrying a graph or code anchor name. An *attention anchor* is the transformer-side reason the first three work: a distinctive string a model can still find in saturated context (`why-graph-principles.md` §2a). The same string across the first three is the load-bearing trick; the fourth is why it works. (`AGENTS.md` §2 applied to this layer's own vocabulary.)
+
 The explanatory docs in this repo (`Why1st.md`, `why-graph-principles.md`, and `why-contracts-v1.md`) exist so agents understand the pattern before they maintain it. The live project chain is simpler:
 
 > **PRD -> Why Graph -> anchors/contracts -> validators**
@@ -149,7 +151,7 @@ Pin `AGENTS.md`, `PRD.md`, and `why-graph.xml` for the session. The other two ar
 
 For intent-changing or cross-cutting work, graph and contracts move before code. For local edits inside a well-mapped feature, they move with the code in the same commit. Validators run before "done."
 
-This is not bureaucracy. It is how "Done Is Not a Mood" gets teeth in a project large enough that memory alone cannot carry it.
+This is not bureaucracy. It is how "Done Is Not a Mood" — the Agent1st lesson that strong harnesses now enforce as floor behavior — gets teeth in a project large enough that memory alone cannot carry it.
 
 ---
 
@@ -207,7 +209,7 @@ The question this section answers: when an adopter repo uses the WHY layer, how 
 
 - **Claude Code:** put a `Required Reading` list in `CLAUDE.md` (which already imports `@AGENTS.md`), or use `MEMORY.md`.
 - **Codex / Cursor / OpenCode:** use the harness's project-context file for the reading list.
-- **intent1st / skill-based harnesses:** pin via the skill's canon pointers.
+- **Skill-based harnesses:** pin via the skill's own pointers to the canonical files.
 - **Any harness:** a short `docs/session-context.md` that your harness is told to pin at session start.
 
 **If your harness only reads `AGENTS.md`** and you cannot add a second context file, you can add a short adopter header to your project's copy of `AGENTS.md` — **above** the Core section, clearly project-specific:
@@ -301,9 +303,9 @@ When NOT to bother: small projects with no runtime surface; CLIs that compute an
 
 ### 11.2 Tests and UI evidence — agents own their own verification loop
 
-Agent1st's **Done Is Not a Mood** says completion needs "the best evidence the current harness allows." Match the evidence to the risk surface: deterministic logic → unit tests; API contracts → response-shape assertions; UI behavior → visual checks (Playwright, screenshots); runtime workflows → semantic-log assertions over fixtures (see §11.1).
+Agent1st's **Done Is Not a Mood** lesson (graduated from `AGENTS.md` in v13; exact text in `docs/_archive/AGENTS-min-v12.1.md`) says completion needs "the best evidence the current harness allows." Match the evidence to the risk surface: deterministic logic → unit tests; API contracts → response-shape assertions; UI behavior → visual checks (Playwright, screenshots); runtime workflows → semantic-log assertions over fixtures (see §11.1).
 
-**The behavior most adopters miss.** When the agent finishes UI work, the next move should be *the agent looks at the rendered page,* not *the agent asks the human to check it.* Most users do not know they can grant browser access. Agents who silently wait for permission spin instead of working. If your harness allows browser tools, install them, write the tests, capture the evidence, attach it to the completion claim. This is the **Role Contract** applied to verification: the agent owns the route, including the route to its own evidence. The depth doc (cross-link below) covers the four evidence tiers, the **Playwright CLI vs MCP** trade-off (default to CLI; MCP definitions consume context whether you use them or not), and the agent-owns-it pattern.
+**The behavior most adopters miss.** When the agent finishes UI work, the next move should be *the agent looks at the rendered page,* not *the agent asks the human to check it.* Most users do not know they can grant browser access. Agents who silently wait for permission spin instead of working. If your harness allows browser tools, install them, write the tests, capture the evidence, attach it to the completion claim. This is the **Role Contract** lesson applied to verification: the agent owns the route, including the route to its own evidence. The depth doc (cross-link below) covers the four evidence tiers, the **Playwright CLI vs MCP** trade-off (default to CLI; MCP definitions consume context whether you use them or not), and the agent-owns-it pattern.
 
 When NOT to bother: backend-only libraries; pure-CLI projects; throwaway prototypes.
 

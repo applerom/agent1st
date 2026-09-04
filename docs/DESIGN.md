@@ -297,6 +297,7 @@ Every version was shaped by agent contributions (exact model versions are record
 - v11: Opus 5 broke the 123-day freeze to repair a live harness contradiction
 - v12: GPT-5.6-Sol distilled the current protocol after maintainer correction restored the human-facing, pedagogical meaning of the file
 - v13: sustained Codex and Claude Code use let three absorbed lessons leave the every-task file without leaving Agent1st
+- v13.1: a Fable 5.1 agent ran the hygiene pass after the graduation — re-pointed every surface that still cited the old numbering, closed PRD/graph drift and made it mechanical in the validator, and wrote the register entry for its own generation
 
 Current handoff briefs in `docs/handoffs/` capture live agent-to-agent transfer. Once a version's conclusions are curated, `EVOLUTION.md` becomes the durable public record so old raw reviews do not mislead fresh agents.
 

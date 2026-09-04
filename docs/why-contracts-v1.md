@@ -27,6 +27,7 @@ The goal: anchor-first navigation that survives refactors, with intent readable 
 - Keep anchor names short, descriptive, and stable across refactors. Renaming an anchor is a graph-level change.
 - PRD references use marker keys — `docs/PRD.md#KEY` resolving to a `<!-- PRD_ANCHOR: KEY -->` comment in the PRD — never section numbers or heading text. Headings get refactored; keys survive. See `why-graph-principles.md` §5a.
 - Field keys (PURPOSE, INVARIANTS, etc.) stay in English for deterministic parsing; narrative can be in any language your team uses.
+- Feature-level variant: when one file realizes one graph feature, adopters mark it `START_FEATURE_CONTRACT: FEATURE_X` ... `:END_FEATURE_CONTRACT` with the same fields as a module contract. Same rules apply; the marker carries the graph entity's name so one grep lands on graph, code, and log (`why-semantic-logs.md`). Use it instead of, not in addition to, the module contract for that file.
 
 ---
 
