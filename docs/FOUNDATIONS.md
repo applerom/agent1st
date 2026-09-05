@@ -6,6 +6,10 @@ Fast-moving fields do not hand out perfect evidence on schedule. Some entries he
 
 Research does not expire when a heading leaves `AGENTS.md`. Historical core principles stay here on purpose.
 
+Practice gave us the protocol. Research helps explain and challenge it.
+A measured effect and a useful working lesson are different claims; see
+[`DESIGN.md` §1a](DESIGN.md#1a-practice-publication-and-criticism).
+
 **Rules for this document:**
 
 1. Every cited paper must be real and verifiable. No hallucinated citations.
@@ -467,6 +471,21 @@ Evidence label: **vendor documentation plus one runtime prompt read from inside;
 **Net result:** zero core edits, hygiene-only release. The register's falsification condition did not fire: this pass produced one sharpened boundary (CDD versus task-level disagreement), one realized watch item (async delegation shape), and one confirmed direction (literal core, voiced teaching surface).
 
 ---
+
+### GPT-6 Astra follow-up (2026-09-05)
+
+OpenAI's [Astra guidance](https://developers.openai.com/api/docs/guides/latest-model#prompting-best-practices)
+(read 2026-09-05; rolling URL) highlights sensitivity to instruction files,
+clarification pauses, and excessive testing. Several suggested remedies already
+reach this Codex session through its supplied instructions.
+
+**Keep six.** The remaining principles guide project meaning, honest collaboration,
+and useful future context. More capable execution increases the value of current
+intent; it does not recover decisions nobody recorded. That strengthens the case
+for Why1st, not for another layer of Astra-specific coaching.
+
+This is a design judgment. Compare versions when a concrete regression needs
+explaining (`ROADMAP.md` §3b); test the guarantees the validator actually makes.
 
 ## Using this document
 

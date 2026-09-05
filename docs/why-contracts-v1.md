@@ -14,7 +14,7 @@ The goal: anchor-first navigation that survives refactors, with intent readable 
 - Every governed file starts with a **Module Contract**.
 - Reusable functions/methods get a **Method Contract** when it helps navigation.
 - Non-trivial regions get paired **Block Anchors**.
-- Anchor names are stable, globally unique per file, and match what the Why Graph points to.
+- Graph-addressable anchor names are stable, unique per file, and match what the Why Graph points to. Local `START_CONTRACT` field groups may repeat inside separately named method or class envelopes; do not address those repeated groups from the graph.
 - No line numbers anywhere — in graph, in docs, in contracts.
 
 ---
@@ -23,15 +23,23 @@ The goal: anchor-first navigation that survives refactors, with intent readable 
 
 - Use language-native single-line comments with **exact labels**: `START_*:` and `:END_*`.
 - Anchors **wrap** the code they describe — the implementation is inside the envelope.
+- Each graph-addressable opening token and its closing token occur exactly once in the file, with the opening first. Referenced envelopes may nest or be disjoint; they must not cross. JSX comment markers may omit the opening colon as shown below.
 - Anchor names must match `START_*` markers referenced from `docs/why-graph.xml`.
 - Keep anchor names short, descriptive, and stable across refactors. Renaming an anchor is a graph-level change.
-- PRD references use marker keys — `docs/PRD.md#KEY` resolving to a `<!-- PRD_ANCHOR: KEY -->` comment in the PRD — never section numbers or heading text. Headings get refactored; keys survive. See `why-graph-principles.md` §5a.
+- PRD references use marker keys — `docs/PRD.md#KEY` resolving to exactly one `<!-- PRD_ANCHOR: KEY -->` comment in the PRD — never section numbers or heading text. Headings get refactored; keys survive. See `why-graph-principles.md` §5a.
 - Field keys (PURPOSE, INVARIANTS, etc.) stay in English for deterministic parsing; narrative can be in any language your team uses.
 - Feature-level variant: when one file realizes one graph feature, adopters mark it `START_FEATURE_CONTRACT: FEATURE_X` ... `:END_FEATURE_CONTRACT` with the same fields as a module contract. Same rules apply; the marker carries the graph entity's name so one grep lands on graph, code, and log (`why-semantic-logs.md`). Use it instead of, not in addition to, the module contract for that file.
 
 ---
 
 ## 2) Contract fields
+
+The starter validator checks exact marker tokens, uniqueness, order, and crossing
+of graph-referenced enforced envelopes. It does not parse the source language,
+prove that tokens are comments, lint every unreferenced local block, or establish
+behavioral correctness. Use language-aware checks and behavior tests where the
+project needs those guarantees. The [runnable example](examples/reading-list/README.md)
+shows the boundary.
 
 **Module-level (required):**
 - `FILE` — repo-relative path

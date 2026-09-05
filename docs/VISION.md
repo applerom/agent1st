@@ -2,7 +2,8 @@
 
 ## What This Is
 
-Agent1st Protocol is a minimal behavior-layer for AI agents working on software projects.
+Agent1st gives agents a working contract and projects a durable map of intent.
+`AGENTS.md` makes the first step easy. Why1st carries the approach into the code.
 
 It is not:
 - a prompt engineering guide
@@ -31,12 +32,16 @@ The best harnesses now enforce part of that contract. Good. Agent1st helped poin
 
 ## Two Layers, One Repo
 
-Agent1st is two layers that live in one repo. The split is deliberate — a low entry threshold first, then depth only when a project earns it.
+Two layers, different jobs. One teaches how we work together; the other keeps
+what we are building connected to why it exists.
 
 - **Drop in `AGENTS.md` alone.** A project-independent behavior contract. Enough on its own for small or short-lived work.
 - **Add the WHY layer (Why1st) the moment work gets serious.** A Why Graph with semantic markup — contracts, anchors, logs — that keeps intent paired with code across long-lived, multi-agent projects.
 
 The meaningful distinction is **behavior vs. intent-artifacts**, not a ladder of tiers to climb.
+
+Better execution makes a good map more useful — and a stale one more costly.
+Let the prompt shrink as the harness improves. Keep the project's meaning alive.
 
 ### 1. The behavior layer — `AGENTS.md`
 
@@ -108,7 +113,7 @@ The minimal AGENTS.md is designed to be dropped into any project alongside your 
 - **Absorption is the win condition, not erosion.** When a vendor ships a principle from this file into a model or harness prompt, the earlier protocol succeeded. Then the line gets a harder test: does every task still need it? Teaching can move to README, FOUNDATIONS, and the archive. The current file keeps the delta. See `DESIGN.md` §2a.
 - **The WHY layer grows by pull, not push.** New depth (extensions, guides, tooling) lands when an adopter actually hits the surface it addresses, never speculatively. The canonical chain (PRD → Why Graph → contracts → validator) stays small; everything else is opt-in and partitioned.
 - **Experiments earn their way in.** Untested bets live in `docs/experiments/` until field signal promotes or kills them. The core is protected from speculation by construction.
-- **The protocol stays provider-agnostic.** It must remain useful as agents grow more capable — by defining better conditions, not by adding more rules.
+- **The protocol stays provider-agnostic while learning at the leading edge.** Current editorial decisions start from sustained Codex and Claude Code use. The meaning travels; identical defaults across every harness are not a prerequisite. See `DESIGN.md` §2b.
 
 The long-term bet: a behavior contract that ages well because it resists both growth and taxonomy. If this file needed a new variant every time a model ships, it would be doing the wrong job.
 

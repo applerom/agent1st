@@ -1,0 +1,18 @@
+<Why_Graph project="ReadingListExample">
+  <USECASE_ADD_BOOK ID="UC-ADD-BOOK" STATE="IMPLEMENTED">
+    <WHAT>Add a book while the list has room</WHAT>
+    <PRD_REF>PRD.md#CAPACITY</PRD_REF>
+    <REL TYPE="COVERS" TARGET="FEATURE:FEAT-CAPACITY"/>
+  </USECASE_ADD_BOOK>
+  <FEATURE_CAPACITY ID="FEAT-CAPACITY" STATE="IMPLEMENTED">
+    <INTENT>Allow adding below the configured limit; default 20 books</INTENT>
+    <ACCEPT>19/20 allows; 20/20 and 21/20 reject; zero limit rejects; negative inputs raise ValueError</ACCEPT>
+    <PRD_REF>PRD.md#CAPACITY</PRD_REF>
+    <REL TYPE="IMPLEMENTED_BY" TARGET="MODULE:MOD-CAPACITY"/>
+  </FEATURE_CAPACITY>
+  <MODULE_CAPACITY ID="MOD-CAPACITY" FILE="reading_list.py" STATE="IMPLEMENTED">
+    <WHY>One boundary decision shared by callers prevents inconsistent list limits</WHY>
+    <ANCHOR NAME="START_MODULE_CAPACITY" COORD="reading_list.py#START_MODULE_CAPACITY"/>
+    <ANCHOR NAME="START_METHOD_can_add_book" COORD="reading_list.py#START_METHOD_can_add_book"/>
+  </MODULE_CAPACITY>
+</Why_Graph>

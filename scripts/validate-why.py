@@ -1,4 +1,4 @@
-"""WHY-graph validator — Agent1st v6 MVP, extended in v10 and v13.1.
+"""WHY-graph validator — Agent1st v6 MVP, extended in v10, v13.1, and v13.2.
 
 Mechanical drift detector, not a semantic proof system. Runs deterministically,
 uses stdlib only, and degrades honestly on docs-only graphs that have no
@@ -16,7 +16,7 @@ Checks:
    - Anchors are enforced when their parent node STATE is STARTED, DONE, or
      IMPLEMENTED and skipped when STATE is PLANNED or DEPRECATED. Other states
      are reported as errors.
-   - Target file exists and contains the marker as a substring.
+   - Target file exists and contains exactly one occurrence of the marker token.
 7. If no ANCHOR elements exist at all:
    - Report a warning, not a failure. The current Agent1st dogfood graph is
      docs-only on purpose.
@@ -27,8 +27,9 @@ Checks:
    - One reference per PRD_REF element; `;`-joined lists are errors.
    - Legacy prose/section-number form (no `#`) degrades to a warning nudging
      migration, not a failure.
-9. Anchor envelopes close (v13.1): every enforced `START_X` marker has a
-   matching `:END_X` in the same file. An open envelope is an error.
+9. Anchor envelopes close: every enforced `START_X` marker has exactly one
+   matching `:END_X` after it. Referenced envelopes may nest but cannot cross.
+   Checks are lexical, not language parsing or proof of code behavior.
 10. FILE attributes resolve (v13.1): any node with a FILE attribute points at an
     existing regular file when its STATE is enforced; PLANNED/DEPRECATED nodes
     are skipped. Missing files are errors.
@@ -212,6 +213,7 @@ def check_anchors(
     validated = 0
     skipped = 0
     total = 0
+    envelopes: dict[Path, dict[str, tuple[int, int]]] = {}
 
     for node in root.iter():
         anchors = node.findall("ANCHOR")
@@ -290,7 +292,7 @@ def check_anchors(
 
             try:
                 text = target.read_text(encoding="utf-8")
-            except OSError as exc:
+            except (OSError, UnicodeError) as exc:
                 issues.append(Issue(
                     severity="error",
                     node=node_id,
@@ -299,27 +301,55 @@ def check_anchors(
                 ))
                 continue
 
-            if marker not in text:
+            starts = list(re.finditer(rf"(?<![\w-]){re.escape(marker)}(?![\w-])", text))
+            if len(starts) != 1:
                 issues.append(Issue(
                     severity="error",
                     node=node_id,
-                    problem=f"marker {marker} not found in {path_part}",
-                    fix="add the START_* marker in the source file or update the anchor",
+                    problem=f"marker {marker} occurs {len(starts)} times in {path_part}; expected exactly one",
+                    fix="use one exact marker token per graph-addressable region; fix missing or duplicate markers",
                 ))
                 continue
 
             if marker.startswith("START_"):
                 end_marker = ":END_" + marker[len("START_"):]
-                if end_marker not in text:
+                ends = list(re.finditer(rf"(?<![\w-]){re.escape(end_marker)}(?![\w-])", text))
+                if len(ends) != 1:
                     issues.append(Issue(
                         severity="error",
                         node=node_id,
-                        problem=f"anchor envelope is open: {marker} has no {end_marker} in {path_part}",
-                        fix=f"add the {end_marker} line after the code the anchor wraps",
+                        problem=f"anchor envelope {marker} has {len(ends)} occurrences of {end_marker} in {path_part}; expected exactly one",
+                        fix=f"keep one {end_marker} after the code the anchor wraps",
                     ))
                     continue
+                if ends[0].start() < starts[0].end():
+                    issues.append(Issue(
+                        severity="error",
+                        node=node_id,
+                        problem=f"anchor envelope {marker} closes before it opens in {path_part}",
+                        fix=f"move {end_marker} after the code the anchor wraps",
+                    ))
+                    continue
+                envelopes.setdefault(target.resolve(), {})[marker] = (
+                    starts[0].start(), ends[0].start(),
+                )
 
             validated += 1
+
+    for target, regions in envelopes.items():
+        ordered = sorted(regions.items(), key=lambda item: item[1][0])
+        stack: list[tuple[str, int]] = []
+        for marker, (start, end) in ordered:
+            while stack and start > stack[-1][1]:
+                stack.pop()
+            if stack and end > stack[-1][1]:
+                issues.append(Issue(
+                    severity="error",
+                    node=marker,
+                    problem=f"anchor envelope crosses {stack[-1][0]} in {target}",
+                    fix="keep referenced envelopes disjoint or properly nested",
+                ))
+            stack.append((marker, end))
 
     return issues, validated, skipped, total
 
@@ -398,7 +428,7 @@ def check_prd_refs(
 
             try:
                 doc_text = target.read_text(encoding="utf-8")
-            except OSError as exc:
+            except (OSError, UnicodeError) as exc:
                 issues.append(Issue(
                     severity="error",
                     node=node_id,
@@ -407,14 +437,15 @@ def check_prd_refs(
                 ))
                 continue
 
-            pattern = rf"PRD_ANCHOR:\s*{re.escape(key)}(?![A-Za-z0-9-])"
-            if not re.search(pattern, doc_text):
+            pattern = rf"<!--\s*PRD_ANCHOR:\s*{re.escape(key)}\s*-->"
+            count = len(re.findall(pattern, doc_text))
+            if count != 1:
                 issues.append(Issue(
                     severity="error",
                     node=node_id,
-                    problem=f"PRD_ANCHOR marker {key!r} not found in {path_part}",
+                    problem=f"PRD_ANCHOR comment {key!r} occurs {count} times in {path_part}; expected exactly one",
                     fix=(
-                        f"add <!-- PRD_ANCHOR: {key} --> under the section this "
+                        f"keep one <!-- PRD_ANCHOR: {key} --> under the section this "
                         "reference means, or fix the key"
                     ),
                 ))
@@ -502,7 +533,7 @@ def check_prd_coverage(
             continue  # reported by check_prd_refs
         try:
             doc_text = target.read_text(encoding="utf-8")
-        except OSError:
+        except (OSError, UnicodeError):
             continue
         seen: set[str] = set()
         for match in pattern.finditer(doc_text):

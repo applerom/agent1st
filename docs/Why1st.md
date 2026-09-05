@@ -1,15 +1,13 @@
 # Why1st — intent as a first-class artifact
 
-Agent1st's minimal `AGENTS.md` defines how agents and humans work together.
-It does not define what they work on, or how intent stays aligned with code across hundreds of sessions.
+`AGENTS.md` defines how we work together. **Why1st** keeps what we are building
+connected to why it exists.
 
-For small or short-lived projects, you don't need more than that.
+Copy the contract; build the map. The first is easy to adopt. The second must
+fit your project. Small, short-lived work may need only the contract. Work that
+survives sessions, agents, and refactors needs its intent to survive too.
 
-For real projects — ones that will be edited for months, touched by multiple agents, and have to survive compaction, refactors, and handoff — you need one more layer.
-
-This document describes that layer. Its short name is **Why1st**: work from WHY first, then map it to code. Synonym in older docs and prose: *the WHY layer.*
-
-Why1st is not a second protocol in the same sense as Agent1st. Agent1st is the behavior contract — how humans and agents work together. Why1st is the intent layer — a portable pattern for keeping product truth, code navigation, local code meaning, and validation tied together.
+A better agent still cannot recover a decision nobody recorded.
 
 ---
 
@@ -42,13 +40,13 @@ Four artifacts, paired in a specific way.
 | **PRD** (`docs/PRD.md`) | Product truth | What are we building? Who for? What does done look like? |
 | **Why Graph** (`docs/why-graph.xml`) | Navigation truth | Where in this repo does that intent actually live? |
 | **Contracts & anchors** (in code) | Local truth | What is this file/function for, and what changes with it? |
-| **Validators** (scripts) | Consistency truth | Do the three above still agree? |
+| **Validators** (scripts) | Consistency checks | Do the declared references and constraints still hold? |
 
 The pairing matters more than the format.
 
 - PRD explains intent; Why Graph maps intent to code.
 - Why Graph points to anchors; anchors label real code blocks.
-- Validators catch the moment PRD, graph, and code diverge.
+- Validators catch broken declared references and mechanically checkable constraints. Behavior tests and review establish whether the implementation satisfies intent.
 
 **One word, four jobs — qualify "anchor" whenever the sentence is ambiguous.** A *code anchor* is a `START_*` / `:END_*` marker pair in a source file. A *PRD anchor* is a `<!-- PRD_ANCHOR: KEY -->` comment in the PRD. A *log anchor* is the `anchor` field of a semantic-log event, carrying a graph or code anchor name. An *attention anchor* is the transformer-side reason the first three work: a distinctive string a model can still find in saturated context (`why-graph-principles.md` §2a). The same string across the first three is the load-bearing trick; the fourth is why it works. (`AGENTS.md` §2 applied to this layer's own vocabulary.)
 
@@ -95,7 +93,10 @@ Update graph and contracts in the same change set as the code, not necessarily b
 
 **Run validators before claiming done.** This repo ships a starter validator (`python scripts/validate-why.py`). Adopter projects should run that or their project-specific equivalent. If no validator exists yet, build the smallest graph-to-anchor check before trusting the layer.
 
-This is slower per-edit. It is dramatically faster per-project because the agent no longer wastes cycles on nearest-code edits or invisible couplings. Refactors stop breaking invisible couplings. Handoffs stop starting from zero.
+The extra work per edit is meant to save repeated discovery across the project:
+fewer nearest-code edits, visible couplings, and handoffs with a usable map.
+That is the practical lesson behind the layer, not a guarantee that every
+refactor will be safe or every project faster. A stale map can do the opposite.
 
 ---
 
@@ -181,6 +182,10 @@ A stale graph is not the end of the WHY layer. It is the moment the WHY layer pr
 ---
 
 ## 7) How to start (one proven shape)
+
+For a runnable first encounter, follow [one reading-list feature](examples/reading-list/README.md)
+through its PRD, graph, code contracts, validator, and behavior tests. It includes
+both a broken-reference exercise and a behavior bug that structural checks cannot catch.
 
 The fastest path that has actually worked in production:
 

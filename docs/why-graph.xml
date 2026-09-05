@@ -22,6 +22,8 @@
       Your project likely will; add those node families when they carry value.
     - So this file teaches the skeleton, not an end-to-end enforced chain.
       Read it for the shape, not as a complete reference implementation.
+      docs/examples/reading-list/ supplies a separate runnable chain with source
+      anchors, behavior tests, and deliberate failure exercises.
 
     It is deliberately small. Real projects have dozens of features, not a handful.
     When you copy this file: keep the shape, replace the content.
@@ -30,7 +32,7 @@
     and `docs/Why1st.md` for why this file exists at all.
   -->
 
-  <PROJECT DATE="2026-09-04">
+  <PROJECT DATE="2026-09-05">
     <WHAT>Agent1st — behavior-layer protocol for AI-agent software development</WHAT>
     <WHY>Reduce drift between human intent and agent execution across long-lived projects</WHY>
     <TECH>
@@ -110,6 +112,7 @@
       <CHECK>Why1st.md explains the idea before any template is shown</CHECK>
       <CHECK>Each paired file is usable standalone and coherent together</CHECK>
       <CHECK>At least one dogfooded example lives in this repo</CHECK>
+      <CHECK>A public runnable source example checks anchors and behavior separately</CHECK>
       <CHECK>A deterministic validator runs over the dogfooded graph and exits 0</CHECK>
     </ACCEPT>
     <PRD_REF>docs/PRD.md#FEATURES</PRD_REF>
@@ -119,6 +122,8 @@
     <REL TYPE="IMPLEMENTED_BY"  TARGET="ARTIFACT:ART-WHY-CONTRACTS"/>
     <REL TYPE="IMPLEMENTED_BY"  TARGET="ARTIFACT:ART-WHY-GRAPH"/>
     <REL TYPE="IMPLEMENTED_BY"  TARGET="ARTIFACT:ART-VALIDATOR"/>
+    <REL TYPE="IMPLEMENTED_BY" TARGET="ARTIFACT:ART-WHY-EXAMPLE"/>
+    <REL TYPE="IMPLEMENTED_BY" TARGET="ARTIFACT:ART-VALIDATOR-TESTS"/>
   </FEATURE_WHY>
 
   <FEATURE_BRIDGE ID="FEAT-BRIDGE" STATE="IMPLEMENTED" PRIORITY="HIGH">
@@ -203,7 +208,15 @@
   </ARTIFACT>
 
   <ARTIFACT ID="ART-VALIDATOR" FILE="scripts/validate-why.py" TYPE="VALIDATOR" STATE="IMPLEMENTED">
-    <WHAT>WHY validator MVP. Stdlib-only Python; STATE-aware anchor enforcement; CDD-style errors.</WHAT>
+    <WHAT>WHY validator. Stdlib-only Python; STATE-aware exact anchor and envelope checks; CDD-style errors. Lexical consistency, not semantic proof.</WHAT>
+  </ARTIFACT>
+
+  <ARTIFACT ID="ART-WHY-EXAMPLE" FILE="docs/examples/reading-list/README.md" TYPE="EXAMPLE" STATE="IMPLEMENTED">
+    <WHAT>Runnable PRD-to-code chain with its own graph and behavior tests; teaches both broken-coordinate and incorrect-behavior failures.</WHAT>
+  </ARTIFACT>
+
+  <ARTIFACT ID="ART-VALIDATOR-TESTS" FILE="tests/test_validate_why.py" TYPE="TEST" STATE="IMPLEMENTED">
+    <WHAT>Negative anchor and PRD-marker cases, plus the public example passing and rejecting a broken coordinate.</WHAT>
   </ARTIFACT>
 
   <ARTIFACT ID="ART-DESIGN" FILE="docs/DESIGN.md" TYPE="GUIDE" STATE="IMPLEMENTED">

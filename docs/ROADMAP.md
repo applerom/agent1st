@@ -68,27 +68,22 @@ Current leaning: no single memory location is portable enough to prescribe. The 
 
 WHY: Done Is Not a Mood. The inverse also holds — *pending* is not a mood. An item nobody is measuring and nobody will revisit is finished, and the honest move is to write that down.
 
-### 3b. v13 Graduation Check
+### 3b. Keep the graduation accountable to use
 
-**Change under test:** v13 removes Role Contract, Done Is Not a Mood, and Right to Disagree from the every-task file. The ideas stay; the repeated instructions leave. Exact v12.1 is the control, not a second product.
+Six is the current result, not the target. If route ownership, honest completion,
+or useful dissent regresses, capture the task and effective instructions.
+Repair the smallest missing behavior.
 
-**Smallest useful probe:** run the same bounded tasks with current v13, archived v12.1, and an equal-size placebo. Blind-grade:
+If the cause is unclear, compare v13 with archived v12.1 under the same model,
+harness, tools, and task. Isolate inherited instructions and memory. Add generic
+advice as a control only when the wording itself is the question.
 
-- route ownership and unnecessary pauses;
-- completion honesty and evidence quality;
-- useful dissent when the request is wrong;
-- semantic naming errors;
-- delegation-contract quality;
-- durable state left for the next agent;
-- human comprehension of the working relationship after reading the file.
-
-**Stop rule:** if a departed behavior regresses, restore the smallest missing atom. If nothing moves, keep six. Six is the result, not the target.
-
-**Owner and date (v13.1, per §3a):** the maintainer runs the development-side pilot pair (two bounded tasks, baseline vs protocol; the harness and blind rubric exist, no run yet) as v13 vs the archived v12.1. Re-decide by **2026-10-15** with whatever evidence exists. The 2026-09 register pass found both vendors now ship the graduated mechanics as recommended prompt text, which is documentation-level confirmation, not the measurement this probe asks for.
+No standing benchmark queue. The old pilot assignment is retired; no results
+are claimed. Measure to choose a change, not to justify having a practice.
 
 ### 4. Success Signals and Public Evidence
 
-**Current state:** `docs/PRD.md` names success signals, but Agent1st does not yet define how to measure "less drift" without creating ceremony.
+Make the approach easy to inspect and try. Measure specific claims; let working examples carry the teaching.
 
 **Open questions:**
 - Which lightweight signals show reduced agent drift without becoming process theater? Candidates: repeated-mistake rate, stale graph/anchor repairs, handoff reuse, time-to-orientation for fresh agents, and human correction load. An external full-project review (GPT-5.5-pro, 2026-06-11) added three countable probes to the pool: re-edit count after an agent handoff, share of tasks closed with reproducible evidence, and nearest-plausible-file incidents before vs after Why1st adoption.
@@ -168,127 +163,14 @@ See `docs/EVOLUTION.md` "Recurring Rejected Patterns" for full list. Key recurri
 
 ---
 
-## Version Planning
+## Next
 
-### v4.x (minimal baseline, unchanged)
-- Continuity hook added (Qwen)
-- Handoff template created
-- Continuity research grounded (Park et al.)
-- Model-agnostic note added
-- External agent contributions curated
+Version decisions live in [`EVOLUTION.md`](EVOLUTION.md).
 
-### v5
-- WHY layer delivered as flat files in `docs/` (Why1st entry doc — at the time named `WHY-APPROACH.md` — plus PRD, why-graph, principles, contracts)
-- Three-tier (minimal/standard/full) framing retired in favor of two layers: behavior + WHY
-- `AGENTS.md` remains unchanged — portability preserved
-- VISION, ROADMAP, DESIGN, README updated to match
-
-### v5.1
-- External-review integration round (8 reviewers)
-- Graph staleness named as the primary failure mode; recovery protocol added
-- Workflow shape stops being a universal law; intent-changing vs local-edit intensities
-- §8 Required Reading reframed as adopter's pattern with harness-native first
-
-### v6
-- `scripts/validate-why.py` — WHY validator MVP, stdlib-only
-- `AGENTS.md` byte-identical to v5.1 — survives the v6 spirit pass unchanged
-- §1 Role Contract candidate deferred (failed bullet-count discipline at the front door)
-- §8 / §9 candidate edits landed then reverted (duplication with §4 / template-grade tactical advice)
-- No model-specific knobs added (explicit non-goal)
-
-### v6.1
-- Why1st adopted as a short name for the WHY-first approach/layer, distinct from Agent1st (the behavior contract)
-- Entry doc renamed `docs/WHY-APPROACH.md` → `docs/Why1st.md`; README promoted `## Why1st` to a level-2 heading with its own anchor
-- One-file `docs/PRD.md` starter stance documented as valid, with extraction only when useful
-- Stale v6 teaching-surface residue fixed (`No validators yet`, `four files`, module-family examples)
-- Validator generalized: anchor checks apply to any node with `<ANCHOR>` children, not just `MODULE_*`
-- Reference adopter analyses moved off-public (kept for development-side use only) so the public protocol does not name projects readers cannot access
-
-### v7
-- Why1st format spirit named explicitly. New `docs/why-graph-principles.md` §2a "Tag shapes — prompt-XML, not classical XML" with side-by-side good/bad and an anti-patterns list — the load-bearing change
-- Light pointers in `docs/Why1st.md` and `docs/why-contracts-v1.md` so the spirit lands at the right moment of reading
-- Triggered by a real downstream adopter's first attempt simplifying the graph to `<?xml ?> + <nodes><node id kind> + <relations>` style. Diagnosis: words "graph" and ".xml" pull strong agents toward classical defaults; the v6 docs documented *what* but not *why*
-- Verified before ship: fresh subagent given only updated docs + a tiny fictional PRD produced canonical prompt-XML on first attempt
-- AGENTS.md untouched
-- **Empirical confirmation:** a real cold-start adopter (PRD-only, agent told to read `#why1st`) produced a working app with a valid prompt-XML graph, 11 anchors, 21 unit tests, and module contracts on 16 files in its first version
-
-### v8
-- New cold-start reference-adopter audit produced three small Tier-1 fixes plus three opt-in extension patterns:
-  - **§2a "do not compress" guard** in `why-graph-principles.md` — when adopters copy the file locally and shorten it, retain at minimum the load-bearing rationale anchors. New meta-failure: agent A writes correct graph + compressed local guide → agent B loses the WHY
-  - **Pin-vs-reference** sharpening in `Why1st.md` §8 — pin always: `AGENTS.md` + `PRD.md` + `why-graph.xml`; reference on demand: principles, contracts, validator. Stops cold-start adopters from pinning 8+ files as context tax
-  - **"Don't edit the Core" clarity** in `Why1st.md` §8 — Hello Agent tweaks, output-contract exceptions, harness handshake refinements go in the addendum **above** the separator, not inside the Core. Common adoption mistake named explicitly
-- New `Why1st.md §11` "Optional extensions for real-project surfaces" — three opt-in patterns for projects that need them, hard partition from canonical chain:
-  - 11.1 Semantic logs as future agent context — runtime events with anchor names matching the graph, so a model can grep across logs ↔ graph ↔ code
-  - 11.2 Tests and UI evidence — agent self-sufficiency: the agent sets up Playwright/snapshots/test harness itself instead of asking the human
-  - 11.3 Subagent orchestration as project-local pattern — `docs/agent-orchestration.md` style is project-local extension, not Agent1st core
-- AGENTS.md untouched
-- Includes drop-in surface cleanup from a Codex-side audit: public history docs no longer reference the gitignored development-side folder; `applerom/harness-observatory` named as a public reference candidate (only because it is a public GitHub repo)
-
-### v8.1
-- Drop noise: `schema="0.8"` and `<PROJECT VERSION="0.8">` removed from the teaching graph. The fields were inertia from before Why1st was a named project — never tied to an XSD or migration rule. Closes the v8 open question on graph/schema version fields
-- `docs/why-graph-principles.md` §2 root-and-schema paragraph rewritten to match: graph carries no abstract version field; rely on validator behavior, `<PROJECT DATE>`, and git history
-- PRD §10 and ROADMAP §5 marked resolved
-- Stale handoffs cleanup landed alongside (Codex-side commit `7ffffa1`): 11 v3/v4/v5-era raw review files removed from `docs/handoffs/`. Curated conclusions stay in `EVOLUTION.md`; raw old reviews were creating misleading `rg` results for fresh agents
-- A development-side audit of GRACE Marketplace (a parallel public project that independently rediscovered prompt-XML, contracts near code, and validators) confirmed the Why1st thesis. Borrow candidates extracted but **not** landed — held in §"From GRACE Marketplace" pending an adoption signal
-- AGENTS.md untouched
-
-### v8.2
-- New paired file `docs/why-semantic-logs.md` extracts §11.1 depth: minimum event shape (required vs conditional fields), why semantic logs work for transformer-based agents (parallel structure to `why-graph-principles.md` §2a — vocabulary stability, same-string grep across layers, attention finite per AGENTS.md §4), where logs live (JSONL first), the smallest useful slice (6 steps), what semantic logs are *not*, anti-patterns
-- `Why1st.md` §11.1 updated: field shape corrected, cross-link added to the new pair file. The five-paragraph version stays as the entry; new file is the depth
-- Triggered by a real adopter who already had the Agent1st+Why1st base in place and asked for implementation guidance for §11.1. v8 EVOLUTION had explicitly held depth back ("if adopter feedback shows §11.1 needs more depth, extract later") — that signal arrived
-- AGENTS.md untouched. Canonical chain unchanged. Hard partition between chain and §11 extensions preserved (no new graph ARTIFACT entry)
-
-### v8.3
-- New paired file `docs/why-subagents.md` extracts §11.3 depth with a behavioral re-pointing: the v8 brief was artifact-focused ("where does subagent know-how live"), but the actual cross-project adopter friction is *behavioral* — strong agents trained on agentic work default to single-thread solo execution. New file leads with when an agent defaults to delegation; names the four delegation shapes (parallel exploration, fan-out validation, deep-dive isolated work, lower-intelligence ops); gives the contract structure, the lead-vs-delegate line, anti-patterns; treats the project-local artifact as the second move that crystallizes lived patterns
-- `Why1st.md` §11.3 re-pointed: heading and lead paragraph now lead with behavior, artifact framing stays as second paragraph, cross-link to depth doc added
-- Anthropic *Building Effective Agents* cited as the canonical external anchor — orchestrator-worker / parallelization / evaluator-optimizer is the framework default; do-it-all-myself is the regression
-- Triggered by user-reported recurring cross-project field signal plus three of seven external agent reviewers (GPT-5.5-pro, Kimi 2.6, Muse-Spark) independently flagging subagent-delegation regression
-- AGENTS.md untouched. Canonical chain unchanged. Hard partition preserved
-
-### v8.4
-- New paired file `docs/why-evidence.md` extracts §11.2 depth with a behavioral re-pointing and an explicit architectural position: agents own their own verification loop; default to **Playwright CLI** for browser/UI evidence, reach for MCP only when its structured I/O is load-bearing (MCP tool definitions cost context whether you use them or not). Four evidence tiers (unit/integration, API/protocol-shape, UI/visual, semantic-log assertions over fixtures); the four-step agent-owns-it pattern (try → name the block → fall back to next-best evidence → never silently substitute "trust me"); anti-patterns including "spin instead of work" and "MCP-by-default for browser tooling"
-- `Why1st.md` §11.2 re-pointed: heading extended to "agents own their own verification loop"; behavior leads (agent looks at the rendered page, not the human); CLI-over-MCP trade-off surfaced inline so the brief alone communicates the load-bearing position; cross-link to depth doc added
-- Companion wave to v8.3, separate commit and separate delta. Pattern across v8.2–v8.4 now explicit: brief in v8 → adopter pull → spirit-pass through Why1st voice → depth doc in `why-*` namespace + behavioral re-pointing
-- AGENTS.md untouched (byte-identical to v5.1 since v6 — nine versions of discipline). Canonical chain unchanged. Hard partition preserved
-
-### v8.5
-- `docs/why-contracts-v1.md` §6 strengthened: explicit cross-references to AGENTS.md §4 (Attention Engineering) and §5 (Semantic Hygiene) so contracts are named as the file-level realization of those principles. **Greppability** named as a deliberate property of the shape (English, upper-case, anchored after `:`), not just a side effect of "deterministic validation." **LINKS as dependency map** surfaced as the field an agent reads before changing a method — the alternative is grep-and-guess
-- New `docs/experiments/` directory introduced as a parallel track for hypotheses that have not yet earned a place in stable. Hard partition from canonical chain and from `Why1st.md` §11 stable extensions. Not linked from the main README "Optional extensions" table by design. Stable continues to evolve only under spirit-pass discipline; experiments hold ideas that need empirical signal first. Lifecycle (open / promoting / resolved), no fixed timelines, treated as a labeled side-track like in many packaged systems
-- First experiment: `docs/experiments/hieroglyph-anchors.md` — replace one contract field key (PURPOSE) with a single CJK character (`旨`); hypothesis explicitly worth running because the answer is unknown; three measurable falsifiability criteria (token cost, attention/recall in long context, greppability); §5 tension acknowledged up front
-- AGENTS.md untouched. Canonical chain unchanged. No new "Optional extensions" entry — experiments are deliberately separate
-
-### v9-v11
-- v9 / v9.1: model-shift register and stronger research grounding; core correctly remained frozen
-- v10: PRD anchors made graph references refactor-proof
-- v11: first core edit in 123 days; acceptance-criteria contradiction repaired and Claude Code bridge verified
-
-### v12
-- One ordinary `AGENTS.md`, 165 lines, 9 separate principles
-- Exact frozen v5.1 and Opus 5 v11 files preserved in `docs/_archive/`
-- Agent Loop and the standalone weak-signal principle retired after harness absorption
-- Universal numeric file thresholds removed; Attention Engineering remains
-- Multi-artifact instruction topology from the first draft rejected; protocol voice and human-facing teaching role restored
-- Evaluation continues in Active Priority §3b
-
-### v13
-- Role Contract, Done Is Not a Mood, and Right to Disagree graduate from every-task instruction to teaching surface and archive
-- Six principles remain because six still change work; no seventh heading is manufactured from scraps
-- Exact nine-principle v12.1 preserved in `docs/_archive/`
-- Why1st grows in relative importance without moving into the minimal core
-- Evaluation continues in Active Priority §3b
-
-### v13.1
-- Hygiene after the graduation, zero core edits: stale `AGENTS.md §N` citations re-pointed, graduated principles cited as lessons with the archive path, PRD/graph drift closed and made mechanical (three new validator checks), EVOLUTION v0→v10 narratives archived, Semantic Logging grounded in FOUNDATIONS, Model-Shift Register entry for Fable 5.1 and GPT-6 Astra
-- §3b gains an owner and a date; the skill-gateway proposals close under §3a
-- `AGENTS.md` unchanged
-
-### Next
 *Hypotheses without observed adoption-failure signal should land in `docs/experiments/` first. Entries here are gated either by a delta-layer test or by known-failure signal already in hand.*
 
 - Friction Tax / ambiguity handling in CDD — gated by delta-layer test
 - Memory system integration patterns (harness MEMORY.md vs. in-repo decision logs vs. skill-based gateways) — likely a decision guide, not a required artifact
-- ~~Validator: `FILE` existence and PRD-ID coverage~~ — **shipped in v13.1**, together with the `:END_*` envelope check the contracts spec had promised since v5
-- Anchor adoption in this repo's own `docs/` so the validator graduates from doc-only mode to enforced anchors
 - Adopter prompt template (one-shot copy-paste for Why1st adoption) only if v7 + v8 docs alone don't land for cold-start agents
 - Validator extension: lint that emitted log anchors resolve to graph entries (only if §11.1 adoption requests it)
 
@@ -302,4 +184,4 @@ See `docs/EVOLUTION.md` "Recurring Rejected Patterns" for full list. Key recurri
 4. **Test:** Try ideas in a real downstream project and report results
 5. **Report friction:** If something in this document or process is hard to use, say so (CDD applies here too)
 
-This document is maintained by lead agents (currently Opus and GPT) with human oversight. All agents are welcome to propose changes.
+Agents and humans shape the work together. Bring a useful change.

@@ -2,7 +2,7 @@
 
 This directory holds **experiments** — hypotheses about Agent1st and Why1st that have not yet earned their place in the stable protocol.
 
-**Stable** = `AGENTS.md` + `docs/Why1st.md` (canonical chain) + `Why1st.md` §11 (optional extensions). Field-validated across multiple real projects. Adopt with confidence.
+**Stable** = `AGENTS.md` + `docs/Why1st.md` (canonical chain) + §11 (optional extensions). Distilled from real projects; the default to adopt and adapt.
 
 **Experimental** = the files in this directory. Hypotheses born from agent suggestions, edge cases, or unverified intuitions. They preserve the **spirit** of Agent1st+Why1st but lack the empirical signal that promotes a practice to stable.
 
@@ -25,7 +25,7 @@ This is that place.
 | | Stable | Experimental |
 |---|---|---|
 | Source | Observed adoption failure across multiple projects | Hypothesis from agents, authors, or edge cases |
-| Status | Field-validated; safe to adopt | Unverified; adopt as a bet, not a recommendation |
+| Status | Maintained practice; default for adoption | A specific open bet; report its outcome |
 | Update path | Via spirit-pass; rare and considered | Free to revise, replace, or remove as signal arrives |
 | Promotion | N/A — it is the destination | Moves to stable only after consistent positive signal from real adopters |
 | Removal | Documented in `docs/EVOLUTION.md` as a deliberate change | May be removed without ceremony if signal is negative or absent |

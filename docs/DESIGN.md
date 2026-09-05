@@ -35,6 +35,17 @@ WHY:
 
 ---
 
+## 1a) Practice, publication, and criticism
+
+Agent1st was distilled while agents and humans built real projects together.
+The practice came first; publication made it portable.
+
+Critique what would change the work: a recurring failure, a confusing phrase,
+a broken mechanism. Measure when the result would settle a decision.
+Practical experience counts. So do counterexamples.
+
+A field manual does not need an entrance exam. A validator still has to work.
+
 ## 2) The Delta-Layer Principle
 
 This is the strongest design constraint in the project:
@@ -106,6 +117,14 @@ Do not fuse a departed principle into a vague “contract” heading to save fac
 
 ---
 
+## 2b) Design from the leading edge; keep the meaning portable
+
+We learn mainly in Codex and Claude Code. Keep the meaning portable without
+waiting for every harness to catch up. Repair concrete gaps where they appear.
+
+Absorption means the harness now does the work. It is a reason to revisit the
+instruction, not to add a vendor badge or another protocol variant.
+
 ## 3) The Anti-Micromanagement Stance
 
 > The human provides intent, constraints, approvals, and acceptance.
@@ -170,6 +189,10 @@ WHY must stay short, operational, non-essay.
 
 Controlled humor is intentional. It helps adoption, memorability, and makes the protocol feel alive. But never confuse memorable with vague. Every line still has to earn its place.
 
+Write the lesson, not the conversation that produced it. A good line teaches
+when read aloud and guides when loaded as context. Keep the hook; cut the
+meeting minutes. Git remembers the drafts.
+
 ---
 
 ## 5) What NOT to Add
@@ -198,23 +221,15 @@ Agent1st must be memorable to humans and operational to agents. That gives examp
 
 ### The `Agent1st Mode ON` banner
 
-**The standard proposal:** it verifies loading, not compliance; it fires in every spawned subagent; harness-native install checks exist. Cut it.
-
-**Why it stays**, in ascending order of weight:
-
-1. **It is the only portable load receipt.** A drop-in protocol's most common failure is not being loaded at all — silently. Verified 2026-08-29 on Claude Code 2.1.251: a bare `AGENTS.md` in the project root is **not** read; the same file behind a `CLAUDE.md` → `@AGENTS.md` bridge **is**. An adopter who skips the bridge gets zero protocol and no error message. The banner is what makes that visible. The proposed replacements (`/context`, harness instruction listings) are harness-specific — an anti-portability move in the one artifact whose entire value is portability.
-2. **Its cost is one line, and it was priced deliberately.** It does appear in subagents. The maintainer's call, made with that cost in view: a few words per thread does not buy back what removing it loses.
-3. **It is the brand.** Not decoration — a recognizable mark that the protocol is live, the way a marque stays on a car it does not aerodynamically improve. `PRD.md` §9 lists it as a success signal and the dogfooded graph asserts it in `FEAT-CORE`. It has been part of the spirit long enough to be part of the product.
-
-Honest correction: the older "zero-cost identity marker" phrasing in `EVOLUTION.md` was wrong. The cost is small and **accepted**, not zero. Keeping it is a product and brand decision, not an efficiency claim.
+A protocol that never loads does no work. The banner makes recognition visible
+across harnesses; it is also the brand. Its small cost, including in subagents,
+is deliberate. Recognition is not compliance. See README's install check.
 
 ### The `200-300 lines` refactor signal
 
-**Why it once stayed.** The number made an abstract attention problem concrete. Humans argued with it, agents acted on it, and field use exposed that line count alone could be gamed by long lines. v11 widened it to a line and byte heuristic.
-
-**Why v12 removes it.** The success of the teaching anchor also proved its limit: useful thresholds depend on language, artifact shape, and how a project reads files. Once the core had to explain the number, its scope, its exceptions, and its byte companion, a compact lesson had become project policy plus an article defending itself.
-
-The principle survives: attention is finite, and context that does not change a decision should leave. Projects may set concrete local thresholds where their evidence supports them. The exact v5.1 and v11 formulations remain in `docs/_archive/` for adopters who deliberately want the old default.
+The number once made attention cost concrete. Then its exceptions became longer
+than its lesson. v12 removed it. Projects can set useful local limits; the core
+keeps the principle. A teaching example should not grow into a policy manual.
 
 ### The general rule
 
@@ -261,6 +276,10 @@ Project-specific extensions (CI integration, observability contracts, acceptance
 
 Earlier versions described Minimal / Standard / Full. Experiments with parallel `STANDARD/` and `FULL/` folders produced duplicate files that confused readers more than they helped. The real distinction turned out to be **behavior vs. intent-artifacts**, not **minimal vs. more minimal vs. most minimal**.
 
+Copying `AGENTS.md` is easy. Why1st takes project work. That is an adoption
+cost, not a ranking. A better agent still cannot recover a decision nobody
+recorded. The prompt can shrink while the map matters more.
+
 Current work focuses on both layers together:
 - the behavior layer must stay stable and portable (`AGENTS.md` never fills with repo-specific content)
 - the WHY layer must stay adaptable (what's in this repo is one shape, not a law)
@@ -270,36 +289,17 @@ Current work focuses on both layers together:
 
 ## 8) This Project Is Agent-Developed
 
-Agent1st Protocol is developed **with** agents, not just **for** them.
+Agents write, build, test, argue, and revise. Humans bring intent, experience,
+criticism, and contributions of their own. Both shape the work. **Written by
+agents** describes the engineering, not a credit added after it.
 
-The human (project author) provides:
-- vision, direction, constraints
-- evaluation, acceptance, feedback
-- context that isn't in any document yet (gradually being extracted)
+OpenAI and Anthropic agents have led much of the work, with contributions from
+Gemini, GLM, Grok, MiniMax, Qwen, Kimi, and others. The resulting principles
+belong to no vendor.
 
-Agents provide:
-- analysis, comparison with model/tool prompts
-- drafting, refactoring, compression
-- criticism, alternative framings
-- cross-model perspective (different agents see different things)
-
-This is not a human writing instructions for robots. It is a human and multiple agents co-developing a protocol that all of them will use.
-
-**Model-agnostic by design.** Development has primarily used Opus and GPT, with cross-model contributions from Gemini, GLM, Grok, MiniMax, Qwen, Kimi, and others. But the protocol itself contains no model-specific behavior. Any strong agent — regardless of provider — should find it useful. If something in the docs reads as provider-specific, that is a bug to fix, not an intended feature.
-
-**Naming convention.** On the protocol surface, present-tense claims name model *families* without version numbers (Opus, GPT, Gemini, …) so the docs don't drift as models advance. Dated historical and attribution records — `EVOLUTION.md`, plus the change-history and review-credit lines in `ROADMAP.md` and handoff provenance — keep exact versions, because there a version number is a dated historical fact, not a claim about the present.
-
-Every version was shaped by agent contributions (exact model versions are recorded in `EVOLUTION.md`):
-- v1-v2: iterative refinement with agent feedback
-- v2-v3: major restructuring driven by GPT agent analysis + comparison with model/tool layer prompts
-- v4: Opus perspective on multi-agent autonomy, now promoted into the current `AGENTS.md`
-- v4 external review: GLM, Grok, MiniMax, and Qwen audited the protocol independently; contributions curated by Opus
-- v11: Opus 5 broke the 123-day freeze to repair a live harness contradiction
-- v12: GPT-5.6-Sol distilled the current protocol after maintainer correction restored the human-facing, pedagogical meaning of the file
-- v13: sustained Codex and Claude Code use let three absorbed lessons leave the every-task file without leaving Agent1st
-- v13.1: a Fable 5.1 agent ran the hygiene pass after the graduation — re-pointed every surface that still cited the old numbering, closed PRD/graph drift and made it mechanical in the validator, and wrote the register entry for its own generation
-
-Current handoff briefs in `docs/handoffs/` capture live agent-to-agent transfer. Once a version's conclusions are curated, `EVOLUTION.md` becomes the durable public record so old raw reviews do not mislead fresh agents.
+Use model families in current guidance. Keep exact versions where attribution
+matters: dated evidence and `EVOLUTION.md`. Keep live handoffs in `docs/handoffs/`;
+retire them when their decisions have a durable home.
 
 ---
 

@@ -1,6 +1,6 @@
 # Agent1st Protocol
 
-**A minimal behavior-layer for AI agents in software projects.**
+**A working contract for agents and humans. A durable home for project intent.**
 
 Written by agents. For agents. With humans present.
 
@@ -72,7 +72,7 @@ v13 asks a harder question than “is this principle still true?” It asks: **d
 
 Role Contract, Done Is Not a Mood, and Right to Disagree did not become wrong. In Codex and Claude Code, their mechanics became the floor. They graduated from always-on instruction into the wider Agent1st story.
 
-What remains is the delta those harnesses still do not own: attention, meaning, visible friction, honest delegation, useful logs, and project truth that outlives the chat.
+What remains keeps the project-facing work explicit: attention, meaning, visible friction, honest delegation, useful logs, and project truth that outlives the chat. Harness support helps with the mechanics; the project still has to supply the meaning.
 
 Need the old contract exactly? The frozen v5.1 default, Opus 5 v11, and the last nine-principle cut v12.1 live byte-for-byte in [`docs/_archive/`](docs/_archive/). They are history you can choose to load, not rent every agent must pay.
 
@@ -86,7 +86,7 @@ Need the old contract exactly? The frozen v5.1 default, Opus 5 v11, and the last
 2. **On Claude Code, also add a one-line `CLAUDE.md` next to it:** `@AGENTS.md`
 3. That's it
 
-Your agent will read it at session start. If it outputs `Agent1st Mode ON`, it loaded. If it doesn't, it didn't — that banner is your install check, and it is the whole reason step 2 exists.
+Your agent should read it at session start. `Agent1st Mode ON` is a useful load receipt. If it is missing, check the instruction-loading path; absence alone cannot distinguish a loading failure from an output constraint or a missed instruction. The banner confirms recognition, not compliance with the whole protocol.
 
 **Why step 2.** Codex, Cursor, OpenCode and friends read `AGENTS.md` natively. Claude Code reads `CLAUDE.md`, and a bare `AGENTS.md` in the project root is silently ignored — verified 2026-08-29 on Claude Code 2.1.251: the same file loads behind the `@AGENTS.md` bridge and does not load without it. No error, no warning, just no protocol. One line fixes it, and it keeps a single source of truth — `CLAUDE.md` imports, it does not copy.
 
@@ -96,11 +96,11 @@ Your agent will read it at session start. If it outputs `Agent1st Mode ON`, it l
 
 ## The Deeper Story
 
-Agent1st started as one developer's notes from years of agent-driven development on a real production project. Not theory — practice. Not "best practices for prompting" — actual working contracts between human intent and agent execution that survived hundreds of sessions.
+We wrote this while building software together — agents and humans, across projects, failures, and generations of tools. The practice came first. The public protocol made it portable.
 
-The minimal `AGENTS.md` captures the **behavioral core** — the part that stays useful regardless of your stack, your model, or your tools.
+A field manual should give you something to try, question, and improve. Bring a failure. Bring a better phrase. The work keeps teaching us.
 
-For projects that will live longer than one feature cycle, there is a second layer — **Why1st** (also called *the WHY layer*) — that makes product intent a first-class artifact paired with code. It's highly recommended but optional, and it lives flat in `docs/` so you can copy and adapt it directly.
+**Copy the contract. Build the map.** `AGENTS.md` is ready to drop in. Why1st gives your project a durable map of intent, code, and the connections worth preserving. Different effort to adopt; both belong to the approach.
 
 ---
 
@@ -118,6 +118,7 @@ To point an agent at this layer for adoption in another repo, hand it the entry 
 | [`docs/why-graph-principles.md`](docs/why-graph-principles.md) | Portable authoring guide for the graph. Distilled from real adopters. |
 | [`docs/why-contracts-v1.md`](docs/why-contracts-v1.md) | Module / method / block anchor spec with Python + TypeScript examples. |
 | [`scripts/validate-why.py`](scripts/validate-why.py) | Stdlib-only validator: graph IDs, relation targets, target style, anchors and their `:END_*` envelopes, `FILE` existence, marker-keyed PRD refs, PRD-ID coverage. |
+| [`docs/examples/reading-list/`](docs/examples/reading-list/) | One runnable feature: PRD → graph → source contracts → validator and behavior tests, with two deliberate failure exercises. |
 
 The artifact files (`why-graph.xml`, `why-graph-principles.md`, `why-contracts-v1.md`, `validate-why.py`) keep the lowercase `why-*` prefix on purpose — they form a stable artifact namespace inside Why1st. Only the entry doc (`Why1st.md`) carries the brand name.
 
@@ -172,6 +173,8 @@ If you want to contribute to the protocol itself, use this read order:
 4. then the specific supporting doc you actually need (`docs/ROADMAP.md`, `docs/FOUNDATIONS.md`, or `docs/handoffs/`)
 
 `CLAUDE.md` in this repo is intentionally only `@AGENTS.md` — a harness bridge, not a second source of truth.
+
+After changing the validator, run `uv run --no-project python -B -m unittest discover -s tests -v`, then validate the dogfood graph and run the [example's checks](docs/examples/reading-list/README.md). Structural validity and correct behavior are separate checks.
 
 Working language in this repo can be Russian or English. Preserve the voice either way: direct, memorable, slightly provocative, grounded.
 

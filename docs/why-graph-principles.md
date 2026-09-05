@@ -198,6 +198,7 @@ Anchors are the bridge between the graph and source files.
 - Shape: `<ANCHOR NAME="<ANCHOR_NAME>" COORD="<repo-relative-path>#<ANCHOR_NAME>"/>`
 - Never use line numbers — they drift the moment someone edits the file.
 - Anchor names must match a real `START_*` marker in the target file (see `why-contracts-v1.md`).
+- A graph-addressable marker token and its `:END_*` token must each occur exactly once, in that order. Prefix matches do not count. Referenced envelopes can nest but cannot cross. These are lexical guarantees; behavior still needs tests and review.
 - One anchor per meaningful code region. Not per function. Not per line.
 
 Example:
